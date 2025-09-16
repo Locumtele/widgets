@@ -4,7 +4,7 @@ A comprehensive collection of medical screening forms, calendar widgets, and fun
 
 ## 🚀 Live Demo
 
-Visit the [GitHub Pages site](https://yourusername.github.io/ltGlobalWidgets/) to see all widgets in action.
+Visit the [GitHub Pages site](https://locumtele.github.io/ltGlobalWidgets/) to see all widgets in action.
 
 ## 📋 Features
 
@@ -39,7 +39,7 @@ Visit the [GitHub Pages site](https://yourusername.github.io/ltGlobalWidgets/) t
 
 ```html
 <!-- Include the form loader -->
-<script src="https://yourusername.github.io/ltGlobalWidgets/forms/formLoader.js"></script>
+<script src="https://locumtele.github.io/ltGlobalWidgets/forms/formLoader.js"></script>
 
 <!-- Auto-load a form -->
 <div id="form-container" data-form-loader data-json-path="forms/screeners/glp1.json"></div>
@@ -136,30 +136,30 @@ FormLoader.generateForm('forms/screeners/yourmedication.json', 'container-id');
 
 ### Calendars
 ```html
-<iframe src="https://yourusername.github.io/ltGlobalWidgets/calendars/weightloss.html"
+<iframe src="https://locumtele.github.io/ltGlobalWidgets/calendars/weightloss.html"
     style="width:100%;height:800px;border:0;"></iframe>
 ```
 
 ### Forms
 ```html
-<iframe src="https://yourusername.github.io/ltGlobalWidgets/forms/example-form.html"
+<iframe src="https://locumtele.github.io/ltGlobalWidgets/forms/example-form.html"
     style="width:100%;height:100vh;border:0;"></iframe>
 ```
 
 ### Footer Scripts
 ```html
-<script src="https://yourusername.github.io/ltGlobalWidgets/funnel/footerScreener.html"></script>
+<script src="https://locumtele.github.io/ltGlobalWidgets/funnel/footerScreener.html"></script>
 ```
 
 ### Medication Forms
 ```html
-<iframe src="https://yourusername.github.io/ltGlobalWidgets/forms/screeners/semaglutide.html"
+<iframe src="https://locumtele.github.io/ltGlobalWidgets/forms/screeners/semaglutide.html"
     style="width:100%;height:100vh;border:0;"></iframe>
 ```
 
 ### Universal Loader
 ```html
-<script src="https://yourusername.github.io/ltGlobalWidgets/global.js"></script>
+<script src="https://locumtele.github.io/ltGlobalWidgets/global.js"></script>
 ```
 
 ## 🎨 Customization
