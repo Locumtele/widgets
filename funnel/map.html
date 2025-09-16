@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your State</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 10px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .state-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 6px;
+            margin-bottom: 20px;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .state-item {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+            padding: 8px;
+        }
+
+        .state-item:hover {
+            border-color: #007cba;
+            background: #e3f2fd;
+            transform: translateY(-2px);
+        }
+
+        .state-item.selected {
+            background: #007cba;
+            border-color: #007cba;
+            color: white;
+        }
+
+        .state-code {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .state-name {
+            font-size: 9px;
+            margin-top: 2px;
+            opacity: 0.8;
+        }
+
+        .selection-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .selected-display {
+            background: #e3f2fd;
+            border: 2px solid #007cba;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn {
+            background: #007cba;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: #005a87;
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .view-toggle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .toggle-btn {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn.active {
+            background: #007cba;
+            color: white;
+            border-color: #007cba;
+        }
+
+        .toggle-btn:hover {
+            border-color: #007cba;
+        }
+
+        .map-container {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .us-map {
+            width: 100%;
+            height: auto;
+            max-width: 600px;
+        }
+
+        .state-path {
+            fill: #e9ecef;
+            stroke: #fff;
+            stroke-width: 1;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .state-path:hover {
+            fill: #007cba;
+            stroke: #007cba;
+            stroke-width: 2;
+        }
+
+        .state-path.selected {
+            fill: #007cba;
+            stroke: #333;
+            stroke-width: 2;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 5px;
+            }
+            
+            .container {
+                padding: 15px;
+                border-radius: 8px;
+            }
+            
+            h1 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            
+            .selection-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .state-grid {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 4px;
+                margin-bottom: 15px;
+            }
+            
+            .state-item {
+                padding: 4px;
+                min-height: 50px;
+            }
+            
+            .state-code {
+                font-size: 12px;
+            }
+            
+            .state-name {
+                font-size: 7px;
+                line-height: 1;
+            }
+            
+            .map-container {
+                padding: 10px;
+                margin-bottom: 15px;
+            }
+            
+            .us-map {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 2px;
+            }
+            
+            .container {
+                padding: 10px;
+                border-radius: 6px;
+            }
+            
+            h1 {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+            
+            .state-grid {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 3px;
+                margin-bottom: 15px;
+            }
+            
+            .state-item {
+                padding: 3px;
+                min-height: 45px;
+            }
+            
+            .state-code {
+                font-size: 11px;
+            }
+            
+            .state-name {
+                font-size: 6px;
+                line-height: 1;
+            }
+            
+            .view-toggle {
+                margin-bottom: 15px;
+            }
+            
+            .toggle-btn {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+            
+            .selected-display {
+                padding: 10px;
+                margin-bottom: 15px;
+            }
+            
+            .btn {
+                padding: 12px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .state-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 2px;
+            }
+            
+            .state-item {
+                min-height: 40px;
+                padding: 2px;
+            }
+            
+            .state-code {
+                font-size: 10px;
+            }
+            
+            .state-name {
+                font-size: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Select Your State</h1>
+        
+        <!-- Selected State and Continue Button Row -->
+        <div class="selection-row" id="selectionRow" style="display: none;">
+            <div class="selected-display" id="selectedDisplay">
+                <div id="selectedText">Please select your state</div>
+            </div>
+            <button class="btn" id="continueBtn" onclick="continueToNext()">
+                Continue
+            </button>
+        </div>
+        
+        <!-- View Toggle -->
+        <div class="view-toggle">
+            <button class="toggle-btn active" onclick="switchView('grid')">Grid</button>
+            <button class="toggle-btn" onclick="switchView('map')">Map</button>
+        </div>
+        
+        <!-- Grid View -->
+        <div class="state-grid" id="stateGrid">
+            <!-- States populated by JavaScript -->
+        </div>
+        
+        <!-- Map View -->
+        <div class="map-container" id="mapContainer" style="display: none;">
+            <svg class="us-map" viewBox="0 0 1000 600" id="usMap">
+                <!-- Map paths populated by JavaScript -->
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        const states = [
+            { code: 'AL', name: 'Alabama' },
+            { code: 'AK', name: 'Alaska' },
+            { code: 'AZ', name: 'Arizona' },
+            { code: 'AR', name: 'Arkansas' },
+            { code: 'CA', name: 'California' },
+            { code: 'CO', name: 'Colorado' },
+            { code: 'CT', name: 'Connecticut' },
+            { code: 'DE', name: 'Delaware' },
+            { code: 'FL', name: 'Florida' },
+            { code: 'GA', name: 'Georgia' },
+            { code: 'HI', name: 'Hawaii' },
+            { code: 'ID', name: 'Idaho' },
+            { code: 'IL', name: 'Illinois' },
+            { code: 'IN', name: 'Indiana' },
+            { code: 'IA', name: 'Iowa' },
+            { code: 'KS', name: 'Kansas' },
+            { code: 'KY', name: 'Kentucky' },
+            { code: 'LA', name: 'Louisiana' },
+            { code: 'ME', name: 'Maine' },
+            { code: 'MD', name: 'Maryland' },
+            { code: 'MA', name: 'Massachusetts' },
+            { code: 'MI', name: 'Michigan' },
+            { code: 'MN', name: 'Minnesota' },
+            { code: 'MS', name: 'Mississippi' },
+            { code: 'MO', name: 'Missouri' },
+            { code: 'MT', name: 'Montana' },
+            { code: 'NE', name: 'Nebraska' },
+            { code: 'NV', name: 'Nevada' },
+            { code: 'NH', name: 'New Hampshire' },
+            { code: 'NJ', name: 'New Jersey' },
+            { code: 'NM', name: 'New Mexico' },
+            { code: 'NY', name: 'New York' },
+            { code: 'NC', name: 'North Carolina' },
+            { code: 'ND', name: 'North Dakota' },
+            { code: 'OH', name: 'Ohio' },
+            { code: 'OK', name: 'Oklahoma' },
+            { code: 'OR', name: 'Oregon' },
+            { code: 'PA', name: 'Pennsylvania' },
+            { code: 'RI', name: 'Rhode Island' },
+            { code: 'SC', name: 'South Carolina' },
+            { code: 'SD', name: 'South Dakota' },
+            { code: 'TN', name: 'Tennessee' },
+            { code: 'TX', name: 'Texas' },
+            { code: 'UT', name: 'Utah' },
+            { code: 'VT', name: 'Vermont' },
+            { code: 'VA', name: 'Virginia' },
+            { code: 'WA', name: 'Washington' },
+            { code: 'WV', name: 'West Virginia' },
+            { code: 'WI', name: 'Wisconsin' },
+            { code: 'WY', name: 'Wyoming' },
+            { code: 'DC', name: 'Washington DC' }
+        ];
+
+        let selectedState = null;
+
+        function init() {
+            createGrid();
+            createMap();
+        }
+
+        function createGrid() {
+            const grid = document.getElementById('stateGrid');
+            
+            states.forEach(state => {
+                const item = document.createElement('div');
+                item.className = 'state-item';
+                item.innerHTML = `
+                    <div class="state-code">${state.code}</div>
+                    <div class="state-name">${state.name}</div>
+                `;
+                
+                item.addEventListener('click', () => selectState(state.code, state.name));
+                grid.appendChild(item);
+            });
+        }
+
+        function createMap() {
+            const map = document.getElementById('usMap');
+            
+            // Simple map data - basic rectangles for each state
+            const mapData = [
+                { code: 'CA', x: 50, y: 300, width: 80, height: 100 },
+                { code: 'TX', x: 300, y: 400, width: 120, height: 80 },
+                { code: 'FL', x: 650, y: 450, width: 80, height: 80 },
+                { code: 'NY', x: 700, y: 120, width: 80, height: 60 },
+                { code: 'PA', x: 650, y: 150, width: 80, height: 50 },
+                { code: 'IL', x: 550, y: 200, width: 60, height: 50 },
+                { code: 'OH', x: 650, y: 200, width: 50, height: 40 },
+                { code: 'GA', x: 600, y: 400, width: 60, height: 40 },
+                { code: 'NC', x: 700, y: 350, width: 60, height: 40 },
+                { code: 'MI', x: 600, y: 150, width: 60, height: 60 },
+                { code: 'NJ', x: 750, y: 180, width: 40, height: 30 },
+                { code: 'VA', x: 700, y: 280, width: 60, height: 40 },
+                { code: 'WA', x: 50, y: 100, width: 60, height: 60 },
+                { code: 'AZ', x: 200, y: 350, width: 60, height: 50 },
+                { code: 'MA', x: 780, y: 120, width: 50, height: 30 },
+                { code: 'TN', x: 550, y: 320, width: 60, height: 40 },
+                { code: 'IN', x: 600, y: 220, width: 50, height: 40 },
+                { code: 'MO', x: 500, y: 280, width: 50, height: 40 },
+                { code: 'MD', x: 750, y: 220, width: 50, height: 30 },
+                { code: 'WI', x: 500, y: 150, width: 60, height: 50 },
+                { code: 'CO', x: 300, y: 250, width: 60, height: 40 },
+                { code: 'MN', x: 450, y: 100, width: 60, height: 50 },
+                { code: 'SC', x: 680, y: 400, width: 50, height: 30 },
+                { code: 'AL', x: 550, y: 400, width: 50, height: 40 },
+                { code: 'LA', x: 450, y: 420, width: 50, height: 40 },
+                { code: 'KY', x: 600, y: 280, width: 50, height: 40 },
+                { code: 'OR', x: 50, y: 200, width: 60, height: 60 },
+                { code: 'OK', x: 400, y: 350, width: 60, height: 40 },
+                { code: 'CT', x: 750, y: 140, width: 40, height: 30 },
+                { code: 'UT', x: 200, y: 250, width: 50, height: 40 },
+                { code: 'IA', x: 450, y: 200, width: 50, height: 40 },
+                { code: 'NV', x: 150, y: 250, width: 50, height: 40 },
+                { code: 'AR', x: 450, y: 350, width: 50, height: 40 },
+                { code: 'MS', x: 500, y: 400, width: 50, height: 40 },
+                { code: 'KS', x: 400, y: 280, width: 60, height: 40 },
+                { code: 'NM', x: 300, y: 350, width: 60, height: 40 },
+                { code: 'NE', x: 350, y: 250, width: 60, height: 40 },
+                { code: 'WV', x: 650, y: 280, width: 50, height: 30 },
+                { code: 'ID', x: 150, y: 150, width: 60, height: 50 },
+                { code: 'NH', x: 750, y: 80, width: 50, height: 30 },
+                { code: 'ME', x: 800, y: 50, width: 60, height: 40 },
+                { code: 'HI', x: 200, y: 500, width: 40, height: 30 },
+                { code: 'RI', x: 820, y: 140, width: 30, height: 20 },
+                { code: 'MT', x: 250, y: 100, width: 80, height: 50 },
+                { code: 'DE', x: 780, y: 200, width: 30, height: 20 },
+                { code: 'SD', x: 350, y: 150, width: 50, height: 40 },
+                { code: 'ND', x: 350, y: 100, width: 50, height: 40 },
+                { code: 'AK', x: 50, y: 50, width: 100, height: 80 },
+                { code: 'VT', x: 720, y: 100, width: 40, height: 30 },
+                { code: 'WY', x: 250, y: 180, width: 60, height: 40 },
+                { code: 'DC', x: 750, y: 250, width: 20, height: 15 }
+            ];
+
+            mapData.forEach(state => {
+                const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                rect.setAttribute('x', state.x);
+                rect.setAttribute('y', state.y);
+                rect.setAttribute('width', state.width);
+                rect.setAttribute('height', state.height);
+                rect.setAttribute('class', 'state-path');
+                rect.setAttribute('data-code', state.code);
+                
+                rect.addEventListener('click', () => {
+                    const stateInfo = states.find(s => s.code === state.code);
+                    if (stateInfo) {
+                        selectState(stateInfo.code, stateInfo.name);
+                    }
+                });
+                
+                map.appendChild(rect);
+            });
+        }
+
+        function switchView(view) {
+            const grid = document.getElementById('stateGrid');
+            const map = document.getElementById('mapContainer');
+            const buttons = document.querySelectorAll('.toggle-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (view === 'grid') {
+                grid.style.display = 'grid';
+                map.style.display = 'none';
+            } else {
+                grid.style.display = 'none';
+                map.style.display = 'block';
+            }
+        }
+
+        function selectState(code, name) {
+            selectedState = { code, name };
+            
+            // Clear previous selection
+            document.querySelectorAll('.state-item, .state-path').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Select current (works for both grid and map)
+            if (event.target.closest('.state-item')) {
+                event.target.closest('.state-item').classList.add('selected');
+            } else if (event.target.classList.contains('state-path')) {
+                event.target.classList.add('selected');
+            }
+            
+            // Update display
+            document.getElementById('selectedText').textContent = `${name} (${code})`;
+            document.getElementById('selectionRow').style.display = 'grid';
+        }
+
+        function continueToNext() {
+            if (!selectedState) return;
+            
+            // Sync states
+            const syncStates = ['AR', 'DC', 'DE', 'ID', 'KS', 'LA', 'MS', 'NM', 'RI', 'WV', 'NC', 'SC', 'ME'];
+            const isSync = syncStates.includes(selectedState.code);
+            const consultType = isSync ? 'sync' : 'async';
+            
+            // Get category from URL or default
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category') || 'weightloss';
+            
+            // Redirect
+            const rootDomain = '{{custom_values.root_domain}}';
+            window.location.href = `${rootDomain}/${category}-${consultType}-fee`;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

@@ -1,0 +1,465 @@
+    "screener": "GLP1",
+    "category": "Weightloss",
+    "lastUpdated": "2025-01-15T10:00:00.000Z",
+    "totalQuestions": 24,
+    "questions": [
+      {
+        "id": 1,
+        "section": "Patient Profile",
+        "text": "Full Name",
+        "type": "text",
+        "safe": ["any_text"],
+        "flag": [],
+        "disqualify": [],
+        "disqualifyMessage": "",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 2,
+        "section": "Patient Profile",
+        "text": "Email Address",
+        "type": "email",
+        "safe": ["any_email"],
+        "flag": [],
+        "disqualify": [],
+        "disqualifyMessage": "",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 3,
+        "section": "Patient Profile",
+        "text": "Phone Number",
+        "type": "phone",
+        "safe": ["any_phone"],
+        "flag": [],
+        "disqualify": [],
+        "disqualifyMessage": "",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 4,
+        "section": "Patient Profile",
+        "text": "Date of Birth",
+        "type": "date",
+        "safe": ["18+ years old"],
+        "flag": [],
+        "disqualify": ["under_18"],
+        "disqualifyMessage": "You must be 18 years or older to use this 
+  service.",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 5,
+        "section": "Patient Profile",
+        "text": "Gender",
+        "type": "checkbox",
+        "safe": ["male", "female"],
+        "flag": [],
+        "disqualify": [],
+        "disqualifyMessage": "",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 6,
+        "section": "Patient Profile",
+        "text": "Are you currently pregnant, trying to get pregnant, or 
+  breastfeeding?",
+        "type": "checkbox",
+        "safe": ["no"],
+        "flag": [],
+        "disqualify": ["yes"],
+        "disqualifyMessage": "For the safety of you and your baby, GLP-1 
+  medications are not recommended during pregnancy, while trying to conceive, 
+  or while breastfeeding.",
+        "showCondition": "if_gender_female",
+        "category": "Weightloss"
+      },
+      {
+        "id": 7,
+        "section": "Patient Profile",
+        "text": "State of Residence",
+        "type": "select",
+        "safe": [
+          "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
+          "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
+          "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+          "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
+          "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY", "DC"
+        ],
+        "flag": [],
+        "disqualify": [],
+        "disqualifyMessage": "",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 8,
+        "section": "Patient Profile",
+        "text": "Height (feet and inches)",
+        "type": "height_feet",
+        "safe": ["any_valid"],
+        "flag": [],
+        "disqualify": [],
+        "disqualifyMessage": "",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 9,
+        "section": "Patient Profile",
+        "text": "Weight (pounds)",
+        "type": "weight_pounds",
+        "safe": ["bmi_25_or_higher"],
+        "flag": [],
+        "disqualify": ["bmi_under_25"],
+        "disqualifyMessage": "Our GLP-1 program is designed for individuals 
+  with a BMI of 25 or higher. We recommend discussing other wellness 
+  approaches with your healthcare provider.",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 10,
+        "section": "Assessment",
+        "text": "Have you ever had an adverse or allergic reaction to any 
+  GLP-1 receptor agonist?",
+        "type": "checkbox",
+        "safe": ["none"],
+        "flag": [],
+        "disqualify": ["semaglutide", "tirzepatide", "dulaglutide", 
+  "exenatide", "liraglutide", "lixisenatide", "other_glp1"],
+        "disqualifyMessage": "For your safety, we cannot prescribe GLP-1 
+  medications if you have had an allergic reaction to this type of medication 
+  before.",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 11,
+        "section": "Assessment",
+        "text": "Do you have any of the following medical conditions?",
+        "type": "checkbox",
+        "safe": ["none"],
+        "flag": ["diabetes_type2", "diabetic_retinopathy", 
+  "diabetic_ketoacidosis", "gallbladder_disease", "kidney_disease", 
+  "stomach_problems", "bariatric_surgery"],
+        "disqualify": ["diabetes_type1", "pancreatitis", "medullary_thyroid", 
+  "men2", "liver_disease", "leber_neuropathy"],
+        "disqualifyMessage": "Based on your medical history, GLP-1 medications
+   may not be safe for you. We recommend discussing weight management options 
+  with your healthcare provider.",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 12,
+        "section": "Assessment",
+        "text": "Are you taking any of the following medications?",
+        "type": "checkbox",
+        "safe": ["none"],
+        "flag": ["insulin_secretagogues", "other_glp1s"],
+        "disqualify": ["abiraterone", "somatrogon", "chloroquine", "insulin"],
+        "disqualifyMessage": "Your current medications may interact with GLP-1
+   therapy. Please work with your prescribing doctor to explore safe weight 
+  management options that won't interfere with your current treatment.",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 13,
+        "section": "Assessment",
+        "text": "Do you currently have a known HbA1C >8%?",
+        "type": "checkbox",
+        "safe": ["no"],
+        "flag": [],
+        "disqualify": ["yes"],
+        "disqualifyMessage": "Your current HbA1C level requires specialized 
+  diabetes care. We recommend working with an endocrinologist or your primary 
+  care doctor for the best treatment approach.",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 14,
+        "section": "Assessment",
+        "text": "What other GLP-1 medications are you taking and at what 
+  dose?",
+        "type": "text",
+        "safe": ["any_text"],
+        "flag": [],
+        "disqualify": [],
+        "disqualifyMessage": "",
+        "showCondition": "if_other_glp1s_selected",
+        "category": "Weightloss"
+      },
+      {
+        "id": 15,
+        "section": "Assessment",
+        "text": "Do you have family history of Multiple Endocrine Neoplasia 
+  Type 2 or Medullary Thyroid Carcinoma?",
+        "type": "checkbox",
+        "safe": ["no"],
+        "flag": [],
+        "disqualify": ["yes"],
+        "disqualifyMessage": "Due to your family history of thyroid 
+  conditions, GLP-1 medications carry additional risks for you. Please consult
+   with an endocrinologist about safer alternatives.",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 16,
+        "section": "Medical History",
+        "text": "Are you currently receiving chemotherapy?",
+        "type": "checkbox",
+        "safe": ["no"],
+        "flag": [],
+        "disqualify": ["yes"],
+        "disqualifyMessage": "While receiving cancer treatment, it's important
+   to focus on your current therapy. Please discuss weight management goals 
+  with your oncology team when appropriate.",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 17,
+        "section": "Medical History",
+        "text": "Do you have any allergies to medications, foods, or other 
+  substances?",
+        "type": "text",
+        "safe": ["any_text"],
+        "flag": [],
+        "disqualify": [],
+        "disqualifyMessage": "",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 18,
+        "section": "Medical History",
+        "text": "How much alcohol do you typically consume?",
+        "type": "checkbox",
+        "safe": ["0-2_weekly", "none"],
+        "flag": ["3-5_weekly", "1-2_daily"],
+        "disqualify": ["2+_daily"],
+        "disqualifyMessage": "Regular heavy alcohol consumption can interact 
+  dangerously with GLP-1 medications. We recommend discussing safer weight 
+  management options with your healthcare provider.",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 19,
+        "section": "Medical History",
+        "text": "Do you currently use tobacco or vape?",
+        "type": "checkbox",
+        "safe": ["no"],
+        "flag": ["yes"],
+        "disqualify": [],
+        "disqualifyMessage": "",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 20,
+        "section": "Medical History",
+        "text": "What type of tobacco/vaping products and how frequently?",
+        "type": "text",
+        "safe": ["any_text"],
+        "flag": [],
+        "disqualify": [],
+        "disqualifyMessage": "",
+        "showCondition": "if_tobacco_yes",
+        "category": "Weightloss"
+      },
+      {
+        "id": 21,
+        "section": "Medical History",
+        "text": "What is your exercise level?",
+        "type": "checkbox",
+        "safe": ["low", "moderate", "high"],
+        "flag": [],
+        "disqualify": [],
+        "disqualifyMessage": "",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 22,
+        "section": "Medical History",
+        "text": "Are you currently experiencing depression with history of 
+  suicidal attempts, thoughts, or ideation?",
+        "type": "checkbox",
+        "safe": ["no"],
+        "flag": [],
+        "disqualify": ["yes"],
+        "disqualifyMessage": "DEPRESSION_SPECIAL_MESSAGE",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 23,
+        "section": "Verification",
+        "text": "Driver's License or Government ID",
+        "type": "file",
+        "safe": ["any_file"],
+        "flag": [],
+        "disqualify": [],
+        "disqualifyMessage": "",
+        "showCondition": "always",
+        "category": "Weightloss"
+      },
+      {
+        "id": 24,
+        "section": "Verification",
+        "text": "Full Body Photo (front view)",
+        "type": "file",
+        "safe": ["any_file"],
+        "flag": [],
+        "disqualify": [],
+        "disqualifyMessage": "",
+        "showCondition": "always",
+        "category": "Weightloss"
+      }
+    ]
+  }
+   footer code: // GHL Footer Redirect Code for Medical Screening Forms
+  // Add this to your GHL site footer in Website Settings > Footer Code
+  // Supports category-based redirects: weightloss, antiaging, sexual health, 
+  hormone, hair and skin
+
+  // GHL Medical Form Redirect Handler
+  (function() {
+      'use strict';
+
+      // Capture location values from GHL merge fields
+      const locationId   = "{{location.id}}";
+      const locationName = "{{location.name}}";
+      const rootdomain = "{{ custom_values.root_domain }}";
+
+
+          // Define redirect URLs by category and consult type
+          const redirectUrls = {
+              weightloss: {
+                  sync: `${rootdomain}/weightloss-sync-fee`,
+                  async: `${rootdomain}/weightloss-async-fee`
+              },
+              antiaging: {
+                  sync: `${rootdomain}/antiaging-sync-fee`,
+                  async: `${rootdomain}/antiaging-async-fee`
+              },
+              sexualHealth: {
+                  sync: `${rootdomain}/sexualhealth-sync-fee`,
+                  async: `${rootdomain}/sexualhealth-async-fee`
+              },
+              hormone: {
+                  sync: `${rootdomain}/hormone-sync-fee`,
+                  async: `${rootdomain}/hormone-async-fee`
+              },
+              hairSkin: {
+                  sync: `${rootdomain}/hairandskin-sync-fee`,
+                  async: `${rootdomain}/hairandskin-async-fee`
+              }
+          };
+
+          // Function to perform redirect with consult type
+          function redirectToConsult(category, consultType = 'sync') {
+              // Get the appropriate URL
+              const categoryUrls = redirectUrls[category];
+              if (!categoryUrls) {
+                  console.error(`Unknown category: ${category}`);
+                  return;
+              }
+
+              const baseUrl = categoryUrls[consultType];
+              if (!baseUrl) {
+                  console.error(`No URL configured for ${category} 
+  ${consultType}`);
+                  // Fallback to sync if async URL not configured
+                  const fallbackUrl = categoryUrls['sync'];
+                  if (fallbackUrl) {
+                      console.log(`Falling back to sync for ${category}`);
+                      window.location.href = 
+  `${fallbackUrl}?location_id=${encodeURIComponent(locationId)}&location_name=
+  ${encodeURIComponent(locationName)}&consult_type=sync`;
+                  }
+                  return;
+              }
+
+              // Build final URL with parameters
+              const url = 
+  `${baseUrl}?location_id=${encodeURIComponent(locationId)}&location_name=${en
+  codeURIComponent(locationName)}&consult_type=${consultType}`;
+              console.log(`Redirecting to ${category} ${consultType} consult: 
+  ${url}`);
+              window.location.href = url;
+          }
+
+          // Make function globally available for direct calls
+          window.redirectToConsult = redirectToConsult;
+
+          // Listen for custom events from forms (direct hosting)
+          window.addEventListener('ghlRedirect', function(event) {
+              const category = event.detail?.category || 
+  event.detail?.formType;
+              const consultType = event.detail?.consult_type || 'sync'; // 
+  Default to sync
+
+              if (category) {
+                  // Add small delay to ensure webhook completes
+                  setTimeout(function() {
+                      redirectToConsult(category, consultType);
+                  }, 500);
+              }
+          });
+
+
+          // Listen for iframe messages (when using embed.html)
+          window.addEventListener('message', function(event) {
+              // Accept messages from GitHub Pages
+              if (event.origin !== 'https://locumtele.github.io') {
+                  return;
+              }
+
+              // Handle redirect messages
+              if (event.data && event.data.type === 'ghlRedirect') {
+                  const category = event.data.detail?.category || 
+  event.data.detail?.formType;
+                  const consultType = event.data.detail?.consult_type || 
+  'sync'; // Default to sync
+
+                  if (category) {
+                      setTimeout(function() {
+                          redirectToConsult(category, consultType);
+                      }, 500);
+                  }
+              }
+          });
+
+          // Alternative: Listen for form submissions and detect category
+          document.addEventListener('submit', function(event) {
+              const form = event.target;
+
+              // Check for category data attribute or form class
+              const category = form.dataset.category || 
+  form.className.match(/category-(\w+)/)?.[1];
+              const consultType = form.dataset.consultType || 'sync'; // 
+  Default to sync
+
+              if (category && redirectUrls[category]) {
+                  setTimeout(function() {
+                      redirectToConsult(category, consultType);
+                  }, 1000);
+              }
+          });
+
+);  
+  
+  
+ 
+

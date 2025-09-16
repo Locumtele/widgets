@@ -1,0 +1,68 @@
+"STRUCTURE"
+        /global-widgets
+        | 
+        ├── calendars/
+        │     ├── weightloss.html
+        │     ├── antiaging.html
+        │     ├── hormones.html
+        │     ├── sexualhealth.html
+        │     ├── hairskin.html
+        │     ├── general.html
+        |
+        ├── funnel/
+        │     ├── footerScreener.html
+        │     ├── map.html
+        │
+        ├── reassessments/
+        |
+        ├── screeners/
+        │     ├── qTemplate.html           (master screener form)
+        │     ├── formStyle.css
+        │     ├── meds/
+        │           ├── metformin.json
+        │           ├── … (add more meds as needed)
+        │
+        │
+        ├── global.js                     (your universal loader, optional)
+        └── index.html                    (optional landing page/list)
+
+
+
+//*EMBEDDED REFERENCES*//
+
+        Calendars
+            <iframe src="https://yourusername.github.io/global-widgets/calendars/weightloss.html"
+                style="width:100%;height:800px;border:0;"></iframe>
+
+        Medication Forms
+            <iframe src="https://yourusername.github.io/global-widgets/forms/meds/semaglutide.html"
+                style="width:100%;height:100vh;border:0;"></iframe>
+
+        Footer Scripts
+            <script src="https://cdn.jsdelivr.net/gh/yourusername/global-widgets/footer/main-footer.js"></script>
+
+
+
+//**FORM LOADER USAGE**//
+
+The formLoader.js script dynamically generates forms from JSON configuration files.
+
+Basic Usage:
+    <div id="form-container" data-form-loader data-json-path="meds/glp1.json"></div>
+    <script src="formLoader.js"></script>
+
+Programmatic Usage:
+    // Load a specific form
+    await FormLoader.generateForm('meds/glp1.json', 'form-container');
+    
+    // Load form data only
+    const formData = await FormLoader.loadFormData('meds/nad.json');
+
+Available Forms:
+    - meds/glp1.json (GLP-1 Weight Loss - 24 questions)
+    - meds/nad.json (NAD Anti-Aging - 17 questions)  
+    - meds/sermorelin.json (Sermorelin Hormone - 15 questions)
+
+Examples:
+    - example-form.html (Basic form selector)
+    - advanced-example.html (Advanced demo with metadata)
