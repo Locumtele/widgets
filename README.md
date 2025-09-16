@@ -4,7 +4,7 @@ A comprehensive collection of medical screening forms, calendar widgets, and fun
 
 ## 🚀 Live Demo
 
-Visit the [GitHub Pages site](https://locumtele.github.io/ltGlobalWidgets/) to see all widgets in action.
+Visit the [GitHub Pages site](https://locumtele.github.io/widgets/) to see all widgets in action.
 
 ## 📋 Features
 
@@ -39,7 +39,7 @@ Visit the [GitHub Pages site](https://locumtele.github.io/ltGlobalWidgets/) to s
 
 ```html
 <!-- Include the form loader -->
-<script src="https://locumtele.github.io/ltGlobalWidgets/forms/formLoader.js"></script>
+<script src="https://locumtele.github.io/widgets/forms/formLoader.js"></script>
 
 <!-- Auto-load a form -->
 <div id="form-container" data-form-loader data-json-path="forms/screeners/glp1.json"></div>
@@ -71,7 +71,7 @@ The formLoader.js script dynamically generates forms from JSON configuration fil
 ## 📁 Project Structure
 
 ```
-ltGlobalWidgets/
+locumtele-widgets/
 ├── forms/                       # Dynamic form system
 │   ├── components/              # Form system components
 │   │   ├── formLoader.js       # Main form generator
@@ -144,7 +144,7 @@ FormLoader.generateForm('forms/screeners/yourmedication.json', 'container-id');
 The easiest way to integrate widgets is using the universal loader:
 
 ```html
-<script src="https://locumtele.github.io/ltGlobalWidgets/forms/components/globalForm.js"></script>
+<script src="https://locumtele.github.io/widgets/forms/components/globalForm.js"></script>
 <script>
     // Load a form
     GlobalWidgets.loadForm('forms/screeners/glp1.json', 'form-container');
@@ -164,7 +164,7 @@ The easiest way to integrate widgets is using the universal loader:
 For more control, use the formLoader directly:
 
 ```html
-<script src="https://locumtele.github.io/ltGlobalWidgets/forms/components/formLoader.js"></script>
+<script src="https://locumtele.github.io/widgets/forms/components/formLoader.js"></script>
 <script>
     FormLoader.generateForm('forms/screeners/glp1.json', 'form-container');
 </script>
@@ -172,24 +172,24 @@ For more control, use the formLoader directly:
 
 ### Calendars
 ```html
-<iframe src="https://locumtele.github.io/ltGlobalWidgets/calendars/weightloss.html"
+<iframe src="https://locumtele.github.io/widgets/calendars/weightloss.html"
     style="width:100%;height:800px;border:0;"></iframe>
 ```
 
 ### Forms (Iframe)
 ```html
-<iframe src="https://locumtele.github.io/ltGlobalWidgets/forms/example-form.html"
+<iframe src="https://locumtele.github.io/widgets/forms/example-form.html"
     style="width:100%;height:100vh;border:0;"></iframe>
 ```
 
 ### Footer Scripts
 ```html
-<script src="https://locumtele.github.io/ltGlobalWidgets/funnel/footerScreener.html"></script>
+<script src="https://locumtele.github.io/widgets/funnel/footerScreener.html"></script>
 ```
 
 ### Medication Forms (Iframe)
 ```html
-<iframe src="https://locumtele.github.io/ltGlobalWidgets/forms/screeners/semaglutide.html"
+<iframe src="https://locumtele.github.io/widgets/forms/screeners/semaglutide.html"
     style="width:100%;height:100vh;border:0;"></iframe>
 ```
 

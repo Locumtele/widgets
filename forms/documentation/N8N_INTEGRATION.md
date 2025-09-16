@@ -67,7 +67,7 @@ The form sends JSON data to n8n with this structure:
 
 ### Method 1: Universal Loader (Recommended)
 ```html
-<script src="https://locumtele.github.io/ltGlobalWidgets/forms/components/globalForm.js"></script>
+<script src="https://locumtele.github.io/widgets/forms/components/globalForm.js"></script>
 <script>
     // Load a specific form
     GlobalWidgets.loadForm('forms/screeners/glp1.json', 'form-container');
@@ -81,7 +81,7 @@ The form sends JSON data to n8n with this structure:
 
 ### Method 2: Direct FormLoader Integration
 ```html
-<script src="https://locumtele.github.io/ltGlobalWidgets/forms/components/formLoader.js"></script>
+<script src="https://locumtele.github.io/widgets/forms/components/formLoader.js"></script>
 <script>
     FormLoader.generateForm('forms/screeners/glp1.json', 'form-container');
 </script>
@@ -90,7 +90,7 @@ The form sends JSON data to n8n with this structure:
 
 ### Method 3: Iframe Integration
 ```html
-<iframe src="https://locumtele.github.io/ltGlobalWidgets/forms/example-form.html"
+<iframe src="https://locumtele.github.io/widgets/forms/example-form.html"
     style="width:100%;height:100vh;border:0;"></iframe>
 ```
 

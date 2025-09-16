@@ -5,7 +5,7 @@
  * This script loads the formLoader and provides a simplified API.
  * 
  * Usage:
- * <script src="https://locumtele.github.io/ltGlobalWidgets/forms/components/globalForm.js"></script>
+ * <script src="https://locumtele.github.io/widgets/forms/components/globalForm.js"></script>
  * 
  * Then use: window.GlobalWidgets.loadForm('forms/screeners/glp1.json', 'container-id')
  */
