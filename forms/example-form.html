@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Form Loader Example</title>
-    <link rel="stylesheet" href="screeners/formStyle.css">
+    <link rel="stylesheet" href="formStyle.css">
     <style>
         .form-selector {
             background: #f5f5f5;
@@ -56,9 +56,9 @@
             <h3>Select a Form to Load</h3>
             <p>Choose one of the available medication screening forms:</p>
             <div class="form-buttons">
-                <button class="form-button" onclick="loadForm('meds/glp1.json')">GLP-1 Weight Loss</button>
-                <button class="form-button" onclick="loadForm('meds/nad.json')">NAD Anti-Aging</button>
-                <button class="form-button" onclick="loadForm('meds/sermorelin.json')">Sermorelin Hormone</button>
+                <button class="form-button" onclick="loadForm('screeners/glp1.json')">GLP-1 Weight Loss</button>
+                <button class="form-button" onclick="loadForm('screeners/nad.json')">NAD Anti-Aging</button>
+                <button class="form-button" onclick="loadForm('screeners/sermorelin.json')">Sermorelin Hormone</button>
             </div>
         </div>
 
@@ -135,8 +135,8 @@
         
         // Auto-load GLP-1 form on page load
         document.addEventListener('DOMContentLoaded', () => {
-            // Load GLP-1 form by default
-            loadForm('meds/glp1.json');
+        // Load GLP-1 form by default
+        loadForm('screeners/glp1.json');
         });
     </script>
 </body>
