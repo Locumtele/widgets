@@ -24,7 +24,7 @@ class FormLoader {
         if (this.template) return this.template;
         
         try {
-            const response = await fetch('qTemplate.html');
+            const response = await fetch('components/qTemplate.html');
             this.template = await response.text();
             return this.template;
         } catch (error) {

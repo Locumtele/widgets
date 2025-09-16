@@ -73,11 +73,18 @@ The formLoader.js script dynamically generates forms from JSON configuration fil
 ```
 ltGlobalWidgets/
 ├── forms/                       # Dynamic form system
-│   ├── formLoader.js           # Main form generator
+│   ├── components/              # Form system components
+│   │   ├── formLoader.js       # Main form generator
+│   │   ├── globalForm.js       # Universal form loader
+│   │   ├── qTemplate.html      # Master form template
+│   │   ├── formStyle.css       # Form styling
+│   │   └── ghl-redirect.js     # GoHighLevel integration
+│   ├── documentation/           # Form documentation
+│   │   ├── CLIENT_API_DOCUMENTATION.md
+│   │   ├── N8N_INTEGRATION.md
+│   │   └── QUICK_START.md
 │   ├── example-form.html       # Basic usage example
 │   ├── advanced-example.html   # Advanced demo
-│   ├── qTemplate.html          # Master form template
-│   ├── formStyle.css           # Form styling
 │   ├── screeners/              # JSON configuration files
 │   │   ├── glp1.json
 │   │   ├── nad.json
@@ -93,7 +100,6 @@ ltGlobalWidgets/
 ├── funnel/                      # Funnel pages
 │   ├── footerScreener.html
 │   └── map.html
-├── global.js                    # Universal loader (optional)
 └── index.html                   # Landing page (optional)
 ```
 
@@ -134,13 +140,43 @@ FormLoader.generateForm('forms/screeners/yourmedication.json', 'container-id');
 
 ## 🌐 Embedding Widgets
 
+### Universal Loader (Recommended)
+The easiest way to integrate widgets is using the universal loader:
+
+```html
+<script src="https://locumtele.github.io/ltGlobalWidgets/forms/components/globalForm.js"></script>
+<script>
+    // Load a form
+    GlobalWidgets.loadForm('forms/screeners/glp1.json', 'form-container');
+    
+    // Get available forms
+    const forms = GlobalWidgets.getAvailableForms();
+    console.log(forms);
+    
+    // Load form data without rendering
+    GlobalWidgets.loadFormData('forms/screeners/nad.json').then(data => {
+        console.log('Form data:', data);
+    });
+</script>
+```
+
+### Direct Form Integration
+For more control, use the formLoader directly:
+
+```html
+<script src="https://locumtele.github.io/ltGlobalWidgets/forms/components/formLoader.js"></script>
+<script>
+    FormLoader.generateForm('forms/screeners/glp1.json', 'form-container');
+</script>
+```
+
 ### Calendars
 ```html
 <iframe src="https://locumtele.github.io/ltGlobalWidgets/calendars/weightloss.html"
     style="width:100%;height:800px;border:0;"></iframe>
 ```
 
-### Forms
+### Forms (Iframe)
 ```html
 <iframe src="https://locumtele.github.io/ltGlobalWidgets/forms/example-form.html"
     style="width:100%;height:100vh;border:0;"></iframe>
@@ -151,24 +187,19 @@ FormLoader.generateForm('forms/screeners/yourmedication.json', 'container-id');
 <script src="https://locumtele.github.io/ltGlobalWidgets/funnel/footerScreener.html"></script>
 ```
 
-### Medication Forms
+### Medication Forms (Iframe)
 ```html
 <iframe src="https://locumtele.github.io/ltGlobalWidgets/forms/screeners/semaglutide.html"
     style="width:100%;height:100vh;border:0;"></iframe>
 ```
 
-### Universal Loader
-```html
-<script src="https://locumtele.github.io/ltGlobalWidgets/global.js"></script>
-```
-
 ## 🎨 Customization
 
 ### Form Styling
-Modify `forms/formStyle.css` to customize form appearance.
+Modify `forms/components/formStyle.css` to customize form appearance.
 
 ### Template Customization
-Edit `forms/qTemplate.html` to modify the base form template.
+Edit `forms/components/qTemplate.html` to modify the base form template.
 
 ### API Integration
 Update the API endpoint in the form template's JavaScript section.

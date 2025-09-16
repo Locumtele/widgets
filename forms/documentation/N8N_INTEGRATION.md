@@ -1,10 +1,18 @@
-# n8n Integration Guide
+# n8n Integration Guide - Internal Team
 
 This document explains how to integrate the Global Widgets formLoader with n8n for automated form processing and patient management.
+
+> **Note**: This guide is for our internal team using our Global Widgets form system. For external clients integrating their own forms, see [CLIENT_API_DOCUMENTATION.md](CLIENT_API_DOCUMENTATION.md).
 
 ## 🎯 Overview
 
 The formLoader generates dynamic forms that submit data to your n8n webhook endpoint. The integration enables automated patient screening, data processing, and workflow automation.
+
+### Integration Options
+
+1. **Universal Loader** (Recommended): Use `global.js` for easy integration
+2. **Direct Integration**: Use `formLoader.js` directly for more control
+3. **Iframe Integration**: Embed forms as iframes
 
 ## 🔄 Integration Flow
 
@@ -54,6 +62,37 @@ The form sends JSON data to n8n with this structure:
 - **Hormone** - Sermorelin, Hormone forms
 - **Sexual Health** - ED, Herpes forms
 - **Hair & Skin** - Acne, Hair loss forms
+
+## 🔌 Integration Methods
+
+### Method 1: Universal Loader (Recommended)
+```html
+<script src="https://locumtele.github.io/ltGlobalWidgets/forms/components/globalForm.js"></script>
+<script>
+    // Load a specific form
+    GlobalWidgets.loadForm('forms/screeners/glp1.json', 'form-container');
+    
+    // Or get available forms
+    const forms = GlobalWidgets.getAvailableForms();
+    console.log(forms);
+</script>
+<div id="form-container"></div>
+```
+
+### Method 2: Direct FormLoader Integration
+```html
+<script src="https://locumtele.github.io/ltGlobalWidgets/forms/components/formLoader.js"></script>
+<script>
+    FormLoader.generateForm('forms/screeners/glp1.json', 'form-container');
+</script>
+<div id="form-container"></div>
+```
+
+### Method 3: Iframe Integration
+```html
+<iframe src="https://locumtele.github.io/ltGlobalWidgets/forms/example-form.html"
+    style="width:100%;height:100vh;border:0;"></iframe>
+```
 
 ## 🛠️ n8n Workflow Setup
 
