@@ -22,12 +22,16 @@ Visit the [GitHub Pages site](https://yourusername.github.io/ltGlobalWidgets/) t
 - Hormones
 - Sexual Health
 - Hair & Skin
-- General
+- General 
 
 ### 📝 Medical Screening Forms
 - **GLP-1 Weight Loss** (24 questions)
 - **NAD Anti-Aging** (17 questions)
 - **Sermorelin Hormone** (15 questions)
+
+### 🔧 Universal Loader
+- **global.js** - Optional universal loader for easy widget integration
+- **index.html** - Optional landing page with widget directory
 
 ## 🛠️ Quick Start
 
@@ -35,47 +39,69 @@ Visit the [GitHub Pages site](https://yourusername.github.io/ltGlobalWidgets/) t
 
 ```html
 <!-- Include the form loader -->
-<script src="https://yourusername.github.io/ltGlobalWidgets/allForms/formLoader.js"></script>
+<script src="https://yourusername.github.io/ltGlobalWidgets/forms/formLoader.js"></script>
 
 <!-- Auto-load a form -->
-<div id="form-container" data-form-loader data-json-path="screeners/meds/glp1.json"></div>
+<div id="form-container" data-form-loader data-json-path="forms/screeners/glp1.json"></div>
 ```
 
 ### Programmatic Usage
 
 ```javascript
 // Load a specific form
-await FormLoader.generateForm('screeners/meds/glp1.json', 'form-container');
+await FormLoader.generateForm('forms/screeners/glp1.json', 'form-container');
 
 // Load form data only
-const formData = await FormLoader.loadFormData('screeners/meds/nad.json');
+const formData = await FormLoader.loadFormData('forms/screeners/nad.json');
 ```
+
+### Available Forms
+
+The formLoader.js script dynamically generates forms from JSON configuration files:
+
+- **GLP-1 Weight Loss** (`forms/screeners/glp1.json`) - 24 questions
+- **NAD Anti-Aging** (`forms/screeners/nad.json`) - 17 questions  
+- **Sermorelin Hormone** (`forms/screeners/sermorelin.json`) - 15 questions
+
+### Form Loader Examples
+
+- `forms/example-form.html` - Basic form selector
+- `forms/advanced-example.html` - Advanced demo with metadata
 
 ## 📁 Project Structure
 
 ```
 ltGlobalWidgets/
-├── allForms/                    # Dynamic form system
+├── forms/                       # Dynamic form system
 │   ├── formLoader.js           # Main form generator
 │   ├── example-form.html       # Basic usage example
-│   └── advanced-example.html   # Advanced demo
-├── screeners/                   # Form templates and configs
+│   ├── advanced-example.html   # Advanced demo
 │   ├── qTemplate.html          # Master form template
 │   ├── formStyle.css           # Form styling
-│   └── meds/                   # JSON configuration files
-│       ├── glp1.json
-│       ├── nad.json
-│       └── sermorelin.json
+│   ├── screeners/              # JSON configuration files
+│   │   ├── glp1.json
+│   │   ├── nad.json
+│   │   └── sermorelin.json
+│   └── reassessments/          # Reassessment forms
 ├── calendars/                   # Calendar widgets
+│   ├── weightloss.html
+│   ├── antiaging.html
+│   ├── hormones.html
+│   ├── sexualhealth.html
+│   ├── hairskin.html
+│   └── general.html
 ├── funnel/                      # Funnel pages
-└── reassessments/              # Reassessment forms
+│   ├── footerScreener.html
+│   └── map.html
+├── global.js                    # Universal loader (optional)
+└── index.html                   # Landing page (optional)
 ```
 
 ## 🔧 Configuration
 
 ### Adding New Forms
 
-1. Create a JSON file in `screeners/meds/` following this structure:
+1. Create a JSON file in `forms/screeners/` following this structure:
 
 ```json
 {
@@ -103,7 +129,7 @@ ltGlobalWidgets/
 2. Use the form loader to generate the form:
 
 ```javascript
-FormLoader.generateForm('screeners/meds/yourmedication.json', 'container-id');
+FormLoader.generateForm('forms/screeners/yourmedication.json', 'container-id');
 ```
 
 ## 🌐 Embedding Widgets
@@ -116,7 +142,7 @@ FormLoader.generateForm('screeners/meds/yourmedication.json', 'container-id');
 
 ### Forms
 ```html
-<iframe src="https://yourusername.github.io/ltGlobalWidgets/allForms/example-form.html"
+<iframe src="https://yourusername.github.io/ltGlobalWidgets/forms/example-form.html"
     style="width:100%;height:100vh;border:0;"></iframe>
 ```
 
@@ -125,13 +151,24 @@ FormLoader.generateForm('screeners/meds/yourmedication.json', 'container-id');
 <script src="https://yourusername.github.io/ltGlobalWidgets/funnel/footerScreener.html"></script>
 ```
 
+### Medication Forms
+```html
+<iframe src="https://yourusername.github.io/ltGlobalWidgets/forms/screeners/semaglutide.html"
+    style="width:100%;height:100vh;border:0;"></iframe>
+```
+
+### Universal Loader
+```html
+<script src="https://yourusername.github.io/ltGlobalWidgets/global.js"></script>
+```
+
 ## 🎨 Customization
 
 ### Form Styling
-Modify `screeners/formStyle.css` to customize form appearance.
+Modify `forms/formStyle.css` to customize form appearance.
 
 ### Template Customization
-Edit `screeners/qTemplate.html` to modify the base form template.
+Edit `forms/qTemplate.html` to modify the base form template.
 
 ### API Integration
 Update the API endpoint in the form template's JavaScript section.
