@@ -1,0 +1,113 @@
+OAB Screening Tool[ULE1]
+
+1. Have you ever had an adverse or allergic reaction to bladder control medications such as oxybutynin, or to any of its ingredients? 	YES OR NO
+a. If yes- proceed to consult[LU2]
+2. What products have you tried previously, including over the counter products?
+a. Please list and indicate what you are currently taking or using
+
+3. Have you ever been diagnosed with any of the following?
+a. If yes, do not proceed
+i. Urinary Retention
+ii. Gastric Retention
+iii. Gastric motility conditions- such as ulcerative cholitis
+iv. Narrow Angled Glaucoma
+
+4. Are you pregnant or breastfeeding?
+a. If yes, do not proceed[LU3]
+
+5. Do you have a personal medical history involving any of the following medical conditions? YES or NO[LU4]
+a. If yes, please explain and proceed to consult 
+i. Central Nervous System conditions-Oxybutynin is associated with anticholinergic CNS effects
+ii. Cardiac
+1. CHF- Congestive heart failure
+2. High BP- hypertention, 
+3. CAD-Coronary Artery Disease
+4. Tachycardia
+
+iii. Hepatic impairment- liver disease
+iv. Renal Impairment- kidney disease 
+v. Prostatic Hypertrophy
+vi. Myasthenia gravis
+
+6. Are you taking any of the following medications?[LU5][LU6]
+a. hard stop, do not proceed
+i. Potassium Citrate
+
+b. All of these are strong interactions and should be counseled on
+i. Donepezil
+ii. Revefenacin
+iii. Amantadine
+iv. Promethazine
+v. Itraconazole
+vi. Methacholine
+vii. Clozapine
+viii. Hydromorphone
+ix. Bupropion
+x. Fentanyl
+xi. Sofpironium
+xii. Pain meds
+1. Meperidine
+2. Methadone
+3. Dihydrocodeine
+4. Tramadole
+5. Oxycodone
+6. Codeine
+7. Sufentanil
+8. Oxymorphone
+xiii. Scopalamine
+xiv. Carbamazepine
+xv. Secretin
+xvi. Olanzapine
+xvii. Glucagon
+xviii. letiotulinumtoxinA
+xix. Tiotropium
+xx. Glycopyrronium Tosylate
+xxi. Tapentadol
+xxii. Buprenorphine
+
+Urinary Incontinence Assessment
+
+Urinary Incontinence AssessmentOftenSometimesNever1. Do you have an unintentional loss of urine when you cough or sneeze?   2. Do you have an unintentional loss of urine when you laugh?   3. Do you have an unintentional loss of urine when you squat or lift?   4. Do you have an unintentional loss of urine when you walk quickly, jog, jump or exercise?   5. Do you have an unintentional loss of urine while you're undressing to use the toilet?   6. Do you have an unintentional loss of urine before reaching the toilet?   7. Do you have to hurry to a bathroom because you get a sudden, strong need to urinate?   8. Does it feel like you can't empty your bladder all the way?   
+If you answered "Often" or "Sometimes" to questions 1, 2, 3 or 4, then you most likely suffer from stress urinary incontinence. 
+
+If you answered "Often" or "Sometimes" to questions 5, 6, 7 or 8, then you most likely suffer from an overactive bladder or urge urinary incontinence.
+
+
+Initial Consultation
+Date Medicine(s) Qty Details Price Comment 
+
+
+Additional OAB adviceSmoking Alcohol Depression OAB medicines side effects ExerciseLifestyle advice Healthcare professional declarations I confirm that the patient is not contraindicated based on the information provided by the Intake I have explained the potential warnings and side effects of the treatment to the patient, and requested they report them if they occur I have provided the patient with an information leaflet (PIL) for the treatment I am administering, and advised them to read it Healthcare Professional Name Signature Date 
+PATIENT CONSENT 
+I have received information on the risks and benefits of the OAB medicines recommended and fully understand them. I have also had the opportunity to ask questions. I consent to the OAB medicines being given at each appointment. 
+
+
+Patient signature _______________________________   Date      __________
+
+
+Record of Treatment Provision
+
+New risk assessment form required after 10 consultations. [ULE7]
+For each follow-up consultation Appointment OAB medicine Qty Details Change in medical 
+history? Healthcare professional 
+Signature Price No.1. Yes Patient Signature Date 
+
+Resources[LU8]
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2891326/
+_docs/label/2009/050162s085lbl.pdf
+
+
+https://www.accessdata.fda.gov/drugsatfda_docs/label/2008/017577s034,018211s017,020897s018lbl.pdf
+
+[ULE1]We can insert our screening tool at this point in the tech
+[LU2]Need to get them something they are not allegic too
+[LU3]JOE????
+[LU4]Precautions??? Or are they above
+[LU5]Can tech flag these meds and send to consult?
+[LU6R5]THESE ARE FOR THE MD'S TO REVIEW AFTER THE POTASSIUM CITRATE, NOT FOR PATIENT. 
+[ULE7]Do we want to do a re-assessment and have them list new meds/med history and how often?
+
+Every 3 months?
+[LU8]LU to add
+

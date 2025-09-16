@@ -1,0 +1,70 @@
+Metformin Screening Tool
+
+Name: ___________________________________ Date: _________________ 
+
+1. Do you have any allergies?   					YES or NO
+a. If Yes please list ______
+
+2. Have you previously taken Metformin?		YES or NO
+a. If Yes what dose?
+
+3. Are you currently receiving Metformin elsewhere? 	YES or NO
+a. If Yes, what dose?
+
+4. Do you currently have Diabetes or history of diabetes? 		YES or NO
+a. If yes, is it controlled? 
+5. Are you currently taking any insulin or diabetic medications? 		YES or NO
+a. If yes, what are you taking?
+6. Do you currently have or have you ever been diagnosed with metabolic acidosis, including diabetic ketoacidosis? 				YES or NO
+a. IF yes, do not proceed 
+7. Do you currently have any kidney disease or impairment?  		YES or NO
+a. If yes, do not proceed with eGFR below 30ml/min/1.73m(2)
+8. Do you have currently or have you had a history of liver disease? 		YES or NO
+a. If Yes,do not proceed
+
+9. Are you Pregnant or Breastfeeding?						YES or NO
+a. If yes refer to OBGYN 
+10.  Education- discontinue metformin 48 hours prior to any imaging with FDG or iodinated contrast imaging- MRI/PET/CT
+
+
+Metformin Reassessment
+
+Name: ___________________________________ Date: _________________ 
+
+1. Over the last 6-12 months have there been any changes in your medications or medical history? Please explain
+2. In the last 3 months have you experienced any of the following adverse or allergic reactions to metformin?   					
+a. B12 deficiency					YES OR NO
+b. Diarrhea 					YES OR NO
+c. Flatulence or gas				YES OR NO
+d. Indigestion					YES OR NO
+e. Nausea						YES OR NO
+f. Fatigue or lack of energy			YES OR NO
+g. Headache					YES OR NO
+
+3. What is your current dose of Metformin?		
+
+4. Do you currently have Diabetes or history of diabetes? 		YES or NO
+a. If yes, is it controlled? 
+5. Are you currently taking any insulin or diabetic medications? 		YES or NO
+a. If yes, what are you taking?
+6. In the last 3 months or currently have you:
+a. Been diagnosed with metabolic acidosis, including diabetic ketoacidosis? 				YES or NO
+1. IF yes, do not proceed 
+b. have any kidney disease or impairment?  		YES or NO
+1. If yes, do not proceed with eGFR below 30ml/min/1.73m(2)
+c.  have you had a history of liver disease? 		YES or NO
+1. If Yes,do not proceed
+
+7. Are you Pregnant or Breastfeeding?						YES or NO
+a. If yes refer to OBGYN 
+8.  Education- discontinue metformin 48 hours prior to any imaging with FDG or iodinated contrast imaging- MRI/PET/CT
+
+
+How to Prescribe Metformin- Metformin is an antihyperglycemic agent that improves glucose tolerance in patients with type 2 diabetes, lowering both basal and postprandial plasma glucose by decreasing hepatic glucose production and intestinal absorption, and improving insulin sensitivity by increasing peripheral glucose uptake and utilization. Metformin does not modify insulin secretion, though fasting insulin levels and day-long plasma insulin response may decrease with treatment Metformin acts on glycogen synthetase and stimulates the intracellular synthesis of glycogen. Metformin increases the transport capacity of all types of glucose membrane transporters
+
+1. Immediate Release- 500mg every 12 hours may increase weekly by 500mg up to 1000mg every 12 hours. 
+2. Extended Release - Used on VSDH1- 500mg by mouth once daily with evening meal may increase by 500mg weekly to max daily dosing of 2000mg. 
+Metformin HCl ER Tablet † 500 mg EachTake 1 tablet daily750 mg EachTake 1 tablet daily1000 mg EachTake 1 tablet daily
+Resources:
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8965502/
+https://www.micromedexsolutions.com/micromedex2/librarian/CS/825499/ND_PR/evidencexpert/ND_P/evidencexpert/DUPLICATIONSHIELDSYNC/D72467/ND_PG/evidencexpert/ND_B/evidencexpert/ND_AppProduct/evidencexpert/ND_T/evidncexpert/PFActionId/evidencexpert.DoIntegratedSearch?SearchTerm=metformin&UserSearchTerm=metformin&SearchFilter=filterNone&navitem=searchGlobal#

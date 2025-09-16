@@ -1,0 +1,126 @@
+GLP1 Re Assessment
+
+1. In the last 3 months have you experienced any of the following adverse or allergic reactions to Tirzepatide/Semaglutide/Liraglutide?:
+
+a. Tremors							YES OR NO
+b. Flushes								YES OR NO
+c. Fainting/Dizziness						YES OR NO
+d. Diarrhea 							YES OR NO
+e. Unexplained Anxiety						YES OR NO
+f. Fever								YES OR NO
+g. Abdominal Pain							YES OR NO
+h. Cramps								YES OR NO
+i. Severe Headaches						YES OR NO
+j. Nausea								YES OR NO
+k. Unexplained Irritability						YES OR NO
+l. Gauntness							YES OR NO
+m. Constipation							YES OR NO	
+n. Rash/Itching							YES OR NO
+o. Stool Discoloration						YES OR NO
+p. Vomiting							YES OR NO
+q.  Irregular hunger						YES OR NO
+r. Irregular Weakness						YES OR NO
+2. In the last 3-6 months have you experienced any of the following? YES or NO, if Yes do not proceed
+a. Vision Changes/Impairment
+b. Jaundice
+c. Color Blindness
+d. Heart Rate Changes
+e. Swelling of eyes, face, mouth, throat legs, ankles feet
+f. Difficulty Swallowing
+
+3. Do you have a personal medical history involving any of the following medical conditions?
+a. Diabetes Mellitus						YES or NO
+i. If yes, which type?
+1. Type 1- do not proceed
+2. Type 2-FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+b. Do you currently have a known HbA1C >8%?			YES or NO
+i. If yes, do not proceed
+c. Diabetic Retinopathy						YES or NO
+i. If yes, FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+d. Diabetic Ketoacidosis						YES or NO
+i. 	If yes, FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient	
+e. Pancreatitis							YES or NO
+i. If yes do not proceed
+f. Gallbladder Disease						YES or NO
+i. If yes, FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+g. Medullary Thyroid Carcinoma					YES or NO
+i. 	If yes do not proceed
+	
+h. Multiple Endocrine Neoplasia					YES or NO
+i. If yes do not proceed
+
+i. Kidney disease/kidney insufficiency or transplant/Acute Kidney Injury		YES or NO
+i. If yes, FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+
+j. Stomach Problems						YES or NO
+i. If yes, FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+k. Bariatric Surgery or other GI Surgery				YES or NO
+i. If yes, FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+l. Liver Disease/Cirrhosis						YES or NO
+i. If yes do not proceed
+m. Leber Hereditary Optic Neuropathy				YES or NO
+i. If yes, do not proceed
+
+
+
+4. Are you currently pregnant, trying to get pregnant, or breastfeeding?   YES or NO
+a. Applies to male's as well
+i. If yes-do not proceed
+
+
+5. Are you currently experiencing, or have you experienced, depression with a history of suicidal attempts, suicidal thoughts, or suicidal ideation?     
+       YES or NO	
+i. 	If yes-do not proceed
+6. Do you currently consume alcohol? 				YES OR NO
+a. If yes, 
+i. 0-2 drinks per week
+ii. 3-5 drinks per week- If yes, FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+
+iii. 1-2 drinks per day- If yes, FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+iv. more than 2 drinks per day- do not proceed
+
+
+7. Do you have any family history of Multiple Endocrine Neoplasia, Type 2, (MEN 2) or Medullary Thyroid Carcinoma (MTC)?
+       YES or NO
+i. 	If yes-do not proceed
+       
+8. Are you currently receiving Chemotherapy?   YES or NO
+i. If yes-do not proceed
+9. Are you taking any of the following medications?
+a. Abiraterone acetate
+i. If yes-do not proceed
+b. Somatrogon-GHLA
+i. If yes-do not proceed
+c. Chloroquine or Hydroxychoroquine
+i. If yes-do not proceed
+d. Hydroxychloroquine
+i. If yes-do not proceed
+e. Insulin 
+i. If yes-do not proceed
+f. Insulin secretagogues or Diabetic Medications 
+i. If yes, FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+g. Other GLP-1s
+i. If yes-please add for prescriber review if wanting to continue or switch, include drug name and dosage 
+10. Please list your changes/updates in Medical History:
+i. FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+
+______________________________________________________________________ 
+
+11. Please list your Updated Medications:
+i. FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+
+        __________________________________________________________________
+Please review this screening tool with your Medical Director. A consult is required. 
+
+
+GLP1 Intake Form- Update at Re-Assessment-
+Patient Name: _____________________________ 
+ DOB: ________  
+Allergies: ____________
+Height___________  Starting Weight______________    Current Weight ___________ BMI____________     BF%____________
+Blood Pressure (average- last 3 months)___________ Pulse/HR_______________
+Full Body Photos
+Full List of Medications: __________________________________________________________________________
+____________________________________________________________________________________
+ 
+

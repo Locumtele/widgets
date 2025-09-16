@@ -1,0 +1,128 @@
+{
+    "screener": "CBD",
+    "category": "Pain Management",
+    "lastUpdated": "2025-06-26T10:00:00.000Z",
+    "totalQuestions": 10,
+    "questions": [
+      {
+        "id": 1,
+        "section": "Patient Profile",
+        "text": "Full Name",
+        "type": "text",
+        "safe": ["any_text"],
+        "flag": [],
+        "disqualify": [],
+        "disqualifyMessage": "",
+        "showCondition": "always",
+        "category": "Pain Management"
+      },
+      {
+        "id": 2,
+        "section": "Patient Profile",
+        "text": "Date",
+        "type": "date",
+        "safe": ["any_date"],
+        "flag": [],
+        "disqualify": [],
+        "disqualifyMessage": "",
+        "showCondition": "always",
+        "category": "Pain Management"
+      },
+      {
+        "id": 3,
+        "section": "Assessment",
+        "text": "Do you have any allergies to CBD/THC?",
+        "type": "checkbox",
+        "safe": ["no"],
+        "flag": [],
+        "disqualify": ["yes"],
+        "disqualifyMessage": "For your safety, we cannot prescribe CBD if you have an allergy to CBD/THC.",
+        "showCondition": "always",
+        "category": "Pain Management"
+      },
+      {
+        "id": 4,
+        "section": "Assessment",
+        "text": "Are you currently taking CBD/THC in other forms?",
+        "type": "checkbox",
+        "safe": ["no"],
+        "flag": ["yes"],
+        "disqualify": [],
+        "disqualifyMessage": "",
+        "showCondition": "always",
+        "category": "Pain Management"
+      },
+      {
+        "id": 5,
+        "section": "Medical History",
+        "text": "Do you have any history or current Liver Disease?",
+        "type": "checkbox",
+        "safe": ["no"],
+        "flag": [],
+        "disqualify": ["yes"],
+        "disqualifyMessage": "CBD is not recommended for patients with liver disease.",
+        "showCondition": "always",
+        "category": "Pain Management"
+      },
+      {
+        "id": 6,
+        "section": "Medical History",
+        "text": "Are you Pregnant or Breastfeeding?",
+        "type": "checkbox",
+        "safe": ["no"],
+        "flag": [],
+        "disqualify": ["yes"],
+        "disqualifyMessage": "For safety reasons, CBD is not recommended during pregnancy or breastfeeding.",
+        "showCondition": "always",
+        "category": "Pain Management"
+      },
+      {
+        "id": 7,
+        "section": "Medical History",
+        "text": "Do you currently have an infection (cold, viral, bacterial or other)?",
+        "type": "checkbox",
+        "safe": ["no"],
+        "flag": [],
+        "disqualify": ["yes"],
+        "disqualifyMessage": "Please wait until your infection has resolved before starting CBD treatment.",
+        "showCondition": "always",
+        "category": "Pain Management"
+      },
+      {
+        "id": 8,
+        "section": "Medical History",
+        "text": "Are you currently taking any of the following medications: Warfarin, Dabigatran (Pradaxa), Antibiotics, Anti-virals, Deuruxolitinib (Leqselvi), Isocarboxazid (Marplan)?",
+        "type": "checkbox",
+        "safe": ["no"],
+        "flag": [],
+        "disqualify": ["yes"],
+        "disqualifyMessage": "These medications may interact dangerously with CBD. Please discuss alternatives with your healthcare provider.",
+        "showCondition": "always",
+        "category": "Pain Management"
+      },
+      {
+        "id": 9,
+        "section": "Medical History",
+        "text": "Do you have history of or currently have seizures requiring medication?",
+        "type": "checkbox",
+        "safe": ["no"],
+        "flag": ["yes"],
+        "disqualify": [],
+        "disqualifyMessage": "",
+        "showCondition": "always",
+        "category": "Pain Management"
+      },
+      {
+        "id": 10,
+        "section": "Medical History",
+        "text": "Are you currently taking any of the following: Benzodiazepines (alprazolam, clobazam), Immune system modulators (Tacrolimus, rifampin, kinase inhibitors, hydroxychloroquine), CNS Depressants (Narcotics, trazodone, gabapentin, oxybates, pregabalin), Neurotransmitter modulators (Anti-depressants, Carbidopa/Levodopa, Anti-inflammatories, Anti-histamines)?",
+        "type": "checkbox",
+        "safe": ["no"],
+        "flag": ["yes"],
+        "disqualify": [],
+        "disqualifyMessage": "",
+        "showCondition": "always",
+        "category": "Pain Management"
+      }
+    ]
+}

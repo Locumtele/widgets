@@ -1,0 +1,94 @@
+Metabolic Peptide Screening Tool
+
+
+1. Have you ever had an adverse or allergic reaction to the metabolic peptide (semaglutide or tirzepatdie), or to any of its ingredients? YES OR NO
+
+2.  Have you ever had an adverse or allergic reaction to another GLP-1 receptor agonist or gastric inhibitory polypeptide (GIP) such as, but without limitation to, Semaglutide (Ozempic, Wegovy, Tirzepatide (Mounjaro, Zepbound), Dulaglutide (Trulicity), Exenatide extended release (Bydureon Exenatide (Byetta), Liraglutide (Victoza, Saxenda), and Lixisenatide (Adlyxin)?
+ YES OR NO
+3. Have you taken or are you currently taking any of the following medications- Semaglutide (Ozempic/Wegovy), Tirzepatide (Mounjaro/Zepbound), Dulaglutide (Trulicity), Exenatide extended release (Bydureon bcise), Exenatide (Byetta), Liraglutide (Victoza, Saxenda), and Lixisenatide (Adylyxin)?	     YES or NO
+a. If yes, which ones and what dose?
+
+4. Do you have a personal medical history involving any of the following medical conditions?
+a. Diabetes Mellitus						YES or NO
+i. If yes, which type?
+1. Type 1- do not proceed
+2. Type 2- FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+b. Diabetic Retinopathy						YES or NO
+i. If yes, FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+c. Diabetic Ketoacidosis						YES or NO
+i. 	If yes, FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient	
+d. Pancreatitis							YES or NO
+i. If yes do not proceed
+e. Gallbladder Disease						YES or NO
+i. If yes, FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+f. Medullary Thyroid Carcinoma					YES or NO
+i. 	
+	
+g. Multiple Endocrine Neoplasia					YES or NO
+i. If yes do not proceed
+
+h. Kidney disease/kidney insufficiency or transplant/Acute Kidney InjuryYES or NO
+i. If yes, FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+
+i. Stomach Problems						YES or NO
+i. If yes, FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+j. Bariatric Surgery or other GI Surgery				YES or NO
+i. If yes, FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+k. Liver Disease/Cirrhosis						YES or NO
+i. If yes do not proceed
+l. Leber Hereditary Optic Neuropathy				YES or NO
+i. If yes, do not proceed
+
+5. Are you currently pregnant, trying to get pregnant, or breastfeeding?   YES or NO
+a. Applies to male's as well
+i. If yes-do not proceed
+
+
+6. Are you currently experiencing, or have you experienced, depression with a history of suicidal attempts, suicidal thoughts, or suicidal ideation?     
+       YES or NO	
+i. 	If yes-do not proceed
+7. Do you currently consume alcohol? 				YES OR NO
+a. If yes, 
+i. 0-2 drinks per week
+ii. 3-5 drinks per week- If yes, FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+
+iii. 1-2 drinks per day- If yes, FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+iv. more than 2 drinks per day- do not proceed
+
+8. Do you have any family history of Multiple Endocrine Neoplasia, Type 2, (MEN 2) or Medullary Thyroid Carcinoma (MTC)?
+       YES or NO
+i. 	If yes-do not proceed
+       
+9. Are you currently receiving Chemotherapy?   YES or NO
+i. If yes-do not proceed
+10. Are you taking any of the following medications?
+a. Abiraterone acetate
+i. If yes-do not proceed
+b. Somatrogon-GHLA
+i. If yes-do not proceed
+c. Chloroquine or Hydroxychoroquine
+i. If yes-do not proceed
+d. Hydroxychloroquine
+i. If yes-do not proceed
+e. Insulin 
+i. If yes-do not proceed
+f. Insulin secretagogues or Diabetic Medications 
+i. If yes, FLAG-notify prescriber-HCP-need HCP to make notes and confirmation in chart that HCP reviewed and discussed with patient
+g. Other GLP-1s
+i. If yes-do not proceed
+
+Please review this screening tool with your Medical Director. A consult is required. 
+Metabolic Peptide Intake Form
+Patient Name: _____________________________ 
+ DOB: ________  
+Allergies: ____________
+Initial Weight______________    BMI____________     BF%____________
+
+
+Medications: __________________________________________________________________________
+____________________________________________________________________________________
+ 
+
+* In clients with Type 2 Diabetes, clients must monitor and maintain a daily log of their blood glucose levels during treatment.
+
+

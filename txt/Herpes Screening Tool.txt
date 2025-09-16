@@ -1,0 +1,83 @@
+Herpes Screening Tool[ULE1]
+
+1. Have you ever had an adverse or allergic reaction to herpes antiviral medications such as acyclovir (zovirax), valacyclovir (Valtrex), [LU2]valganciclovir (Valcyte), or to any of its ingredients? 	YES OR NO
+a. If yes- proceed to consult[LU3]
+2. What products have you tried previously, including over the counter products?
+a. Please list and indicate what you are currently taking or using
+
+3. Are you pregnant or breastfeeding?
+a. If yes, do not proceed[LU4]
+
+4. Do you have a personal medical history involving any of the following medical conditions? YES or NO[LU5]
+a. If yes, please explain and proceed to consult 
+i. Dehydration?-risk of precipitation in renal tubules
+ii. Hematologic-low platelets?- thrombocytopenia purpura/ hemolytic uremic syndrome, including fatalities, has been reported
+iii. Neurologic-Seizures?- could be increased risk
+iv. Renal impairment?-increased risk especially with Valtrex 
+
+5. Are you taking any of the following medications?[LU6]
+
+a. All of these are strong interactions and should be counseled on (proceed to consult)[LU7]
+i. Nitisinone
+ii. Mycophenolate mofetil
+iii. Fexinidazole
+iv. Foscarnet
+v. Emtricitabine
+vi. Teriflunomide
+vii. Vadadustat
+viii. Dichlorphenamide
+ix. Leflunomide
+x. Tenofovir
+
+Herpes Assessment
+
+Herpes Assessment What are your symptoms? When did they start? Have you ever had similar genital or oral lesions in the past?If yes please explainHow many times have you had similar lesions in the past year? How long do your lesions usually last? Is there any drainage associated with the lesion?Y or NWhen was your last genital exam with a healthcare provider? Have you had unprotected sex in the past month? Do you have unusual discharge?Y or NDo you have pelvic pain?Y or NDo you have pain while urinating?Y or NDo you have a new sexual partner or multiple partners?Y or NHave you ever been diagnosed with an sexually transmitted infection?If yes please explainDo you regularly use condoms?Y or N
+
+Initial Consultation
+Date Medicine(s) Qty Details Price Comment 
+
+
+Additional Herpes adviceSmoking Alcohol Depression Herpes medicines side effects ExerciseLifestyle advice Healthcare professional declarations I confirm that the patient is not contraindicated based on the information provided by the Intake I have explained the potential warnings and side effects of the treatment to the patient, and requested they report them if they occur I have provided the patient with an information leaflet (PIL) for the treatment I am administering, and advised them to read it Healthcare Professional Name Signature Date 
+PATIENT CONSENT 
+I have received information on the risks and benefits of the OAB medicines recommended and fully understand them. I have also had the opportunity to ask questions. I consent to the OAB medicines being given at each appointment. 
+
+
+Patient signature _______________________________   Date      __________
+
+
+Record of Treatment Provision
+
+New risk assessment form required after 10 consultations. [ULE8]
+For each follow-up consultation Appointment Herpes medicine Qty Details Change in medical 
+history? Healthcare professional 
+Signature Price No.1. Yes 
+Patient signature _______________________________   Date      __________
+
+Resources[LU9]
+
+https://www.accessdata.fda.gov/drugsatfda_docs/label/2005/020487s007rel2_lbl.pdf
+
+https://www.cdc.gov/herpes/testing/index.html
+
+https://www.micromedexsolutions.com/micromedex2/librarian/CS/58D02E/ND_PR/evidencexpert/ND_P/evidencexpert/DUPLICATIONSHIELDSYNC/44E65D/ND_PG/evidencexpert/ND_B/evidencexpert/ND_AppProduct/evidencexpert/ND_T/evidencexpert/PFActionId/evidencexpert.GoToDashboard?docId=923398&contentSetId=100&title=Valacyclovir+Hydrochloride&servicesTitle=Valacyclovir+Hydrochloride&brandName=Valtrex&UserMdxSearchTerm=valtrex&=null#
+
+
+[ULE1]We can insert our screening tool at this point in the tech
+[LU2]Per Dr Jeff, need to be cautious in patients with renal disease or issues
+
+[LU3]Need to get them something they are not allegic too
+[LU4]JOE????
+[LU5]Precautions??? Or are they above
+[LU6]Can tech flag these meds and send to consult?
+[LU7]MD COUNSEL ON THESE 
+[ULE8]Do we want to do a re-assessment and have them list new meds/med history and how often?
+
+Every 3 months?
+[LU9]LU to add
+
+8
+
+
+1
+
+

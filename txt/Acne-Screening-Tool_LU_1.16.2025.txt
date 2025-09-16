@@ -1,0 +1,269 @@
+Acne Screening Tool
+
+
+1. Have you ever had an adverse or allergic reaction to acne medication in the past- antibiotics (doxycycline, clindamycin), Benzyol peroxide, Niacinamide, Adapalene, Tretinoin, Spironolactone, or to any of its ingredients? 	YES OR NO
+a. If yes- proceed to consult
+2. What products have you tried previously, including over the counter products?
+a. Please list and indicate what you are currently taking or using
+
+
+3. Are you on any hormones- birth control, testosterone, estrogen, progesterone?
+a. If yes proceed to consult
+4. Are you pregnant or breastfeeding?
+a. If yes, do not proceed
+5. Do you spend excess time in the sun?
+a. If yes- proceed to consult- meds may increase sun sensitivity
+
+
+6. Do you have a personal medical history involving any of the following medical conditions? YES or NO
+a. If yes, please explain and proceed to consult 
+i. GI- antibiotics can increase upset
+ii. Skin- all products have sun sensitivity and side effects on skin, including but not limited to drying, itching, redness, irritation
+iii. Renal- precaution in some clients
+iv. Blood- some medications interfere with clotting or increase risk of bleeds
+
+
+Cardiff Acne Disablity Index (CADI)
+
+
+1.  As a result of having acne, during the last month have you been aggressive, frustrated or embarrassed?
+
+
+
+a. Very much indeed
+b. A lot
+c. A little
+d. Not at all
+
+2. Do you think that having acne during the last month interfered with your daily social life, social events or intimate personal relationships?
+
+
+a. Severely, affecting all activities
+b. Moderately, in most activities
+c. Occasionally or in only some activities
+d. Not at all
+
+3. During the last month have you avoided public changing facilities or wearing swimming costumes because of your acne?
+
+
+a. All of the time
+b. Most of the time
+c. Occasionally
+d. Not at all
+
+4. How would you describe your feelings about the appearance of your skin over the last month?
+
+
+a. Very depressed and miserable
+b. Usually concerned
+c. Occasionally concerned
+d. Not bothered
+
+5. Please indicate how bad you think your acne is now:
+
+
+a. The worst it could possibly be
+b. A major problem
+c. A minor problem
+d.  Not a problem
+
+a=3, b=2, c=1, d=0. The higher the score the more the patient's life is affected by their acne.  
+
+Initial Consultation
+Date Medicine(s) Qty Details Price Comment 
+
+Additional Acne adviceSmoking Alcohol Depression Acne medicines side effects ExerciseLifestyle advice Healthcare professional declarations I confirm that the patient is not contraindicated based on the information provided by the Intake I have explained the potential warnings and side effects of the treatment to the patient, and requested they report them if they occur I have provided the patient with an information leaflet (PIL) for the treatment I am administering, and advised them to read it Healthcare Professional Name Signature Date 
+PATIENT CONSENT 
+I have received information on the risks and benefits of the acne medicines recommended and fully understand them. I have also had the opportunity to ask questions. I consent to the acne medicines being given at each appointment. 
+
+Patient signature _______________________________   Date      __________
+
+Record of Treatment Provision
+
+New risk assessment form required after 10 consultations. 
+For each follow-up consultation Appointment Acne medicine Qty Details Change in medical 
+history? Healthcare professional 
+Signature Price No.1. Yes Patient Signature Date 
+Resources
+
+https://www.accessdata.fda.gov/drugsatfda_docs/label/2016/90431orig1s010lbl.pdf
+
+https://www.accessdata.fda.gov/drugsatfda_docs/label/2009/050662s042,050698s024,050775s013lbl.pdf
+
+https://www.accessdata.fda.gov/drugsatfda_docs/label/2002/16921s21s22s25lbl.pdf
+
+https://www.cardiff.ac.uk/medicine/resources/quality-of-life-questionnaires/cardiff-acne-disability-index#:~:text=The%20Cardiff%20Acne%20Disability%20Index,and%20young%20adults%20with%20acne.
+
+https://www.accessdata.fda.gov/drugsatfda_docs/label/2012/021753s004lbl.pdf
+
+https://www.accessdata.fda.gov/drugsatfda_docs/label/2009/050162s085lbl.pdf
+
+7. Are you taking any of the following medications?
+a. hard stop for spironolactone, do not proceed with spironolactone
+i. Doxycycline and Acitretin 
+ii. Spironolactone and
+1. Triamterene
+2. Eplerenone
+3. Potassium sparing diuretics-
+a. CAPTOPRIL
+ENALAPRIL MALEATE
+ENALAPRILAT
+LISINOPRIL
+RAMIPRIL
+QUINAPRIL
+CILAZAPRIL
+BENAZEPRIL
+ZOFENOPRIL
+FOSINOPRIL
+PERINDOPRIL
+ALACEPRIL
+TRANDOLAPRIL
+SPIRAPRIL
+MOEXIPRIL
+DELAPRIL
+PENTOPRIL
+IMIDAPRIL
+TEMOCAPRIL
+
+
+b. All of these are strong interactions and should be counseled on
+i. Doxcycline
+1. Penicillins
+a. METHICILLIN
+AMPICILLIN
+NAFCILLIN
+CLOXACILLIN
+AMOXICILLIN
+DICLOXACILLIN
+OXACILLIN
+PENICILLIN V
+PENICILLIN G
+PIPERACILLIN
+BACAMPICILLIN
+PENICILLIN G PROCAINE
+TEMOCILLIN
+SULTAMICILLIN
+PIVAMPICILLIN
+2. Oral Contraceptives- decreases efficacy
+a. ESTRADIOL
+LEVONORGESTREL
+NORETHINDRONE
+DIENOGEST
+NOMEGESTROL
+DROSPIRENONE
+DESOGESTREL
+ETHYNODIOL
+MESTRANOL
+NORGESTREL
+NORGESTIMATE
+ETHINYL ESTRADIOL
+GESTODENE
+3. Retinoids
+a. ISOTRETINOIN
+ETRETINATE
+TRETINOIN
+BEXAROTENE
+4. Methotrexate
+5. Quizartinib
+6. Porfimer
+7. Methoxyflurane
+8. Ascorbic acid -intravenous
+9. Potassium, magnesium and sodium sulfates
+10. Palovarotene
+ii. Clarithromycin
+1. All CYP3A4 substrates - caution
+iii. Spironolactone
+1. Digoxine
+2. Cefepime
+3. Dabigatran etexilate
+4. Mavorixafor
+5. Repotrectinib
+6. Sotalol
+7. Abiraterone
+8. NSAIDS
+a. ASPIRIN
+NAPROXEN
+PHENYLBUTAZONE
+MEFENAMIC ACID
+FENOPROFEN
+SALSALATE
+IBUPROFEN
+TOLMETIN
+SULINDAC
+PIROXICAM
+DICLOFENAC
+MECLOFENAMATE
+DIFLUNISAL
+PROQUAZONE
+OXAPROZIN
+ETODOLAC
+KETOPROFEN
+FLURBIPROFEN
+TIAPROFENIC ACID
+KETOROLAC
+NABUMETONE
+SODIUM SALICYLATE
+CHOLINE SALICYLATE
+SALICYLIC ACID
+TENOXICAM
+DROXICAM
+ETOFENAMATE
+DIPYRONE
+NIMESULIDE
+FLOCTAFENINE
+LORNOXICAM
+FELBINAC
+ACEMETACIN
+ACECLOFENAC
+BROMFENAC
+PROPYPHENAZONE
+MELOXICAM
+MORNIFLUMATE
+CELECOXIB
+PROGLUMETACIN
+ROFECOXIB
+NIFLUMIC ACID
+DEXKETOPROFEN
+CLONIXIN
+PARECOXIB
+VALDECOXIB
+ETORICOXIB
+NEPAFENAC
+LOXOPROFEN
+AMTOLMETIN GUACIL
+DEXIBUPROFEN
+FEPRADINOL
+FEPRAZONE
+LUMIRACOXIB
+PIKETOPROFEN
+TOLFENAMIC ACID
+NIMESULIDE BETA CYCLODEXTRIN
+OXYPHENBUTAZONE
+BUFEXAMAC
+FLUFENAMIC ACID
+PRANOPROFEN
+9. Vonoprazan
+10. Dihydrocodeine
+11. Buprenorphine
+12. Levomethadyl
+13. Sufentanil
+14. Sparsentan
+15. Methadone
+16. Cosyntropin
+17. Fentanyl
+18. Trimethoprim
+19. Hydromorphone
+20. Tenofovir
+21. Lithium
+22. Tacrolimus
+23. Oxymorphone
+24. Tapentadol
+25. Indomethacin
+26. Meperidine
+27. Tramadol
+28. Oliceridine
+29. Aresenic Trioxide
+30. Cyclosporine
+31. Codeine
+32. Potassium
+

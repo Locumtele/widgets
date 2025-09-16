@@ -1,0 +1,75 @@
+Curo Screening Tool
+
+Name: ___________________________________ Date: _________________ 
+
+1. Do you have any allergies or a severe adverse reaction to any of the following? 
+a. If yes do not proceed
+i.  Non-Steroidal Anti-inflammatories (NSAIDS)- ibuprofen (Advil), naproxen (Aleve), diclofenac (voltaren).
+ii. Famotidine (Pepcid)
+iii. Ondansetron (Zofran)
+iv. Acetaminophen (Tylenol)
+v. Caffeine
+
+2. Are you currently taking NSAIDS daily?					YES or NO
+a. If yes, do not proceed
+
+3. Have you taken any NSAIDS in the last 6 hours?				YES or NO
+a. If yes do not proceed
+
+4. Do you have a any of the listed past medical history?			YES or NO
+a. If Yes, do not proceed
+i. Ulcers/History of Ulcers
+ii. GI Bled/History of GI Bleeds
+iii. Renal Failure or Kidney Disease
+iv. Clotting Disorders
+v. High Risk Delirium 
+vi. Liver Disease
+vii. Heart Arrhythmias, Heart Disease or QT prolongation
+viii. Seizures
+5. Do you have a current medical history of alcoholism or consume alcohol more than 3 times pwer week? 
+a. If yes, do not proceed
+
+6. Are you Pregnant or Breastfeeding?						YES or NO
+a. If yes, do not proceed
+7. Are you 18 years of age or older? 
+a. If No, do not proceed
+8. Do you currently have cancer or are on chemotherapy? 
+a. If yes, do not proceed
+9. Are you currently taking any of the following
+a. If yes, do not proceed
+i.  Anti-depressants such as SSRI's or other
+ii. Seizure medications
+iii. Anti-Arrhythmic
+iv. Cancer therapy
+
+10. Are you currently taking medication in the following categories?		YES or NO
+a. If yes proceed to consult 
+i. Anti-Inflammatories
+ii. Anti-Virals, including HIV meds
+iii. Immunosuppressants
+iv. Loop Diuretic (Hydrochlorothiazide)
+v. Anti-Coagulants (blood thinners)
+vi. Anit-Hypertensives (blood pressure medications)
+vii. Anti-biotics
+viii. Anti-fungals 
+ix. Anti-Parasitic
+x. Hydroxychloroquine
+xi. Gastric Motilty Agents
+xii. Anti-psychotics 
+xiii. Mood stabilizers 
+xiv. Muscle Relaxants
+xv. Pain Meds
+xvi. Received the pneumonia vaccine within the last 14 days
+xvii. Nicotine
+
+
+Please share this completed form with your medical director to obtain an order
+prior to administration.
+
+Resources:
+https://www.accessdata.fda.gov/drugsatfda_docs/label/2018/019462s039lbl.pdf
+https://www.accessdata.fda.gov/drugsatfda_docs/label/2016/020103s035_020605s019_020781s019lbl.pdf
+https://www.accessdata.fda.gov/drugsatfda_docs/label/2020/020793s019lbl.pdf
+https://www.accessdata.fda.gov/drugsatfda_docs/label/2007/017463s105lbl.pdf
+https://www.accessdata.fda.gov/drugsatfda_docs/label/2022/206968s000lbl.pdf
+

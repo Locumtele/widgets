@@ -1,0 +1,34 @@
+﻿Oxytocin Screening Tool
+
+1. Have you ever had an adverse or allergic reaction to oxytocin? 	YES OR NO
+a. If yes- do not proceed
+2. Have you previously taken Oxytocin?		YES or NO
+a. If Yes what dose?
+3. Are you currently receiving Oxytocin elsewhere? 	YES or NO
+a. If Yes, what dose?
+4. Do you have a history of COVID or Long Covid symptoms? 		YES or NO
+a. If yes please list
+5. Do you currently have cancer? 		Yes or No
+a. If yes, do not proceed 
+
+6. Are you pregnant or breastfeeding?
+a. If yes, do not proceed
+7. Are you currently taking any of the following medications?  YES or NO	
+a. If yes, do not proceed
+i. Dinoprostone
+ii. Ephedrine
+
+
+Please share this completed form with your prescribing healthcare provider to obtain an order prior to administration.
+
+Resources: https://www.micromedexsolutions.com/micromedex2/librarian/CS/E2B8F1/ND_PR/evidencexpert/ND_P/evidencexpert/DUPLICATIONSHIELDSYNC/1AC57E/ND_PG/evidencexpert/ND_B/evidencexpert/ND_AppProduct/evidencexpert/ND_T/evidencexpert/PFActionId/evidencexpert.DoIntegratedSearch?SearchTerm=oxytocin&UserSearchTerm=oxytocin&SearchFilter=filterNone&navitem=searchGlobal#
+
+https://pubmed.ncbi.nlm.nih.gov/35576613/
+https://pubmed.ncbi.nlm.nih.gov/35242106/
+https://pmc.ncbi.nlm.nih.gov/articles/PMC8629037/
+https://www.ncbi.nlm.nih.gov/books/NBK507848/
+https://pubmed.ncbi.nlm.nih.gov/37460365/
+https://pubmed.ncbi.nlm.nih.gov/19482229/
+
+
+

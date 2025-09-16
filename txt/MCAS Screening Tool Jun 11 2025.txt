@@ -1,0 +1,60 @@
+﻿MCAS Screening Tool
+
+Name: ___________________________________ Date: _________________ 
+
+1. Do you have any allergies?   					YES or NO
+a. If Yes please list ______
+2. Have you previously taken Ketotifen, Famotidine (Pepcid), Montelukast (Singulair)?		YES or NO
+a. If Yes what dose?
+3. Are you currently receiving Ketotifen, Famotidine, Montelukast? 	YES or NO
+a. If Yes, what dose?
+4. Do you currently have or have a history of any of the following ? YES or NO
+a. If yes, Please explain and include treatments 
+i. Heartburn, Stomach/intestinal ulcers, GERD
+ii. Asthma, wheezing, chest tightness, allergic rhinitis, allergies 
+iii. Eczema, Dermatitis, Hives, Mastocytosis
+5. Do you have a history of Mast Cell Activation Syndrome (MCAS)? 		YES or NO
+a. If yes please explain
+6. Do you currently have or have you ever been diagnosed with any of the following? 				YES or NO- IF yes, proceed to consult 
+a. GI Cancer
+b. Delirium or dementia 
+c. Eosinophillic conditions- trouble swallowing, esophagus issues
+d. Suicidal Ideation or thoughts
+
+7. Do you currently have any kidney disease or impairment?  		YES or NO
+a. If yes, do not proceed 
+8. Do you have currently or have you had a history of liver disease? 		YES or NO
+a. If Yes,do not proceed
+9. Are you Pregnant or Breastfeeding?						YES or NO
+a. If yes do not proceed 
+10.  Are you currently taking any of the following medications?  YES or NO
+a. If yes do not proceed 
+i. Thioridazine
+ii. Terfenadine
+iii. Bepridil
+iv. Pimozide
+v. Anti-infectives/Anti fungals- Ketoconazole, fluconazole, sparfloxacin, 
+vi. Aurothioglucose
+vii. Ziprasidone
+viii. Mesoridazine
+ix. Cisapride
+x. Saquinavir
+xi. Dronedarone
+xii. Piperaquine'
+11. Education: Avoid use of montelukast with aspirin or NSAIDs in aspirin-sensitive patients
+
+
+Please share this completed form with your prescribing healthcare provider to obtain an order prior to administration.
+
+Resources:
+https://www.micromedexsolutions.com/micromedex2/librarian/CS/9522D8/ND_PR/evidencexpert/ND_P/evidencexpert/DUPLICATIONSHIELDSYNC/6CF895/ND_PG/evidencexpert/ND_B/evidencexpert/ND_AppProduct/evidencexpert/ND_T/evidencexpert/PFActionId/evidencexpert.DoIntegratedSearch?SearchTerm=famotidine&UserSearchTerm=famotidine&SearchFilter=filterNone&navitem=searchGlobal#
+
+https://www.micromedexsolutions.com/micromedex2/librarian/CS/9C0BB7/ND_PR/evidencexpert/ND_P/evidencexpert/DUPLICATIONSHIELDSYNC/B93421/ND_PG/evidencexpert/ND_B/evidencexpert/ND_AppProduct/evidencexpert/ND_T/evidencexpert/PFActionId/evidencexpert.DoIntegratedSearch?SearchTerm=montelukast&UserSearchTerm=montelukast&SearchFilter=filterNone&navitem=searchGlobal#
+
+https://www.micromedexsolutions.com/micromedex2/librarian/CS/0CCF2A/ND_PR/evidencexpert/ND_P/evidencexpert/DUPLICATIONSHIELDSYNC/B1B839/ND_PG/evidencexpert/ND_B/evidencexpert/ND_AppProduct/evidencexpert/ND_T/evidencexpert/PFActionId/evidencexpert.DoIntegratedSearch?SearchTerm=ketotifen&UserSearchTerm=ketotifen&SearchFilter=filterNone&navitem=searchGlobal#
+
+https://pubmed.ncbi.nlm.nih.gov/38217824/
+https://pubmed.ncbi.nlm.nih.gov/31126513/
+https://pmc.ncbi.nlm.nih.gov/articles/PMC8177879/
+
+

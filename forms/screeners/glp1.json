@@ -1,3 +1,4 @@
+{
     "screener": "GLP1",
     "category": "Weightloss",
     "lastUpdated": "2025-01-15T10:00:00.000Z",
@@ -47,8 +48,7 @@
         "safe": ["18+ years old"],
         "flag": [],
         "disqualify": ["under_18"],
-        "disqualifyMessage": "You must be 18 years or older to use this 
-  service.",
+        "disqualifyMessage": "You must be 18 years or older to use this service.",
         "showCondition": "always",
         "category": "Weightloss"
       },
@@ -67,15 +67,12 @@
       {
         "id": 6,
         "section": "Patient Profile",
-        "text": "Are you currently pregnant, trying to get pregnant, or 
-  breastfeeding?",
+        "text": "Are you currently pregnant, trying to get pregnant, or breastfeeding?",
         "type": "checkbox",
         "safe": ["no"],
         "flag": [],
         "disqualify": ["yes"],
-        "disqualifyMessage": "For the safety of you and your baby, GLP-1 
-  medications are not recommended during pregnancy, while trying to conceive, 
-  or while breastfeeding.",
+        "disqualifyMessage": "For the safety of you and your baby, GLP-1 medications are not recommended during pregnancy, while trying to conceive, or while breastfeeding.",
         "showCondition": "if_gender_female",
         "category": "Weightloss"
       },
@@ -117,25 +114,19 @@
         "safe": ["bmi_25_or_higher"],
         "flag": [],
         "disqualify": ["bmi_under_25"],
-        "disqualifyMessage": "Our GLP-1 program is designed for individuals 
-  with a BMI of 25 or higher. We recommend discussing other wellness 
-  approaches with your healthcare provider.",
+        "disqualifyMessage": "Our GLP-1 program is designed for individuals with a BMI of 25 or higher. We recommend discussing other wellness approaches with your healthcare provider.",
         "showCondition": "always",
         "category": "Weightloss"
       },
       {
         "id": 10,
         "section": "Assessment",
-        "text": "Have you ever had an adverse or allergic reaction to any 
-  GLP-1 receptor agonist?",
+        "text": "Have you ever had an adverse or allergic reaction to any GLP-1 receptor agonist?",
         "type": "checkbox",
         "safe": ["none"],
         "flag": [],
-        "disqualify": ["semaglutide", "tirzepatide", "dulaglutide", 
-  "exenatide", "liraglutide", "lixisenatide", "other_glp1"],
-        "disqualifyMessage": "For your safety, we cannot prescribe GLP-1 
-  medications if you have had an allergic reaction to this type of medication 
-  before.",
+        "disqualify": ["semaglutide", "tirzepatide", "dulaglutide", "exenatide", "liraglutide", "lixisenatide", "other_glp1"],
+        "disqualifyMessage": "For your safety, we cannot prescribe GLP-1 medications if you have had an allergic reaction to this type of medication before.",
         "showCondition": "always",
         "category": "Weightloss"
       },
@@ -145,14 +136,9 @@
         "text": "Do you have any of the following medical conditions?",
         "type": "checkbox",
         "safe": ["none"],
-        "flag": ["diabetes_type2", "diabetic_retinopathy", 
-  "diabetic_ketoacidosis", "gallbladder_disease", "kidney_disease", 
-  "stomach_problems", "bariatric_surgery"],
-        "disqualify": ["diabetes_type1", "pancreatitis", "medullary_thyroid", 
-  "men2", "liver_disease", "leber_neuropathy"],
-        "disqualifyMessage": "Based on your medical history, GLP-1 medications
-   may not be safe for you. We recommend discussing weight management options 
-  with your healthcare provider.",
+        "flag": ["diabetes_type2", "diabetic_retinopathy", "diabetic_ketoacidosis", "gallbladder_disease", "kidney_disease", "stomach_problems", "bariatric_surgery"],
+        "disqualify": ["diabetes_type1", "pancreatitis", "medullary_thyroid", "men2", "liver_disease", "leber_neuropathy"],
+        "disqualifyMessage": "Based on your medical history, GLP-1 medications may not be safe for you. We recommend discussing weight management options with your healthcare provider.",
         "showCondition": "always",
         "category": "Weightloss"
       },
@@ -164,9 +150,7 @@
         "safe": ["none"],
         "flag": ["insulin_secretagogues", "other_glp1s"],
         "disqualify": ["abiraterone", "somatrogon", "chloroquine", "insulin"],
-        "disqualifyMessage": "Your current medications may interact with GLP-1
-   therapy. Please work with your prescribing doctor to explore safe weight 
-  management options that won't interfere with your current treatment.",
+        "disqualifyMessage": "Your current medications may interact with GLP-1 therapy. Please work with your prescribing doctor to explore safe weight management options that won't interfere with your current treatment.",
         "showCondition": "always",
         "category": "Weightloss"
       },
@@ -178,17 +162,14 @@
         "safe": ["no"],
         "flag": [],
         "disqualify": ["yes"],
-        "disqualifyMessage": "Your current HbA1C level requires specialized 
-  diabetes care. We recommend working with an endocrinologist or your primary 
-  care doctor for the best treatment approach.",
+        "disqualifyMessage": "Your current HbA1C level requires specialized diabetes care. We recommend working with an endocrinologist or your primary care doctor for the best treatment approach.",
         "showCondition": "always",
         "category": "Weightloss"
       },
       {
         "id": 14,
         "section": "Assessment",
-        "text": "What other GLP-1 medications are you taking and at what 
-  dose?",
+        "text": "What other GLP-1 medications are you taking and at what dose?",
         "type": "text",
         "safe": ["any_text"],
         "flag": [],
@@ -200,15 +181,12 @@
       {
         "id": 15,
         "section": "Assessment",
-        "text": "Do you have family history of Multiple Endocrine Neoplasia 
-  Type 2 or Medullary Thyroid Carcinoma?",
+        "text": "Do you have family history of Multiple Endocrine Neoplasia Type 2 or Medullary Thyroid Carcinoma?",
         "type": "checkbox",
         "safe": ["no"],
         "flag": [],
         "disqualify": ["yes"],
-        "disqualifyMessage": "Due to your family history of thyroid 
-  conditions, GLP-1 medications carry additional risks for you. Please consult
-   with an endocrinologist about safer alternatives.",
+        "disqualifyMessage": "Due to your family history of thyroid conditions, GLP-1 medications carry additional risks for you. Please consult with an endocrinologist about safer alternatives.",
         "showCondition": "always",
         "category": "Weightloss"
       },
@@ -220,17 +198,14 @@
         "safe": ["no"],
         "flag": [],
         "disqualify": ["yes"],
-        "disqualifyMessage": "While receiving cancer treatment, it's important
-   to focus on your current therapy. Please discuss weight management goals 
-  with your oncology team when appropriate.",
+        "disqualifyMessage": "While receiving cancer treatment, it's important to focus on your current therapy. Please discuss weight management goals with your oncology team when appropriate.",
         "showCondition": "always",
         "category": "Weightloss"
       },
       {
         "id": 17,
         "section": "Medical History",
-        "text": "Do you have any allergies to medications, foods, or other 
-  substances?",
+        "text": "Do you have any allergies to medications, foods, or other substances?",
         "type": "text",
         "safe": ["any_text"],
         "flag": [],
@@ -247,9 +222,7 @@
         "safe": ["0-2_weekly", "none"],
         "flag": ["3-5_weekly", "1-2_daily"],
         "disqualify": ["2+_daily"],
-        "disqualifyMessage": "Regular heavy alcohol consumption can interact 
-  dangerously with GLP-1 medications. We recommend discussing safer weight 
-  management options with your healthcare provider.",
+        "disqualifyMessage": "Regular heavy alcohol consumption can interact dangerously with GLP-1 medications. We recommend discussing safer weight management options with your healthcare provider.",
         "showCondition": "always",
         "category": "Weightloss"
       },
@@ -292,8 +265,7 @@
       {
         "id": 22,
         "section": "Medical History",
-        "text": "Are you currently experiencing depression with history of 
-  suicidal attempts, thoughts, or ideation?",
+        "text": "Are you currently experiencing depression with history of suicidal attempts, thoughts, or ideation?",
         "type": "checkbox",
         "safe": ["no"],
         "flag": [],
@@ -327,5 +299,4 @@
         "category": "Weightloss"
       }
     ]
-  }
-
+}

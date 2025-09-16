@@ -1,0 +1,182 @@
+{
+  "screener": "Alpha Lipoic Acid",
+  "category": "Supplements",
+  "lastUpdated": "2025-09-15T23:30:00.000Z",
+  "totalQuestions": 14,
+  "questions": [
+    {
+      "id": 1,
+      "section": "Patient Profile",
+      "text": "Full Name",
+      "type": "text",
+      "safe": ["any_text"],
+      "flag": [],
+      "disqualify": [],
+      "disqualifyMessage": "",
+      "showCondition": "always",
+      "category": "Supplements"
+    },
+    {
+      "id": 2,
+      "section": "Patient Profile",
+      "text": "Email Address",
+      "type": "email",
+      "safe": ["any_email"],
+      "flag": [],
+      "disqualify": [],
+      "disqualifyMessage": "",
+      "showCondition": "always",
+      "category": "Supplements"
+    },
+    {
+      "id": 3,
+      "section": "Patient Profile",
+      "text": "Phone Number",
+      "type": "phone",
+      "safe": ["any_phone"],
+      "flag": [],
+      "disqualify": [],
+      "disqualifyMessage": "",
+      "showCondition": "always",
+      "category": "Supplements"
+    },
+    {
+      "id": 4,
+      "section": "Patient Profile",
+      "text": "Date of Birth",
+      "type": "date",
+      "safe": ["18+ years old"],
+      "flag": [],
+      "disqualify": ["under_18"],
+      "disqualifyMessage": "You must be 18 years or older to use this service.",
+      "showCondition": "always",
+      "category": "Supplements"
+    },
+    {
+      "id": 5,
+      "section": "Patient Profile",
+      "text": "Gender",
+      "type": "checkbox",
+      "safe": ["male", "female"],
+      "flag": [],
+      "disqualify": [],
+      "disqualifyMessage": "",
+      "showCondition": "always",
+      "category": "Supplements"
+    },
+    {
+      "id": 6,
+      "section": "Patient Profile",
+      "text": "State of Residence",
+      "type": "select",
+      "safe": [
+        "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
+        "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
+        "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+        "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
+        "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY", "DC"
+      ],
+      "flag": [],
+      "disqualify": [],
+      "disqualifyMessage": "",
+      "showCondition": "always",
+      "category": "Supplements"
+    },
+    {
+      "id": 7,
+      "section": "Patient Profile",
+      "text": "Are you currently pregnant or breastfeeding?",
+      "type": "checkbox",
+      "safe": ["no"],
+      "flag": [],
+      "disqualify": ["yes"],
+      "disqualifyMessage": "Alpha Lipoic Acid supplementation is not recommended during pregnancy or breastfeeding.",
+      "showCondition": "if_gender_female",
+      "category": "Supplements"
+    },
+    {
+      "id": 8,
+      "section": "Assessment",
+      "text": "Do you have any allergies to Alpha Lipoic Acid (ALA)?",
+      "type": "checkbox",
+      "safe": ["no"],
+      "flag": [],
+      "disqualify": ["yes"],
+      "disqualifyMessage": "For your safety, we cannot prescribe Alpha Lipoic Acid if you have an allergy to this supplement.",
+      "showCondition": "always",
+      "category": "Supplements"
+    },
+    {
+      "id": 9,
+      "section": "Assessment",
+      "text": "Are you currently taking ALA daily?",
+      "type": "checkbox",
+      "safe": ["no"],
+      "flag": ["yes"],
+      "disqualify": [],
+      "disqualifyMessage": "",
+      "showCondition": "always",
+      "category": "Supplements"
+    },
+    {
+      "id": 10,
+      "section": "Assessment",
+      "text": "If you are taking ALA, what dose and form?",
+      "type": "text",
+      "safe": ["any_text"],
+      "flag": [],
+      "disqualify": [],
+      "disqualifyMessage": "",
+      "showCondition": "if_current_ala",
+      "category": "Supplements"
+    },
+    {
+      "id": 11,
+      "section": "Medical History",
+      "text": "Do you have any of the following medical conditions?",
+      "type": "checkbox",
+      "safe": ["none"],
+      "flag": ["platelet_disorders", "cancer_with_chemo"],
+      "disqualify": ["uncontrolled_diabetes"],
+      "disqualifyMessage": "Alpha Lipoic Acid is not recommended for individuals with uncontrolled diabetes without proper medical supervision.",
+      "showCondition": "always",
+      "category": "Supplements"
+    },
+    {
+      "id": 12,
+      "section": "Assessment",
+      "text": "Are you currently taking anti-diabetic agents, insulin, or cisplatin?",
+      "type": "checkbox",
+      "safe": ["none"],
+      "flag": ["anti_diabetic", "insulin", "cisplatin"],
+      "disqualify": [],
+      "disqualifyMessage": "",
+      "showCondition": "always",
+      "category": "Supplements"
+    },
+    {
+      "id": 13,
+      "section": "Medical History",
+      "text": "Do you have any allergies to medications, foods, or other substances?",
+      "type": "text",
+      "safe": ["any_text"],
+      "flag": [],
+      "disqualify": [],
+      "disqualifyMessage": "",
+      "showCondition": "always",
+      "category": "Supplements"
+    },
+    {
+      "id": 14,
+      "section": "Verification",
+      "text": "Driver's License or Government ID",
+      "type": "file",
+      "safe": ["any_file"],
+      "flag": [],
+      "disqualify": [],
+      "disqualifyMessage": "",
+      "showCondition": "always",
+      "category": "Supplements"
+    }
+  ]
+}
