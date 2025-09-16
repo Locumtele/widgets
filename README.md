@@ -150,19 +150,18 @@ For more control, use the formLoader directly:
 
 ### Forms (Iframe)
 ```html
+<!-- Form selector with multiple options -->
 <iframe src="https://locumtele.github.io/widgets/forms/example-form.html"
+    style="width:100%;height:100vh;border:0;"></iframe>
+
+<!-- Specific medication form -->
+<iframe src="https://locumtele.github.io/widgets/forms/screeners/semaglutide.html"
     style="width:100%;height:100vh;border:0;"></iframe>
 ```
 
 ### Footer Scripts
 ```html
 <script src="https://locumtele.github.io/widgets/funnel/footerScreener.html"></script>
-```
-
-### Medication Forms (Iframe)
-```html
-<iframe src="https://locumtele.github.io/widgets/forms/screeners/semaglutide.html"
-    style="width:100%;height:100vh;border:0;"></iframe>
 ```
 
 ## 🎨 Customization
