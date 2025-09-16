@@ -41,16 +41,56 @@ Visit: https://locumtele.github.io/widgets/
 - **Data**: JSON with patient info + form responses
 
 ### 4. Available Forms
-- **GLP-1 Weight Loss** (24 questions)
-- **NAD Anti-Aging** (17 questions)
-- **Sermorelin Hormone** (15 questions)
-- **Acne, CBD, ED, Herpes** and 10+ more
+- **GLP-1 Weight Loss** (`forms/screeners/glp1.json`) - 24 questions
+- **NAD Anti-Aging** (`forms/screeners/nad.json`) - 17 questions  
+- **Sermorelin Hormone** (`forms/screeners/sermorelin.json`) - 15 questions
+- **Metformin** (`forms/screeners/metformin.json`) - Diabetes screening
+- **Vitamin A** (`forms/screeners/vitamina.json`) - Vitamin therapy
+- **Weight Loss** (`forms/screeners/weightloss.json`) - General weight management
+- **Acne** (`forms/screeners/acne.json`) - Skin care screening
+- **ED** (`forms/screeners/ed.json`) - Men's health
+- **Herpes** (`forms/screeners/herpes.json`) - Sexual health
+- **MCAS** (`forms/screeners/mcas.json`) - Allergy screening
+- **And 10+ more specialty forms**
 
 ### 5. Customization
 - Edit JSON files in `forms/screeners/` to modify questions
 - Update `forms/components/qTemplate.html` for form styling
 - Modify redirect URLs in the template
 - Use `GlobalWidgets.getAvailableForms()` to see all available forms
+
+### 6. Adding New Forms
+
+1. Create a JSON file in `forms/screeners/` following this structure:
+
+```json
+{
+  "screener": "YourMedication",
+  "category": "CategoryName",
+  "lastUpdated": "2025-01-15T10:00:00.000Z",
+  "totalQuestions": 10,
+  "questions": [
+    {
+      "id": 1,
+      "section": "Patient Profile",
+      "text": "Question Text",
+      "type": "text|email|phone|checkbox|select|file",
+      "safe": ["allowed_values"],
+      "flag": ["flagged_values"],
+      "disqualify": ["disqualifying_values"],
+      "disqualifyMessage": "Disqualification message",
+      "showCondition": "always|if_gender_female|etc",
+      "category": "CategoryName"
+    }
+  ]
+}
+```
+
+2. Use the form loader to generate the form:
+
+```javascript
+FormLoader.generateForm('forms/screeners/yourmedication.json', 'container-id');
+```
 
 ## 📚 Full Documentation
 - **n8n Integration**: [N8N_INTEGRATION.md](N8N_INTEGRATION.md)

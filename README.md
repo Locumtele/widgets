@@ -1,70 +1,60 @@
-# Global Widgets Project
+# Locumtele Widgets
 
-A comprehensive collection of medical screening forms, calendar widgets, and funnel pages designed for healthcare providers using GoHighLevel (GHL) platforms.
+A comprehensive collection of medical widgets designed for healthcare providers, including dynamic forms, calendar integrations, and funnel pages.
 
 ## 🚀 Live Demo
 
 Visit the [GitHub Pages site](https://locumtele.github.io/widgets/) to see all widgets in action.
 
-## 📋 Features
+## 📋 Widget Types
 
-### 🏥 Dynamic Form Loader
-- **JSON-Driven Forms**: Generate forms dynamically from JSON configuration files
-- **Multiple Question Types**: Support for text, email, phone, checkbox, select, file inputs
+### 📝 Dynamic Forms
+- **Medical Screening Forms**: Patient intake and assessment forms
+- **JSON-Driven**: Generate forms dynamically from configuration files
+- **Multiple Question Types**: Text, email, phone, checkbox, select, file inputs
 - **Conditional Logic**: Show/hide questions based on user responses
 - **Mobile Optimized**: Responsive design with iOS zoom prevention
-- **Real-time Validation**: Client-side validation with error messages
 - **API Integration**: Seamless integration with n8n webhooks
 
 ### 📅 Calendar Widgets
-- Weight Loss
-- Anti-Aging
-- Hormones
-- Sexual Health
-- Hair & Skin
-- General 
+- **Specialty Calendars**: Weight Loss, Anti-Aging, Hormones
+- **Appointment Booking**: Integrated scheduling solutions
+- **Customizable**: Tailored for different medical specialties
 
-### 📝 Medical Screening Forms
-- **GLP-1 Weight Loss** (24 questions)
-- **NAD Anti-Aging** (17 questions)
-- **Sermorelin Hormone** (15 questions)
-
-### 🔧 Universal Loader
-- **global.js** - Optional universal loader for easy widget integration
-- **index.html** - Optional landing page with widget directory
+### 🔄 Funnel Pages
+- **Patient Acquisition**: Conversion-optimized landing pages
+- **Lead Capture**: Integrated form and calendar solutions
+- **Customizable**: Branded for different clinics
 
 ## 🛠️ Quick Start
 
-### Basic Usage
-
+### Universal Loader (Recommended)
 ```html
-<!-- Include the form loader -->
-<script src="https://locumtele.github.io/widgets/forms/formLoader.js"></script>
-
-<!-- Auto-load a form -->
-<div id="form-container" data-form-loader data-json-path="forms/screeners/glp1.json"></div>
+<script src="https://locumtele.github.io/widgets/forms/components/globalForm.js"></script>
+<script>
+    // Load a form
+    GlobalWidgets.loadForm('forms/screeners/glp1.json', 'form-container');
+    
+    // Get available widgets
+    const widgets = GlobalWidgets.getAvailableForms();
+</script>
+<div id="form-container"></div>
 ```
 
-### Programmatic Usage
+## 📚 Documentation
 
-```javascript
-// Load a specific form
-await FormLoader.generateForm('forms/screeners/glp1.json', 'form-container');
-
-// Load form data only
-const formData = await FormLoader.loadFormData('forms/screeners/nad.json');
-```
+### For Form Integration
+- **[Quick Start Guide](forms/documentation/QUICK_START.md)** - Get started with forms in 5 minutes
+- **[n8n Integration](forms/documentation/N8N_INTEGRATION.md)** - Internal team automation setup
+- **[Client API Docs](forms/documentation/CLIENT_API_DOCUMENTATION.md)** - For external clients with custom forms
 
 ### Available Forms
+- **GLP-1 Weight Loss** - Weight management screening
+- **NAD Anti-Aging** - Anti-aging therapy assessment  
+- **Sermorelin Hormone** - Hormone therapy screening
+- **And 10+ more specialty forms**
 
-The formLoader.js script dynamically generates forms from JSON configuration files:
-
-- **GLP-1 Weight Loss** (`forms/screeners/glp1.json`) - 24 questions
-- **NAD Anti-Aging** (`forms/screeners/nad.json`) - 17 questions  
-- **Sermorelin Hormone** (`forms/screeners/sermorelin.json`) - 15 questions
-
-### Form Loader Examples
-
+### Examples
 - `forms/example-form.html` - Basic form selector
 - `forms/advanced-example.html` - Advanced demo with metadata
 
@@ -103,40 +93,22 @@ locumtele-widgets/
 └── index.html                   # Landing page (optional)
 ```
 
-## 🔧 Configuration
+## 🔧 Customization
 
-### Adding New Forms
+### Forms
+- **JSON Configuration**: Create custom forms using JSON files
+- **Template System**: Modify `forms/components/qTemplate.html` for styling
+- **Styling**: Update `forms/components/formStyle.css` for appearance
+- **See**: [Quick Start Guide](forms/documentation/QUICK_START.md) for detailed instructions
 
-1. Create a JSON file in `forms/screeners/` following this structure:
+### Calendars
+- **Coming Soon**: Calendar customization options
+- **Integration**: GoHighLevel calendar integration
+- **Branding**: Customizable for different clinics
 
-```json
-{
-  "screener": "YourMedication",
-  "category": "CategoryName",
-  "lastUpdated": "2025-01-15T10:00:00.000Z",
-  "totalQuestions": 10,
-  "questions": [
-    {
-      "id": 1,
-      "section": "Patient Profile",
-      "text": "Question Text",
-      "type": "text|email|phone|checkbox|select|file",
-      "safe": ["allowed_values"],
-      "flag": ["flagged_values"],
-      "disqualify": ["disqualifying_values"],
-      "disqualifyMessage": "Disqualification message",
-      "showCondition": "always|if_gender_female|etc",
-      "category": "CategoryName"
-    }
-  ]
-}
-```
-
-2. Use the form loader to generate the form:
-
-```javascript
-FormLoader.generateForm('forms/screeners/yourmedication.json', 'container-id');
-```
+### General
+- **API Integration**: Update webhook endpoints as needed
+- **Mobile Support**: All widgets are mobile-optimized
 
 ## 🌐 Embedding Widgets
 
