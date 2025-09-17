@@ -3,20 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client Portal - Locumtele Widgets API</title>
+    <title>Client Portal - LocumTele Widgets API</title>
+    <link rel="stylesheet" href="brand.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            background: #f8f9fa;
         }
         
         .container {
@@ -245,52 +236,68 @@
         }
     </style>
 </head>
-<body>
+<body class="lt-branded">
     <div class="container">
-        <div class="header">
+        <header class="lt-header">
+            <div class="lt-logo-full">
+                <div class="lt-logo-submark"></div>
+                <div class="lt-logo-text">
+                    <span class="lt-locum">Locum</span><span class="lt-tele">Tele</span><span class="lt-org">.org</span>
+                </div>
+            </div>
             <h1>🏥 Client Portal</h1>
             <p>API Documentation & Integration Resources for Healthcare Providers</p>
+        </header>
+        
+        <div class="lt-card">
+            <div class="lt-card-header">
+                <h2 class="lt-card-title">Welcome to the LocumTele Widgets API</h2>
+                <p class="lt-card-subtitle">Integrate your existing forms with our patient screening system using our simple, standardized API. Send data from any screening category through one unified webhook endpoint.</p>
+            </div>
         </div>
         
-        <div class="welcome-banner">
-            <h2>Welcome to the Locumtele Widgets API</h2>
-            <p>Integrate your existing forms with our patient screening system using our simple, standardized API. Send data from any screening category through one unified webhook endpoint.</p>
-        </div>
-        
-        <div class="resources-grid">
-            <div class="resource-card">
-                <h3>📚 API Documentation</h3>
-                <p>Complete API reference with examples, field descriptions, and integration guides for all screening categories.</p>
-                <div class="resource-links">
-                    <a href="forms/documentation/CLIENT_API_DOCUMENTATION.md" class="resource-link">View Full Documentation</a>
-                    <a href="#api-quick-start" class="resource-link secondary">Quick Start Guide</a>
+        <div class="lt-grid lt-grid-2">
+            <div class="lt-card">
+                <div class="lt-card-header">
+                    <h3 class="lt-card-title">📚 API Documentation</h3>
+                    <p class="lt-card-subtitle">Complete API reference with examples, field descriptions, and integration guides for all screening categories.</p>
+                </div>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
+                    <a href="forms/documentation/CLIENT_API_DOCUMENTATION.md" class="lt-btn lt-btn-primary">View Full Documentation</a>
+                    <a href="#api-quick-start" class="lt-btn lt-btn-outline">Quick Start Guide</a>
                 </div>
             </div>
             
-            <div class="resource-card">
-                <h3>🔧 Integration Examples</h3>
-                <p>Ready-to-use code examples and sample requests for different programming languages and platforms.</p>
-                <div class="resource-links">
-                    <a href="#examples" class="resource-link">View Examples</a>
-                    <a href="#testing" class="resource-link secondary">Test Your Integration</a>
+            <div class="lt-card">
+                <div class="lt-card-header">
+                    <h3 class="lt-card-title">🔧 Integration Examples</h3>
+                    <p class="lt-card-subtitle">Ready-to-use code examples and sample requests for different programming languages and platforms.</p>
+                </div>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
+                    <a href="#examples" class="lt-btn lt-btn-primary">View Examples</a>
+                    <a href="#testing" class="lt-btn lt-btn-outline">Test Your Integration</a>
                 </div>
             </div>
             
-            <div class="resource-card">
-                <h3>📋 Supported Screeners</h3>
-                <p>Complete list of supported screening categories and their specific data requirements.</p>
-                <div class="resource-links">
-                    <a href="#screeners" class="resource-link">View Categories</a>
-                    <a href="#data-format" class="resource-link secondary">Data Format Guide</a>
+            <div class="lt-card">
+                <div class="lt-card-header">
+                    <h3 class="lt-card-title">📋 Supported Screeners</h3>
+                    <p class="lt-card-subtitle">Complete list of supported screening categories and their specific data requirements.</p>
+                </div>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
+                    <a href="#screeners" class="lt-btn lt-btn-secondary">View Categories</a>
+                    <a href="#data-format" class="lt-btn lt-btn-outline">Data Format Guide</a>
                 </div>
             </div>
             
-            <div class="resource-card">
-                <h3>🛠️ Development Tools</h3>
-                <p>Testing tools, validation utilities, and debugging resources to help with your integration.</p>
-                <div class="resource-links">
-                    <a href="#tools" class="resource-link">Available Tools</a>
-                    <a href="#validation" class="resource-link secondary">Data Validator</a>
+            <div class="lt-card">
+                <div class="lt-card-header">
+                    <h3 class="lt-card-title">🛠️ Development Tools</h3>
+                    <p class="lt-card-subtitle">Testing tools, validation utilities, and debugging resources to help with your integration.</p>
+                </div>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
+                    <a href="#tools" class="lt-btn lt-btn-secondary">Available Tools</a>
+                    <a href="#validation" class="lt-btn lt-btn-outline">Data Validator</a>
                 </div>
             </div>
         </div>
@@ -384,9 +391,22 @@
             </div>
         </div>
         
-        <div class="footer">
-            <p>Built with ❤️ for healthcare providers | <a href="https://github.com/Locumtele/widgets" style="color: white;">View on GitHub</a></p>
-        </div>
+        <footer class="lt-footer">
+            <div class="lt-footer-content">
+                <div class="lt-footer-brand">
+                    <div class="lt-footer-logo">
+                        <div style="width: 20px; height: 20px; background: linear-gradient(45deg, #34C759 25%, #007AFF 25%, #007AFF 50%, #34C759 50%, #34C759 75%, #007AFF 75%); border-radius: 3px;"></div>
+                    </div>
+                    <span>LocumTele.org</span>
+                </div>
+                <div class="lt-footer-links">
+                    <a href="forms/documentation/CLIENT_API_DOCUMENTATION.md" class="lt-footer-link">API Docs</a>
+                    <a href="forms/documentation/QUICK_START.md" class="lt-footer-link">Quick Start</a>
+                    <a href="https://github.com/Locumtele/widgets" class="lt-footer-link">GitHub</a>
+                </div>
+                <p>Built with ❤️ for healthcare providers</p>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
