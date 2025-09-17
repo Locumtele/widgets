@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="documentation/locumtele/brand/brand.css">
     <style>
         body {
-            background: #f8f9fa;
+            background: var(--lt-gray-50);
         }
         
         .container {
@@ -43,12 +43,12 @@
         }
         
         .welcome-banner h2 {
-            color: #667eea;
+            color: var(--lt-blue);
             margin-bottom: 15px;
         }
         
         .welcome-banner p {
-            color: #666;
+            color: var(--lt-gray-600);
             font-size: 1.1rem;
         }
         
@@ -73,13 +73,13 @@
         }
         
         .resource-card h3 {
-            color: #667eea;
+            color: var(--lt-blue);
             margin-bottom: 15px;
             font-size: 1.5rem;
         }
         
         .resource-card p {
-            color: #666;
+            color: var(--lt-gray-600);
             margin-bottom: 20px;
         }
         
@@ -91,7 +91,7 @@
         
         .resource-link {
             display: inline-block;
-            background: #667eea;
+            background: var(--lt-blue);
             color: white;
             text-decoration: none;
             padding: 12px 20px;
@@ -101,15 +101,15 @@
         }
         
         .resource-link:hover {
-            background: #5a6fd8;
+            background: var(--lt-blue-dark);
         }
         
         .resource-link.secondary {
-            background: #6c757d;
+            background: var(--lt-gray-600);
         }
         
         .resource-link.secondary:hover {
-            background: #5a6268;
+            background: var(--lt-gray-700);
         }
         
         .api-section {
@@ -121,14 +121,14 @@
         }
         
         .api-section h2 {
-            color: #667eea;
+            color: var(--lt-blue);
             margin-bottom: 20px;
             text-align: center;
         }
         
         .api-endpoint {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
+            background: var(--lt-gray-50);
+            border: 1px solid var(--lt-gray-200);
             border-radius: 8px;
             padding: 20px;
             margin: 20px 0;
@@ -136,7 +136,7 @@
         }
         
         .api-endpoint .method {
-            background: #28a745;
+            background: var(--lt-green);
             color: white;
             padding: 4px 8px;
             border-radius: 4px;
@@ -145,7 +145,7 @@
         }
         
         .api-endpoint .url {
-            color: #667eea;
+            color: var(--lt-blue);
             font-weight: bold;
         }
         
@@ -158,9 +158,13 @@
         }
         
         .features h2 {
-            color: #667eea;
+            color: var(--lt-blue);
             margin-bottom: 20px;
             text-align: center;
+        }
+        
+        .features h2.lt-card-title {
+            color: var(--lt-gray-800) !important;
         }
         
         .features-grid {
@@ -189,8 +193,12 @@
         }
         
         .support-section h2 {
-            color: #667eea;
+            color: var(--lt-blue);
             margin-bottom: 20px;
+        }
+        
+        .support-section h2.lt-card-title {
+            color: var(--lt-gray-800) !important;
         }
         
         .support-links {
@@ -202,7 +210,7 @@
         
         .support-link {
             display: inline-block;
-            background: #28a745;
+            background: var(--lt-green);
             color: white;
             text-decoration: none;
             padding: 15px 30px;
@@ -211,7 +219,7 @@
         }
         
         .support-link:hover {
-            background: #218838;
+            background: var(--lt-green-dark);
         }
         
         .footer {
@@ -277,81 +285,27 @@
                  </div>
              </div>
             
-             <div class="lt-card">
-                 <div class="lt-card-header">
-                     <h3 class="lt-card-title">📋 Supported Screeners</h3>
-                     <p class="lt-card-subtitle">Complete list of supported screening categories and their specific data requirements.</p>
-                     <!-- Elle's insert would go here -->
-                 </div>
-                 <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
-                     <a href="#screeners" class="lt-btn lt-btn-primary">View Categories</a>
-                     <a href="#data-format" class="lt-btn lt-btn-outline">Data Format Guide</a>
-                 </div>
-             </div>
-            
-            
-            <div class="lt-card">
-                <div class="lt-card-header">
-                    <h3 class="lt-card-title">🛠️ Development Tools</h3>
-                    <p class="lt-card-subtitle">Testing tools, validation utilities, and debugging resources to help with your integration.</p>
-                    <!-- Elle's insert would go here -->
-                </div>
-                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
-                    <a href="#tools" class="lt-btn lt-btn-secondary">Available Tools</a>
-                    <a href="#validation" class="lt-btn lt-btn-outline">Data Validator</a>
-                </div>
-            </div>
         </div>
         
-        <div class="api-section" id="api-quick-start">
-            <h2>🚀 Quick Start</h2>
-            <p style="text-align: center; margin-bottom: 30px; color: #666;">Get started with our API in minutes. Here's everything you need to know:</p>
-            
-            <div class="api-endpoint">
-                <span class="method">POST</span>
-                <span class="url">https://locumtele.app.n8n.cloud/webhook/patient-screener</span>
-            </div>
+        <div style="margin-top: 3rem;"></div>
+        
+        <div class="api-section" id="api-basic-structure">
+            <h2 class="lt-card-title">🏗️ Basic Structure</h2>
+            <p style="text-align: center; margin-bottom: 30px; color: var(--lt-gray-600);">Send data in this organized format with four main sections:</p>
             
             <div style="margin: 30px 0;">
-                <h3 style="color: #667eea; margin-bottom: 15px;">1. Basic Request Structure</h3>
-                <p>Send data in this organized format with four main sections:</p>
-                <ul style="margin: 15px 0; padding-left: 20px; color: #666;">
+                <h3 style="color: var(--lt-blue); margin-bottom: 15px;">Request Structure</h3>
+                <ul style="margin: 15px 0; padding-left: 20px; color: var(--lt-gray-600);">
                     <li><strong>contact</strong> - Patient contact information</li>
                     <li><strong>patient</strong> - Medical and health data</li>
                     <li><strong>form</strong> - Screening form details and raw data</li>
                     <li><strong>clinic</strong> - Your clinic information</li>
                 </ul>
             </div>
-            
-            <div style="margin: 30px 0;">
-                <h3 style="color: #667eea; margin-bottom: 15px;">2. Supported Categories</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 15px 0;">
-                    <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; text-align: center;">
-                        <strong>Weightloss</strong><br>
-                        <small>GLP-1, Semaglutide, Liraglutide</small>
-                    </div>
-                    <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; text-align: center;">
-                        <strong>Hormone Therapy</strong><br>
-                        <small>Sermorelin, Testosterone, Estrogen</small>
-                    </div>
-                    <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; text-align: center;">
-                        <strong>Hair & Skin Care</strong><br>
-                        <small>Acne, Hair Loss, Skincare</small>
-                    </div>
-                    <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; text-align: center;">
-                        <strong>Sexual Health</strong><br>
-                        <small>ED, Herpes, STI Screening</small>
-                    </div>
-                    <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; text-align: center;">
-                        <strong>Anti-Aging</strong><br>
-                        <small>NAD, Anti-aging treatments</small>
-                    </div>
-                </div>
-            </div>
         </div>
         
         <div class="features">
-            <h2>✨ Why Choose Our API?</h2>
+            <h2 class="lt-card-title">✨ Highlights</h2>
             <div class="features-grid">
                 <div class="feature">
                     <div class="feature-icon">🔗</div>
@@ -387,12 +341,10 @@
         </div>
         
         <div class="support-section">
-            <h2>🆘 Need Help?</h2>
-            <p style="margin-bottom: 30px; color: #666;">Our team is here to help you integrate successfully. Get support through multiple channels:</p>
-            <div class="support-links">
-                <a href="mailto:api-support@locumtele.com" class="support-link">📧 Email Support</a>
-                <a href="forms/documentation/CLIENT_API_DOCUMENTATION.md" class="support-link">📖 Full Documentation</a>
-                <a href="#status" class="support-link">🔍 API Status</a>
+            <h2 class="lt-card-title">🆘 Need Help?</h2>
+            <p style="margin-bottom: 30px; color: var(--lt-gray-600);">Our team is here to help you integrate successfully.</p>
+            <div style="margin-top: 1rem;">
+                <a href="mailto:api@vertimd.com" class="lt-btn lt-btn-primary">Contact Support</a>
             </div>
         </div>
         
@@ -405,9 +357,7 @@
                     <span>LocumTele.org</span>
                 </div>
                 <div class="lt-footer-links">
-                    <a href="documentation/clinics/patient-forms-api.md" class="lt-footer-link">API Docs</a>
-                    <a href="documentation/locumtele/forms-guide.md" class="lt-footer-link">Quick Start</a>
-                    <a href="https://github.com/Locumtele/widgets" class="lt-footer-link">GitHub</a>
+                    <a href="api-portal.html" class="lt-footer-link">API Portal</a>
                 </div>
                 <p>Built with ❤️ for healthcare providers</p>
             </div>

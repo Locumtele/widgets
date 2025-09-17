@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API - Patient Forms | LocumTele Widgets</title>
+    <link rel="stylesheet" href="../locumtele/brand/brand.css">
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+        .lt-code {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 1rem;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        .lt-code pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        .lt-api-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .lt-api-section h2 {
+            color: var(--lt-blue);
+            margin-bottom: 0;
+        }
+
+        .lt-section-divider {
+            height: 2px;
+            background: var(--lt-blue);
+            margin: 1rem 0;
+        }
+        .lt-api-section h3 {
+            color: var(--lt-gray-800);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .lt-field-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .lt-field-table th,
+        .lt-field-table td {
+            border: 1px solid #e9ecef;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        .lt-field-table th {
+            background: var(--lt-gray-50);
+            font-weight: 600;
+        }
+        .lt-field-table .required {
+            color: #dc3545;
+            font-weight: 600;
+        }
+        .lt-field-table .optional {
+            color: var(--lt-gray-600);
+        }
+        .lt-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--lt-blue);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--lt-blue);
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .lt-back-link:hover {
+            background: var(--lt-blue);
+            color: white;
+        }
+
+        .lt-toc-buttons {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .lt-toc-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            background: white;
+            color: var(--lt-blue);
+            text-decoration: none;
+            font-weight: 500;
+            border: 2px solid var(--lt-blue);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .lt-toc-btn:hover {
+            background: var(--lt-blue);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        }
+
+        .lt-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0;
+        }
+
+        .lt-section-header h2 {
+            margin-bottom: 0;
+        }
+
+        .lt-status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        .lt-status-inactive {
+            background: #fca5a5;
+            color: #991b1b;
+        }
+
+        .lt-test-url-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .lt-test-url-box h3 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .lt-test-url-box .lt-endpoint {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .lt-test-url-box .lt-method {
+            background: #34C759;
+            color: white;
+        }
+
+        .lt-test-url-box .lt-url {
+            color: white;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+
+        .lt-test-url-box p {
+            margin: 0;
+            opacity: 0.9;
+        }
+        .lt-endpoint {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+        .lt-method {
+            background: #28a745;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        .lt-url {
+            color: var(--lt-blue);
+            font-weight: bold;
+        }
+        .lt-example {
+            background: #f8f9fa;
+            border-left: 4px solid var(--lt-blue);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .lt-example h4 {
+            margin-top: 0;
+            color: var(--lt-blue);
+        }
+        .lt-category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .lt-category-card {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+        .lt-category-card strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--lt-gray-800);
+        }
+        .lt-category-card small {
+            color: var(--lt-gray-600);
+        }
+    </style>
+</head>
+<body class="lt-branded">
+    <!-- Top Banner -->
+    <div class="lt-banner">
+        <div class="lt-banner-content">
+            <div class="lt-logo-full-banner">
+                <div class="lt-logo-submark-banner"></div>
+                <div class="lt-logo-text-banner">
+                    <span class="lt-locum">Locum</span><span class="lt-tele">Tele</span><span class="lt-org">.org</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Back Link -->
+        <a href="../api-portal.html" class="lt-back-link">
+            ← Back to API Portal
+        </a>
+
+        <!-- Page Header -->
+        <header class="lt-page-header">
+            <h1>API - Patient Forms</h1>
+            <p>Submit patient screening data from your custom forms to our centralized processing system</p>
+        </header>
+
+        <!-- Table of Contents -->
+        <div class="lt-toc-buttons">
+            <a href="#overview" class="lt-toc-btn">🎯 Overview</a>
+            <a href="#documentation" class="lt-toc-btn">📋 Documentation</a>
+            <a href="#testing" class="lt-toc-btn">🧪 Testing</a>
+            <a href="#support" class="lt-toc-btn">🆘 Need Help?</a>
+        </div>
+
+        <!-- Overview Section -->
+        <div class="lt-api-section" id="overview">
+            <h2>🎯 Overview</h2>
+            <div class="lt-section-divider"></div>
+            <p>This API allows clinics to submit patient screening data from their own custom forms to our centralized processing system. The API accepts data from any screening category and processes it through a standardized webhook endpoint.</p>
+            
+            <h3>Use Cases</h3>
+            <ul>
+                <li><strong>Custom Form Integration</strong>: Submit data from your own patient screening forms</li>
+                <li><strong>Third-party Form Builders</strong>: Integrate with Typeform, Gravity Forms, etc.</li>
+                <li><strong>Mobile Apps</strong>: Submit screening data from custom mobile applications</li>
+                <li><strong>Existing Systems</strong>: Connect your current patient management system</li>
+            </ul>
+
+            <h3>Supported Categories</h3>
+            <p>Our API supports the following screening categories:</p>
+            
+            <div class="lt-category-grid">
+                <div class="lt-category-card">
+                    <strong>Weightloss</strong>
+                    <small>GLP-1, Semaglutide, Liraglutide</small>
+                </div>
+                <div class="lt-category-card">
+                    <strong>Hormone Therapy</strong>
+                    <small>Sermorelin, Testosterone, Estrogen</small>
+                </div>
+                <div class="lt-category-card">
+                    <strong>Hair & Skin Care</strong>
+                    <small>Acne, Hair Loss, Skincare</small>
+                </div>
+                <div class="lt-category-card">
+                    <strong>Sexual Health</strong>
+                    <small>ED, Herpes, STI Screening</small>
+                </div>
+                <div class="lt-category-card">
+                    <strong>Anti-Aging</strong>
+                    <small>NAD, Anti-aging treatments</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documentation -->
+        <div class="lt-api-section" id="documentation">
+            <h2>📋 Documentation</h2>
+            <div class="lt-section-divider"></div>
+            
+            <h3>Endpoint</h3>
+            <div class="lt-endpoint">
+                <span class="lt-method">POST</span>
+                <span class="lt-url">https://locumtele.app.n8n.cloud/webhook/patient-screener</span>
+            </div>
+            <p><strong>Authentication:</strong> Currently, no authentication is required. Rate limiting is applied to prevent abuse.</p>
+
+            <h3>Request Body</h3>
+            <p>The API accepts a structured JSON payload organized into logical sections:</p>
+            
+            <div class="lt-code">
+<pre><code>{
+  "contact": {
+    "name": "string",
+    "email": "string",
+    "gender": "string",
+    "dateOfBirth": "string (YYYY-MM-DD)",
+    "phone": "string",
+    "address1": "string",
+    "city": "string",
+    "state": "string",
+    "postalCode": "string",
+    "timezone": "string",
+    "type": "patient"
+  },
+  "patient": {
+    "patientId": "string",
+    "contactId": "string",
+    "rxRequested": "string",
+    "height": "string",
+    "weight": "string",
+    "BMI": "string",
+    "pregnancy": "string",
+    "conditions": ["string"],
+    "medications": ["string"],
+    "allergies": "string",
+    "activityLevel": "string",
+    "tobaccoUse": "string",
+    "alcoholUse": "string",
+    "otcConsumption": ["string"],
+    "mentalHealth": "string"
+  },
+  "form": {
+    "formType": "string",
+    "category": "string",
+    "screener": "string",
+    "screenerData": "string",
+    "timestamp": "string (ISO 8601)",
+    "formVersion": "string"
+  },
+  "clinic": {
+    "name": "string",
+    "id": "string",
+    "email": "string",
+    "phone": "string",
+    "type": "healthcare"
+  }
+}</code></pre>
+            </div>
+        </div>
+
+
+        <!-- Testing -->
+        <div class="lt-api-section" id="testing">
+            <div class="lt-section-header">
+                <h2>🧪 Testing</h2>
+                <div class="lt-status-badge lt-status-inactive">Not Active - Test endpoint is currently not active</div>
+            </div>
+            <div class="lt-section-divider"></div>
+            <p>Test your integration with our test endpoint before going live:</p>
+            
+            <!-- Test URL -->
+            <div class="lt-endpoint">
+                <span class="lt-method">POST</span>
+                <span class="lt-url">https://locumtele.app.n8n.cloud/webhook/patientforms-test</span>
+            </div>
+
+            <h3>Sample Test Data</h3>
+            <div class="lt-code">
+<pre><code>{
+  "contact": {
+    "name": "Test Patient",
+    "email": "test@example.com",
+    "gender": "male",
+    "dateOfBirth": "1990-01-01",
+    "phone": "5551234567",
+    "type": "patient"
+  },
+  "patient": {
+    "patientId": "TEST_12345",
+    "rxRequested": "semaglutide",
+    "height": "6'0\"",
+    "weight": "200",
+    "BMI": "28.5",
+    "pregnancy": "no",
+    "conditions": ["diabetes_type2"],
+    "medications": ["metformin"],
+    "allergies": "none",
+    "activityLevel": "moderate",
+    "tobaccoUse": "no",
+    "alcoholUse": "1-2_daily",
+    "otcConsumption": ["multivitamin"],
+    "mentalHealth": "none"
+  },
+  "form": {
+    "formType": "screener",
+    "category": "weightloss",
+    "screener": "GLP1",
+    "screenerData": "Previous GLP-1 Experience: none. Weight Loss Goals: 30 pounds.",
+    "timestamp": "2025-01-15T10:00:00.000Z",
+    "formVersion": "1.0.0"
+  },
+  "clinic": {
+    "name": "Test Clinic",
+    "id": "TEST_12345",
+    "email": "test@testclinic.com",
+    "phone": "555-123-4567",
+    "type": "healthcare"
+  }
+}</code></pre>
+            </div>
+            
+            <h3>HTML/JavaScript Form</h3>
+            <div class="lt-code">
+<pre><code>&lt;form id="patient-form"&gt;
+    &lt;input type="text" name="fullName" placeholder="Full Name" required&gt;
+    &lt;input type="email" name="email" placeholder="Email" required&gt;
+    &lt;input type="tel" name="phone" placeholder="Phone" required&gt;
+    &lt;input type="date" name="dateOfBirth" required&gt;
+    &lt;select name="gender" required&gt;
+        &lt;option value=""&gt;Select Gender&lt;/option&gt;
+        &lt;option value="male"&gt;Male&lt;/option&gt;
+        &lt;option value="female"&gt;Female&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;button type="submit"&gt;Submit Screening&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+document.getElementById('patient-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+    
+    // Add metadata
+    data.timestamp = new Date().toISOString();
+    data.formVersion = '1.0';
+    data.screeningCategory = 'custom';
+    
+    try {
+        const response = await fetch('https://locumtele.app.n8n.cloud/webhook/patientforms-test', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+        
+        if (response.ok) {
+            alert('Screening submitted successfully!');
+        } else {
+            alert('Error submitting screening');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error submitting screening');
+    }
+});
+&lt;/script&gt;</code></pre>
+            </div>
+
+            <h3>WordPress/Gravity Forms</h3>
+            <div class="lt-code">
+<pre><code>// Add this to your functions.php or as a plugin
+add_action('gform_after_submission_1', 'send_to_locumtele_api', 10, 2);
+
+function send_to_locumtele_api($entry, $form) {
+    $data = [
+        'contact' => [
+            'name' => rgar($entry, '1'),
+            'email' => rgar($entry, '2'),
+            'gender' => rgar($entry, '3'),
+            'dateOfBirth' => rgar($entry, '4'),
+            'phone' => rgar($entry, '5'),
+            'type' => 'patient'
+        ],
+        'patient' => [
+            'height' => rgar($entry, '6'),
+            'weight' => rgar($entry, '7'),
+            'conditions' => explode(',', rgar($entry, '8')),
+            'medications' => explode(',', rgar($entry, '9')),
+            'allergies' => rgar($entry, '10')
+        ],
+        'form' => [
+            'formType' => 'screener',
+            'category' => rgar($entry, '11'),
+            'screener' => rgar($entry, '12'),
+            'screenerData' => rgar($entry, '13'),
+            'timestamp' => date('c'),
+            'formVersion' => '1.0.0'
+        ],
+        'clinic' => [
+            'name' => 'Your Clinic Name',
+            'id' => '12345',
+            'email' => 'info@yourclinic.com',
+            'phone' => '555-123-4567',
+            'type' => 'healthcare'
+        ]
+    ];
+
+    wp_remote_post('https://locumtele.app.n8n.cloud/webhook/patientforms-test', [
+        'headers' => ['Content-Type' => 'application/json'],
+        'body' => json_encode($data)
+    ]);
+}</code></pre>
+            </div>
+
+            <h3>Typeform Integration</h3>
+            <div class="lt-code">
+<pre><code>// Add this to your Typeform webhook
+const data = {
+    contact: {
+        name: answers['full_name'],
+        email: answers['email'],
+        gender: answers['gender'],
+        dateOfBirth: answers['date_of_birth'],
+        phone: answers['phone'],
+        type: 'patient'
+    },
+    patient: {
+        height: answers['height'],
+        weight: answers['weight'],
+        conditions: answers['medical_conditions']?.split(',') || [],
+        medications: answers['medications']?.split(',') || [],
+        allergies: answers['allergies'] || 'none'
+    },
+    form: {
+        formType: 'screener',
+        category: answers['screening_category'],
+        screener: answers['screener_type'],
+        screenerData: answers['additional_info'],
+        timestamp: new Date().toISOString(),
+        formVersion: '1.0.0'
+    },
+    clinic: {
+        name: 'Your Clinic Name',
+        id: '12345',
+        email: 'info@yourclinic.com',
+        phone: '555-123-4567',
+        type: 'healthcare'
+    }
+};
+
+fetch('https://locumtele.app.n8n.cloud/webhook/patientforms-test', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+});</code></pre>
+            </div>
+        </div>
+
+
+
+
+        <!-- Support -->
+        <div class="lt-api-section" id="support">
+            <h2>🆘 Need Help?</h2>
+            <div class="lt-section-divider"></div>
+            <p>Our team is here to help you integrate successfully.</p>
+            
+            <div style="margin-top: 1rem;">
+                <a href="mailto:api@vertimd.com" class="lt-btn lt-btn-primary">Contact Support</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="lt-footer">
+        <div class="lt-footer-content">
+            <div class="lt-footer-brand">
+                <div class="lt-footer-logo">
+                    <div style="width: 20px; height: 20px; background: linear-gradient(45deg, #34C759 25%, #007AFF 25%, #007AFF 50%, #34C759 50%, #34C759 75%, #007AFF 75%); border-radius: 3px;"></div>
+                </div>
+                <span>LocumTele.org</span>
+            </div>
+            <div class="lt-footer-links">
+                <a href="../api-portal.html" class="lt-footer-link">API Portal</a>
+            </div>
+            <p>Built with ❤️ for healthcare providers</p>
+        </div>
+    </footer>
+</body>
+</html>

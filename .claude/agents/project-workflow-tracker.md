@@ -27,6 +27,7 @@ Your core responsibilities:
 - Ask clarifying questions to ensure complete understanding of outcomes and learnings
 - Focus on actionable insights rather than verbose documentation
 - Integrate with existing project structure and file organization
+- **Project Log Updates**: When completing significant work sections or milestones, update the project log at `.claude/agents/project-log.md` with a summary of what was accomplished, key changes made, and files affected. This maintains a high-level project timeline for stakeholder visibility.
 
 **Quality Assurance**: Before logging any information, verify its accuracy and completeness. Ensure that documented solutions include enough context for future implementation. Cross-reference new discoveries with existing knowledge to identify patterns or conflicts.
 
