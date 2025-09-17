@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocumTele Brand Example</title>
+    <link rel="stylesheet" href="brand.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body class="lt-branded">
+    <!-- Header -->
+    <header class="lt-header">
+        <div class="lt-logo-full">
+            <div class="lt-logo-submark"></div>
+            <div class="lt-logo-text">
+                <span class="lt-locum">Locum</span><span class="lt-tele">Tele</span><span class="lt-org">.org</span>
+            </div>
+        </div>
+        <h1>LocumTele Widgets</h1>
+        <p>Medical widgets for healthcare providers</p>
+    </header>
+
+    <!-- Main Content -->
+    <main style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+        <!-- Section Header -->
+        <div class="lt-section-header">
+            <h2 class="lt-section-title">Welcome to Our Platform</h2>
+            <p class="lt-section-subtitle">Comprehensive medical widgets designed for healthcare providers using modern technology.</p>
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="lt-grid lt-grid-3">
+            <div class="lt-card">
+                <div class="lt-card-header">
+                    <h3 class="lt-card-title">📝 Dynamic Forms</h3>
+                    <p class="lt-card-subtitle">JSON-driven medical screening forms</p>
+                </div>
+                <p>Generate forms dynamically from configuration files with real-time validation and conditional logic.</p>
+                <div style="margin-top: 1rem;">
+                    <span class="lt-badge lt-badge-blue">Active</span>
+                    <span class="lt-badge lt-badge-green">Mobile Ready</span>
+                </div>
+            </div>
+
+            <div class="lt-card">
+                <div class="lt-card-header">
+                    <h3 class="lt-card-title">📅 Calendar Widgets</h3>
+                    <p class="lt-card-subtitle">Appointment booking solutions</p>
+                </div>
+                <p>Specialized calendar widgets for different medical specialties with integrated scheduling.</p>
+                <div style="margin-top: 1rem;">
+                    <span class="lt-badge lt-badge-blue">Coming Soon</span>
+                </div>
+            </div>
+
+            <div class="lt-card">
+                <div class="lt-card-header">
+                    <h3 class="lt-card-title">🔄 Funnel Pages</h3>
+                    <p class="lt-card-subtitle">Patient acquisition tools</p>
+                </div>
+                <p>Conversion-optimized landing pages with integrated form and calendar solutions.</p>
+                <div style="margin-top: 1rem;">
+                    <span class="lt-badge lt-badge-green">Live</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons Section -->
+        <div class="lt-section">
+            <h3>Action Buttons</h3>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
+                <button class="lt-btn lt-btn-primary">Primary Action</button>
+                <button class="lt-btn lt-btn-secondary">Secondary Action</button>
+                <button class="lt-btn lt-btn-outline">Outline Button</button>
+                <button class="lt-btn lt-btn-ghost">Ghost Button</button>
+            </div>
+        </div>
+
+        <!-- Code Example -->
+        <div class="lt-section">
+            <h3>Code Example</h3>
+            <div class="lt-code-block">
+                <pre><code>&lt;script src="https://locumtele.github.io/widgets/forms/components/globalForm.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    GlobalWidgets.loadForm('forms/screeners/glp1.json', 'form-container');
+&lt;/script&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- Alerts -->
+        <div class="lt-section">
+            <h3>Alert Examples</h3>
+            <div class="lt-alert lt-alert-info">
+                <strong>Info:</strong> This is an informational message about the platform.
+            </div>
+            <div class="lt-alert lt-alert-success">
+                <strong>Success:</strong> Your integration has been completed successfully!
+            </div>
+            <div class="lt-alert lt-alert-warning">
+                <strong>Warning:</strong> Please review your configuration before proceeding.
+            </div>
+        </div>
+
+        <!-- Robot Mascot -->
+        <div class="lt-section" style="text-align: center;">
+            <h3>Meet Our Mascot</h3>
+            <div class="lt-robot"></div>
+            <div class="lt-robot-name">Elle 🤖</div>
+            <p style="margin-top: 1rem; color: #666;">Our friendly AI assistant is here to help!</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="lt-footer">
+        <div class="lt-footer-content">
+            <div class="lt-footer-brand">
+                <div class="lt-footer-logo">
+                    <div style="width: 20px; height: 20px; background: linear-gradient(45deg, #34C759 25%, #007AFF 25%, #007AFF 50%, #34C759 50%, #34C759 75%, #007AFF 75%); border-radius: 3px;"></div>
+                </div>
+                <span>LocumTele.org</span>
+            </div>
+            <div class="lt-footer-links">
+                <a href="#" class="lt-footer-link">Documentation</a>
+                <a href="#" class="lt-footer-link">API Reference</a>
+                <a href="#" class="lt-footer-link">Support</a>
+                <a href="#" class="lt-footer-link">GitHub</a>
+            </div>
+            <p style="color: #9aa0a6; margin: 0;">Built with ❤️ for healthcare providers</p>
+        </div>
+    </footer>
+</body>
+</html>

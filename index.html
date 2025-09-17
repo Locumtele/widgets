@@ -3,20 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Widgets - Medical Forms & Calendars</title>
+    <title>LocumTele Widgets - Medical Forms & Calendars</title>
+    <link rel="stylesheet" href="brand.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            background: #f8f9fa;
         }
         
         .container {
@@ -25,197 +16,113 @@
             padding: 20px;
         }
         
-        .header {
-            text-align: center;
-            color: white;
-            margin-bottom: 40px;
-        }
+        /* Custom styles for index page */
         
-        .header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
-        .widgets-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-        
-        .widget-card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .widget-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-        
-        .widget-card h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-        
-        .widget-card p {
-            color: #666;
-            margin-bottom: 20px;
-        }
-        
-        .widget-links {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .widget-link {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 6px;
-            text-align: center;
-            transition: background 0.3s ease;
-        }
-        
-        .widget-link:hover {
-            background: #5a6fd8;
-        }
-        
-        .widget-link.secondary {
-            background: #6c757d;
-        }
-        
-        .widget-link.secondary:hover {
-            background: #5a6268;
-        }
-        
-        .features {
-            background: white;
-            border-radius: 12px;
-            padding: 40px;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        
-        .features h2 {
-            color: #667eea;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        
-        .feature {
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-        
-        .footer {
-            text-align: center;
-            color: white;
-            opacity: 0.8;
-        }
-        
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .widgets-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        /* Custom styles for index page - most styling now handled by brand.css */
     </style>
 </head>
-<body>
+<body class="lt-branded">
     <div class="container">
-        <div class="header">
-            <h1>🏥 Global Widgets</h1>
+        <header class="lt-header">
+            <div class="lt-logo-full">
+                <div class="lt-logo-submark"></div>
+                <div class="lt-logo-text">
+                    <span class="lt-locum">Locum</span><span class="lt-tele">Tele</span><span class="lt-org">.org</span>
+                </div>
+            </div>
+            <h1>LocumTele Widgets</h1>
             <p>Medical Forms, Calendars & Funnel Pages for Healthcare Providers</p>
-        </div>
+        </header>
         
-        <div class="widgets-grid">
-            <div class="widget-card">
-                <h3>📝 Dynamic Forms</h3>
-                <p>JSON-driven medical screening forms with real-time validation and conditional logic.</p>
-                <div class="widget-links">
-                    <a href="forms/example-form.html" class="widget-link">View Examples</a>
-                    <a href="forms/advanced-example.html" class="widget-link secondary">Advanced Demo</a>
-                    <a href="forms/documentation/CLIENT_API_DOCUMENTATION.md" class="widget-link secondary">API Docs</a>
+        <div class="lt-grid lt-grid-3">
+            <div class="lt-card">
+                <div class="lt-card-header">
+                    <h3 class="lt-card-title">📝 Dynamic Forms</h3>
+                    <p class="lt-card-subtitle">JSON-driven medical screening forms with real-time validation and conditional logic.</p>
+                </div>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
+                    <a href="forms/example-form.html" class="lt-btn lt-btn-primary">View Examples</a>
+                    <a href="forms/advanced-example.html" class="lt-btn lt-btn-outline">Advanced Demo</a>
+                    <a href="forms/documentation/CLIENT_API_DOCUMENTATION.md" class="lt-btn lt-btn-ghost">API Docs</a>
                 </div>
             </div>
             
-            <div class="widget-card">
-                <h3>📅 Calendar Widgets</h3>
-                <p>Specialized calendar widgets for different medical specialties and treatments.</p>
-                <div class="widget-links">
-                    <a href="calendars/weightloss.html" class="widget-link">Weight Loss</a>
-                    <a href="calendars/antiaging.html" class="widget-link">Anti-Aging</a>
-                    <a href="calendars/hormones.html" class="widget-link">Hormones</a>
+            <div class="lt-card">
+                <div class="lt-card-header">
+                    <h3 class="lt-card-title">📅 Calendar Widgets</h3>
+                    <p class="lt-card-subtitle">Specialized calendar widgets for different medical specialties and treatments.</p>
+                </div>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
+                    <a href="calendars/weightloss.html" class="lt-btn lt-btn-secondary">Weight Loss</a>
+                    <a href="calendars/antiaging.html" class="lt-btn lt-btn-secondary">Anti-Aging</a>
+                    <a href="calendars/hormones.html" class="lt-btn lt-btn-secondary">Hormones</a>
                 </div>
             </div>
             
-            <div class="widget-card">
-                <h3>🔄 Funnel Pages</h3>
-                <p>Conversion-optimized pages for patient acquisition and form submissions.</p>
-                <div class="widget-links">
-                    <a href="funnel/footerScreener.html" class="widget-link">Footer Screener</a>
-                    <a href="funnel/map.html" class="widget-link">Location Map</a>
+            <div class="lt-card">
+                <div class="lt-card-header">
+                    <h3 class="lt-card-title">🔄 Funnel Pages</h3>
+                    <p class="lt-card-subtitle">Conversion-optimized pages for patient acquisition and form submissions.</p>
+                </div>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
+                    <a href="funnel/footerScreener.html" class="lt-btn lt-btn-outline">Footer Screener</a>
+                    <a href="funnel/map.html" class="lt-btn lt-btn-outline">Location Map</a>
                 </div>
             </div>
         </div>
         
-        <div class="features">
-            <h2>✨ Key Features</h2>
-            <div class="features-grid">
-                <div class="feature">
-                    <div class="feature-icon">📱</div>
+        <div class="lt-section">
+            <div class="lt-section-header">
+                <h2 class="lt-section-title">✨ Key Features</h2>
+            </div>
+            <div class="lt-grid lt-grid-4">
+                <div class="lt-card" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">📱</div>
                     <h4>Mobile Optimized</h4>
                     <p>Responsive design with iOS zoom prevention</p>
                 </div>
-                <div class="feature">
-                    <div class="feature-icon">⚡</div>
+                <div class="lt-card" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
                     <h4>Real-time Validation</h4>
                     <p>Instant feedback and error handling</p>
                 </div>
-                <div class="feature">
-                    <div class="feature-icon">🔗</div>
+                <div class="lt-card" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🔗</div>
                     <h4>API Integration</h4>
                     <p>Seamless n8n webhook integration</p>
                 </div>
-                <div class="feature">
-                    <div class="feature-icon">🎨</div>
+                <div class="lt-card" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🎨</div>
                     <h4>Customizable</h4>
                     <p>Easy to modify and extend</p>
                 </div>
             </div>
         </div>
-        
-        <div class="footer">
-            <p>Built with ❤️ for healthcare providers | <a href="https://github.com/Locumtele/widgets" style="color: white;">View on GitHub</a></p>
+
+        <!-- Meet Elle -->
+        <div class="lt-section" style="text-align: center;">
+            <h3>Meet Our AI Assistant</h3>
+            <div class="lt-robot"></div>
+            <div class="lt-robot-name">Elle 🤖</div>
+            <p style="margin-top: 1rem; color: #666;">Our friendly AI assistant is here to help with your integration!</p>
         </div>
+        
+        <footer class="lt-footer">
+            <div class="lt-footer-content">
+                <div class="lt-footer-brand">
+                    <div class="lt-footer-logo">
+                        <div style="width: 20px; height: 20px; background: linear-gradient(45deg, #34C759 25%, #007AFF 25%, #007AFF 50%, #34C759 50%, #34C759 75%, #007AFF 75%); border-radius: 3px;"></div>
+                    </div>
+                    <span>LocumTele.org</span>
+                </div>
+                <div class="lt-footer-links">
+                    <a href="forms/documentation/CLIENT_API_DOCUMENTATION.md" class="lt-footer-link">API Docs</a>
+                    <a href="forms/documentation/QUICK_START.md" class="lt-footer-link">Quick Start</a>
+                    <a href="https://github.com/Locumtele/widgets" class="lt-footer-link">GitHub</a>
+                </div>
+                <p>Built with ❤️ for healthcare providers</p>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
