@@ -303,11 +303,15 @@
 }
 
 .lt-robot::before {
-    content: "🤖";
-    font-size: 2rem;
+    content: "";
+    width: 64px;
+    height: 64px;
+    background-image: url('locumteleBot-Elle.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     display: block;
-    text-align: center;
-    line-height: 1;
+    margin: 0 auto;
 }
 
 @keyframes lt-robot-bounce {
@@ -340,20 +344,10 @@
     justify-content: center;
     box-shadow: var(--lt-shadow-md);
     position: relative;
-}
-
-.lt-logo-submark::before {
-    content: "";
-    width: 24px;
-    height: 24px;
-    background: linear-gradient(45deg, 
-        var(--lt-green) 25%, 
-        var(--lt-blue) 25%, 
-        var(--lt-blue) 50%, 
-        var(--lt-green) 50%, 
-        var(--lt-green) 75%, 
-        var(--lt-blue) 75%);
-    border-radius: 4px;
+    background-image: url('LocumteleSubmark.png');
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .lt-logo-text {
