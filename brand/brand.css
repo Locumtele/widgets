@@ -73,6 +73,160 @@
     color: var(--lt-gray-800);
 }
 
+/* ===== TOP BANNER ===== */
+.lt-banner {
+    background: white;
+    padding: var(--lt-space-lg) 0;
+    border-bottom: 1px solid var(--lt-gray-200);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.lt-banner-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--lt-space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lt-logo-full-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--lt-space-md);
+}
+
+.lt-logo-submark-banner {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: var(--lt-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--lt-shadow-sm);
+    position: relative;
+    background-image: url('LocumteleSubmark.png');
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.lt-logo-text-banner {
+    font-size: 1.25rem;
+    font-weight: var(--lt-font-weight-bold);
+    line-height: 1;
+}
+
+.lt-logo-text-banner .lt-locum {
+    color: var(--lt-gray-800);
+}
+
+.lt-logo-text-banner .lt-tele {
+    color: var(--lt-blue);
+}
+
+.lt-logo-text-banner .lt-org {
+    color: var(--lt-green);
+    font-size: 0.9em;
+}
+
+/* ===== PAGE HEADER ===== */
+.lt-page-header {
+    text-align: center;
+    padding: var(--lt-space-xl) 0;
+    margin-bottom: var(--lt-space-xl);
+    background: linear-gradient(135deg, var(--lt-blue) 0%, var(--lt-green) 100%);
+    color: white;
+    border-radius: var(--lt-radius-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.lt-page-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+}
+
+.lt-page-header > * {
+    position: relative;
+    z-index: 1;
+}
+
+.lt-page-header h1 {
+    font-size: 3rem;
+    font-weight: var(--lt-font-weight-bold);
+    margin-bottom: var(--lt-space-sm);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.lt-page-header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    font-weight: var(--lt-font-weight-medium);
+}
+
+/* ===== SECTION INTRO ===== */
+.lt-section-intro {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--lt-space-lg);
+    margin-bottom: var(--lt-space-xl);
+    padding: var(--lt-space-lg);
+    background: var(--lt-gray-50);
+    border-radius: var(--lt-radius-lg);
+    border-left: 4px solid var(--lt-blue);
+}
+
+.lt-section-robot {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--lt-shadow-md);
+    position: relative;
+    background-image: url('locumteleBot-Elle.png');
+    background-size: 50px 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.lt-section-robot::before {
+    content: "";
+    width: 50px;
+    height: 50px;
+    background-image: url('locumteleBot-Elle.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.lt-section-content {
+    flex: 1;
+}
+
+.lt-section-content h2 {
+    margin: 0 0 var(--lt-space-sm) 0;
+    color: var(--lt-gray-800);
+    font-size: 1.5rem;
+}
+
+.lt-section-content p {
+    margin: 0;
+    color: var(--lt-gray-600);
+    line-height: 1.6;
+}
+
 /* ===== HEADER & NAVIGATION ===== */
 .lt-header {
     background: linear-gradient(135deg, var(--lt-blue) 0%, var(--lt-green) 100%);
