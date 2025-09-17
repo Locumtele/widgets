@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar Embeds - LocumTele Widgets API</title>
+    <link rel="stylesheet" href="documentation/locumtele/brand/brand.css">
+    <style>
+        body {
+            background: var(--lt-gray-50);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .api-section {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .api-section h2 {
+            color: var(--lt-blue);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .api-endpoint {
+            background: var(--lt-gray-50);
+            border: 1px solid var(--lt-gray-200);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+        
+        .api-endpoint .method {
+            background: var(--lt-green);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .api-endpoint .url {
+            color: var(--lt-blue);
+            font-weight: bold;
+        }
+        
+        .back-link {
+            display: inline-block;
+            background: var(--lt-gray-600);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            transition: background 0.3s ease;
+        }
+        
+        .back-link:hover {
+            background: var(--lt-gray-700);
+        }
+        
+        .copy-button {
+            background: var(--lt-green);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+        
+        .copy-button:hover {
+            background: var(--lt-green-dark);
+        }
+        
+        .copy-button.copied {
+            background: var(--lt-blue);
+        }
+    </style>
+</head>
+<body class="lt-branded">
+    <!-- Top Banner -->
+    <div class="lt-banner">
+        <div class="lt-banner-content">
+            <div class="lt-logo-full-banner">
+                <div class="lt-logo-submark-banner"></div>
+                <div class="lt-logo-text-banner">
+                    <span class="lt-locum">Locum</span><span class="lt-tele">Tele</span><span class="lt-org">.org</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Back Link -->
+        <a href="api-portal.html" class="back-link">← Back to API Portal</a>
+        
+        <!-- Page Header -->
+        <header class="lt-page-header">
+            <h1>📅 Calendar Embeds</h1>
+            <p>Ready-to-use calendar booking widgets for integration into your existing forms and websites</p>
+        </header>
+        
+        <div class="api-section">
+            <h2 class="lt-card-title">Integration Instructions</h2>
+            <p style="text-align: center; margin-bottom: 30px; color: var(--lt-gray-600);">These are bare embeds that you can customize with your own redirect logic.</p>
+            
+            <div style="margin: 30px 0;">
+                <div style="background: var(--lt-gray-50); border-left: 4px solid var(--lt-blue); padding: 20px; margin: 20px 0; border-radius: 0 8px 8px 0;">
+                    <p style="margin: 0 0 15px 0; color: var(--lt-gray-700);"><strong>For clients using their own forms/sites:</strong></p>
+                    <ol style="margin: 0; padding-left: 20px; color: var(--lt-gray-600);">
+                        <li>Copy the embed code below for your desired calendar type</li>
+                        <li>Add your own redirect logic to send users to your confirmation page after booking</li>
+                        <li>Test the integration in your environment</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <div class="api-section">
+            <h2 class="lt-card-title">Available Calendar Types</h2>
+            
+            <div style="margin: 20px 0;">
+                <h3 style="color: var(--lt-gray-700); margin-bottom: 10px;">Anti-Aging Calendar</h3>
+                <div class="api-endpoint">
+                    <pre style="margin: 0; white-space: pre-wrap; word-wrap: break-word;"><code id="antiaging-code">&lt;iframe src="https://links.locumtele.org/widget/booking/HJlBJRhdQGBFql6tFR87" style="width: 100%;border:none;overflow: hidden;" scrolling="no" id="ZtlgYuXmx2zMzI1Bg8Gy_1758136388112"&gt;&lt;/iframe&gt;&lt;br&gt;&lt;script src="https://links.locumtele.org/js/form_embed.js" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
+                    <button class="copy-button" onclick="copyToClipboard('antiaging-code')">Copy Code</button>
+                </div>
+            </div>
+            
+            <div style="margin: 20px 0;">
+                <h3 style="color: var(--lt-gray-700); margin-bottom: 10px;">Hormone Calendar</h3>
+                <div class="api-endpoint">
+                    <pre style="margin: 0; white-space: pre-wrap; word-wrap: break-word;"><code id="hormone-code">&lt;iframe src="https://links.locumtele.org/widget/booking/RmYLtiT75TMvvlp6xdOx" style="width: 100%;border:none;overflow: hidden;" scrolling="no" id="ZtlgYuXmx2zMzI1Bg8Gy_1758136422895"&gt;&lt;/iframe&gt;&lt;br&gt;&lt;script src="https://links.locumtele.org/js/form_embed.js" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
+                    <button class="copy-button" onclick="copyToClipboard('hormone-code')">Copy Code</button>
+                </div>
+            </div>
+            
+            <div style="margin: 20px 0;">
+                <h3 style="color: var(--lt-gray-700); margin-bottom: 10px;">Hair & Skin Calendar</h3>
+                <div class="api-endpoint">
+                    <pre style="margin: 0; white-space: pre-wrap; word-wrap: break-word;"><code id="hairskin-code">&lt;iframe src="https://links.locumtele.org/widget/booking/Yh67z6dxQLygAeRlqcli" style="width: 100%;border:none;overflow: hidden;" scrolling="no" id="ZtlgYuXmx2zMzI1Bg8Gy_1758136443660"&gt;&lt;/iframe&gt;&lt;br&gt;&lt;script src="https://links.locumtele.org/js/form_embed.js" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
+                    <button class="copy-button" onclick="copyToClipboard('hairskin-code')">Copy Code</button>
+                </div>
+            </div>
+            
+            <div style="margin: 20px 0;">
+                <h3 style="color: var(--lt-gray-700); margin-bottom: 10px;">Sexual Health Calendar</h3>
+                <div class="api-endpoint">
+                    <pre style="margin: 0; white-space: pre-wrap; word-wrap: break-word;"><code id="sexualhealth-code">&lt;iframe src="https://links.locumtele.org/widget/booking/lvCAeU4olSi4hfUBUINS" style="width: 100%;border:none;overflow: hidden;" scrolling="no" id="ZtlgYuXmx2zMzI1Bg8Gy_1758136460575"&gt;&lt;/iframe&gt;&lt;br&gt;&lt;script src="https://links.locumtele.org/js/form_embed.js" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
+                    <button class="copy-button" onclick="copyToClipboard('sexualhealth-code')">Copy Code</button>
+                </div>
+            </div>
+            
+            <div style="margin: 20px 0;">
+                <h3 style="color: var(--lt-gray-700); margin-bottom: 10px;">Weight Loss Calendar</h3>
+                <div class="api-endpoint">
+                    <pre style="margin: 0; white-space: pre-wrap; word-wrap: break-word;"><code id="weightloss-code">&lt;iframe src="https://links.locumtele.org/widget/booking/mEx94HgKARvgePBFbzS0" style="width: 100%;border:none;overflow: hidden;" scrolling="no" id="ZtlgYuXmx2zMzI1Bg8Gy_1758136473765"&gt;&lt;/iframe&gt;&lt;br&gt;&lt;script src="https://links.locumtele.org/js/form_embed.js" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
+                    <button class="copy-button" onclick="copyToClipboard('weightloss-code')">Copy Code</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="api-section">
+            <h2 class="lt-card-title">Customization Notes</h2>
+            <ul style="margin: 15px 0; padding-left: 20px; color: var(--lt-gray-600);">
+                <li><strong>Redirect Configuration:</strong> You'll need to configure the redirect URL in your booking system settings</li>
+                <li><strong>Styling:</strong> Modify the iframe style attributes to match your website's design</li>
+                <li><strong>Responsive Design:</strong> Consider adding responsive breakpoints for mobile devices</li>
+                <li><strong>Testing:</strong> Always test the complete booking flow in your environment</li>
+            </ul>
+        </div>
+        
+        <footer class="lt-footer">
+            <div class="lt-footer-content">
+                <div class="lt-footer-brand">
+                    <div class="lt-footer-logo">
+                        <div style="width: 20px; height: 20px; background: linear-gradient(45deg, #34C759 25%, #007AFF 25%, #007AFF 50%, #34C759 50%, #34C759 75%, #007AFF 75%); border-radius: 3px;"></div>
+                    </div>
+                    <span>LocumTele.org</span>
+                </div>
+                <div class="lt-footer-links">
+                    <a href="api-portal.html" class="lt-footer-link">API Portal</a>
+                </div>
+                <p>Built with ❤️ for healthcare providers</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            
+            navigator.clipboard.writeText(text).then(function() {
+                const button = element.nextElementSibling;
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Could not copy text: ', err);
+                alert('Failed to copy to clipboard');
+            });
+        }
+    </script>
+</body>
+</html>
