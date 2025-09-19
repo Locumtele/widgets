@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resources Dashboard - LocumTele</title>
+    <title>Widget Dashboard - LocumTele</title>
     <link rel="stylesheet" href="documentation/locumtele/brand/brand.css">
     <link rel="stylesheet" href="documentation/locumtele/brand/dashboard-framework.css">
     <link rel="stylesheet" href="documentation/locumtele/brand/sites-consolidated.css">
@@ -370,8 +370,8 @@
 
         <!-- Top Navigation Bar -->
         <div class="dashboard-header">
-            <h1 id="page-title">🏥 Resources Dashboard</h1>
-            <p class="page-description" id="page-description">Forms Management for Healthcare Resources</p>
+            <h1 id="page-title">🏥 Widget Dashboard</h1>
+            <p class="page-description" id="page-description">Forms Management for Healthcare Widgets</p>
         </div>
         
         <!-- Main Content Area -->
@@ -443,10 +443,10 @@
             
             // Set page-specific titles and descriptions
             if (pageId === 'dashboard') {
-                topNavbar.innerHTML = '🏥 Resources Dashboard';
-                pageDescription.textContent = 'Forms Management for Healthcare Resources';
+                topNavbar.innerHTML = '🏥 Widget Dashboard';
+                pageDescription.textContent = 'Forms Management for Healthcare Widgets';
             } else if (pageId === 'forms') {
-                topNavbar.innerHTML = '🏥 Resources Dashboard <span style="opacity: 0.7;">/</span> 📋 Forms';
+                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 📋 Forms';
                 pageDescription.textContent = 'Manage and view all form data from Notion';
                 // Auto-expand Forms submenu
                 const formsLink = document.querySelector('.dashboard-nav-link.has-submenu');
@@ -457,7 +457,7 @@
                     arrow.classList.add('rotated');
                 }
             } else if (pageId === 'screeners') {
-                topNavbar.innerHTML = '🏥 Resources Dashboard <span style="opacity: 0.7;">/</span> 📝 Screeners';
+                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 📝 Screeners';
                 pageDescription.textContent = 'Patient screening forms and data management';
                 // Auto-expand Forms submenu
                 const formsLink = document.querySelector('.dashboard-nav-link.has-submenu');
@@ -468,7 +468,7 @@
                     arrow.classList.add('rotated');
                 }
             } else if (pageId === 'reassessments') {
-                topNavbar.innerHTML = '🏥 Resources Dashboard <span style="opacity: 0.7;">/</span> 🔄 Reassessments';
+                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🔄 Reassessments';
                 pageDescription.textContent = 'Patient reassessment forms and follow-up data';
                 // Auto-expand Forms submenu
                 const formsLink = document.querySelector('.dashboard-nav-link.has-submenu');
@@ -479,11 +479,11 @@
                     arrow.classList.add('rotated');
                 }
             } else if (pageId === 'admin') {
-                topNavbar.innerHTML = '🏥 Resources Dashboard <span style="opacity: 0.7;">/</span> ⚙️ Admin';
+                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> ⚙️ Admin';
                 pageDescription.textContent = 'System administration and data management controls';
             } else if (pageId === 'support') {
-                topNavbar.innerHTML = '🏥 Resources Dashboard <span style="opacity: 0.7;">/</span> 🆘 Support';
-                pageDescription.textContent = 'Get help with LocumTele resources, forms, and technical support';
+                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🆘 Support';
+                pageDescription.textContent = 'Get help with LocumTele widgets, forms, and technical support';
             }
                 
                 // Trigger animations
