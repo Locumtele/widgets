@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{DASHBOARD_TITLE}} - LocumTele</title>
+    <link rel="stylesheet" href="documentation/locumtele/brand/brand.css">
+    <link rel="stylesheet" href="documentation/locumtele/brand/dashboard-framework.css">
+    <link rel="stylesheet" href="documentation/locumtele/brand/sites-consolidated.css">
+</head>
+<body class="lt-branded">
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <nav class="dashboard-sidebar" id="sidebar">
+            <div class="logo">
+                <img src="documentation/locumtele/brand/locumteleLogo.png" alt="LocumTele Logo">
+            </div>
+            <ul class="dashboard-nav">
+                {{NAVIGATION_ITEMS}}
+            </ul>
+        </nav>
+        
+        <!-- Top Navigation Bar -->
+        <div class="dashboard-header">
+            <h1>{{HEADER_TITLE}}</h1>
+            <p class="page-description">{{HEADER_DESCRIPTION}}</p>
+        </div>
+        
+        <!-- Main Content Area -->
+        <div class="dashboard-content">
+            <div class="dashboard-container">
+                <!-- Dynamic Page Content -->
+                <div id="page-content" class="dashboard-page-content">
+                    <!-- Content will be loaded here dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="dashboard-mobile-toggle" onclick="toggleSidebar()">☰</button>
+
+    <script>
+        // Dashboard configuration - customize these values
+        const DASHBOARD_CONFIG = {
+            title: "{{DASHBOARD_TITLE}}",
+            headerTitle: "{{HEADER_TITLE}}",
+            headerDescription: "{{HEADER_DESCRIPTION}}",
+            pages: {
+                // Define your pages here
+                // Example:
+                // 'dashboard': { title: 'Dashboard', description: 'Main dashboard' },
+                // 'page1': { title: 'Page 1', description: 'First page' }
+            }
+        };
+
+        // Load page content dynamically
+        async function loadPage(pageId, clickedElement = null) {
+            try {
+                console.log('Loading page:', pageId);
+                // Show loading state
+                const pageContent = document.getElementById('page-content');
+                pageContent.innerHTML = '<div class="dashboard-loading"><div class="dashboard-spinner"></div><p>Loading...</p></div>';
+                
+                // Load the page content
+                const response = await fetch(`pages/{{PAGE_DIRECTORY}}/${pageId}.html`);
+                if (!response.ok) {
+                    throw new Error(`Failed to load page: ${pageId}`);
+                }
+                
+                const content = await response.text();
+                pageContent.innerHTML = content;
+                
+                // Update active menu item
+                const menuLinks = document.querySelectorAll('.dashboard-nav-link');
+                menuLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                if (clickedElement) {
+                    clickedElement.classList.add('active');
+                }
+                
+                // Update header based on page
+                const header = document.querySelector('.dashboard-header h1');
+                const description = document.querySelector('.dashboard-header .page-description');
+                
+                if (DASHBOARD_CONFIG.pages[pageId]) {
+                    header.innerHTML = DASHBOARD_CONFIG.pages[pageId].title;
+                    description.textContent = DASHBOARD_CONFIG.pages[pageId].description;
+                } else {
+                    header.innerHTML = DASHBOARD_CONFIG.headerTitle;
+                    description.textContent = DASHBOARD_CONFIG.headerDescription;
+                }
+                
+                // Trigger animations
+                const animatedElements = pageContent.querySelectorAll('.dashboard-animate, .site-animate-on-load');
+                animatedElements.forEach((element, index) => {
+                    element.style.opacity = '1';
+                    element.style.animation = 'dashboard-fadeInUp 0.6s ease-out forwards';
+                });
+                
+                // Initialize page-specific functionality
+                if (typeof initializePage === 'function') {
+                    setTimeout(() => {
+                        initializePage(pageId);
+                    }, 100);
+                }
+                
+            } catch (error) {
+                console.error('Error loading page:', error);
+                pageContent.innerHTML = `
+                    <div class="dashboard-card" style="text-align: center; padding: 2rem;">
+                        <h2>Error Loading Page</h2>
+                        <p>Sorry, there was an error loading the ${pageId} page. Please try again.</p>
+                        <a href="#" class="dashboard-btn dashboard-btn-primary" onclick="loadPage('dashboard')">Return to Dashboard</a>
+                    </div>
+                `;
+            }
+        }
+        
+        function loadPageAndToggleSubmenu(pageId, event) {
+            // Prevent default behavior
+            event.preventDefault();
+            
+            // First load the page
+            loadPage(pageId, event.target);
+            
+            // Only toggle the submenu if the page doesn't auto-expand it
+            const autoExpandPages = ['api-docs', 'screeners', 'reassessments'];
+            if (!autoExpandPages.includes(pageId)) {
+                toggleSubmenu(event);
+            }
+        }
+        
+        function toggleSubmenu(event) {
+            event.preventDefault();
+            const submenu = event.target.nextElementSibling;
+            const arrow = event.target.querySelector('.dashboard-nav-arrow');
+            
+            if (submenu && arrow) {
+                submenu.classList.toggle('open');
+                arrow.classList.toggle('rotated');
+            }
+        }
+        
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+        
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.querySelector('.dashboard-mobile-toggle');
+            
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(event.target) && 
+                !toggle.contains(event.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+        
+        // Prevent unwanted navigation
+        document.addEventListener('click', function(event) {
+            if (event.target.matches('a[onclick*="loadPage"]') && 
+                !event.target.matches('a[onclick*="loadPageAndToggleSubmenu"]')) {
+                event.preventDefault();
+            }
+        });
+        
+        // Global utility functions
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            
+            navigator.clipboard.writeText(text).then(function() {
+                const button = element.nextElementSibling;
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.background = 'var(--lt-blue)';
+                
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.style.background = '';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Could not copy text: ', err);
+                alert('Failed to copy to clipboard');
+            });
+        }
+        
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load default page
+            const defaultPage = '{{DEFAULT_PAGE}}' || 'dashboard';
+            loadPage(defaultPage);
+        });
+    </script>
+</body>
+</html>

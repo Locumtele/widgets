@@ -5,43 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LocumTele Integration Dashboard</title>
     <link rel="stylesheet" href="documentation/locumtele/brand/brand.css">
-    <link rel="stylesheet" href="documentation/locumtele/brand/sites.css">
+    <link rel="stylesheet" href="documentation/locumtele/brand/dashboard-framework.css">
+    <link rel="stylesheet" href="documentation/locumtele/brand/sites-consolidated.css">
 </head>
-<body class="lt-branded site-page-background">
-    <div class="site-layout">
+<body class="lt-branded">
+    <div class="dashboard-layout">
         <!-- Sidebar Navigation -->
-        <nav class="site-sidebar" id="sidebar">
+        <nav class="dashboard-sidebar" id="sidebar">
             <div class="logo">
                 <img src="documentation/locumtele/brand/locumteleLogo.png" alt="LocumTele Logo">
             </div>
-            <ul class="site-nav-menu">
-                <li class="site-nav-item">
-                    <a href="#" class="site-nav-link active" onclick="loadPage('dashboard', this)">Dashboard</a>
+            <ul class="dashboard-nav">
+                <li class="dashboard-nav-item">
+                    <a href="#" class="dashboard-nav-link active" onclick="loadPage('dashboard', this)">🏠 Dashboard</a>
                 </li>
-                <li class="site-nav-item">
-                    <a href="#" class="site-nav-link has-submenu" onclick="event.preventDefault(); loadPageAndToggleSubmenu('api-docs', event)">
-                        API Docs
-                        <span class="site-nav-arrow">▶</span>
+                <li class="dashboard-nav-item">
+                    <a href="#" class="dashboard-nav-link has-submenu" onclick="event.preventDefault(); loadPageAndToggleSubmenu('api-docs', event)">
+                        📚 API Docs
+                        <span class="dashboard-nav-arrow">▶</span>
                     </a>
-                    <ul class="site-nav-submenu">
-                        <li class="site-nav-item">
-                            <a href="#" class="site-nav-link" onclick="loadPage('screeners', this)">Screeners</a>
+                    <ul class="dashboard-nav-submenu">
+                        <li class="dashboard-nav-item">
+                            <a href="#" class="dashboard-nav-link" onclick="loadPage('screeners', this)">📝 Screeners</a>
                         </li>
-                        <li class="site-nav-item">
-                            <a href="#" class="site-nav-link" onclick="loadPage('reassessments', this)">Reassessments</a>
+                        <li class="dashboard-nav-item">
+                            <a href="#" class="dashboard-nav-link" onclick="loadPage('reassessments', this)">🔄 Reassessments</a>
                         </li>
                     </ul>
                 </li>
-                <li class="site-nav-item">
-                    <a href="#" class="site-nav-link" onclick="loadPage('calendar', this)">Calendars</a>
+                <li class="dashboard-nav-item">
+                    <a href="#" class="dashboard-nav-link" onclick="loadPage('calendar', this)">📅 Calendars</a>
                 </li>
-                <li class="site-nav-item">
-                    <a href="#" class="site-nav-link" onclick="loadPage('support', this)">Support</a>
+                <li class="dashboard-nav-item">
+                    <a href="#" class="dashboard-nav-link" onclick="loadPage('support', this)">🆘 Support</a>
                 </li>
-                <li class="site-nav-item elle-support">
-                    <a href="#" class="elle-container" onclick="loadPage('support', this)">
-                        <img src="documentation/locumtele/brand/locumteleBot-Elle_blue.jpg" alt="Elle" class="elle-image">
-                        <div class="talk-bubble">
+                <li class="dashboard-nav-item dashboard-elle-support">
+                    <a href="#" class="dashboard-elle-container" onclick="loadPage('support', this)">
+                        <img src="documentation/locumtele/brand/locumteleBot-Elle_blue.jpg" alt="Elle" class="dashboard-elle-image">
+                        <div class="dashboard-talk-bubble">
                             <span>Need help?</span>
                         </div>
                     </a>
@@ -50,16 +51,16 @@
         </nav>
         
         <!-- Top Navigation Bar -->
-        <div class="site-top-navbar">
+        <div class="dashboard-header">
             <h1>🏥 Integration Dashboard</h1>
             <p class="page-description">API Documentation & Integration Resources for Healthcare Providers</p>
         </div>
         
         <!-- Main Content Area -->
-        <div class="site-content-area">
-            <div class="site-container">
+        <div class="dashboard-content">
+            <div class="dashboard-container">
                 <!-- Dynamic Page Content -->
-                <div id="page-content" class="page-content">
+                <div id="page-content" class="dashboard-page-content">
                     <!-- Content will be loaded here dynamically -->
                 </div>
             </div>
@@ -67,7 +68,7 @@
     </div>
 
     <!-- Mobile Menu Toggle -->
-    <button class="site-mobile-menu-toggle" onclick="toggleSidebar()">☰</button>
+    <button class="dashboard-mobile-toggle" onclick="toggleSidebar()">☰</button>
 
     <script>
         // Load page content dynamically
@@ -76,7 +77,7 @@
                 console.log('Loading page:', pageId);
                 // Show loading state
                 const pageContent = document.getElementById('page-content');
-                pageContent.innerHTML = '<div style="text-align: center; padding: 2rem;"><div class="lt-spinner"></div><p>Loading...</p></div>';
+                pageContent.innerHTML = '<div class="dashboard-loading"><div class="dashboard-spinner"></div><p>Loading...</p></div>';
                 
                 // Load the page content
                 const response = await fetch(`pages/integrations/${pageId}.html`);
@@ -88,7 +89,7 @@
                 pageContent.innerHTML = content;
                 
                 // Update active menu item
-                const menuLinks = document.querySelectorAll('.site-nav-link');
+                const menuLinks = document.querySelectorAll('.dashboard-nav-link');
                 menuLinks.forEach(link => {
                     link.classList.remove('active');
                 });
@@ -106,8 +107,8 @@
                 }
                 
             // Update top navbar title and description
-            const topNavbar = document.querySelector('.site-top-navbar h1');
-            const pageDescription = document.querySelector('.site-top-navbar .page-description');
+            const topNavbar = document.querySelector('.dashboard-header h1');
+            const pageDescription = document.querySelector('.dashboard-header .page-description');
             
             // Set page-specific titles and descriptions
             if (pageId === 'dashboard') {
@@ -117,9 +118,9 @@
                 topNavbar.innerHTML = '🏥 Integration Dashboard <span style="opacity: 0.7;">/</span> 📚 API Documentation';
                 pageDescription.textContent = 'Complete API reference with examples, field descriptions, and integration guides';
                 // Auto-expand API Docs submenu
-                const apiDocsLink = document.querySelector('.site-nav-link.has-submenu');
+                const apiDocsLink = document.querySelector('.dashboard-nav-link.has-submenu');
                 const submenu = apiDocsLink.nextElementSibling;
-                const arrow = apiDocsLink.querySelector('.site-nav-arrow');
+                const arrow = apiDocsLink.querySelector('.dashboard-nav-arrow');
                 if (submenu && arrow) {
                     submenu.classList.add('open');
                     arrow.classList.add('rotated');
@@ -128,9 +129,9 @@
                 topNavbar.innerHTML = '🏥 Integration Dashboard <span style="opacity: 0.7;">/</span> 📝 Screeners';
                 pageDescription.textContent = 'Submit patient screening data from your custom forms to our centralized processing system';
                 // Auto-expand API Docs submenu
-                const apiDocsLink = document.querySelector('.site-nav-link.has-submenu');
+                const apiDocsLink = document.querySelector('.dashboard-nav-link.has-submenu');
                 const submenu = apiDocsLink.nextElementSibling;
-                const arrow = apiDocsLink.querySelector('.site-nav-arrow');
+                const arrow = apiDocsLink.querySelector('.dashboard-nav-arrow');
                 if (submenu && arrow) {
                     submenu.classList.add('open');
                     arrow.classList.add('rotated');
@@ -139,9 +140,9 @@
                 topNavbar.innerHTML = '🏥 Integration Dashboard <span style="opacity: 0.7;">/</span> 🔄 Reassessments';
                 pageDescription.textContent = 'Patient follow-up and reassessment tools for ongoing care management';
                 // Auto-expand API Docs submenu
-                const apiDocsLink = document.querySelector('.site-nav-link.has-submenu');
+                const apiDocsLink = document.querySelector('.dashboard-nav-link.has-submenu');
                 const submenu = apiDocsLink.nextElementSibling;
-                const arrow = apiDocsLink.querySelector('.site-nav-arrow');
+                const arrow = apiDocsLink.querySelector('.dashboard-nav-arrow');
                 if (submenu && arrow) {
                     submenu.classList.add('open');
                     arrow.classList.add('rotated');
@@ -180,10 +181,10 @@
             } catch (error) {
                 console.error('Error loading page:', error);
                 pageContent.innerHTML = `
-                    <div class="lt-card" style="text-align: center; padding: 2rem;">
+                    <div class="dashboard-card" style="text-align: center; padding: 2rem;">
                         <h2>Error Loading Page</h2>
                         <p>Sorry, there was an error loading the ${pageId} page. Please try again.</p>
-                        <a href="#" class="lt-btn lt-btn-primary" onclick="loadPage('dashboard')">Return to Dashboard</a>
+                        <a href="#" class="dashboard-btn dashboard-btn-primary" onclick="loadPage('dashboard')">Return to Dashboard</a>
                     </div>
                 `;
             }
@@ -196,14 +197,18 @@
             // First load the page
             loadPage(pageId, event.target);
             
-            // Then toggle the submenu
-            toggleSubmenu(event);
+            // Only toggle the submenu if the page doesn't auto-expand it
+            // Pages that auto-expand: 'api-docs', 'screeners', 'reassessments'
+            const autoExpandPages = ['api-docs', 'screeners', 'reassessments'];
+            if (!autoExpandPages.includes(pageId)) {
+                toggleSubmenu(event);
+            }
         }
         
         function toggleSubmenu(event) {
             event.preventDefault();
             const submenu = event.target.nextElementSibling;
-            const arrow = event.target.querySelector('.site-nav-arrow');
+            const arrow = event.target.querySelector('.dashboard-nav-arrow');
             
             if (submenu && arrow) {
                 submenu.classList.toggle('open');
@@ -219,7 +224,7 @@
         // Close sidebar when clicking outside on mobile
         document.addEventListener('click', function(event) {
             const sidebar = document.getElementById('sidebar');
-            const toggle = document.querySelector('.site-mobile-menu-toggle');
+            const toggle = document.querySelector('.dashboard-mobile-toggle');
             
             if (window.innerWidth <= 768 && 
                 !sidebar.contains(event.target) && 
@@ -231,7 +236,9 @@
         // Prevent unwanted navigation
         document.addEventListener('click', function(event) {
             // If clicking on a link that should load a page dynamically
-            if (event.target.matches('a[onclick*="loadPage"]')) {
+            // But exclude submenu toggle links to avoid interfering with submenu functionality
+            if (event.target.matches('a[onclick*="loadPage"]') && 
+                !event.target.matches('a[onclick*="loadPageAndToggleSubmenu"]')) {
                 event.preventDefault();
             }
         });

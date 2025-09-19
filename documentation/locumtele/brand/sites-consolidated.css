@@ -1,14 +1,14 @@
 /**
- * LocumTele Sites Stylesheet
+ * LocumTele Sites Stylesheet - Consolidated
  * 
  * This stylesheet contains site-specific styles for documentation pages,
- * dashboards, and other site layouts. It works alongside brand.css to
- * provide complete styling for LocumTele sites.
+ * dashboards, and other site layouts. It works alongside brand.css and
+ * dashboard-framework.css to provide complete styling for LocumTele sites.
  * 
- * Usage: Include this after brand.css in your HTML pages
+ * Usage: Include this after brand.css and dashboard-framework.css in your HTML pages
  */
 
-/* ===== SITE LAYOUT ===== */
+/* ===== LEGACY SITE LAYOUT (for backward compatibility) ===== */
 .site-layout {
     display: flex;
     min-height: 100vh;
@@ -82,15 +82,13 @@
     margin-top: 100px;
 }
 
-/* Gradient header styling is now in the navigation bar */
-
 .site-container {
     max-width: none;
     margin: 0;
     padding: 0;
 }
 
-/* ===== NAVIGATION MENU ===== */
+/* ===== LEGACY NAVIGATION MENU (for backward compatibility) ===== */
 .site-nav-menu {
     list-style: none;
     padding: 0;
@@ -371,8 +369,6 @@
     display: none; /* Hide since nav bar now has gradient */
 }
 
-/* Hero sections are now handled by the navigation bar */
-
 /* ===== UTILITY CLASSES ===== */
 .site-page-background {
     background: var(--lt-gray-100);
@@ -380,24 +376,7 @@
     padding: 0;
 }
 
-/* ===== SCREENERS PAGE STYLES ===== */
-.lt-code {
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 6px;
-    padding: 1rem;
-    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    font-size: 0.875rem;
-    line-height: 1.5;
-    overflow-x: auto;
-    margin: 1rem 0;
-}
-
-.lt-code pre {
-    margin: 0;
-    white-space: pre-wrap;
-}
-
+/* ===== API DOCUMENTATION STYLES ===== */
 .lt-api-section {
     margin: 1rem 0;
     padding: 1.5rem;
@@ -891,103 +870,3 @@
     font-style: italic;
     margin: 1rem 0;
 }
-
-/* ===== ELLE SUPPORT SECTION ===== */
-.elle-support {
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    right: 0;
-    padding: 0 20px;
-}
-
-.elle-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: row;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    text-decoration: none;
-    color: inherit;
-}
-
-.elle-container:hover {
-    transform: scale(1.02);
-}
-
-.elle-image {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    transition: box-shadow 0.3s ease;
-    flex-shrink: 0;
-}
-
-.elle-container:hover .elle-image {
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-}
-
-.talk-bubble {
-    position: absolute;
-    left: 80px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: var(--lt-blue);
-    color: white;
-    padding: 8px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    white-space: nowrap;
-    opacity: 1;
-    visibility: visible;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    z-index: 10;
-    margin-left: 10px;
-}
-
-.talk-bubble::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: -6px;
-    transform: translateY(-50%);
-    border: 6px solid transparent;
-    border-right-color: var(--lt-blue);
-}
-
-/* Mobile responsiveness for Elle */
-@media (max-width: 768px) {
-    .elle-support {
-        position: relative;
-        bottom: auto;
-        padding: 20px;
-        border-top: 1px solid var(--lt-gray-200);
-        margin-top: 20px;
-    }
-    
-    .elle-container {
-        justify-content: center;
-    }
-    
-    .elle-image {
-        width: 50px;
-        height: 50px;
-    }
-    
-    .talk-bubble {
-        position: relative;
-        left: auto;
-        top: auto;
-        transform: none;
-        margin-left: 10px;
-        font-size: 0.8rem;
-        padding: 6px 10px;
-    }
-}
-
