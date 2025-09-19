@@ -3,39 +3,37 @@
     <p>Copy and paste these embed codes to add calendar widgets to your website. These widgets help patients schedule consultations and appointments.</p>
 </div>
 
-<div class="dashboard-card">
-    <h3>🎯 Calendar Widget System</h3>
-    <p>Calendar widgets provide interactive scheduling interfaces for patients to book consultations and appointments.</p>
-    
-    <div class="form-group">
-        <label class="form-label">Basic Calendar Widget Embed Code:</label>
-        <div class="code-block">
-            <pre><code>&lt;!-- Calendar Widget System --&gt;
-&lt;link rel="stylesheet" href="https://locumtele.github.io/widgets/forms/components/universalFormStyle.css"&gt;
-&lt;script src="https://locumtele.github.io/widgets/forms/components/universalFormLoader.js"&gt;&lt;/script&gt;
+<!-- Loading State -->
+<div id="forms-loading" class="dashboard-card" style="display: none;">
+    <div class="dashboard-loading">
+        <div class="dashboard-spinner"></div>
+        <p>Loading calendar widgets...</p>
+    </div>
+</div>
 
-&lt;div id="calendar-container"&gt;&lt;/div&gt;
+<!-- Error State -->
+<div id="forms-error" class="dashboard-card" style="display: none;">
+    <div class="error">
+        <h3>Error Loading Calendar Widgets</h3>
+        <p>There was an error loading the calendar widgets. Please try again.</p>
+    </div>
+</div>
 
-&lt;script&gt;
-    // Calendar widget configuration
-    const calendarConfig = {
-        title: "Schedule Your Consultation",
-        type: "calendar",
-        category: "weightloss", // weightloss, hormone, antiaging, sexual, hairskin
-        consultationTypes: ["sync", "async"],
-        availableStates: ["all"], // or specific state codes
-        timezone: "America/New_York",
-        businessHours: {
-            start: "09:00",
-            end: "17:00",
-            days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-        }
-    };
+<!-- Success State -->
+<div id="forms-success" class="dashboard-card" style="display: none;">
+    <div class="success">
+        <h3>Calendar Widgets Loaded Successfully</h3>
+        <p>All calendar widgets have been loaded and embed codes are ready.</p>
+    </div>
+</div>
+
+<!-- Forms Content -->
+<div id="forms-content" class="dashboard-card">
+    <h3>🎯 Available Calendar Widgets</h3>
+    <p>Click on any calendar widget below to see its ready-to-copy embed code.</p>
     
-    // Generate calendar widget
-    await window.generateCalendarWidget(calendarConfig, 'calendar-container');
-&lt;/script&gt;</code></pre>
-        </div>
+    <div id="forms-list">
+        <!-- Calendar widgets will be loaded here dynamically -->
     </div>
 </div>
 

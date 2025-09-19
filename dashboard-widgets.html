@@ -534,20 +534,6 @@
                     <a href="#" class="dashboard-nav-link active" onclick="loadPage('dashboard', this)">🏠 Dashboard</a>
                 </li>
                 <li class="dashboard-nav-item">
-                    <a href="#" class="dashboard-nav-link has-submenu" onclick="event.preventDefault(); loadPageAndToggleSubmenu('forms', event)">
-                        🗄️ Database
-                        <span class="dashboard-nav-arrow">▶</span>
-                    </a>
-                    <ul class="dashboard-nav-submenu">
-                        <li class="dashboard-nav-item">
-                            <a href="#" class="dashboard-nav-link" onclick="loadPage('db-screeners', this)">📝 Screeners</a>
-                        </li>
-                        <li class="dashboard-nav-item">
-                            <a href="#" class="dashboard-nav-link" onclick="loadPage('db-reassessments', this)">🔄 Reassessments</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dashboard-nav-item">
                     <a href="#" class="dashboard-nav-link has-submenu" onclick="event.preventDefault(); loadPageAndToggleSubmenu('assets', event)">
                         🎯 Assets
                         <span class="dashboard-nav-arrow">▶</span>
@@ -561,6 +547,20 @@
                         </li>
                         <li class="dashboard-nav-item">
                             <a href="#" class="dashboard-nav-link" onclick="loadPage('assets-calendars', this)">📅 Calendars</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dashboard-nav-item">
+                    <a href="#" class="dashboard-nav-link has-submenu" onclick="event.preventDefault(); loadPageAndToggleSubmenu('forms', event)">
+                        🗄️ Database
+                        <span class="dashboard-nav-arrow">▶</span>
+                    </a>
+                    <ul class="dashboard-nav-submenu">
+                        <li class="dashboard-nav-item">
+                            <a href="#" class="dashboard-nav-link" onclick="loadPage('db-screeners', this)">📝 Screeners</a>
+                        </li>
+                        <li class="dashboard-nav-item">
+                            <a href="#" class="dashboard-nav-link" onclick="loadPage('db-reassessments', this)">🔄 Reassessments</a>
                         </li>
                     </ul>
                 </li>
@@ -669,10 +669,11 @@
             } else if (pageId === 'db-screeners') {
                 topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🗄️ Database <span style="opacity: 0.7;">/</span> 📝 Screeners';
                 pageDescription.textContent = 'Patient screening forms and data management';
-                // Auto-expand Forms submenu
-                const formsLink = document.querySelector('.dashboard-nav-link.has-submenu');
-                const submenu = formsLink.nextElementSibling;
-                const arrow = formsLink.querySelector('.dashboard-nav-arrow');
+                // Auto-expand Database submenu
+                const databaseLinks = document.querySelectorAll('.dashboard-nav-link.has-submenu');
+                const databaseLink = databaseLinks[1]; // Second submenu (Database)
+                const submenu = databaseLink.nextElementSibling;
+                const arrow = databaseLink.querySelector('.dashboard-nav-arrow');
                 if (submenu && arrow) {
                     submenu.classList.add('open');
                     arrow.classList.add('rotated');
@@ -680,10 +681,11 @@
             } else if (pageId === 'db-reassessments') {
                 topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🗄️ Database <span style="opacity: 0.7;">/</span> 🔄 Reassessments';
                 pageDescription.textContent = 'Patient reassessment forms and follow-up data';
-                // Auto-expand Forms submenu
-                const formsLink = document.querySelector('.dashboard-nav-link.has-submenu');
-                const submenu = formsLink.nextElementSibling;
-                const arrow = formsLink.querySelector('.dashboard-nav-arrow');
+                // Auto-expand Database submenu
+                const databaseLinks = document.querySelectorAll('.dashboard-nav-link.has-submenu');
+                const databaseLink = databaseLinks[1]; // Second submenu (Database)
+                const submenu = databaseLink.nextElementSibling;
+                const arrow = databaseLink.querySelector('.dashboard-nav-arrow');
                 if (submenu && arrow) {
                     submenu.classList.add('open');
                     arrow.classList.add('rotated');
@@ -693,7 +695,7 @@
                 pageDescription.textContent = 'Embed codes and tracking scripts for screener forms';
                 // Auto-expand Assets submenu
                 const assetsLinks = document.querySelectorAll('.dashboard-nav-link.has-submenu');
-                const assetsLink = assetsLinks[1]; // Second submenu (Assets)
+                const assetsLink = assetsLinks[0]; // First submenu (Assets)
                 const submenu = assetsLink.nextElementSibling;
                 const arrow = assetsLink.querySelector('.dashboard-nav-arrow');
                 if (submenu && arrow) {
@@ -705,7 +707,7 @@
                 pageDescription.textContent = 'Embed codes and tracking scripts for reassessment forms';
                 // Auto-expand Assets submenu
                 const assetsLinks = document.querySelectorAll('.dashboard-nav-link.has-submenu');
-                const assetsLink = assetsLinks[1]; // Second submenu (Assets)
+                const assetsLink = assetsLinks[0]; // First submenu (Assets)
                 const submenu = assetsLink.nextElementSibling;
                 const arrow = assetsLink.querySelector('.dashboard-nav-arrow');
                 if (submenu && arrow) {
@@ -717,7 +719,7 @@
                 pageDescription.textContent = 'Embed codes and tracking scripts for calendar widgets';
                 // Auto-expand Assets submenu
                 const assetsLinks = document.querySelectorAll('.dashboard-nav-link.has-submenu');
-                const assetsLink = assetsLinks[1]; // Second submenu (Assets)
+                const assetsLink = assetsLinks[0]; // First submenu (Assets)
                 const submenu = assetsLink.nextElementSibling;
                 const arrow = assetsLink.querySelector('.dashboard-nav-arrow');
                 if (submenu && arrow) {
