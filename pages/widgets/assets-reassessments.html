@@ -297,17 +297,52 @@ code {
     color: #f57c00;
 }
 
-.embed-code {
-    display: none;
+.embed-code-box {
     margin-top: 1rem;
+    background: white;
+    border: 2px solid #007bff;
+    border-radius: 8px;
     padding: 1rem;
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.embed-code.active {
+.embed-code-header {
+    margin-bottom: 1rem;
+}
+
+.loading-text {
     display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.25rem;
+}
+
+.loading-subtext {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.code-container {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+}
+
+.embed-code-text {
+    flex: 1;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #f8f9fa;
+    resize: vertical;
+    min-height: 100px;
+    max-height: 300px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .copy-button {
@@ -318,8 +353,9 @@ code {
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.9rem;
-    margin-bottom: 1rem;
     transition: background 0.2s ease;
+    flex-shrink: 0;
+    height: fit-content;
 }
 
 .copy-button:hover {
@@ -328,17 +364,6 @@ code {
 
 .copy-button.copied {
     background: #28a745;
-}
-
-.embed-code pre {
-    margin: 0;
-    font-family: 'Courier New', monospace;
-    font-size: 0.85rem;
-    line-height: 1.4;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    background: none;
-    padding: 0;
 }
 </style>
 
@@ -483,7 +508,7 @@ function renderFormsList() {
     }
 
     const formsHTML = reassessmentForms.map(form => `
-        <div class="form-item" onclick="toggleFormEmbed('${form.id}')">
+        <div class="form-item">
             <div class="form-header">
                 <h4 class="form-title">${form.title}</h4>
                 <div class="form-meta">
@@ -494,9 +519,15 @@ function renderFormsList() {
                 </div>
             </div>
             
-            <div class="embed-code" id="embed-${form.id}">
-                <button class="copy-button" onclick="copyEmbedCode('${form.id}')">Copy Embed Code</button>
-                <pre><code>${generateEmbedCode(form)}</code></pre>
+            <div class="embed-code-box">
+                <div class="embed-code-header">
+                    <span class="loading-text">Loading ${form.title.toLowerCase()}...</span>
+                    <span class="loading-subtext">Ready to copy embed code</span>
+                </div>
+                <div class="code-container">
+                    <textarea class="embed-code-text" readonly>${generateEmbedCode(form)}</textarea>
+                    <button class="copy-button" onclick="copyEmbedCode('${form.id}')">Copy</button>
+                </div>
             </div>
         </div>
     `).join('');
@@ -504,28 +535,6 @@ function renderFormsList() {
     container.innerHTML = formsHTML;
 }
 
-// Toggle form embed code
-function toggleFormEmbed(formId) {
-    const formItem = document.querySelector(`[onclick="toggleFormEmbed('${formId}')"]`);
-    const embedCode = document.getElementById(`embed-${formId}`);
-    
-    // Close all other embed codes
-    document.querySelectorAll('.embed-code').forEach(code => {
-        if (code.id !== `embed-${formId}`) {
-            code.classList.remove('active');
-        }
-    });
-    
-    document.querySelectorAll('.form-item').forEach(item => {
-        if (item !== formItem) {
-            item.classList.remove('active');
-        }
-    });
-    
-    // Toggle current embed code
-    embedCode.classList.toggle('active');
-    formItem.classList.toggle('active');
-}
 
 // Generate embed code for a form
 function generateEmbedCode(form) {
@@ -554,33 +563,35 @@ function generateEmbedCode(form) {
 
 // Copy embed code to clipboard
 async function copyEmbedCode(formId) {
-    const embedCode = document.querySelector(`#embed-${formId} pre code`).textContent;
     const button = document.querySelector(`[onclick="copyEmbedCode('${formId}')"]`);
+    const formItem = button.closest('.form-item');
+    const embedCode = formItem.querySelector('.embed-code-text');
+    
+    if (!embedCode) {
+        console.error('Embed code textarea not found for form:', formId);
+        return;
+    }
     
     try {
-        await navigator.clipboard.writeText(embedCode);
+        await navigator.clipboard.writeText(embedCode.value);
         button.textContent = 'Copied!';
         button.classList.add('copied');
         
         setTimeout(() => {
-            button.textContent = 'Copy Embed Code';
+            button.textContent = 'Copy';
             button.classList.remove('copied');
         }, 2000);
     } catch (err) {
         console.error('Failed to copy: ', err);
         // Fallback for older browsers
-        const textArea = document.createElement('textarea');
-        textArea.value = embedCode;
-        document.body.appendChild(textArea);
-        textArea.select();
+        embedCode.select();
         document.execCommand('copy');
-        document.body.removeChild(textArea);
         
         button.textContent = 'Copied!';
         button.classList.add('copied');
         
         setTimeout(() => {
-            button.textContent = 'Copy Embed Code';
+            button.textContent = 'Copy';
             button.classList.remove('copied');
         }, 2000);
     }
