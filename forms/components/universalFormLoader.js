@@ -700,28 +700,20 @@ class UniversalFormLoader {
             // Show loading
             this.showLoading(true);
             
-            // Submit to API (customize this URL)
-            const response = await fetch('https://locumtele.app.n8n.cloud/webhook/patient-screener', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            });
-
-                if (response.ok) {
-                    this.showSuccess();
-                    
-                    // Redirect to state selection after successful submission
-                    const category = this.formConfig.metadata.category || 'weightloss';
-                    const stateSelectionUrl = `state-selector.html?category=${encodeURIComponent(category)}`;
-                    
-                    setTimeout(() => {
-                        window.location.href = stateSelectionUrl;
-                    }, 2000);
-                } else {
-                    throw new Error('Submission failed');
-                }
+            // Store form data in sessionStorage for state selector to use
+            sessionStorage.setItem('formData', JSON.stringify(formData));
+            
+            // Show success message
+            this.showSuccess();
+            
+            // Redirect to state selection (no webhook submission yet)
+            const category = this.formConfig.metadata.category || 'weightloss';
+            const stateSelectionUrl = `state-selector.html?category=${encodeURIComponent(category)}`;
+            
+            setTimeout(() => {
+                window.location.href = stateSelectionUrl;
+            }, 2000);
+            
         } catch (error) {
             console.error('Form submission error:', error);
             alert('There was an error submitting your form. Please try again.');

@@ -536,8 +536,11 @@
             document.getElementById('selectionRow').style.display = 'grid';
         }
 
-        function continueToNext() {
+        async function continueToNext() {
             if (!selectedState) return;
+            
+            // Get form data from sessionStorage
+            const formData = JSON.parse(sessionStorage.getItem('formData') || '{}');
             
             // Sync states
             const syncStates = ['AR', 'DC', 'DE', 'ID', 'KS', 'LA', 'MS', 'NM', 'RI', 'WV', 'NC', 'SC', 'ME'];
@@ -548,10 +551,104 @@
             const urlParams = new URLSearchParams(window.location.search);
             const category = urlParams.get('category') || 'weightloss';
             
-            // Redirect to fee page
+            // Prepare webhook data in required format
+            const webhookData = formatWebhookData(formData, selectedState, category, consultType);
+            
+            try {
+                // Submit to webhook
+                const response = await fetch('https://locumtele.app.n8n.cloud/webhook/patient-screener', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(webhookData)
+                });
+                
+                if (response.ok) {
+                    console.log('Webhook submission successful');
+                } else {
+                    console.error('Webhook submission failed:', response.status);
+                }
+            } catch (error) {
+                console.error('Webhook submission error:', error);
+            }
+            
+            // Redirect to fee page with contact info parameters
             const rootDomain = '{{custom_values.root_domain}}';
-            const feeUrl = `${rootDomain}/${category}-${consultType}-fee?location_id={{location.id}}&location_name={{location.name}}&state=${selectedState.code}&state_name=${encodeURIComponent(selectedState.name)}`;
+            const contactParams = new URLSearchParams({
+                location_id: '{{location.id}}',
+                location_name: '{{location.name}}',
+                state: selectedState.code,
+                state_name: selectedState.name,
+                name: formData.fullName || '',
+                email: formData.email || '',
+                phone: formData.phone || '',
+                category: category,
+                consult_type: consultType
+            });
+            
+            const feeUrl = `${rootDomain}/${category}-${consultType}-fee?${contactParams.toString()}`;
             window.location.href = feeUrl;
+        }
+        
+        function formatWebhookData(formData, selectedState, category, consultType) {
+            // Calculate BMI if height and weight are available
+            let bmi = '';
+            if (formData.heightFeet && formData.heightInches && formData.weight) {
+                const totalInches = (parseInt(formData.heightFeet) * 12) + parseInt(formData.heightInches);
+                const heightMeters = totalInches * 0.0254;
+                const weightKg = parseInt(formData.weight) * 0.453592;
+                bmi = (weightKg / (heightMeters * heightMeters)).toFixed(1);
+            }
+            
+            return {
+                contact: {
+                    name: formData.fullName || '',
+                    email: formData.email || '',
+                    gender: formData.gender || '',
+                    dateOfBirth: formData.dateOfBirth || '',
+                    phone: formData.phone || '',
+                    address1: formData.address1 || '',
+                    city: formData.city || '',
+                    state: selectedState.code,
+                    postalCode: formData.postalCode || '',
+                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                    type: 'patient'
+                },
+                patient: {
+                    patientId: '',
+                    contactId: '',
+                    rxRequested: category,
+                    height: formData.heightFeet && formData.heightInches ? 
+                        `${formData.heightFeet}'${formData.heightInches}"` : '',
+                    weight: formData.weight || '',
+                    BMI: bmi,
+                    pregnancy: formData.pregnancy || '',
+                    conditions: formData.conditions || [],
+                    medications: formData.medications || [],
+                    allergies: formData.allergies || '',
+                    activityLevel: formData.activityLevel || '',
+                    tobaccoUse: formData.tobaccoUse || '',
+                    alcoholUse: formData.alcoholUse || '',
+                    otcConsumption: formData.otcConsumption || [],
+                    mentalHealth: formData.mentalHealth || ''
+                },
+                form: {
+                    formType: formData.formType || category,
+                    category: category,
+                    screener: formData.formType || category,
+                    screenerData: JSON.stringify(formData),
+                    timestamp: new Date().toISOString(),
+                    formVersion: '2.0.0'
+                },
+                clinic: {
+                    name: '{{location.name}}',
+                    id: '{{location.id}}',
+                    email: '{{location.email}}',
+                    phone: '{{location.phone}}',
+                    type: 'healthcare'
+                }
+            };
         }
 
         // Initialize
