@@ -548,9 +548,10 @@
             const urlParams = new URLSearchParams(window.location.search);
             const category = urlParams.get('category') || 'weightloss';
             
-            // Redirect
+            // Redirect to fee page
             const rootDomain = '{{custom_values.root_domain}}';
-            window.location.href = `${rootDomain}/${category}-${consultType}-fee`;
+            const feeUrl = `${rootDomain}/${category}-${consultType}-fee?location_id={{location.id}}&location_name={{location.name}}&state=${selectedState.code}&state_name=${encodeURIComponent(selectedState.name)}`;
+            window.location.href = feeUrl;
         }
 
         // Initialize

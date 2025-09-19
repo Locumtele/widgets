@@ -22,16 +22,16 @@
             async: `${rootdomain}/antiaging-async-fee`
         },
         sexualHealth: {
-            sync: `${rootdomain}/sexualhealth-sync-fee`,
-            async: `${rootdomain}/sexualhealth-async-fee`
+            sync: `${rootdomain}/sexual-sync-fee`,
+            async: `${rootdomain}/sexual-async-fee`
         },
         hormone: {
             sync: `${rootdomain}/hormone-sync-fee`,
             async: `${rootdomain}/hormone-async-fee`
         },
         hairSkin: {
-            sync: `${rootdomain}/hairandskin-sync-fee`,
-            async: `${rootdomain}/hairandskin-async-fee`
+            sync: `${rootdomain}/hairskin-sync-fee`,
+            async: `${rootdomain}/hairskin-async-fee`
         }
     };
 

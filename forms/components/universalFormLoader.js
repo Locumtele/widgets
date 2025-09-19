@@ -709,12 +709,19 @@ class UniversalFormLoader {
                 body: JSON.stringify(formData)
             });
 
-            if (response.ok) {
-                this.showSuccess();
-                // Add redirect logic here if needed
-            } else {
-                throw new Error('Submission failed');
-            }
+                if (response.ok) {
+                    this.showSuccess();
+                    
+                    // Redirect to state selection after successful submission
+                    const category = this.formConfig.metadata.category || 'weightloss';
+                    const stateSelectionUrl = `state-selector.html?category=${encodeURIComponent(category)}`;
+                    
+                    setTimeout(() => {
+                        window.location.href = stateSelectionUrl;
+                    }, 2000);
+                } else {
+                    throw new Error('Submission failed');
+                }
         } catch (error) {
             console.error('Form submission error:', error);
             alert('There was an error submitting your form. Please try again.');
