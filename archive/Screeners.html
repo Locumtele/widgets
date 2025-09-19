@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API - Patient Forms | LocumTele Widgets</title>
+    <title>Screeners | LocumTele Widgets</title>
     <link rel="stylesheet" href="../locumtele/brand/brand.css">
     <style>
         body {
@@ -228,6 +228,38 @@
         .lt-category-card small {
             color: var(--lt-gray-600);
         }
+        
+        .lt-field-tables-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .lt-field-table-container {
+            background: var(--lt-white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid var(--lt-gray-200);
+        }
+        
+        .lt-field-table-container h3 {
+            margin: 0 0 1rem 0;
+            color: var(--lt-gray-800);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .lt-field-table-container .lt-field-table {
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .lt-field-tables-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
     </style>
 </head>
 <body class="lt-branded">
@@ -245,21 +277,25 @@
 
     <div class="container" style="max-width: 1000px; margin: 0 auto; padding: 0 20px;">
         <!-- Back Link -->
-        <a href="../../api-portal.html" class="lt-back-link">
-            ← Back to API Portal
+        <a href="../../Integration Dashboard.html" class="lt-back-link">
+            ← Back to Integration Dashboard
         </a>
 
         <!-- Page Header -->
         <header class="lt-page-header">
-            <h1>API - Patient Forms</h1>
+            <h1>Screeners</h1>
             <p>Submit patient screening data from your custom forms to our centralized processing system</p>
         </header>
 
         <!-- Table of Contents -->
         <div class="lt-toc-buttons">
             <a href="#overview" class="lt-toc-btn">🎯 Overview</a>
+            <a href="#field-descriptions" class="lt-toc-btn">📝 Field Descriptions</a>
             <a href="#documentation" class="lt-toc-btn">📋 Documentation</a>
+            <a href="#response" class="lt-toc-btn">📤 Response</a>
             <a href="#testing" class="lt-toc-btn">🧪 Testing</a>
+            <a href="#rate-limits" class="lt-toc-btn">⚡ Rate Limits</a>
+            <a href="#data-processing" class="lt-toc-btn">🔄 Processing</a>
             <a href="#support" class="lt-toc-btn">🆘 Need Help?</a>
         </div>
 
@@ -300,6 +336,229 @@
                 <div class="lt-category-card">
                     <strong>Anti-Aging</strong>
                     <small>NAD, Anti-aging treatments</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Field Descriptions -->
+        <div class="lt-api-section" id="field-descriptions">
+            <h2>📝 Field Descriptions</h2>
+            <div class="lt-section-divider"></div>
+            <p>Detailed information about each field in the API request. All fields are required except for <code>patient.patientId</code>, which is only required for repeat patients (those already in the system). The patient ID is provided back via webhook response for future submissions.</p>
+            
+            <div class="lt-field-tables-grid">
+                <div class="lt-field-table-container">
+                    <h3>Contact Section</h3>
+                    <table class="lt-field-table">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>contact.name</code></td>
+                                <td>string</td>
+                                <td>Patient's full name</td>
+                                <td>"John Doe"</td>
+                            </tr>
+                            <tr>
+                                <td><code>contact.email</code></td>
+                                <td>string</td>
+                                <td>Patient's email address</td>
+                                <td>"john@example.com"</td>
+                            </tr>
+                            <tr>
+                                <td><code>contact.gender</code></td>
+                                <td>string</td>
+                                <td>Patient's gender</td>
+                                <td>"male", "female"</td>
+                            </tr>
+                            <tr>
+                                <td><code>contact.dateOfBirth</code></td>
+                                <td>string</td>
+                                <td>Patient's date of birth</td>
+                                <td>"1990-01-01"</td>
+                            </tr>
+                            <tr>
+                                <td><code>contact.phone</code></td>
+                                <td>string</td>
+                                <td>Patient's phone number</td>
+                                <td>"5551234567"</td>
+                            </tr>
+                            <tr>
+                                <td><code>contact.type</code></td>
+                                <td>string</td>
+                                <td>Contact type (always "patient")</td>
+                                <td>"patient"</td>
+                            </tr>
+                            <tr>
+                                <td><code>contact.address1</code></td>
+                                <td>string</td>
+                                <td>Patient's street address</td>
+                                <td>"123 Main St"</td>
+                            </tr>
+                            <tr>
+                                <td><code>contact.city</code></td>
+                                <td>string</td>
+                                <td>Patient's city</td>
+                                <td>"Los Angeles"</td>
+                            </tr>
+                            <tr>
+                                <td><code>contact.state</code></td>
+                                <td>string</td>
+                                <td>Patient's state</td>
+                                <td>"CA"</td>
+                            </tr>
+                            <tr>
+                                <td><code>contact.postalCode</code></td>
+                                <td>string</td>
+                                <td>Patient's ZIP code</td>
+                                <td>"90210"</td>
+                            </tr>
+                            <tr>
+                                <td><code>contact.timezone</code></td>
+                                <td>string</td>
+                                <td>Patient's timezone</td>
+                                <td>"America/Los_Angeles"</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="lt-field-table-container">
+                    <h3>Patient Section</h3>
+                    <table class="lt-field-table">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>patient.patientId</code></td>
+                                <td>string</td>
+                                <td>Your internal patient ID (only required for repeat patients)</td>
+                                <td>"PAT_12345"</td>
+                            </tr>
+                            <tr>
+                                <td><code>patient.rxRequested</code></td>
+                                <td>string</td>
+                                <td>Medication requested</td>
+                                <td>"semaglutide", "sermorelin"</td>
+                            </tr>
+                            <tr>
+                                <td><code>patient.height</code></td>
+                                <td>string</td>
+                                <td>Patient's height</td>
+                                <td>"6'0\"", "72 inches"</td>
+                            </tr>
+                            <tr>
+                                <td><code>patient.weight</code></td>
+                                <td>string</td>
+                                <td>Patient's weight</td>
+                                <td>"200", "200 lbs"</td>
+                            </tr>
+                            <tr>
+                                <td><code>patient.conditions</code></td>
+                                <td>array</td>
+                                <td>Medical conditions</td>
+                                <td>["diabetes_type2", "hypertension"]</td>
+                            </tr>
+                            <tr>
+                                <td><code>patient.medications</code></td>
+                                <td>array</td>
+                                <td>Current medications</td>
+                                <td>["metformin", "lisinopril"]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="lt-field-table-container">
+                    <h3>Form Section</h3>
+                    <table class="lt-field-table">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>form.formType</code></td>
+                                <td>string</td>
+                                <td>Type of form</td>
+                                <td>"screener", "reassessment"</td>
+                            </tr>
+                            <tr>
+                                <td><code>form.category</code></td>
+                                <td>string</td>
+                                <td>Screening category</td>
+                                <td>"weightloss", "hormone", "skincare"</td>
+                            </tr>
+                            <tr>
+                                <td><code>form.screener</code></td>
+                                <td>string</td>
+                                <td>Specific screener name</td>
+                                <td>"GLP1", "sermorelin", "acne"</td>
+                            </tr>
+                            <tr>
+                                <td><code>form.screenerData</code></td>
+                                <td>string</td>
+                                <td>Raw question-answer data</td>
+                                <td>"Height: 6'0\". Weight: 200 lbs."</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="lt-field-table-container">
+                    <h3>Clinic Section</h3>
+                    <table class="lt-field-table">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>clinic.name</code></td>
+                                <td>string</td>
+                                <td>Your clinic's name</td>
+                                <td>"Downtown Medical Center"</td>
+                            </tr>
+                            <tr>
+                                <td><code>clinic.id</code></td>
+                                <td>string</td>
+                                <td>Your clinic's unique identifier</td>
+                                <td>"12345"</td>
+                            </tr>
+                            <tr>
+                                <td><code>clinic.email</code></td>
+                                <td>string</td>
+                                <td>Clinic contact email</td>
+                                <td>"info@downtownmedical.com"</td>
+                            </tr>
+                            <tr>
+                                <td><code>clinic.phone</code></td>
+                                <td>string</td>
+                                <td>Clinic phone number</td>
+                                <td>"555-123-4567"</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -370,6 +629,58 @@
             </div>
         </div>
 
+        <!-- Response Documentation -->
+        <div class="lt-api-section" id="response">
+            <h2>📤 Response Documentation</h2>
+            <div class="lt-section-divider"></div>
+            
+            <h3>Success Response</h3>
+            <p><strong>Status Code:</strong> <code>302 Found</code></p>
+            <p><strong>Headers:</strong></p>
+            <div class="lt-code">
+<pre><code>Location: https://yourdomain.com/consult?category={category}&locationId={locationId}</code></pre>
+            </div>
+            <p>The API will redirect the user to an appropriate consultation page based on the screening category.</p>
+
+            <h3>Error Response</h3>
+            <p><strong>Status Code:</strong> <code>400 Bad Request</code></p>
+            <p><strong>Response Body:</strong></p>
+            <div class="lt-code">
+<pre><code>{
+  "error": "string",
+  "message": "string",
+  "missingFields": ["string"]
+}</code></pre>
+            </div>
+
+            <h3>Common Error Codes</h3>
+            <table class="lt-field-table">
+                <thead>
+                    <tr>
+                        <th>Status Code</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>400</td>
+                        <td>Bad Request - Invalid or missing required fields</td>
+                    </tr>
+                    <tr>
+                        <td>422</td>
+                        <td>Unprocessable Entity - Data validation failed</td>
+                    </tr>
+                    <tr>
+                        <td>429</td>
+                        <td>Too Many Requests - Rate limit exceeded</td>
+                    </tr>
+                    <tr>
+                        <td>500</td>
+                        <td>Internal Server Error - Server processing error</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         <!-- Testing -->
         <div class="lt-api-section" id="testing">
@@ -570,8 +881,44 @@ fetch('https://locumtele.app.n8n.cloud/webhook/patientforms-test', {
             </div>
         </div>
 
+        <!-- Rate Limits -->
+        <div class="lt-api-section" id="rate-limits">
+            <h2>⚡ Rate Limits</h2>
+            <div class="lt-section-divider"></div>
+            <p>API rate limiting to ensure fair usage:</p>
+            
+            <ul>
+                <li><strong>Requests per minute:</strong> 60</li>
+                <li><strong>Requests per hour:</strong> 1,000</li>
+                <li><strong>Requests per day:</strong> 10,000</li>
+            </ul>
+            
+            <p>Rate limit headers are included in responses:</p>
+            <div class="lt-code">
+<pre><code>X-RateLimit-Limit: 60
+X-RateLimit-Remaining: 59
+X-RateLimit-Reset: 1640995200</code></pre>
+            </div>
+        </div>
 
+        <!-- Data Processing -->
+        <div class="lt-api-section" id="data-processing">
+            <h2>🔄 Data Processing</h2>
+            <div class="lt-section-divider"></div>
+            
+            <h3>What Happens After Submission</h3>
+            <ol>
+                <li><strong>Data Validation</strong> - All required fields are validated</li>
+                <li><strong>Question Parsing</strong> - The screenerData is parsed to extract individual question-answer pairs</li>
+                <li><strong>Category Processing</strong> - Data is processed based on screening category</li>
+                <li><strong>Patient Record Creation</strong> - A unique patient record is generated with parsed data</li>
+                <li><strong>Notification</strong> - Your clinic receives notification of the new screening</li>
+                <li><strong>Redirect</strong> - Patient is redirected to appropriate consultation page</li>
+            </ol>
 
+            <h3>Data Storage</h3>
+            <p>Patient data is securely stored and processed according to HIPAA compliance standards. Data is encrypted in transit and at rest.</p>
+        </div>
 
         <!-- Support -->
         <div class="lt-api-section" id="support">
@@ -594,7 +941,7 @@ fetch('https://locumtele.app.n8n.cloud/webhook/patientforms-test', {
                 <span>LocumTele.org</span>
             </div>
             <div class="lt-footer-links">
-                <a href="../../api-portal.html" class="lt-footer-link">API Portal</a>
+                <a href="../../Integration Dashboard.html" class="lt-footer-link">Integration Dashboard</a>
             </div>
             <p>Built with ❤️ for healthcare providers</p>
         </div>

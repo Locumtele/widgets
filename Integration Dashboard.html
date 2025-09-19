@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocumTele Integration Dashboard</title>
+    <link rel="stylesheet" href="documentation/locumtele/brand/brand.css">
+    <link rel="stylesheet" href="documentation/locumtele/brand/sites.css">
+</head>
+<body class="lt-branded site-page-background">
+    <div class="site-layout">
+        <!-- Sidebar Navigation -->
+        <nav class="site-sidebar" id="sidebar">
+            <div class="logo">
+                <img src="documentation/locumtele/brand/locumteleLogo.png" alt="LocumTele Logo">
+            </div>
+            <ul class="site-nav-menu">
+                <li class="site-nav-item">
+                    <a href="#" class="site-nav-link active" onclick="loadPage('dashboard', this)">Dashboard</a>
+                </li>
+                <li class="site-nav-item">
+                    <a href="#" class="site-nav-link has-submenu" onclick="event.preventDefault(); loadPageAndToggleSubmenu('api-docs', event)">
+                        API Docs
+                        <span class="site-nav-arrow">▶</span>
+                    </a>
+                    <ul class="site-nav-submenu">
+                        <li class="site-nav-item">
+                            <a href="#" class="site-nav-link" onclick="loadPage('screeners', this)">Screeners</a>
+                        </li>
+                        <li class="site-nav-item">
+                            <a href="#" class="site-nav-link" onclick="loadPage('reassessments', this)">Reassessments</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="site-nav-item">
+                    <a href="#" class="site-nav-link" onclick="loadPage('calendar', this)">Calendars</a>
+                </li>
+                <li class="site-nav-item">
+                    <a href="#" class="site-nav-link" onclick="loadPage('support', this)">Support</a>
+                </li>
+                <li class="site-nav-item elle-support">
+                    <a href="#" class="elle-container" onclick="loadPage('support', this)">
+                        <img src="documentation/locumtele/brand/locumteleBot-Elle_blue.jpg" alt="Elle" class="elle-image">
+                        <div class="talk-bubble">
+                            <span>Need help?</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <!-- Top Navigation Bar -->
+        <div class="site-top-navbar">
+            <h1>🏥 Integration Dashboard</h1>
+            <p class="page-description">API Documentation & Integration Resources for Healthcare Providers</p>
+        </div>
+        
+        <!-- Main Content Area -->
+        <div class="site-content-area">
+            <div class="site-container">
+                <!-- Dynamic Page Content -->
+                <div id="page-content" class="page-content">
+                    <!-- Content will be loaded here dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="site-mobile-menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <script>
+        // Load page content dynamically
+        async function loadPage(pageId, clickedElement = null) {
+            try {
+                console.log('Loading page:', pageId);
+                // Show loading state
+                const pageContent = document.getElementById('page-content');
+                pageContent.innerHTML = '<div style="text-align: center; padding: 2rem;"><div class="lt-spinner"></div><p>Loading...</p></div>';
+                
+                // Load the page content
+                const response = await fetch(`pages/${pageId}.html`);
+                if (!response.ok) {
+                    throw new Error(`Failed to load page: ${pageId}`);
+                }
+                
+                const content = await response.text();
+                pageContent.innerHTML = content;
+                
+                // Update active menu item
+                const menuLinks = document.querySelectorAll('.site-nav-link');
+                menuLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                if (clickedElement) {
+                    clickedElement.classList.add('active');
+                }
+                
+                // Special handling for screeners page - highlight the submenu item
+                if (pageId === 'screeners') {
+                    const screenersLink = document.querySelector('a[onclick*="screeners"]');
+                    if (screenersLink) {
+                        screenersLink.classList.add('active');
+                    }
+                }
+                
+            // Update top navbar title and description
+            const topNavbar = document.querySelector('.site-top-navbar h1');
+            const pageDescription = document.querySelector('.site-top-navbar .page-description');
+            
+            // Set page-specific titles and descriptions
+            if (pageId === 'dashboard') {
+                topNavbar.innerHTML = '🏥 Integration Dashboard';
+                pageDescription.textContent = 'API Documentation & Integration Resources for Healthcare Providers';
+            } else if (pageId === 'api-docs') {
+                topNavbar.innerHTML = '🏥 Integration Dashboard <span style="opacity: 0.7;">/</span> 📚 API Documentation';
+                pageDescription.textContent = 'Complete API reference with examples, field descriptions, and integration guides';
+                // Auto-expand API Docs submenu
+                const apiDocsLink = document.querySelector('.site-nav-link.has-submenu');
+                const submenu = apiDocsLink.nextElementSibling;
+                const arrow = apiDocsLink.querySelector('.site-nav-arrow');
+                if (submenu && arrow) {
+                    submenu.classList.add('open');
+                    arrow.classList.add('rotated');
+                }
+            } else if (pageId === 'screeners') {
+                topNavbar.innerHTML = '🏥 Integration Dashboard <span style="opacity: 0.7;">/</span> 📝 Screeners';
+                pageDescription.textContent = 'Submit patient screening data from your custom forms to our centralized processing system';
+                // Auto-expand API Docs submenu
+                const apiDocsLink = document.querySelector('.site-nav-link.has-submenu');
+                const submenu = apiDocsLink.nextElementSibling;
+                const arrow = apiDocsLink.querySelector('.site-nav-arrow');
+                if (submenu && arrow) {
+                    submenu.classList.add('open');
+                    arrow.classList.add('rotated');
+                }
+            } else if (pageId === 'reassessments') {
+                topNavbar.innerHTML = '🏥 Integration Dashboard <span style="opacity: 0.7;">/</span> 🔄 Reassessments';
+                pageDescription.textContent = 'Patient follow-up and reassessment tools for ongoing care management';
+                // Auto-expand API Docs submenu
+                const apiDocsLink = document.querySelector('.site-nav-link.has-submenu');
+                const submenu = apiDocsLink.nextElementSibling;
+                const arrow = apiDocsLink.querySelector('.site-nav-arrow');
+                if (submenu && arrow) {
+                    submenu.classList.add('open');
+                    arrow.classList.add('rotated');
+                }
+            } else if (pageId === 'support') {
+                topNavbar.innerHTML = '🏥 Integration Dashboard <span style="opacity: 0.7;">/</span> 🆘 Support';
+                pageDescription.textContent = 'Get help with LocumTele integrations, API usage, and technical support';
+            } else if (pageId === 'calendar') {
+                topNavbar.innerHTML = '🏥 Integration Dashboard <span style="opacity: 0.7;">/</span> 📅 Calendars';
+                pageDescription.textContent = 'Ready-to-use calendar booking widgets for integration into your existing forms and websites';
+            }
+                
+                // Trigger animations
+                const animatedElements = pageContent.querySelectorAll('.site-animate-on-load');
+                animatedElements.forEach((element, index) => {
+                    element.style.opacity = '1';
+                    element.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                });
+                
+                // Initialize screeners page functionality if it's the screeners page
+                if (pageId === 'screeners') {
+                    // Small delay to ensure content is fully rendered
+                    setTimeout(() => {
+                        initializeScreenersPage();
+                    }, 100);
+                }
+                
+                // Initialize calendar page functionality if it's the calendar page
+                if (pageId === 'calendar') {
+                    // Small delay to ensure content is fully rendered
+                    setTimeout(() => {
+                        initializeCalendarPage();
+                    }, 100);
+                }
+                
+            } catch (error) {
+                console.error('Error loading page:', error);
+                pageContent.innerHTML = `
+                    <div class="lt-card" style="text-align: center; padding: 2rem;">
+                        <h2>Error Loading Page</h2>
+                        <p>Sorry, there was an error loading the ${pageId} page. Please try again.</p>
+                        <a href="#" class="lt-btn lt-btn-primary" onclick="loadPage('dashboard')">Return to Dashboard</a>
+                    </div>
+                `;
+            }
+        }
+        
+        function loadPageAndToggleSubmenu(pageId, event) {
+            // Prevent default behavior
+            event.preventDefault();
+            
+            // First load the page
+            loadPage(pageId, event.target);
+            
+            // Then toggle the submenu
+            toggleSubmenu(event);
+        }
+        
+        function toggleSubmenu(event) {
+            event.preventDefault();
+            const submenu = event.target.nextElementSibling;
+            const arrow = event.target.querySelector('.site-nav-arrow');
+            
+            if (submenu && arrow) {
+                submenu.classList.toggle('open');
+                arrow.classList.toggle('rotated');
+            }
+        }
+        
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+        
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.querySelector('.site-mobile-menu-toggle');
+            
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(event.target) && 
+                !toggle.contains(event.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+        
+        // Prevent unwanted navigation
+        document.addEventListener('click', function(event) {
+            // If clicking on a link that should load a page dynamically
+            if (event.target.matches('a[onclick*="loadPage"]')) {
+                event.preventDefault();
+            }
+        });
+        
+        // Initialize screeners page functionality
+        function initializeScreenersPage() {
+            console.log('Initializing screeners page...');
+            const navItems = document.querySelectorAll('.screeners-nav-item');
+            const sections = document.querySelectorAll('.lt-api-section');
+            console.log('Found nav items:', navItems.length);
+            console.log('Found sections:', sections.length);
+            
+            // Smooth scrolling for navigation links
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        const elementPosition = targetSection.offsetTop;
+                        const offsetPosition = elementPosition - 120; // Account for sticky header
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Update active navigation item based on scroll position
+            function updateActiveNav() {
+                let current = '';
+                const scrollPosition = window.scrollY + 200; // Offset for sticky header
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollPosition >= sectionTop - 50 && scrollPosition < sectionTop + sectionHeight - 50) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('href') === '#' + current) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+            
+            // Throttled scroll event listener
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        updateActiveNav();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+            
+            window.addEventListener('scroll', onScroll);
+            
+            // Initial call to set active state
+            updateActiveNav();
+        }
+        
+        // Initialize calendar page functionality
+        function initializeCalendarPage() {
+            console.log('Initializing calendar page...');
+            const navItems = document.querySelectorAll('.screeners-nav-item');
+            const sections = document.querySelectorAll('.lt-api-section');
+            console.log('Found nav items:', navItems.length);
+            console.log('Found sections:', sections.length);
+            
+            // Smooth scrolling for navigation links
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        const elementPosition = targetSection.offsetTop;
+                        const offsetPosition = elementPosition - 120; // Account for sticky header
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Update active navigation item based on scroll position
+            function updateActiveNav() {
+                let current = '';
+                const scrollPosition = window.scrollY + 200; // Offset for sticky header
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollPosition >= sectionTop - 50 && scrollPosition < sectionTop + sectionHeight - 50) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('href') === '#' + current) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+            
+            // Throttled scroll event listener
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        updateActiveNav();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+            
+            window.addEventListener('scroll', onScroll);
+            
+            // Initial call to set active state
+            updateActiveNav();
+        }
+        
+        // Global copyToClipboard function for calendar page
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            
+            navigator.clipboard.writeText(text).then(function() {
+                const button = element.nextElementSibling;
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.background = 'var(--lt-blue)';
+                
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.style.background = '';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Could not copy text: ', err);
+                alert('Failed to copy to clipboard');
+            });
+        }
+        
+        // Load dashboard by default
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPage('dashboard');
+        });
+    </script>
+</body>
+</html>

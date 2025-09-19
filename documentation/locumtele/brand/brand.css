@@ -5,10 +5,10 @@
  * It does NOT affect the actual forms - those maintain their own styling in forms/components/formStyle.css
  * 
  * Brand Colors:
- * - Primary Blue: #007AFF
- * - Primary Green: #34C759
- * - Dark Blue: #0051D5
- * - Dark Green: #248A3D
+ * - Healthcare Blue: #2E9CCA
+ * - Medical Green: #4CAF50
+ * - Dark Blue: #1E6B8A
+ * - Dark Green: #388E3C
  * - Light Blue: #E3F2FD
  * - Light Green: #E8F5E8
  */
@@ -16,13 +16,13 @@
 /* ===== CSS CUSTOM PROPERTIES ===== */
 :root {
     /* Primary Brand Colors */
-    --lt-blue: #007AFF;
-    --lt-green: #34C759;
-    --lt-blue-dark: #0051D5;
-    --lt-green-dark: #248A3D;
+    --lt-blue: #2E9CCA;
+    --lt-green: #4CAF50;
+    --lt-blue-dark: #1E6B8A;
+    --lt-green-dark: #388E3C;
     
     /* Light Brand Colors */
-    --lt-blue-light: #E3F2FD;
+    --lt-blue-light: #E8F4F8;
     --lt-green-light: #E8F5E8;
     
     /* Neutral Colors */
@@ -178,41 +178,65 @@
     align-items: flex-start;
     gap: var(--lt-space-lg);
     margin-bottom: var(--lt-space-xl);
-    padding: var(--lt-space-lg);
-    background: var(--lt-gray-50);
-    border-radius: var(--lt-radius-lg);
-    border-left: 4px solid var(--lt-blue);
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    border-left: none;
 }
 
 .lt-section-robot {
     flex-shrink: 0;
-    width: 80px;
-    height: 80px;
-    background: white;
-    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    background: transparent;
+    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: var(--lt-shadow-md);
+    box-shadow: none;
     position: relative;
     background-image: url('locumteleBot-Elle.png');
-    background-size: 50px 50px;
+    background-size: 120px 120px;
     background-repeat: no-repeat;
     background-position: center;
+    border: none;
+    transform: scaleX(-1);
 }
 
-.lt-section-robot::before {
-    content: "";
-    width: 50px;
-    height: 50px;
-    background-image: url('locumteleBot-Elle.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
 
 .lt-section-content {
     flex: 1;
+    background: white;
+    padding: var(--lt-space-lg);
+    border-radius: var(--lt-radius-lg);
+    box-shadow: var(--lt-shadow-md);
+    border: 2px solid var(--lt-blue);
+    position: relative;
+    margin-top: 10px;
+}
+
+.lt-section-content::before {
+    content: "";
+    position: absolute;
+    left: -15px;
+    top: 20px;
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 15px solid var(--lt-blue);
+}
+
+.lt-section-content::after {
+    content: "";
+    position: absolute;
+    left: -12px;
+    top: 22px;
+    width: 0;
+    height: 0;
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-right: 13px solid white;
 }
 
 .lt-section-content h2 {
