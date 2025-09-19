@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting to Integration Dashboard...</title>
+    <meta http-equiv="refresh" content="0; url=Integration Dashboard.html">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .redirect-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        h1 {
+            margin: 0 0 1rem 0;
+            font-size: 1.5rem;
+        }
+        p {
+            margin: 0;
+            opacity: 0.9;
+        }
+        .manual-link {
+            margin-top: 1rem;
+        }
+        .manual-link a {
+            color: white;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="redirect-container">
+        <div class="spinner"></div>
+        <h1>🏥 Integration Dashboard</h1>
+        <p>Redirecting you to the new Integration Dashboard...</p>
+        <div class="manual-link">
+            <p>If you're not redirected automatically, <a href="Integration Dashboard.html">click here</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Immediate redirect as backup
+        setTimeout(function() {
+            window.location.href = 'Integration Dashboard.html';
+        }, 100);
+    </script>
+</body>
+</html>
