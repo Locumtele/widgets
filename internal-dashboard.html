@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Dashboard - Locumtele Widgets</title>
+    <link rel="stylesheet" href="documentation/locumtele/brand/brand.css">
+    <link rel="stylesheet" href="documentation/locumtele/brand/sites.css">
+    <style>
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin: 2rem;
+        }
+
+        .dashboard-sidebar {
+            background: #fff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .dashboard-content {
+            background: #fff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .widget-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .widget-item {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #e1e5e9;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .widget-item:hover {
+            background: #f8f9fa;
+            border-color: var(--lt-blue);
+        }
+
+        .widget-item.active {
+            background: #e3f2fd;
+            border-color: var(--lt-blue);
+        }
+
+        .widget-preview {
+            border: 1px solid #e1e5e9;
+            border-radius: 6px;
+            min-height: 400px;
+            padding: 1rem;
+            background: #fafafa;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            color: #666;
+        }
+
+        .error {
+            color: #dc3545;
+            background: #f8d7da;
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid #f5c6cb;
+        }
+
+        .refresh-btn {
+            background: var(--lt-blue);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            font-family: inherit;
+        }
+
+        .refresh-btn:hover {
+            background: var(--lt-blue-dark);
+        }
+
+        .form-preview {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .form-question {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border: 1px solid #e1e5e9;
+            border-radius: 4px;
+        }
+
+        .question-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .question-input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        select.question-input {
+            cursor: pointer;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body class="lt-branded site-page-background">
+    <div class="site-layout">
+        <!-- Sidebar Navigation -->
+        <nav class="site-sidebar" id="sidebar">
+            <div class="logo">
+                <img src="documentation/locumtele/brand/locumteleLogo.png" alt="LocumTele Logo">
+            </div>
+            <ul class="site-nav-menu">
+                <li class="site-nav-item">
+                    <a href="#" class="site-nav-link active" onclick="showDatabase(this)">🗄️ Database</a>
+                </li>
+                <li class="site-nav-item">
+                    <a href="#" class="site-nav-link" onclick="showAdmin(this)">⚙️ Admin</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Top Navigation Bar -->
+        <div class="site-top-navbar">
+            <h1>🗄️ Forms Database</h1>
+            <p class="page-description">Notion Forms Database Management</p>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="site-content-area">
+            <div class="site-container">
+                <!-- Database Page -->
+                <div id="database-view">
+                    <div class="lt-card">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <span style="font-size: 1.5rem; margin-right: 0.5rem;">🗄️</span>
+                            <h3 style="margin: 0;">Forms Database</h3>
+                        </div>
+
+                        <div id="database-loading" style="text-align: center; padding: 2rem; color: #666;">
+                            Loading database...<br>
+                            <small>Fetching from Notion database</small>
+                        </div>
+
+                        <div id="database-content" style="display: none;">
+                            <!-- Table will be inserted here -->
+                        </div>
+
+                        <div id="database-error" style="display: none;" class="error">
+                            <!-- Error messages will be shown here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Page -->
+                <div id="admin-view" style="display: none;">
+                    <div class="lt-card">
+                        <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                            <span style="font-size: 1.5rem; margin-right: 0.5rem;">⚙️</span>
+                            <h3 style="margin: 0;">Admin Controls</h3>
+                        </div>
+
+                        <!-- Data Management Section -->
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="margin: 0 0 1rem 0; color: #333;">Data Management</h4>
+                            <div style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border: 1px solid #e1e5e9; border-radius: 6px; background: #f8f9fa;">
+                                <div style="flex: 1;">
+                                    <strong>Refresh All Forms</strong>
+                                    <p style="margin: 0.5rem 0 0 0; color: #666; font-size: 0.9rem;">
+                                        Sync latest form data from Notion database via N8n webhook. This will update the database view with current information.
+                                    </p>
+                                </div>
+                                <button class="lt-btn lt-btn-primary" onclick="refreshAllForms()" style="padding: 0.75rem 1.5rem;">
+                                    🔄 Refresh All Forms
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- System Status Section -->
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="margin: 0 0 1rem 0; color: #333;">System Status</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div style="padding: 1rem; border: 1px solid #e1e5e9; border-radius: 6px; background: #fff;">
+                                    <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                                        <div style="width: 8px; height: 8px; background: #28a745; border-radius: 50%; margin-right: 0.5rem;"></div>
+                                        <strong>Forms Loaded</strong>
+                                    </div>
+                                    <span id="admin-forms-count" style="font-size: 1.5rem; color: #333;">0</span>
+                                </div>
+                                <div style="padding: 1rem; border: 1px solid #e1e5e9; border-radius: 6px; background: #fff;">
+                                    <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                                        <div style="width: 8px; height: 8px; background: #007bff; border-radius: 50%; margin-right: 0.5rem;"></div>
+                                        <strong>Last Sync</strong>
+                                    </div>
+                                    <span id="admin-last-sync" style="font-size: 0.9rem; color: #666;">Never</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Webhook Configuration Section -->
+                        <div>
+                            <h4 style="margin: 0 0 1rem 0; color: #333;">Webhook Configuration</h4>
+                            <div style="padding: 1rem; border: 1px solid #e1e5e9; border-radius: 6px; background: #fff;">
+                                <div style="margin-bottom: 0.5rem;">
+                                    <strong>Endpoint:</strong>
+                                    <code style="background: #f1f3f4; padding: 0.2rem 0.4rem; border-radius: 3px; font-size: 0.85rem;">
+                                        https://locumtele.app.n8n.cloud/webhook/notion-questions
+                                    </code>
+                                </div>
+                                <div style="color: #666; font-size: 0.9rem;">
+                                    <div style="width: 8px; height: 8px; background: #28a745; border-radius: 50%; display: inline-block; margin-right: 0.5rem;"></div>
+                                    Webhook configured and ready
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="site-mobile-menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <script>
+        // Configuration - Update these with your N8n webhook details
+        const CONFIG = {
+            webhookUrl: 'https://locumtele.app.n8n.cloud/webhook/notion-questions',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any authentication headers here
+                // 'Authorization': 'Bearer YOUR_TOKEN'
+            }
+        };
+
+        let availableForms = [];
+        let currentForm = null;
+
+        // Load available forms from N8n webhook
+        async function loadAvailableForms() {
+            const formsList = document.getElementById('formsList');
+            const formPreview = document.getElementById('formPreview');
+
+            try {
+                formsList.innerHTML = '<li class="loading">Loading forms...</li>';
+
+                const response = await fetch(CONFIG.webhookUrl, {
+                    method: 'GET',
+                    headers: CONFIG.headers
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                availableForms = data.forms || data; // Adjust based on your response structure
+
+                renderFormsList();
+
+            } catch (error) {
+                console.error('Error loading forms:', error);
+                formsList.innerHTML = `<li class="error">Error loading forms: ${error.message}</li>`;
+            }
+        }
+
+        // Render the list of available forms
+        function renderFormsList() {
+            const formsList = document.getElementById('formsList');
+
+            if (!availableForms || availableForms.length === 0) {
+                formsList.innerHTML = '<li class="error">No forms available</li>';
+                return;
+            }
+
+            formsList.innerHTML = availableForms.map((form, index) => `
+                <li class="widget-item" onclick="selectForm(${index})" data-form-id="${index}">
+                    <strong>${form.title || form.name || `Form ${index + 1}`}</strong>
+                    <br>
+                    <small>${form.description || 'No description available'}</small>
+                </li>
+            `).join('');
+        }
+
+        // Select and preview a form
+        function selectForm(index) {
+            // Remove active class from all items
+            document.querySelectorAll('.widget-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Add active class to selected item
+            document.querySelector(`[data-form-id="${index}"]`).classList.add('active');
+
+            currentForm = availableForms[index];
+            renderFormPreview();
+        }
+
+        // Render the form preview
+        function renderFormPreview() {
+            const formPreview = document.getElementById('formPreview');
+
+            if (!currentForm) {
+                formPreview.innerHTML = '<div class="loading">Select a form to preview</div>';
+                return;
+            }
+
+            const questions = currentForm.questions || currentForm.fields || [];
+
+            if (questions.length === 0) {
+                formPreview.innerHTML = '<div class="error">No questions found in this form</div>';
+                return;
+            }
+
+            formPreview.innerHTML = `
+                <div class="form-preview">
+                    <h4>${currentForm.title || currentForm.name || 'Form Preview'}</h4>
+                    ${currentForm.description ? `<p>${currentForm.description}</p>` : ''}
+                    <hr style="margin: 1rem 0;">
+                    ${questions.map(question => renderQuestion(question)).join('')}
+                </div>
+            `;
+        }
+
+        // Render individual question based on type
+        function renderQuestion(question) {
+            const questionId = `q_${Math.random().toString(36).substr(2, 9)}`;
+
+            switch (question.type) {
+                case 'text':
+                case 'email':
+                case 'phone':
+                    return `
+                        <div class="form-question">
+                            <label class="question-label" for="${questionId}">
+                                ${question.question || question.label}
+                                ${question.required ? ' *' : ''}
+                            </label>
+                            <input type="${question.type}"
+                                   class="question-input"
+                                   id="${questionId}"
+                                   placeholder="${question.placeholder || ''}"
+                                   ${question.required ? 'required' : ''}>
+                        </div>
+                    `;
+
+                case 'select':
+                case 'dropdown':
+                    return `
+                        <div class="form-question">
+                            <label class="question-label" for="${questionId}">
+                                ${question.question || question.label}
+                                ${question.required ? ' *' : ''}
+                            </label>
+                            <select class="question-input" id="${questionId}" ${question.required ? 'required' : ''}>
+                                <option value="">Select an option...</option>
+                                ${(question.options || []).map(option => `
+                                    <option value="${option.value || option}">${option.label || option}</option>
+                                `).join('')}
+                            </select>
+                        </div>
+                    `;
+
+                case 'checkbox':
+                case 'multi-select':
+                    return `
+                        <div class="form-question">
+                            <label class="question-label">
+                                ${question.question || question.label}
+                                ${question.required ? ' *' : ''}
+                            </label>
+                            <div class="checkbox-group">
+                                ${(question.options || []).map((option, i) => `
+                                    <div class="checkbox-item">
+                                        <input type="checkbox"
+                                               id="${questionId}_${i}"
+                                               value="${option.value || option}">
+                                        <label for="${questionId}_${i}">${option.label || option}</label>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+
+                case 'textarea':
+                    return `
+                        <div class="form-question">
+                            <label class="question-label" for="${questionId}">
+                                ${question.question || question.label}
+                                ${question.required ? ' *' : ''}
+                            </label>
+                            <textarea class="question-input"
+                                      id="${questionId}"
+                                      rows="4"
+                                      placeholder="${question.placeholder || ''}"
+                                      ${question.required ? 'required' : ''}></textarea>
+                        </div>
+                    `;
+
+                default:
+                    return `
+                        <div class="form-question">
+                            <label class="question-label">${question.question || question.label}</label>
+                            <p><em>Question type: ${question.type} (preview not available)</em></p>
+                        </div>
+                    `;
+            }
+        }
+
+        // Navigation functions
+        function showDatabase(clickedElement) {
+            // Update active menu item
+            updateActiveMenuItem(clickedElement);
+
+            // Hide admin view and show database
+            document.getElementById('admin-view').style.display = 'none';
+            document.getElementById('database-view').style.display = 'block';
+
+            // Update top navbar
+            document.querySelector('.site-top-navbar h1').innerHTML = '🗄️ Forms Database';
+            document.querySelector('.site-top-navbar .page-description').textContent = 'Notion Forms Database Management';
+
+            // Database is always visible, preserve existing data
+            // Only call loadDatabasePage if content is not already visible
+            if (document.getElementById('database-content').style.display === 'none') {
+                loadDatabasePage();
+            }
+        }
+
+        function showAdmin(clickedElement) {
+            // Update active menu item
+            updateActiveMenuItem(clickedElement);
+
+            // Hide database view and show admin
+            document.getElementById('database-view').style.display = 'none';
+            document.getElementById('admin-view').style.display = 'block';
+
+            // Update top navbar
+            document.querySelector('.site-top-navbar h1').innerHTML = '⚙️ Admin Controls';
+            document.querySelector('.site-top-navbar .page-description').textContent = 'System Administration & Data Management';
+
+            // Update admin stats
+            updateAdminStats();
+        }
+
+        // Simplified navigation - only database functionality needed
+
+        function updateActiveMenuItem(clickedElement) {
+            // Remove active class from all menu items
+            document.querySelectorAll('.site-nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Add active class to clicked item
+            if (clickedElement) {
+                clickedElement.classList.add('active');
+            }
+        }
+
+        // Removed updateTopNavbar - static title is fine
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.querySelector('.site-mobile-menu-toggle');
+
+            if (window.innerWidth <= 768 &&
+                !sidebar.contains(event.target) &&
+                !toggle.contains(event.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        // Removed unused page loading functions
+
+        // Removed unused webhook functions for other pages
+
+        // Sync from Notion function
+        async function syncFromNotion() {
+            try {
+                console.log('Calling webhook:', CONFIG.webhookUrl);
+
+                const response = await fetch(CONFIG.webhookUrl, {
+                    method: 'GET',
+                    headers: CONFIG.headers
+                });
+
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('Webhook response data:', data);
+
+                // Show the raw data in an alert for now
+                alert('Webhook Response:\n\n' + JSON.stringify(data, null, 2));
+
+                // Update the display
+                if (document.getElementById('screeners-view').style.display !== 'none') {
+                    loadScreenersPage();
+                }
+
+            } catch (error) {
+                console.error('Error syncing from Notion:', error);
+                alert('Error syncing from Notion: ' + error.message);
+            }
+        }
+
+        // Removed unused functions for other pages
+
+        // Load database page
+        function loadDatabasePage() {
+            // Check if we have cached data
+            if (window.formsData && window.formsData.length > 0) {
+                // Re-render the existing cached data (don't reset)
+                renderDatabaseTable({
+                    // Reconstruct the original data structure for rendering
+                    ...window.formsData.reduce((acc, form) => {
+                        acc[form.id] = form.rawData;
+                        return acc;
+                    }, {})
+                });
+                document.getElementById('database-loading').style.display = 'none';
+                document.getElementById('database-content').style.display = 'block';
+                document.getElementById('database-error').style.display = 'none';
+            } else {
+                // Show placeholder message only if no data exists
+                document.getElementById('database-content').innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: #666;">
+                        <h4>No Data Loaded</h4>
+                        <p>Click "Refresh Data" to load forms from your Notion database.</p>
+                    </div>
+                `;
+                document.getElementById('database-loading').style.display = 'none';
+                document.getElementById('database-content').style.display = 'block';
+                document.getElementById('database-error').style.display = 'none';
+            }
+        }
+
+        // Admin functions
+        function refreshAllForms() {
+            // Show loading state on both admin and database views
+            const adminButton = document.querySelector('button[onclick="refreshAllForms()"]');
+            const originalText = adminButton.innerHTML;
+            adminButton.innerHTML = '⏳ Refreshing...';
+            adminButton.disabled = true;
+
+            // Call the webhook
+            loadDatabaseFromWebhook().then(() => {
+                // Update admin stats after successful refresh
+                updateAdminStats();
+
+                // Reset button
+                adminButton.innerHTML = originalText;
+                adminButton.disabled = false;
+            }).catch(() => {
+                // Reset button on error
+                adminButton.innerHTML = originalText;
+                adminButton.disabled = false;
+            });
+        }
+
+        function updateAdminStats() {
+            const formsCount = window.formsData ? window.formsData.length : 0;
+            const lastSync = window.lastSyncTime ?
+                new Date(window.lastSyncTime).toLocaleString() : 'Never';
+
+            document.getElementById('admin-forms-count').textContent = formsCount;
+            document.getElementById('admin-last-sync').textContent = lastSync;
+        }
+
+        // Load database from webhook
+        async function loadDatabaseFromWebhook() {
+            try {
+                const response = await fetch(CONFIG.webhookUrl, {
+                    method: 'GET',
+                    headers: CONFIG.headers
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('Database webhook response:', data);
+
+                // Render database table
+                renderDatabaseTable(data);
+
+                document.getElementById('database-loading').style.display = 'none';
+                document.getElementById('database-content').style.display = 'block';
+
+                return Promise.resolve();
+
+            } catch (error) {
+                console.error('Error loading database:', error);
+                document.getElementById('database-error').innerHTML = `
+                    Error loading database: ${error.message}
+                `;
+                document.getElementById('database-loading').style.display = 'none';
+                document.getElementById('database-error').style.display = 'block';
+
+                return Promise.reject(error);
+            }
+        }
+
+        // Render database table
+        function renderDatabaseTable(data) {
+            // Parse the data structure - forms are objects with formId as keys
+            let formsArray = [];
+
+            // Convert the object structure to an array of forms
+            for (const [formId, formData] of Object.entries(data)) {
+                if (formData && formData.formName) {
+                    // Count total questions across all sections
+                    let totalQuestions = 0;
+                    const sections = Object.keys(formData).filter(key =>
+                        key !== 'formId' &&
+                        key !== 'formName' &&
+                        Array.isArray(formData[key])
+                    );
+
+                    sections.forEach(section => {
+                        if (Array.isArray(formData[section])) {
+                            totalQuestions += formData[section].length;
+                        }
+                    });
+
+                    formsArray.push({
+                        id: formId,
+                        title: formData.formName,
+                        sections: sections,
+                        totalQuestions: totalQuestions,
+                        rawData: formData
+                    });
+                }
+            }
+
+            if (formsArray.length === 0) {
+                document.getElementById('database-content').innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: #666;">
+                        No forms found in database
+                    </div>
+                `;
+                return;
+            }
+
+            // Create table with all form data
+            let tableHTML = `
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; border: 1px solid #e1e5e9;">
+                        <thead>
+                            <tr style="background: #f8f9fa;">
+                                <th style="padding: 0.75rem; border: 1px solid #e1e5e9; text-align: left; font-weight: 600;">Form Name</th>
+                                <th style="padding: 0.75rem; border: 1px solid #e1e5e9; text-align: left; font-weight: 600;">Form ID</th>
+                                <th style="padding: 0.75rem; border: 1px solid #e1e5e9; text-align: left; font-weight: 600;">Sections</th>
+                                <th style="padding: 0.75rem; border: 1px solid #e1e5e9; text-align: left; font-weight: 600;">Total Questions</th>
+                                <th style="padding: 0.75rem; border: 1px solid #e1e5e9; text-align: left; font-weight: 600;">Status</th>
+                                <th style="padding: 0.75rem; border: 1px solid #e1e5e9; text-align: left; font-weight: 600;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            formsArray.forEach((form, index) => {
+                const sectionsText = form.sections.join(', ');
+                const status = '🟢 Active'; // Default to active since we don't have this data
+
+                tableHTML += `
+                    <tr style="border-bottom: 1px solid #e1e5e9;">
+                        <td style="padding: 0.75rem; border: 1px solid #e1e5e9; vertical-align: top;">
+                            <strong>${form.title}</strong>
+                        </td>
+                        <td style="padding: 0.75rem; border: 1px solid #e1e5e9; vertical-align: top; font-family: monospace; font-size: 0.8rem;">
+                            ${form.id.substring(0, 8)}...
+                        </td>
+                        <td style="padding: 0.75rem; border: 1px solid #e1e5e9; vertical-align: top; max-width: 200px;">
+                            ${sectionsText}
+                        </td>
+                        <td style="padding: 0.75rem; border: 1px solid #e1e5e9; vertical-align: top; text-align: center;">
+                            ${form.totalQuestions}
+                        </td>
+                        <td style="padding: 0.75rem; border: 1px solid #e1e5e9; vertical-align: top;">
+                            ${status}
+                        </td>
+                        <td style="padding: 0.75rem; border: 1px solid #e1e5e9; vertical-align: top;">
+                            <button class="lt-btn lt-btn-outline" onclick="viewFormDetails(${index})" style="padding: 0.3rem 0.6rem; font-size: 0.8rem; margin-right: 0.5rem;">
+                                👁️ View
+                            </button>
+                            <button class="lt-btn lt-btn-primary" onclick="editForm(${index})" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;">
+                                ✏️ Edit
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            tableHTML += `
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 6px;">
+                    <h4 style="margin: 0 0 0.5rem 0;">Raw Data (for debugging)</h4>
+                    <pre style="background: #fff; padding: 1rem; border-radius: 4px; overflow-x: auto; font-size: 0.8rem; margin: 0;">${JSON.stringify(data, null, 2)}</pre>
+                </div>
+            `;
+
+            document.getElementById('database-content').innerHTML = tableHTML;
+
+            // Store the data globally for the action functions
+            window.formsData = formsArray;
+            window.lastSyncTime = Date.now();
+
+            // Persist data in localStorage for page reloads
+            localStorage.setItem('formsData', JSON.stringify(formsArray));
+            localStorage.setItem('lastSyncTime', window.lastSyncTime.toString());
+
+            // Data loaded successfully
+        }
+
+        // View form details (placeholder)
+        function viewFormDetails(index) {
+            const form = window.formsData[index];
+            alert(`Form Details:\n\n${JSON.stringify(form, null, 2)}`);
+        }
+
+        // Edit form (placeholder)
+        function editForm(index) {
+            const form = window.formsData[index];
+            alert(`Edit form functionality for "${form.title || form.name}" would be implemented here`);
+        }
+
+        // Initialize the dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Restore data from localStorage if available
+            const storedData = localStorage.getItem('formsData');
+            const storedSyncTime = localStorage.getItem('lastSyncTime');
+
+            if (storedData) {
+                try {
+                    window.formsData = JSON.parse(storedData);
+                    window.lastSyncTime = storedSyncTime ? parseInt(storedSyncTime) : Date.now();
+                } catch (error) {
+                    console.error('Error parsing stored data:', error);
+                    // Clear corrupted data
+                    localStorage.removeItem('formsData');
+                    localStorage.removeItem('lastSyncTime');
+                }
+            }
+
+            // Load database page by default
+            loadDatabasePage();
+
+            // Update admin stats
+            updateAdminStats();
+        });
+    </script>
+</body>
+</html>
