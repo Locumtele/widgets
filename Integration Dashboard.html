@@ -79,7 +79,7 @@
                 pageContent.innerHTML = '<div style="text-align: center; padding: 2rem;"><div class="lt-spinner"></div><p>Loading...</p></div>';
                 
                 // Load the page content
-                const response = await fetch(`pages/${pageId}.html`);
+                const response = await fetch(`pages/clients/${pageId}.html`);
                 if (!response.ok) {
                     throw new Error(`Failed to load page: ${pageId}`);
                 }
