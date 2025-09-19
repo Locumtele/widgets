@@ -148,6 +148,22 @@
             overflow: hidden;
         }
 
+        /* Different backgrounds for form types */
+        .form-toggle.screener {
+            background: var(--lt-green-light);
+            border-color: var(--lt-green);
+        }
+
+        .form-toggle.reassessment {
+            background: var(--lt-blue-light);
+            border-color: var(--lt-blue);
+        }
+
+        .form-toggle.form {
+            background: var(--lt-gray-50);
+            border-color: var(--lt-gray-300);
+        }
+
         .form-toggle:hover {
             border-color: var(--lt-blue);
             box-shadow: var(--lt-shadow-md);
@@ -328,6 +344,31 @@
             gap: var(--lt-space-sm);
         }
 
+        /* Different colored backgrounds for categories */
+        .lt-api-section#weightloss h2 {
+            background: var(--lt-green);
+        }
+
+        .lt-api-section#hormone h2 {
+            background: var(--lt-blue);
+        }
+
+        .lt-api-section#skincare h2 {
+            background: var(--lt-gray-600);
+        }
+
+        .lt-api-section#sexualhealth h2 {
+            background: var(--lt-gray-700);
+        }
+
+        .lt-api-section#antiaging h2 {
+            background: var(--lt-gray-500);
+        }
+
+        .lt-api-section#other h2 {
+            background: var(--lt-gray-400);
+        }
+
         .lt-section-divider {
             height: 1px;
             background: var(--lt-gray-200);
@@ -494,7 +535,7 @@
                 </li>
                 <li class="dashboard-nav-item">
                     <a href="#" class="dashboard-nav-link has-submenu" onclick="event.preventDefault(); loadPageAndToggleSubmenu('forms', event)">
-                        📋 Forms
+                        🗄️ Database
                         <span class="dashboard-nav-arrow">▶</span>
                     </a>
                     <ul class="dashboard-nav-submenu">
@@ -598,7 +639,7 @@
                 topNavbar.innerHTML = '🏥 Widget Dashboard';
                 pageDescription.textContent = 'Forms Management for Healthcare Widgets';
             } else if (pageId === 'forms') {
-                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 📋 Forms';
+                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🗄️ Database';
                 pageDescription.textContent = 'Manage and view all form data from Notion';
                 // Auto-expand Forms submenu
                 const formsLink = document.querySelector('.dashboard-nav-link.has-submenu');
@@ -609,7 +650,7 @@
                     arrow.classList.add('rotated');
                 }
             } else if (pageId === 'screeners') {
-                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 📝 Screeners';
+                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🗄️ Database <span style="opacity: 0.7;">/</span> 📝 Screeners';
                 pageDescription.textContent = 'Patient screening forms and data management';
                 // Auto-expand Forms submenu
                 const formsLink = document.querySelector('.dashboard-nav-link.has-submenu');
@@ -620,7 +661,7 @@
                     arrow.classList.add('rotated');
                 }
             } else if (pageId === 'reassessments') {
-                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🔄 Reassessments';
+                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🗄️ Database <span style="opacity: 0.7;">/</span> 🔄 Reassessments';
                 pageDescription.textContent = 'Patient reassessment forms and follow-up data';
                 // Auto-expand Forms submenu
                 const formsLink = document.querySelector('.dashboard-nav-link.has-submenu');
@@ -784,7 +825,7 @@
                         <div class="lt-section-divider"></div>
                         
                         ${categoryForms.map(form => `
-                            <div class="form-toggle">
+                            <div class="form-toggle ${form.formType}">
                                 <div class="form-toggle-header" onclick="toggleFormQuestions('${form.id}')">
                                     <span class="toggle-arrow">▼</span>
                                     <div class="form-title-section">
