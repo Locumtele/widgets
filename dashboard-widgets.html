@@ -540,10 +540,10 @@
                     </a>
                     <ul class="dashboard-nav-submenu">
                         <li class="dashboard-nav-item">
-                            <a href="#" class="dashboard-nav-link" onclick="loadPage('screeners', this)">📝 Screeners</a>
+                            <a href="#" class="dashboard-nav-link" onclick="loadPage('db-screeners', this)">📝 Screeners</a>
                         </li>
                         <li class="dashboard-nav-item">
-                            <a href="#" class="dashboard-nav-link" onclick="loadPage('reassessments', this)">🔄 Reassessments</a>
+                            <a href="#" class="dashboard-nav-link" onclick="loadPage('db-reassessments', this)">🔄 Reassessments</a>
                         </li>
                     </ul>
                 </li>
@@ -554,13 +554,13 @@
                     </a>
                     <ul class="dashboard-nav-submenu">
                         <li class="dashboard-nav-item">
-                            <a href="#" class="dashboard-nav-link" onclick="loadPage('screeners-assets', this)">📝 Screeners</a>
+                            <a href="#" class="dashboard-nav-link" onclick="loadPage('assets-screeners', this)">📝 Screeners</a>
                         </li>
                         <li class="dashboard-nav-item">
-                            <a href="#" class="dashboard-nav-link" onclick="loadPage('reassessments-assets', this)">🔄 Reassessments</a>
+                            <a href="#" class="dashboard-nav-link" onclick="loadPage('assets-reassessments', this)">🔄 Reassessments</a>
                         </li>
                         <li class="dashboard-nav-item">
-                            <a href="#" class="dashboard-nav-link" onclick="loadPage('calendars-assets', this)">📅 Calendars</a>
+                            <a href="#" class="dashboard-nav-link" onclick="loadPage('assets-calendars', this)">📅 Calendars</a>
                         </li>
                     </ul>
                 </li>
@@ -640,8 +640,8 @@
                 }
                 
                 // Special handling for screeners page - highlight the submenu item
-                if (pageId === 'screeners') {
-                    const screenersLink = document.querySelector('a[onclick*="screeners"]');
+                if (pageId === 'db-screeners') {
+                    const screenersLink = document.querySelector('a[onclick*="db-screeners"]');
                     if (screenersLink) {
                         screenersLink.classList.add('active');
                     }
@@ -666,7 +666,7 @@
                     submenu.classList.add('open');
                     arrow.classList.add('rotated');
                 }
-            } else if (pageId === 'screeners') {
+            } else if (pageId === 'db-screeners') {
                 topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🗄️ Database <span style="opacity: 0.7;">/</span> 📝 Screeners';
                 pageDescription.textContent = 'Patient screening forms and data management';
                 // Auto-expand Forms submenu
@@ -677,7 +677,7 @@
                     submenu.classList.add('open');
                     arrow.classList.add('rotated');
                 }
-            } else if (pageId === 'reassessments') {
+            } else if (pageId === 'db-reassessments') {
                 topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🗄️ Database <span style="opacity: 0.7;">/</span> 🔄 Reassessments';
                 pageDescription.textContent = 'Patient reassessment forms and follow-up data';
                 // Auto-expand Forms submenu
@@ -688,7 +688,7 @@
                     submenu.classList.add('open');
                     arrow.classList.add('rotated');
                 }
-            } else if (pageId === 'screeners-assets') {
+            } else if (pageId === 'assets-screeners') {
                 topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🎯 Assets <span style="opacity: 0.7;">/</span> 📝 Screeners';
                 pageDescription.textContent = 'Embed codes and tracking scripts for screener forms';
                 // Auto-expand Assets submenu
@@ -700,7 +700,7 @@
                     submenu.classList.add('open');
                     arrow.classList.add('rotated');
                 }
-            } else if (pageId === 'reassessments-assets') {
+            } else if (pageId === 'assets-reassessments') {
                 topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🎯 Assets <span style="opacity: 0.7;">/</span> 🔄 Reassessments';
                 pageDescription.textContent = 'Embed codes and tracking scripts for reassessment forms';
                 // Auto-expand Assets submenu
@@ -712,7 +712,7 @@
                     submenu.classList.add('open');
                     arrow.classList.add('rotated');
                 }
-            } else if (pageId === 'calendars-assets') {
+            } else if (pageId === 'assets-calendars') {
                 topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🎯 Assets <span style="opacity: 0.7;">/</span> 📅 Calendars';
                 pageDescription.textContent = 'Embed codes and tracking scripts for calendar widgets';
                 // Auto-expand Assets submenu
@@ -740,7 +740,7 @@
                 });
                 
                 // Initialize page-specific functionality
-                if (pageId === 'screeners' || pageId === 'reassessments') {
+                if (pageId === 'db-screeners' || pageId === 'db-reassessments') {
                     // Small delay to ensure content is fully rendered
                     setTimeout(() => {
                         initializeFormsPage(pageId);
