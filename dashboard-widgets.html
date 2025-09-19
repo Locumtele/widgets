@@ -548,6 +548,23 @@
                     </ul>
                 </li>
                 <li class="dashboard-nav-item">
+                    <a href="#" class="dashboard-nav-link has-submenu" onclick="event.preventDefault(); loadPageAndToggleSubmenu('assets', event)">
+                        🎯 Assets
+                        <span class="dashboard-nav-arrow">▶</span>
+                    </a>
+                    <ul class="dashboard-nav-submenu">
+                        <li class="dashboard-nav-item">
+                            <a href="#" class="dashboard-nav-link" onclick="loadPage('screeners-assets', this)">📝 Screeners</a>
+                        </li>
+                        <li class="dashboard-nav-item">
+                            <a href="#" class="dashboard-nav-link" onclick="loadPage('reassessments-assets', this)">🔄 Reassessments</a>
+                        </li>
+                        <li class="dashboard-nav-item">
+                            <a href="#" class="dashboard-nav-link" onclick="loadPage('calendars-assets', this)">📅 Calendars</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dashboard-nav-item">
                     <a href="#" class="dashboard-nav-link" onclick="loadPage('admin', this)">⚙️ Admin</a>
                 </li>
                 <li class="dashboard-nav-item dashboard-elle-support">
@@ -667,6 +684,42 @@
                 const formsLink = document.querySelector('.dashboard-nav-link.has-submenu');
                 const submenu = formsLink.nextElementSibling;
                 const arrow = formsLink.querySelector('.dashboard-nav-arrow');
+                if (submenu && arrow) {
+                    submenu.classList.add('open');
+                    arrow.classList.add('rotated');
+                }
+            } else if (pageId === 'screeners-assets') {
+                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🎯 Assets <span style="opacity: 0.7;">/</span> 📝 Screeners';
+                pageDescription.textContent = 'Embed codes and tracking scripts for screener forms';
+                // Auto-expand Assets submenu
+                const assetsLinks = document.querySelectorAll('.dashboard-nav-link.has-submenu');
+                const assetsLink = assetsLinks[1]; // Second submenu (Assets)
+                const submenu = assetsLink.nextElementSibling;
+                const arrow = assetsLink.querySelector('.dashboard-nav-arrow');
+                if (submenu && arrow) {
+                    submenu.classList.add('open');
+                    arrow.classList.add('rotated');
+                }
+            } else if (pageId === 'reassessments-assets') {
+                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🎯 Assets <span style="opacity: 0.7;">/</span> 🔄 Reassessments';
+                pageDescription.textContent = 'Embed codes and tracking scripts for reassessment forms';
+                // Auto-expand Assets submenu
+                const assetsLinks = document.querySelectorAll('.dashboard-nav-link.has-submenu');
+                const assetsLink = assetsLinks[1]; // Second submenu (Assets)
+                const submenu = assetsLink.nextElementSibling;
+                const arrow = assetsLink.querySelector('.dashboard-nav-arrow');
+                if (submenu && arrow) {
+                    submenu.classList.add('open');
+                    arrow.classList.add('rotated');
+                }
+            } else if (pageId === 'calendars-assets') {
+                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🎯 Assets <span style="opacity: 0.7;">/</span> 📅 Calendars';
+                pageDescription.textContent = 'Embed codes and tracking scripts for calendar widgets';
+                // Auto-expand Assets submenu
+                const assetsLinks = document.querySelectorAll('.dashboard-nav-link.has-submenu');
+                const assetsLink = assetsLinks[1]; // Second submenu (Assets)
+                const submenu = assetsLink.nextElementSibling;
+                const arrow = assetsLink.querySelector('.dashboard-nav-arrow');
                 if (submenu && arrow) {
                     submenu.classList.add('open');
                     arrow.classList.add('rotated');

@@ -1,0 +1,274 @@
+<div class="dashboard-card">
+    <h2>📝 Screener Forms - Embed Codes & Tracking</h2>
+    <p>Copy and paste these embed codes to add screener forms to your website. Each form includes the complete patient journey: form submission → state selection → webhook → fee page redirect.</p>
+</div>
+
+<div class="dashboard-card">
+    <h3>🎯 Universal Form System</h3>
+    <p>The Universal Form System can generate forms from any JSON data structure. Use this for custom forms or when you have specific form data.</p>
+    
+    <div class="form-group">
+        <label class="form-label">Basic Universal Form Embed Code:</label>
+        <div class="code-block">
+            <pre><code>&lt;!-- Universal Form System --&gt;
+&lt;link rel="stylesheet" href="https://locumtele.github.io/widgets/forms/components/universalFormStyle.css"&gt;
+&lt;script src="https://locumtele.github.io/widgets/forms/components/universalFormLoader.js"&gt;&lt;/script&gt;
+
+&lt;div id="form-container"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+    // Your form data (any structure!)
+    const formData = {
+        title: "Medical Screening",
+        category: "weightloss", // weightloss, hormone, antiaging, sexual, hairskin
+        questions: [
+            { text: "Full Name", type: "text", required: true },
+            { text: "Email Address", type: "email", required: true },
+            { text: "Phone Number", type: "phone", required: true },
+            { text: "Date of Birth", type: "date", required: true },
+            { text: "Gender", type: "radio", required: true, options: ["Male", "Female"] },
+            { text: "Height (feet and inches)", type: "height", required: true },
+            { text: "Weight (pounds)", type: "weight", required: true },
+            { text: "Do you have diabetes?", type: "radio", required: true, 
+              options: ["No", "Type 1", "Type 2"], 
+              safeAnswers: ["No"], 
+              disqualifyAnswers: ["Type 1", "Type 2"] }
+        ]
+    };
+    
+    // Generate form
+    await window.generateForm(formData, 'form-container');
+&lt;/script&gt;</code></pre>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-card">
+    <h3>📋 Pre-built Form Examples</h3>
+    <p>Ready-to-use embed codes for common medical screening forms.</p>
+    
+    <div class="form-group">
+        <label class="form-label">GLP-1 Weight Loss Screening:</label>
+        <div class="code-block">
+            <pre><code>&lt;!-- GLP-1 Weight Loss Screening Form --&gt;
+&lt;link rel="stylesheet" href="https://locumtele.github.io/widgets/forms/components/universalFormStyle.css"&gt;
+&lt;script src="https://locumtele.github.io/widgets/forms/components/universalFormLoader.js"&gt;&lt;/script&gt;
+
+&lt;div id="glp1-form"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+    const glp1FormData = {
+        title: "GLP-1 Weight Loss Screening",
+        category: "weightloss",
+        questions: [
+            { text: "Full Name", type: "text", required: true },
+            { text: "Email Address", type: "email", required: true },
+            { text: "Phone Number", type: "phone", required: true },
+            { text: "Date of Birth", type: "date", required: true },
+            { text: "Gender", type: "radio", required: true, options: ["Male", "Female"] },
+            { text: "Height (feet and inches)", type: "height", required: true },
+            { text: "Weight (pounds)", type: "weight", required: true },
+            { text: "Do you have diabetes?", type: "radio", required: true, 
+              options: ["No", "Type 1", "Type 2"], 
+              safeAnswers: ["No"], 
+              disqualifyAnswers: ["Type 1", "Type 2"] },
+            { text: "Current medications", type: "textarea", required: false }
+        ]
+    };
+    
+    await window.generateForm(glp1FormData, 'glp1-form');
+&lt;/script&gt;</code></pre>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">Hormone Therapy Screening:</label>
+        <div class="code-block">
+            <pre><code>&lt;!-- Hormone Therapy Screening Form --&gt;
+&lt;link rel="stylesheet" href="https://locumtele.github.io/widgets/forms/components/universalFormStyle.css"&gt;
+&lt;script src="https://locumtele.github.io/widgets/forms/components/universalFormLoader.js"&gt;&lt;/script&gt;
+
+&lt;div id="hormone-form"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+    const hormoneFormData = {
+        title: "Hormone Therapy Screening",
+        category: "hormone",
+        questions: [
+            { text: "Full Name", type: "text", required: true },
+            { text: "Email Address", type: "email", required: true },
+            { text: "Phone Number", type: "phone", required: true },
+            { text: "Date of Birth", type: "date", required: true },
+            { text: "Gender", type: "radio", required: true, options: ["Male", "Female"] },
+            { text: "Height (feet and inches)", type: "height", required: true },
+            { text: "Weight (pounds)", type: "weight", required: true },
+            { text: "Are you currently pregnant, trying to get pregnant, or breastfeeding?", type: "radio", required: true, 
+              options: ["No", "Yes"], 
+              safeAnswers: ["No"], 
+              disqualifyAnswers: ["Yes"] },
+            { text: "Do you have a history of cancer?", type: "radio", required: true, 
+              options: ["No", "Yes"], 
+              safeAnswers: ["No"], 
+              disqualifyAnswers: ["Yes"] }
+        ]
+    };
+    
+    await window.generateForm(hormoneFormData, 'hormone-form');
+&lt;/script&gt;</code></pre>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-card">
+    <h3>🔧 Footer Tracking Script</h3>
+    <p>Add this script to your website's footer for proper redirect handling and form integration.</p>
+    
+    <div class="form-group">
+        <label class="form-label">GoHighLevel Footer Code:</label>
+        <div class="code-block">
+            <pre><code>&lt;!-- Add this to your GHL site footer in Website Settings > Footer Code --&gt;
+&lt;script src="https://locumtele.github.io/widgets/forms/components/ghl-redirect.js"&gt;&lt;/script&gt;</code></pre>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">Fee Page Autofill Script:</label>
+        <div class="code-block">
+            <pre><code>&lt;!-- Add this to your fee pages for automatic contact info population --&gt;
+&lt;script src="https://locumtele.github.io/widgets/forms/components/fee-page-autofill.js"&gt;&lt;/script&gt;</code></pre>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-card">
+    <h3>📊 Complete Integration Example</h3>
+    <p>Here's a complete example showing how to integrate everything together.</p>
+    
+    <div class="code-block">
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Medical Screening Form&lt;/title&gt;
+    &lt;!-- Universal Form Styles --&gt;
+    &lt;link rel="stylesheet" href="https://locumtele.github.io/widgets/forms/components/universalFormStyle.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Form Container --&gt;
+    &lt;div id="form-container"&gt;&lt;/div&gt;
+    
+    &lt;!-- Universal Form Loader --&gt;
+    &lt;script src="https://locumtele.github.io/widgets/forms/components/universalFormLoader.js"&gt;&lt;/script&gt;
+    
+    &lt;!-- Footer Tracking Script --&gt;
+    &lt;script src="https://locumtele.github.io/widgets/forms/components/ghl-redirect.js"&gt;&lt;/script&gt;
+    
+    &lt;script&gt;
+        // Your form data
+        const formData = {
+            title: "Medical Screening",
+            category: "weightloss",
+            questions: [
+                { text: "Full Name", type: "text", required: true },
+                { text: "Email Address", type: "email", required: true },
+                { text: "Phone Number", type: "phone", required: true },
+                { text: "Date of Birth", type: "date", required: true },
+                { text: "Gender", type: "radio", required: true, options: ["Male", "Female"] },
+                { text: "Height (feet and inches)", type: "height", required: true },
+                { text: "Weight (pounds)", type: "weight", required: true }
+            ]
+        };
+        
+        // Generate form
+        window.generateForm(formData, 'form-container');
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="dashboard-card">
+    <h3>🎯 Form Flow</h3>
+    <p>This is what happens when a patient completes your form:</p>
+    <ol>
+        <li><strong>Form Submission:</strong> Patient fills out and submits the form</li>
+        <li><strong>State Selection:</strong> Patient selects their state from interactive map/grid</li>
+        <li><strong>Webhook Submission:</strong> Form data is sent to your webhook in proper format</li>
+        <li><strong>Fee Page Redirect:</strong> Patient is redirected to correct fee page with contact info pre-filled</li>
+    </ol>
+    
+    <div class="form-group">
+        <label class="form-label">Supported Categories:</label>
+        <ul>
+            <li><code>weightloss</code> → /weightloss-sync-fee or /weightloss-async-fee</li>
+            <li><code>hormone</code> → /hormone-sync-fee or /hormone-async-fee</li>
+            <li><code>antiaging</code> → /antiaging-sync-fee or /antiaging-async-fee</li>
+            <li><code>sexual</code> → /sexual-sync-fee or /sexual-async-fee</li>
+            <li><code>hairskin</code> → /hairskin-sync-fee or /hairskin-async-fee</li>
+        </ul>
+    </div>
+</div>
+
+<style>
+.code-block {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    overflow-x: auto;
+}
+
+.code-block pre {
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.code-block code {
+    background: none;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+ol {
+    padding-left: 1.5rem;
+}
+
+ol li {
+    margin-bottom: 0.5rem;
+}
+
+ul {
+    padding-left: 1.5rem;
+}
+
+ul li {
+    margin-bottom: 0.25rem;
+}
+
+code {
+    background: #e9ecef;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+</style>

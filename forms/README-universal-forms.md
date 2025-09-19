@@ -350,6 +350,93 @@ See `universal-form-demo.html` for comprehensive examples including:
 - Multi-step survey
 - Complex assessment form
 
+## Complete Form Flow
+
+The Universal Form System implements a complete patient journey:
+
+### 1. Form Submission
+- Collects form data and stores in `sessionStorage`
+- Redirects to state selector (NO webhook submission yet)
+- Shows success message before redirect
+
+### 2. State Selection
+- Gets form data from `sessionStorage`
+- Submits webhook data in proper format to `https://locumtele.app.n8n.cloud/webhook/patient-screener`
+- Redirects to correct fee page with URL parameters
+
+### 3. Fee Page Autofill
+- Fee pages receive URL parameters: `name`, `email`, `phone`, `state`, `category`, `consult_type`
+- Include `fee-page-autofill.js` script to automatically populate contact fields
+- Supports multiple field naming conventions
+
+### Webhook Data Format
+
+The system sends data in this exact format:
+
+```json
+{
+  "contact": {
+    "name": "string",
+    "email": "string", 
+    "gender": "string",
+    "dateOfBirth": "string (YYYY-MM-DD)",
+    "phone": "string",
+    "address1": "string",
+    "city": "string",
+    "state": "string",
+    "postalCode": "string",
+    "timezone": "string",
+    "type": "patient"
+  },
+  "patient": {
+    "patientId": "string",
+    "contactId": "string", 
+    "rxRequested": "string",
+    "height": "string",
+    "weight": "string",
+    "BMI": "string",
+    "pregnancy": "string",
+    "conditions": ["string"],
+    "medications": ["string"],
+    "allergies": "string",
+    "activityLevel": "string",
+    "tobaccoUse": "string",
+    "alcoholUse": "string",
+    "otcConsumption": ["string"],
+    "mentalHealth": "string"
+  },
+  "form": {
+    "formType": "string",
+    "category": "string", 
+    "screener": "string",
+    "screenerData": "string",
+    "timestamp": "string (ISO 8601)",
+    "formVersion": "string"
+  },
+  "clinic": {
+    "name": "string",
+    "id": "string",
+    "email": "string", 
+    "phone": "string",
+    "type": "healthcare"
+  }
+}
+```
+
+### Fee Page Integration
+
+Add this script to your fee pages for automatic contact info population:
+
+```html
+<script src="https://locumtele.github.io/widgets/forms/components/fee-page-autofill.js"></script>
+```
+
+The script automatically finds and fills:
+- Name fields (by name, id, placeholder, or label)
+- Email fields (by type, name, id, placeholder, or label)  
+- Phone fields (by type, name, id, placeholder, or label)
+- State fields (by name, id, placeholder, or label)
+
 ## Integration
 
 ### With Existing Systems
@@ -365,10 +452,10 @@ await window.UniversalFormLoader.generateForm(formData, 'form-container');
 
 ### With Form Submission
 
-The system automatically handles form submission and sends data to:
-`https://locumtele.app.n8n.cloud/webhook/patient-screener`
-
-You can customize this in the `handleFormSubmission()` method.
+The system automatically handles the complete flow:
+1. Form submission → State selector
+2. State selection → Webhook + Fee page redirect
+3. Fee page → Auto-fill contact info
 
 ## Troubleshooting
 
