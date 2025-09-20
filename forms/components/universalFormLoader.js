@@ -15,6 +15,7 @@ class UniversalFormLoader {
         this.formConfig = null;
         this.questionIdCounter = 0;
         this.conditionalLogic = new Map();
+        this.disqualificationTriggered = false;
     }
 
     /**
@@ -161,6 +162,21 @@ class UniversalFormLoader {
                     <h3>✅ Form submitted successfully!</h3>
                     <p>Redirecting you to the next step...</p>
                 </div>
+
+                <!-- Disqualification message -->
+                <div id="disqualificationMessage" class="disqualification-container" style="display: none;">
+                    <h2 class="disqualification-title">Not Eligible for Treatment</h2>
+                    <p id="disqualificationText">Based on your answers, you are not eligible for this treatment at this time.</p>
+                    <div class="crisis-resources">
+                        <p><strong>Need Help?</strong></p>
+                        <p>If you're experiencing a mental health crisis, please contact:</p>
+                        <ul>
+                            <li><strong>National Suicide Prevention Lifeline:</strong> 988</li>
+                            <li><strong>Crisis Text Line:</strong> Text HOME to 741741</li>
+                            <li><strong>Emergency:</strong> 911</li>
+                        </ul>
+                    </div>
+                </div>
             </form>
         </div>
         `;
@@ -255,16 +271,6 @@ class UniversalFormLoader {
                     ${question.text || question.questionText || question.name}${isRequired ? ' *' : ''}
                 </label>
         `;
-
-        // Add disqualification message if applicable
-        if (question.disqualifyAnswers || question.disqualify) {
-            html += `
-                <div class="disqualification-message" id="${questionId}_disqualify" style="display: none;">
-                    <strong>💡 You are not eligible for this treatment</strong><br>
-                    ${question.disqualifyMessage || 'This answer disqualifies you from treatment.'}
-                </div>
-            `;
-        }
 
         // Generate input field based on type
         html += this.generateInputField(question, questionId, fieldName, questionType);
@@ -386,7 +392,7 @@ class UniversalFormLoader {
             html += `
                 <div class="option-item">
                     <input type="radio" id="${optionId}" name="${fieldName}" value="${optionValue}" 
-                           data-answer-type="${answerType}">
+                           data-answer-type="${answerType}" data-question-id="${questionId}">
                     <label for="${optionId}">${optionLabel}</label>
                 </div>
             `;
@@ -431,7 +437,8 @@ class UniversalFormLoader {
         options.forEach(option => {
             const optionValue = this.sanitizeValue(option);
             const optionLabel = this.formatLabel(option);
-            html += `<option value="${optionValue}">${optionLabel}</option>`;
+            const answerType = this.getAnswerType(option, question);
+            html += `<option value="${optionValue}" data-answer-type="${answerType}">${optionLabel}</option>`;
         });
 
         html += '</select>';
@@ -654,16 +661,73 @@ class UniversalFormLoader {
      * Setup conditional logic
      */
     setupConditionalLogic() {
-        // This would be expanded based on your specific conditional logic needs
-        const questions = document.querySelectorAll('.question');
-        questions.forEach(question => {
-            const inputs = question.querySelectorAll('input, select, textarea');
-            inputs.forEach(input => {
-                input.addEventListener('change', () => {
-                    this.checkConditionalLogic(question);
-                });
-            });
+        // Listen for all radio button and select changes
+        const form = document.getElementById('universalForm');
+        if (!form) return;
+
+        form.addEventListener('change', (e) => {
+            if (e.target.type === 'radio' || e.target.tagName === 'SELECT') {
+                this.checkAnswerLogic(e.target);
+            }
         });
+    }
+
+    /**
+     * Check answer logic for safe/flag/disqualify
+     */
+    checkAnswerLogic(input) {
+        const answerType = input.dataset.answerType;
+        const questionId = input.dataset.questionId || input.name;
+        
+        console.log(`Answer selected: ${input.value}, Type: ${answerType}, Question: ${questionId}`);
+
+        if (answerType === 'disqualify') {
+            this.handleDisqualification(input);
+        } else if (answerType === 'flag') {
+            this.handleFlaggedAnswer(input);
+        } else if (answerType === 'safe') {
+            this.handleSafeAnswer(input);
+        }
+    }
+
+    /**
+     * Handle disqualification
+     */
+    handleDisqualification(input) {
+        console.log('Disqualification triggered');
+        this.disqualificationTriggered = true;
+        
+        // Show disqualification message
+        const disqualifyMessage = document.getElementById('disqualificationMessage');
+        if (disqualifyMessage) {
+            disqualifyMessage.style.display = 'block';
+        }
+
+        // Hide form and show disqualification
+        const form = document.getElementById('universalForm');
+        if (form) {
+            form.style.display = 'none';
+        }
+
+        // Scroll to disqualification message
+        disqualifyMessage.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    /**
+     * Handle flagged answer
+     */
+    handleFlaggedAnswer(input) {
+        console.log('Flagged answer selected');
+        // You can add specific logic for flagged answers here
+        // For example, show a warning or note
+    }
+
+    /**
+     * Handle safe answer
+     */
+    handleSafeAnswer(input) {
+        console.log('Safe answer selected');
+        // You can add specific logic for safe answers here
     }
 
     /**
@@ -694,6 +758,12 @@ class UniversalFormLoader {
      */
     async handleFormSubmission() {
         try {
+            // Check if disqualified
+            if (this.disqualificationTriggered) {
+                console.log('Form submission blocked - user disqualified');
+                return;
+            }
+
             const formData = this.collectFormData();
             console.log('Form data collected:', formData);
             
@@ -708,7 +778,23 @@ class UniversalFormLoader {
             
             // Redirect to state selection (no webhook submission yet)
             const category = this.formConfig.metadata.category || 'weightloss';
-            const stateSelectionUrl = `state-selector.html?category=${encodeURIComponent(category)}`;
+            
+            // Get root domain from embedding site
+            let rootDomain = window.location.origin;
+            try {
+                if (window.parent && window.parent !== window) {
+                    rootDomain = window.parent.location.origin;
+                } else if (window.top && window.top !== window) {
+                    rootDomain = window.top.location.origin;
+                } else if (document.referrer) {
+                    const referrerUrl = new URL(document.referrer);
+                    rootDomain = referrerUrl.origin;
+                }
+            } catch (error) {
+                console.log('Using current domain for redirect:', rootDomain);
+            }
+            
+            const stateSelectionUrl = `${rootDomain}/${category}-state`;
             
             setTimeout(() => {
                 window.location.href = stateSelectionUrl;

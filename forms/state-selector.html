@@ -542,10 +542,16 @@
             // Get form data from sessionStorage
             const formData = JSON.parse(sessionStorage.getItem('formData') || '{}');
             
-            // Sync states
-            const syncStates = ['AR', 'DC', 'DE', 'ID', 'KS', 'LA', 'MS', 'NM', 'RI', 'WV', 'NC', 'SC', 'ME'];
-            const isSync = syncStates.includes(selectedState.code);
-            const consultType = isSync ? 'sync' : 'async';
+            // Check if we have form data
+            if (!formData || Object.keys(formData).length === 0) {
+                alert('No form data found. Please complete the form first.');
+                return;
+            }
+            
+            // States that require sync consultations (no async allowed)
+            const syncOnlyStates = ['AR', 'DC', 'DE', 'ID', 'KS', 'LA', 'MS', 'NM', 'RI', 'WV', 'NC', 'SC', 'ME'];
+            const isSyncOnly = syncOnlyStates.includes(selectedState.code);
+            const consultType = isSyncOnly ? 'sync' : 'async';
             
             // Get category from URL or default
             const urlParams = new URLSearchParams(window.location.search);
@@ -555,7 +561,7 @@
             const webhookData = formatWebhookData(formData, selectedState, category, consultType);
             
             try {
-                // Submit to webhook
+                // Submit to webhook and get consult type from response
                 const response = await fetch('https://locumtele.app.n8n.cloud/webhook/patient-screener', {
                     method: 'POST',
                     headers: {
@@ -566,6 +572,17 @@
                 
                 if (response.ok) {
                     console.log('Webhook submission successful');
+                    
+                    // Try to get consult type from response
+                    try {
+                        const responseData = await response.json();
+                        if (responseData.consultType) {
+                            consultType = responseData.consultType;
+                            console.log('Consult type from API response:', consultType);
+                        }
+                    } catch (jsonError) {
+                        console.log('No JSON response, using state-based logic');
+                    }
                 } else {
                     console.error('Webhook submission failed:', response.status);
                 }
@@ -573,45 +590,96 @@
                 console.error('Webhook submission error:', error);
             }
             
-            // Redirect to fee page with contact info parameters
-            const rootDomain = '{{custom_values.root_domain}}';
+            // Get root domain from embedding site or current domain
+            let rootDomain = window.location.origin; // Fallback to current domain
+            
+            try {
+                // Try to get domain from parent window (if embedded)
+                if (window.parent && window.parent !== window) {
+                    rootDomain = window.parent.location.origin;
+                }
+                // Try to get domain from top window (if in iframe)
+                else if (window.top && window.top !== window) {
+                    rootDomain = window.top.location.origin;
+                }
+                // Try to get from referrer
+                else if (document.referrer) {
+                    const referrerUrl = new URL(document.referrer);
+                    rootDomain = referrerUrl.origin;
+                }
+            } catch (error) {
+                console.log('Could not access parent window, using current domain:', rootDomain);
+            }
+            
+            console.log('Using root domain:', rootDomain);
+            console.log('Consult type for', selectedState.code, ':', consultType);
+            
+            // Get location data from URL parameters or use defaults
+            const urlParams = new URLSearchParams(window.location.search);
+            const locationId = urlParams.get('location_id') || 'default_location';
+            const locationName = urlParams.get('location_name') || 'Default Clinic';
+            
+            // Build contact parameters for fee page
             const contactParams = new URLSearchParams({
-                location_id: '{{location.id}}',
-                location_name: '{{location.name}}',
+                location_id: locationId,
+                location_name: locationName,
                 state: selectedState.code,
                 state_name: selectedState.name,
-                name: formData.fullName || '',
+                name: formData.fullName || formData.name || '',
                 email: formData.email || '',
                 phone: formData.phone || '',
                 category: category,
                 consult_type: consultType
             });
             
+            // Redirect to the appropriate fee page
             const feeUrl = `${rootDomain}/${category}-${consultType}-fee?${contactParams.toString()}`;
+            console.log('Redirecting to:', feeUrl);
             window.location.href = feeUrl;
         }
         
         function formatWebhookData(formData, selectedState, category, consultType) {
+            // Map form data to expected field names (handle variations)
+            const mappedData = {
+                fullName: formData.fullName || formData.name || formData.full_name || '',
+                email: formData.email || formData.email_address || '',
+                phone: formData.phone || formData.phone_number || formData.phoneNumber || '',
+                gender: formData.gender || formData.sex || '',
+                dateOfBirth: formData.dateOfBirth || formData.dob || formData.birth_date || '',
+                heightFeet: formData.heightFeet || formData.height_feet || formData.height_ft || '',
+                heightInches: formData.heightInches || formData.height_inches || formData.height_in || '',
+                weight: formData.weight || formData.weight_pounds || formData.weight_lbs || '',
+                pregnancy: formData.pregnancy || formData.pregnant || '',
+                conditions: formData.conditions || formData.medical_conditions || formData.medicalConditions || [],
+                medications: formData.medications || formData.current_medications || formData.currentMedications || [],
+                allergies: formData.allergies || formData.allergy || formData.allergic_to || '',
+                activityLevel: formData.activityLevel || formData.activity_level || formData.exercise_level || '',
+                tobaccoUse: formData.tobaccoUse || formData.tobacco_use || formData.smoking || '',
+                alcoholUse: formData.alcoholUse || formData.alcohol_use || formData.alcohol_consumption || '',
+                otcConsumption: formData.otcConsumption || formData.otc_consumption || formData.otc_medications || [],
+                mentalHealth: formData.mentalHealth || formData.mental_health || formData.depression || ''
+            };
+            
             // Calculate BMI if height and weight are available
             let bmi = '';
-            if (formData.heightFeet && formData.heightInches && formData.weight) {
-                const totalInches = (parseInt(formData.heightFeet) * 12) + parseInt(formData.heightInches);
+            if (mappedData.heightFeet && mappedData.heightInches && mappedData.weight) {
+                const totalInches = (parseInt(mappedData.heightFeet) * 12) + parseInt(mappedData.heightInches);
                 const heightMeters = totalInches * 0.0254;
-                const weightKg = parseInt(formData.weight) * 0.453592;
+                const weightKg = parseInt(mappedData.weight) * 0.453592;
                 bmi = (weightKg / (heightMeters * heightMeters)).toFixed(1);
             }
             
             return {
                 contact: {
-                    name: formData.fullName || '',
-                    email: formData.email || '',
-                    gender: formData.gender || '',
-                    dateOfBirth: formData.dateOfBirth || '',
-                    phone: formData.phone || '',
-                    address1: formData.address1 || '',
+                    name: mappedData.fullName,
+                    email: mappedData.email,
+                    gender: mappedData.gender,
+                    dateOfBirth: mappedData.dateOfBirth,
+                    phone: mappedData.phone,
+                    address1: formData.address1 || formData.address || '',
                     city: formData.city || '',
                     state: selectedState.code,
-                    postalCode: formData.postalCode || '',
+                    postalCode: formData.postalCode || formData.zip || formData.zipCode || '',
                     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
                     type: 'patient'
                 },
@@ -619,19 +687,19 @@
                     patientId: '',
                     contactId: '',
                     rxRequested: category,
-                    height: formData.heightFeet && formData.heightInches ? 
-                        `${formData.heightFeet}'${formData.heightInches}"` : '',
-                    weight: formData.weight || '',
+                    height: mappedData.heightFeet && mappedData.heightInches ? 
+                        `${mappedData.heightFeet}'${mappedData.heightInches}"` : '',
+                    weight: mappedData.weight,
                     BMI: bmi,
-                    pregnancy: formData.pregnancy || '',
-                    conditions: formData.conditions || [],
-                    medications: formData.medications || [],
-                    allergies: formData.allergies || '',
-                    activityLevel: formData.activityLevel || '',
-                    tobaccoUse: formData.tobaccoUse || '',
-                    alcoholUse: formData.alcoholUse || '',
-                    otcConsumption: formData.otcConsumption || [],
-                    mentalHealth: formData.mentalHealth || ''
+                    pregnancy: mappedData.pregnancy,
+                    conditions: Array.isArray(mappedData.conditions) ? mappedData.conditions : [],
+                    medications: Array.isArray(mappedData.medications) ? mappedData.medications : [],
+                    allergies: mappedData.allergies,
+                    activityLevel: mappedData.activityLevel,
+                    tobaccoUse: mappedData.tobaccoUse,
+                    alcoholUse: mappedData.alcoholUse,
+                    otcConsumption: Array.isArray(mappedData.otcConsumption) ? mappedData.otcConsumption : [],
+                    mentalHealth: mappedData.mentalHealth
                 },
                 form: {
                     formType: formData.formType || category,
@@ -642,17 +710,30 @@
                     formVersion: '2.0.0'
                 },
                 clinic: {
-                    name: '{{location.name}}',
-                    id: '{{location.id}}',
-                    email: '{{location.email}}',
-                    phone: '{{location.phone}}',
+                    name: urlParams.get('location_name') || 'Default Clinic',
+                    id: urlParams.get('location_id') || 'default_location',
+                    email: urlParams.get('location_email') || 'contact@clinic.com',
+                    phone: urlParams.get('location_phone') || '555-123-4567',
                     type: 'healthcare'
                 }
             };
         }
 
+        // Debug function to check form data
+        function debugFormData() {
+            const formData = JSON.parse(sessionStorage.getItem('formData') || '{}');
+            console.log('Form data from sessionStorage:', formData);
+            console.log('Available form data keys:', Object.keys(formData));
+            return formData;
+        }
+
         // Initialize
         document.addEventListener('DOMContentLoaded', init);
+        
+        // Debug form data on load (remove in production)
+        document.addEventListener('DOMContentLoaded', () => {
+            debugFormData();
+        });
     </script>
 </body>
 </html>

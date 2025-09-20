@@ -1,100 +1,0 @@
-Date:_____/_____/_____
-All questions contained in this questionnaire are strictly confidential Medical History QuestionnaireName:
-(Last, First, M.I.)? Female
-
-          AgeDOB:  _____/_____/_____
-
-Height:_____ft _____ inches
-
-Weight:__________ lbs.
-Address:City:State:Zip Code:Home Phone: (       )Work Phone: (       )Cell Phone:    (        )Email Address:Impairments:              ? Physical        ? Visual       ? HearingPERSONAL HEALTH HISTORYList Any Medical Problems That Doctors Have Diagnosed:Surgeries in the last 5 years:YearReasonList Your Prescribed Drugs and Over-the-Counter Drugs, such as vitamins and other supplementsDrugStrength/FrequencyDrugStrength/Frequency
-
-Allergies to Medications, Food, Environment, Bee stings etc:DrugReaction You Had
-
-
-HEALTH HABITS AND PERSONAL CHOICESExercise:? Sedentary (No exercise)	? Mild Exercise (i.e., climb stairs, walk 3 blocks, golf)
-? Occasional Vigorous Exercise (i.e., work or recreation, less than 4x/week for 30 min.)
-? Regular Vigorous Exercise (i.e., work or recreation 4x/week for 30 minutes)Diet:Are you dieting?	? Yes     ? No
-If yes, are you on a physician prescribed medical diet? 	? Yes     ? NoCaffeine:? None     ? Coffee    ? Tea     ? Cola     # of Cups/Cans Per Day? ______Alcohol:Do you drink alcohol? 	? Yes     ? No
-How many drinks per week? _____Tobacco:Do you currently use tobacco? 	? Yes     ? No
-How many years have you smoked?                                                          _
-If a past smoker, How long has it been since you smoked ?__________________________
-?  Cigarettes - Pks/day_____  or number of cigarettes/day                 _
-PERSONAL HISTORY  Are you currently experiencing or being treated for any of the following? Autoimmune disorder- If Yes, please explainY or NBlood clotsY or NBlood disordersY or NCancer, or history of cancer? If yes, please explainY or NDiabetesY or NGall bladder disease?Y or NHeart disease, or history of Heart attack or stroke?Y or NHigh blood pressure, hypertensionY or NHigh cholesterolY or NLiver-hepatitis, liver disease?Y or NMigraines, if Y, , have you ever had the kind of headaches that start with
-warning signs or symptoms, such as flashes of light, blind spots, or tingling in your hand or face that comes and goes completely away before the headache starts?Y or N
-       
-
-       
-       Birth Control Screening Tool[ULE1]
-
-
-1. When was your last women's health clinic visit or OBGYN appointment?
-2. Have you ever had an adverse or allergic reaction to hormonal birth control, pills, patches, ring, implant, IUD, injections, or to any of its ingredients? YES OR NO
-a. If yes- do not proceed
-3. Have you taken or are you currently using or taking any method of birth control including pills, patch, ring, implant, IUD, injection ?	     YES or NO
-a. If yes, which ones and what dose?
-4. Do you have a preferred method of birth control?
-a. Pill 
-b. Patch
-c. Ring
-
-5. Have you been advised by a medical professional to not take hormones? 			YES OR NO
-a. If yes- provide the reason, proceed to consult 
-
-6. Do you think you might be pregnant now? 				YES OR NO
-a. If Yes- do not proceed
-7. What was the first day of your last menstrual period? 			
-8. Do you smoke cigarettes? 			YES OR NO
-a. If yes, please explain and proceed to consult 
-
-
-9. Have you given birth within the last 21 days? YES or NO
-a. If yes, how long ago and proceed to consult 
-
-10. Are you currently breastfeeding?   YES or NO
-i. If yes-proceed to consult 
-11. Are you taking any of the following types of medications?[LU2](none are stops, this is just interacting and will reduce the efficacy of birth control)
-a. Any medication(s) for:
-i. Seizures
-ii. Tuberculosis
-iii. Antibiotics
-iv. Fungal infections
-v. Antivirals
-vi. HIV (human immunodeficiency virus) medications
-vii. Immunosuppressant medications (for autoimmune or transplant)
-viii. Steroids
-
-
-Initial Consultation
-Date Medicine Qty Details Price Comment Additional adviceSmoking Alcohol Depression Medicines side  effects InteractionsLifestyle advice Healthcare professional declarations I confirm that the patient is not contraindicated based on the information provided by the PGD I have explained the potential warnings and side effects of the treatment to the patient, and requested they report them if they occur I have provided the patient with an information leaflet (PIL) for the treatment I am administering, and advised them to read it Healthcare Professional Name Signature Date 
-PATIENT CONSENT 
-I have received information on the risks and benefits of the erectile dysfunction medicines recommended and fully understand them. I have also had the opportunity to ask questions. I consent to the erectile dysfunction medicines being given at each appointment. 
-
-
-Patient signature _______________________________   Date      __________
-
-
-Record of Treatment Provision
-
-New risk assessment form required after 10 consultations. [ULE3]
-For each follow-up consultation Appointment medicine Qty Details Change in medical 
-history? Healthcare professional 
-Signature Price No.1. Yes Patient Signature Date 
-
-Resources
-
-https://idfpr.illinois.gov/content/dam/soi/en/web/idfpr/forms/dpr/Self-Screening%20Risk%20Assessment%20Tool%20w%20Eligibility%20Criteria.pdf
-
-
-https://pubmed.ncbi.nlm.nih.gov/1882277/
-
-
-
-[ULE1]We can insert our screening tool at this point in the tech
-[LU2]List as not a system can stop it. 
-[ULE3]Do we want to do a re-assessment and have them list new meds/med history and how often?
-8
-
-
-
-

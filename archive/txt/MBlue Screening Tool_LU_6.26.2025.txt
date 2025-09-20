@@ -1,104 +1,0 @@
-Methylene Blue Screening Tool
-
-1) Have you ever had an adverse or allergic reaction to Methylene Blue or blue dye? 	YES OR NO
-a) If yes- proceed to consult
-2) Have you previously received  Methylene Blue?
-a) If Yes, What dose?
-3) Are you currently  receiving  Methylene Blue elsewhere?  YES or NO
-a) If yes, what dose?
-4) Have you ever been diagnosed with any of the following or had any of the following procedures?
-a) If yes, proceed to consult
-i) Drug induced encephalopathy
-ii) Heart operation
-iii) Parathyroid Imaging
-iv) Lymph node biopsy
-v) Vasogenic Shock
-5) Have you ever been diagnosed with a G6PD deficiency? 	YES or NO
-a) If yes, do not proceed
-6) Are you currently taking any of the following?  YES or NO, if yes do not proceed
-a) Anti-depressants
-i) SSRIs
-ii) SNRIs
-iii) MAOIs
-b) Narcotics-Opioids
-c) Buprenorphine, Suboxone, Naloxone
-d) Migraine Medications
-e) Dapsone
-f) Tryptophans
-7) Are you currently taking any of the following?  YES or NO, if yes notify prescriber on interaction and proceed with caution
-a) Muscle relaxants
-b) Amphetamines or stimulants
-c) CBD or THC
-d) Benzodiazepines- anti anxiety meds
-e) Gabapentin or other or nerve medication
-
-8) Are you currently experiencing or have you experienced any of the following?  YES or NO if yes, do not proceed
-a) Hemolytic anemia
-b) Serotonin syndrome 
-9) Are you currently pregnant or breastfeeding?
-a) If yes, do not proceed
-10) Have you been diagnosed with severe renal insufficiency? 
-a) If yes, do not proceed
-
-
-
-Initial Consultation
-Date Medicine Qty Details Price Comment Additional adviceSmoking Alcohol Depression Medicines side  effects InteractionsLifestyle advice Healthcare professional declarations I confirm that the patient is not contraindicated based on the information provided by the PGD I have explained the potential warnings and side effects of the treatment to the patient, and requested they report them if they occur I have provided the patient with an information leaflet (PIL) for the treatment I am administering, and advised them to read it Healthcare Professional Name Signature Date 
-PATIENT CONSENT 
-I have received information on the risks and benefits of the erectile dysfunction medicines recommended and fully understand them. I have also had the opportunity to ask questions. I consent to the erectile dysfunction medicines being given at each appointment. 
-
-Patient signature _______________________________   Date      __________
-
-Record of Treatment Provision
-
-New risk assessment form required after 10 consultations. 
-For each follow-up consultation Appointment medicine Qty Details Change in medical 
-history? Healthcare professional 
-Signature Price No.1. Yes Patient Signature Date 
-
-Resources
-
-https://www.micromedexsolutions.com/micromedex2/librarian/CS/9D39EE/ND_PR/evidencexpert/ND_P/evidencexpert/DUPLICATIONSHIELDSYNC/566AD0/ND_PG/evidencexpert/ND_B/evidencexpert/ND_AppProduct/evidencexpert/ND_T/evidencexpert/PFActionId/evidencexpert.GoToDashboard?docId=372710&contentSetId=100&title=Methylene+Blue&servicesTitle=Methylene+Blue&brandName=Provayblue&UserMdxSearchTerm=Provayblue&=null#
-
-https://www.accessdata.fda.gov/drugsatfda_docs/label/2016/204630s000lbl.pdf
-https://drtoddmaderis.com/methylene-blue-for-lyme-disease-and-bartonella
-
-Hashmi MU, Ahmed R, Mahmoud S, Ahmed K, Bushra NM, Ahmed A, Elwadie B, Madni A, Saad AB, Abdelrahman N. Exploring Methylene Blue and Its Derivatives in
-Alzheimer's Treatment: A Comprehensive Review of Randomized Control Trials. Cureus. 2023 Oct 9;15(10):e46732. doi: 10.7759/cureus.46732. PMID: 38022191;
-PMCID: PMC10631450.
-
-Ou G, Che J, Dong J, Deng Y, Jiang X, Sun Y, He Z, Chen W, Zhang J. Methylene blue targets PHD3 expression in murine microglia to mitigate
-lipopolysaccharide-induced neuroinflammation and neurocognitive impairments. Int Immunopharmacol. 2023 Jul;120:110349. doi:
-10.1016/j.intimp.2023.110349. Epub 2023 May 22. PMID: 37210913.
-
-Azam S, Haque ME, Balakrishnan R, Kim IS, Choi DK. The Ageing Brain: Molecular and Cellular Basis of Neurodegeneration. Front Cell Dev Biol. 2021 Aug
-13;9:683459. doi: 10.3389/fcell.2021.683459. PMID: 34485280; PMCID: PMC8414981.
-
-Stelmashook EV, Voronkov DN, Stavrovskaya AV, Novikova SV, Yamshikova NG, Olshanskij AS, Guschina AS, Shedenkova MO, Genrikhs EE, Isaev NK. Neuroprotective
-effects of methylene blue in streptozotocin-induced model of Alzheimer's disease. Brain Res. 2023 Apr 15;1805:148290. doi: 10.1016/j.brainres.2023.148290. Epub 2023
-Feb 18. PMID: 36804486.
-
-Soliman M, Salah M, Fadel M, Nasr M, El-Azab H. Contrasting the efficacy of pulsed dye laser and photodynamic methylene blue nanoemulgel therapy in
-treating acne vulgaris. Arch Dermatol Res. 2021 Apr;313(3):173-180. doi: 10.1007/s00403-020-02093-y. Epub 2020 May 24. PMID: 32449013.
-- WOUND
-
-Gao Y, Jiang Z, Xu B, Mo R, Li S, Jiang Y, Zhao D, Cao W, Chen B, Tian M, Tan Q.
-Evaluation of topical methylene blue nanoemulsion for wound healing in diabetic mice.
-Pharm Biol. 2023 Dec;61(1):1462-1473. doi: 10.1080/13880209.2023.2254341. PMID:
-37691404; PMCID: PMC10496548.
-
-Roldan CJ, Rosenthal DI, Koyyalagunta D, Feng L, Warner K. Methylene Blue for the Treatment of Radiation-Induced Oral Mucositis during Head and Neck Cancer
-Treatment: An Uncontrolled Cohort. Cancers (Basel). 2023 Aug 7;15(15):3994. doi: 10.3390/cancers15153994. PMID: 37568810; PMCID: PMC10417523.
-
-Roldan CJ, Chung M, Feng L, Bruera E. Methylene Blue for the Treatment of Intractable Pain From Oral Mucositis Related to Cancer Treatment: An Uncontrolled
-Cohort. J Natl Compr Canc Netw. 2021 Jan 4;19(5):521-527. doi: 10.6004/jnccn.2020.7651. PMID: 33395626.
-
-Schalch TO, Piatto ÉT, Simão DS, Bussadori SK, Motta LJ, Pavani C, Horliana ACRT. Pericoronitis treatment with antimicrobial photodynamic therapy using a new
-formula of methylene blue: A case report. Photodiagnosis Photodyn Ther. 2023 Jun;42:103331. doi: 10.1016/j.pdpdt.2023.103331. Epub 2023 Feb 11. PMID: 36781007.
-
-Neto FS, Hachul H, Pereira MA, Filho CI. Efficacy of methenamine with methylthioninium in the treatment of dysuria: a randomized clinical study. Int Urogynecol J. 2023
-Dec;34(12):3051-3058. doi: 10.1007/s00192-023-05669-0. Epub 2023 Oct 18. PMID: 37851092; PMCID: PMC10756887.
-
-
-
-

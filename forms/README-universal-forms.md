@@ -21,11 +21,11 @@ A flexible, unified system that can generate forms from any JSON data structure.
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="components/universalFormStyle.css">
+    <link rel="stylesheet" href="https://locumtele.github.io/widgets/forms/components/universalFormStyle.css">
 </head>
 <body>
     <div id="form-container"></div>
-    <script src="components/universalFormLoader.js"></script>
+    <script src="https://locumtele.github.io/widgets/forms/components/universalFormLoader.js"></script>
 </body>
 </html>
 ```
@@ -430,6 +430,8 @@ Add this script to your fee pages for automatic contact info population:
 ```html
 <script src="https://locumtele.github.io/widgets/forms/components/fee-page-autofill.js"></script>
 ```
+
+**Note**: The fee-page-autofill.js script is part of the complete patient journey flow and works with the state selector to automatically populate contact information on fee pages.
 
 The script automatically finds and fills:
 - Name fields (by name, id, placeholder, or label)

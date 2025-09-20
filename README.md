@@ -1,42 +1,48 @@
 # Locumtele Widgets
 
-A comprehensive collection of medical widgets designed for healthcare providers, including dynamic forms, calendar integrations, and funnel pages.
+A comprehensive collection of medical widgets designed for healthcare providers, featuring three embed types for different integration needs.
 
 ## 🚀 Live Demo
 
 Visit the [GitHub Pages site](https://locumtele.github.io/widgets/) to see all widgets in action.
 
-## 📋 Widget Types
+## 🎯 Three Embed Types
 
-### 📝 Universal Form System
+### 📝 Embed Type 1: Form Only
+- **Purpose**: Simple screening forms that redirect to state selection
+- **Flow**: Form → `{{rootdomain}}/{{category}}-state`
+- **Use Case**: Basic patient screening with state selection
+
+### 🗺️ Embed Type 2: State Selector with API
+- **Purpose**: State selection with API-driven consult type determination
+- **Flow**: State Selection → API Call → `{{rootdomain}}/{{category}}-{{consultType}}-fee`
+- **Use Case**: When consult type needs to be determined by API
+
+### 📅 Embed Type 3: Sync Calendar
+- **Purpose**: Direct calendar booking for sync consultations
+- **Flow**: Calendar Booking → `{{rootdomain}}/{{category}}-consult-booked`
+- **Use Case**: Direct appointment scheduling
+
+## 📋 Universal Form System
+
+### ✨ Key Features
 - **Any Data Structure**: Generate forms from any JSON data structure
 - **Auto-Detection**: Automatically detects question types and form structure
-- **Multiple Form Types**: Single forms, multi-step forms, and surveys
-- **Comprehensive Question Types**: Text, email, phone, number, date, radio, checkbox, select, textarea, file, height, weight
-- **Advanced Logic**: Disqualification handling, conditional questions, validation
+- **Answer Logic**: Safe, flag, and disqualify answer handling
 - **Mobile Optimized**: Responsive design with iOS zoom prevention
-- **API Integration**: Seamless integration with n8n webhooks
-
-### 📅 Calendar Widgets
-- **Specialty Calendars**: Weight Loss, Anti-Aging, Hormones
-- **Appointment Booking**: Integrated scheduling solutions
-- **Customizable**: Tailored for different medical specialties
-
-### 🔄 Funnel Pages
-- **Patient Acquisition**: Conversion-optimized landing pages
-- **Lead Capture**: Integrated form and calendar solutions
-- **Customizable**: Branded for different clinics
+- **Multiple Question Types**: Text, email, phone, radio, checkbox, select, textarea, file, height, weight
+- **Conditional Logic**: Real-time validation and disqualification handling
 
 ## 🛠️ Quick Start
 
-### Universal Form System (Recommended)
+### Embed Type 1: Form Only
 ```html
 <link rel="stylesheet" href="https://locumtele.github.io/widgets/forms/components/universalFormStyle.css">
 <script src="https://locumtele.github.io/widgets/forms/components/universalFormLoader.js"></script>
 <script>
-    // Your form data (any structure!)
     const formData = {
         title: "Medical Screening",
+        category: "weightloss", // weightloss, antiaging, hormone, etc.
         questions: [
             { text: "Name", type: "text", required: true },
             { text: "Email", type: "email", required: true },
@@ -45,10 +51,21 @@ Visit the [GitHub Pages site](https://locumtele.github.io/widgets/) to see all w
         ]
     };
     
-    // Generate form
     await window.generateForm(formData, 'form-container');
 </script>
 <div id="form-container"></div>
+```
+
+### Embed Type 2: State Selector with API
+```html
+<iframe src="https://locumtele.github.io/widgets/forms/state-selector.html?category=weightloss&location_id=123&location_name=Clinic%20Name" 
+        style="width:100%;height:600px;border:0;"></iframe>
+```
+
+### Embed Type 3: Sync Calendar
+```html
+<iframe src="https://locumtele.github.io/widgets/calendars/weightloss.html" 
+        style="width:100%;height:800px;border:0;"></iframe>
 ```
 
 ## 📚 Documentation
@@ -56,11 +73,10 @@ Visit the [GitHub Pages site](https://locumtele.github.io/widgets/) to see all w
 ### Universal Form System
 - **[Universal Forms Guide](forms/README-universal-forms.md)** - Complete documentation for the universal form system
 - **[Demo Page](forms/universal-form-demo.html)** - Interactive demo with examples
-- **[Cleanup Summary](forms/CLEANUP-SUMMARY.md)** - What changed in the latest update
 
-### Legacy Documentation
-- **[n8n Integration](forms/documentation/N8N_INTEGRATION.md)** - Internal team automation setup
-- **[Client API Docs](forms/documentation/CLIENT_API_DOCUMENTATION.md)** - For external clients with custom forms
+### Additional Documentation
+- **[Client API Docs](documentation/clinics/patient-forms-api.md)** - For external clients with custom forms
+- **[Widget Dashboard](widget-dashboard.html)** - Internal widget management interface
 
 ### Examples
 - `forms/universal-form-demo.html` - Interactive demo with multiple form types
@@ -77,18 +93,14 @@ ltGlobalWidgets/
 │   │   └── ghl-redirect.js           # GoHighLevel integration
 │   ├── universal-form-demo.html      # Interactive demo
 │   ├── README-universal-forms.md     # Complete documentation
-│   └── CLEANUP-SUMMARY.md            # What changed
-├── calendars/                   # Calendar widgets
-│   ├── weightloss.html
-│   ├── antiaging.html
-│   ├── hormones.html
-│   ├── sexualhealth.html
-│   ├── hairskin.html
-│   └── general.html
-├── funnel/                      # Funnel pages
-│   ├── footerScreener.html
-│   └── map.html
-└── index.html                   # Landing page (optional)
+│   └── state-selector.html           # State selection for forms
+├── pages/                       # Dashboard and widget pages
+│   ├── integrations/            # Integration dashboard
+│   └── widgets/                 # Widget management dashboard
+├── documentation/               # Brand assets and documentation
+│   ├── clinics/                 # Client API documentation
+│   └── locumtele/brand/         # Brand CSS system
+└── widget-dashboard.html        # Main widget dashboard
 ```
 
 ## 🔧 Customization

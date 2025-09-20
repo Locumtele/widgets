@@ -1,7 +1,7 @@
-# Internal Dashboard Widget Documentation
+# Widget Dashboard Documentation
 
 ## Overview
-The Internal Dashboard is a comprehensive management system for LocumTele's Notion forms and questions data. It provides a centralized interface for viewing, managing, and refreshing form data through N8n webhook integrations.
+The Widget Dashboard is a comprehensive management system for LocumTele's widget ecosystem. It provides a centralized interface for viewing, managing, and refreshing form data through N8n webhook integrations, and serves as the main hub for widget management.
 
 ## Features
 
@@ -50,7 +50,7 @@ The Internal Dashboard is a comprehensive management system for LocumTele's Noti
 ## File Structure
 
 ```
-internal-dashboard.html
+widget-dashboard.html
 ├── Forms Section
 │   ├── Forms Table Display
 │   ├── Data Loading Logic
@@ -73,9 +73,9 @@ internal-dashboard.html
 ## Usage Instructions
 
 ### 1. Accessing the Dashboard
-- Open `internal-dashboard.html` in a web browser
+- Open `widget-dashboard.html` in a web browser
 - Ensure you're running a local server (e.g., `python3 -m http.server 8000`)
-- Navigate to `http://localhost:8000/internal-dashboard.html`
+- Navigate to `http://localhost:8000/widget-dashboard.html`
 
 ### 2. Loading Forms Data
 1. Go to **Forms** tab
