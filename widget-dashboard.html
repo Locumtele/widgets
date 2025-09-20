@@ -874,8 +874,15 @@
             // Check if we have cached data
             if (window.formsData && window.formsData.length > 0) {
                 console.log('Rendering forms table with data:', window.formsData);
-                // Re-render the existing cached data (don't reset)
-                renderFormsTable(window.formsData);
+                // Only re-render if content is empty or shows placeholder
+                const formsContent = document.getElementById('forms-content');
+                const hasPlaceholder = formsContent.innerHTML.includes('No Database Records Loaded') || 
+                                     formsContent.innerHTML.includes('No forms found') ||
+                                     formsContent.innerHTML.trim() === '';
+                
+                if (hasPlaceholder) {
+                    renderFormsTable(window.formsData);
+                }
                 document.getElementById('forms-loading').style.display = 'none';
                 document.getElementById('forms-content').style.display = 'block';
                 document.getElementById('forms-error').style.display = 'none';
@@ -1074,13 +1081,16 @@
 
             document.getElementById('forms-content').innerHTML = tableHTML;
 
-            // Store the data globally
-            window.formsData = formsArray;
-            window.lastSyncTime = Date.now();
-
-            // Persist data in localStorage for page reloads
-            localStorage.setItem('formsData', JSON.stringify(formsArray));
-            localStorage.setItem('lastSyncTime', window.lastSyncTime.toString());
+            // Don't overwrite window.formsData - it should contain the raw webhook data
+            // Only update if this is a fresh load from webhook
+            if (!window.formsData) {
+                window.formsData = data; // Store raw data
+                window.lastSyncTime = Date.now();
+                
+                // Persist data in localStorage for page reloads
+                localStorage.setItem('formsData', JSON.stringify(data));
+                localStorage.setItem('lastSyncTime', window.lastSyncTime.toString());
+            }
 
             // Data loaded successfully
         }
