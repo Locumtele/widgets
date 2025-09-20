@@ -363,8 +363,13 @@
                         </div>
 
                         <div style="text-align: center; padding: 3rem; color: #666;">
-                            <h4>Assets Page</h4>
-                            <p>Coming soon...</p>
+                            <h4>Form Assets Generator</h4>
+                            <p>Generate and manage embed codes for all your forms.</p>
+                            <div style="margin-top: 2rem;">
+                                <a href="cdn-generator.html" target="_blank" class="lt-btn lt-btn-primary" style="text-decoration: none; display: inline-block;">
+                                    🚀 Open CDN Generator
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -788,7 +793,75 @@
 
         // Load assets page
         function loadAssetsPage() {
-            // Empty for now
+            const content = document.getElementById('assets-content');
+            
+            if (window.formsData && window.formsData.length > 0) {
+                content.innerHTML = `
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="margin-bottom: 1rem; color: #333;">Ready-to-Use Embed Codes</h4>
+                        <p style="color: #666; margin-bottom: 1.5rem;">
+                            Copy any embed code below and paste directly into your client's website. 
+                            All styling, logic, and redirects are centrally managed and auto-updating.
+                        </p>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 1.5rem;">
+                            ${window.formsData.map(form => `
+                                <div style="background: #fff; border: 1px solid #e1e5e9; border-radius: 8px; padding: 1.5rem;">
+                                    <h5 style="margin: 0 0 1rem 0; color: #333;">${form.title}</h5>
+                                    <textarea 
+                                        style="width: 100%; height: 120px; font-family: monospace; font-size: 0.8rem; border: 1px solid #ddd; border-radius: 4px; padding: 0.75rem;" 
+                                        readonly
+                                        onclick="this.select()"
+                                    >${generateShortEmbedCode(form)}</textarea>
+                                    <button 
+                                        class="lt-btn lt-btn-primary" 
+                                        onclick="copyText(this.previousElementSibling)" 
+                                        style="margin-top: 0.5rem; width: 100%;"
+                                    >
+                                        📋 Copy Embed Code
+                                    </button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            } else {
+                content.innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: #666;">
+                        <h4>No Forms Available</h4>
+                        <p>Load forms from the Database tab first.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Generate short embed code that loads from CDN
+        function generateShortEmbedCode(form) {
+            return `<!-- LocumTele Form: ${form.title} -->
+<div id="locumtele-form-${form.id}"></div>
+<script>
+(function() {
+    var script = document.createElement('script');
+    script.src = 'https://locumtele.com/forms/${form.id}.js';
+    script.async = true;
+    document.head.appendChild(script);
+})();
+</script>
+<!-- End LocumTele Form -->`;
+        }
+
+        // Copy text to clipboard
+        function copyText(textarea) {
+            textarea.select();
+            document.execCommand('copy');
+            
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = '✅ Copied!';
+            button.style.background = '#4caf50';
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = '';
+            }, 2000);
         }
 
 
