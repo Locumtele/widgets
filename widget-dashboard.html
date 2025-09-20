@@ -1280,9 +1280,9 @@
             var jsContent = generateFormFile(formId, formData);
             
             // Create simple embed code
-            var embedCode = "<!-- " + formName + " Form -->\n";
-            embedCode += "<div id=\"locumtele-form-" + formId + "\"></div>\n";
-            embedCode += "<script src=\"./forms/" + formId + ".js\"></script>";
+            var embedCode = `<!-- ${formName} Form -->
+<div id="locumtele-form-${formId}"></div>
+<script src="./forms/${formId}.js"></script>`;
             
             // Download the JavaScript file
             uploadToGitHub(formId, jsContent);
