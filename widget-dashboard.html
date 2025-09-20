@@ -1270,11 +1270,23 @@
         
         // Copy individual form link function
         function copyFormLink(formId, formName) {
-            // Just copy the form ID for now
-            navigator.clipboard.writeText(formId).then(function() {
-                alert('✅ Copied form ID: ' + formId);
+            // Create the actual embed code
+            var embedCode = '<!-- ' + formName + ' Form -->\n';
+            embedCode += '<div id="locumtele-form-' + formId + '"></div>\n';
+            var scriptUrl = 'https://raw.githubusercontent.com/Locumtele/widgets/main/forms/' + formId + '.js';
+            embedCode += '<script src="' + scriptUrl + '"></script>';
+            
+            // Copy the embed code
+            navigator.clipboard.writeText(embedCode).then(function() {
+                alert('✅ Copied embed code for: ' + formName);
             }).catch(function(err) {
-                alert('Form ID: ' + formId);
+                var textArea = document.createElement('textarea');
+                textArea.value = embedCode;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('✅ Copied embed code for: ' + formName);
             });
         }
     </script>
