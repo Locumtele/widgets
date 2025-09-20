@@ -869,14 +869,18 @@
 
         // Load forms page
         function loadFormsPage() {
+            console.log('loadFormsPage called. window.formsData:', window.formsData);
+            
             // Check if we have cached data
             if (window.formsData && window.formsData.length > 0) {
+                console.log('Rendering forms table with data:', window.formsData);
                 // Re-render the existing cached data (don't reset)
                 renderFormsTable(window.formsData);
                 document.getElementById('forms-loading').style.display = 'none';
                 document.getElementById('forms-content').style.display = 'block';
                 document.getElementById('forms-error').style.display = 'none';
             } else {
+                console.log('No forms data available, showing placeholder');
                 // Only show placeholder if content is empty
                 const formsContent = document.getElementById('forms-content');
                 if (formsContent.innerHTML.trim() === '') {
@@ -973,11 +977,13 @@
 
         // Render forms table
         function renderFormsTable(data) {
+            console.log('renderFormsTable called with data:', data);
             // Parse the data structure - forms are in an array
             let formsArray = [];
 
             // Process the array of forms
             if (Array.isArray(data)) {
+                console.log('Data is array, processing forms...');
                 data.forEach(formData => {
                     if (formData && formData.name) {
                     formsArray.push({
@@ -992,6 +998,9 @@
                     });
                 }
                 });
+                console.log('Processed forms array:', formsArray);
+            } else {
+                console.log('Data is not an array:', typeof data, data);
             }
 
             if (formsArray.length === 0) {
