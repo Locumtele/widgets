@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resource Dashboard - Locumtele Widgets</title>
+    <title>Widgets Dashboard - Locumtele Widgets</title>
     <link rel="stylesheet" href="documentation/locumtele/brand/brand.css">
     <link rel="stylesheet" href="documentation/locumtele/brand/sites.css">
     <style>
@@ -334,10 +334,10 @@
             </div>
             <ul class="site-nav-menu">
                 <li class="site-nav-item">
-                    <a href="#" class="site-nav-link active" onclick="showForms(this)">📋 Forms</a>
+                    <a href="#" class="site-nav-link active" onclick="showAssets(this)">📦 Assets</a>
                 </li>
                 <li class="site-nav-item">
-                    <a href="#" class="site-nav-link" onclick="showQuestions(this)">❓ Questions</a>
+                    <a href="#" class="site-nav-link" onclick="showForms(this)">🗄️ Database</a>
                 </li>
                 <li class="site-nav-item">
                     <a href="#" class="site-nav-link" onclick="showAdmin(this)">⚙️ Admin</a>
@@ -347,19 +347,34 @@
 
         <!-- Top Navigation Bar -->
         <div class="site-top-navbar">
-            <h1>📋 Forms</h1>
-            <p class="page-description">Notion Forms Management</p>
+            <h1>📦 Assets</h1>
+            <p class="page-description">Form Assets Generator</p>
         </div>
 
         <!-- Main Content Area -->
         <div class="site-content-area">
             <div class="site-container">
-                <!-- Forms Page -->
-                <div id="forms-view">
+                <!-- Assets Page -->
+                <div id="assets-view">
                     <div class="lt-card">
                         <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-                            <span style="font-size: 1.5rem; margin-right: 0.5rem;">📋</span>
-                            <h3 style="margin: 0;">Forms</h3>
+                            <span style="font-size: 1.5rem; margin-right: 0.5rem;">📦</span>
+                            <h3 style="margin: 0;">Form Assets Generator</h3>
+                        </div>
+
+                        <div style="text-align: center; padding: 3rem; color: #666;">
+                            <h4>Assets Page</h4>
+                            <p>Coming soon...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database Page -->
+                <div id="forms-view" style="display: none;">
+                    <div class="lt-card">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <span style="font-size: 1.5rem; margin-right: 0.5rem;">🗄️</span>
+                            <h3 style="margin: 0;">Database</h3>
                         </div>
 
                         <div id="forms-loading" style="text-align: center; padding: 2rem; color: #666;">
@@ -377,28 +392,6 @@
                     </div>
                 </div>
 
-                <!-- Questions Page -->
-                <div id="questions-view" style="display: none;">
-                    <div class="lt-card">
-                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-                            <span style="font-size: 1.5rem; margin-right: 0.5rem;">❓</span>
-                            <h3 style="margin: 0;">Questions</h3>
-                        </div>
-
-                        <div id="questions-loading" style="text-align: center; padding: 2rem; color: #666;">
-                            Loading questions...<br>
-                            <small>Fetching from Notion questions</small>
-                        </div>
-
-                        <div id="questions-content" style="display: none;">
-                            <!-- Questions will be inserted here -->
-                        </div>
-
-                        <div id="questions-error" style="display: none;" class="error">
-                            <!-- Error messages will be shown here -->
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Admin Page -->
                 <div id="admin-view" style="display: none;">
@@ -413,24 +406,13 @@
                             <h4 style="margin: 0 0 1rem 0; color: #333;">Data Management</h4>
                             <div style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border: 1px solid #e1e5e9; border-radius: 6px; background: #f8f9fa; margin-bottom: 1rem;">
                                 <div style="flex: 1;">
-                                    <strong>Refresh All Forms</strong>
+                                    <strong>Refresh Database</strong>
                                     <p style="margin: 0.5rem 0 0 0; color: #666; font-size: 0.9rem;">
-                                        Sync latest form data from Notion database via N8n webhook. This will update the forms view with current information.
+                                        Sync latest data from Notion database via N8n webhook. This will update the database view with current information.
                                     </p>
                                 </div>
                                 <button class="lt-btn lt-btn-primary" onclick="refreshAllForms()" style="padding: 0.75rem 1.5rem;">
-                                    🔄 Refresh All Forms
-                                </button>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border: 1px solid #e1e5e9; border-radius: 6px; background: #f8f9fa;">
-                                <div style="flex: 1;">
-                                    <strong>Refresh All Questions</strong>
-                                    <p style="margin: 0.5rem 0 0 0; color: #666; font-size: 0.9rem;">
-                                        Sync latest questions data from Notion database via N8n webhook. This will update the questions view with current information.
-                                    </p>
-                                </div>
-                                <button class="lt-btn lt-btn-secondary" onclick="refreshAllQuestions()" style="padding: 0.75rem 1.5rem;">
-                                    ❓ Refresh All Questions
+                                    🔄 Refresh Database
                                 </button>
                             </div>
                         </div>
@@ -442,14 +424,14 @@
                                 <div style="padding: 1rem; border: 1px solid #e1e5e9; border-radius: 6px; background: #fff;">
                                     <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
                                         <div style="width: 8px; height: 8px; background: #28a745; border-radius: 50%; margin-right: 0.5rem;"></div>
-                                        <strong>Forms Loaded</strong>
+                                        <strong>Database Records</strong>
                                     </div>
                                     <span id="admin-forms-count" style="font-size: 1.5rem; color: #333;">0</span>
                                 </div>
                                 <div style="padding: 1rem; border: 1px solid #e1e5e9; border-radius: 6px; background: #fff;">
                                     <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
                                         <div style="width: 8px; height: 8px; background: #ffc107; border-radius: 50%; margin-right: 0.5rem;"></div>
-                                        <strong>Questions Loaded</strong>
+                                        <strong>Last Sync</strong>
                                     </div>
                                     <span id="admin-questions-count" style="font-size: 1.5rem; color: #333;">0</span>
                                 </div>
@@ -682,12 +664,11 @@
 
             // Hide other views and show forms
             document.getElementById('admin-view').style.display = 'none';
-            document.getElementById('questions-view').style.display = 'none';
             document.getElementById('forms-view').style.display = 'block';
 
             // Update top navbar
-            document.querySelector('.site-top-navbar h1').innerHTML = '📋 Forms';
-            document.querySelector('.site-top-navbar .page-description').textContent = 'Notion Forms Management';
+            document.querySelector('.site-top-navbar h1').innerHTML = '🗄️ Database';
+            document.querySelector('.site-top-navbar .page-description').textContent = 'Notion Database Management';
 
             // Forms is always visible, preserve existing data
             // Only call loadFormsPage if content is not already visible
@@ -696,23 +677,22 @@
             }
         }
 
-        function showQuestions(clickedElement) {
+
+        function showAssets(clickedElement) {
             // Update active menu item
             updateActiveMenuItem(clickedElement);
 
-            // Hide other views and show questions
+            // Hide other views and show assets
             document.getElementById('forms-view').style.display = 'none';
             document.getElementById('admin-view').style.display = 'none';
-            document.getElementById('questions-view').style.display = 'block';
+            document.getElementById('assets-view').style.display = 'block';
 
             // Update top navbar
-            document.querySelector('.site-top-navbar h1').innerHTML = '❓ Questions';
-            document.querySelector('.site-top-navbar .page-description').textContent = 'Notion Questions Management';
+            document.querySelector('.site-top-navbar h1').innerHTML = '📦 Assets';
+            document.querySelector('.site-top-navbar .page-description').textContent = 'Form Assets Generator';
 
-            // Load questions if not already loaded
-            if (document.getElementById('questions-content').style.display === 'none') {
-                loadQuestionsPage();
-            }
+            // Load assets page
+            loadAssetsPage();
         }
 
         function showAdmin(clickedElement) {
@@ -721,7 +701,7 @@
 
             // Hide other views and show admin
             document.getElementById('forms-view').style.display = 'none';
-            document.getElementById('questions-view').style.display = 'none';
+            document.getElementById('assets-view').style.display = 'none';
             document.getElementById('admin-view').style.display = 'block';
 
             // Update top navbar
@@ -805,6 +785,14 @@
 
         // Removed unused functions for other pages
 
+        // Load assets page
+        function loadAssetsPage() {
+            // Empty for now
+        }
+
+
+
+
         // Load forms page
         function loadFormsPage() {
             // Check if we have cached data
@@ -815,36 +803,22 @@
                 document.getElementById('forms-content').style.display = 'block';
                 document.getElementById('forms-error').style.display = 'none';
             } else {
-                // Show placeholder message only if no data exists
-                document.getElementById('forms-content').innerHTML = `
-                    <div style="text-align: center; padding: 2rem; color: #666;">
-                        <h4>No Forms Loaded</h4>
-                        <p>Click "Refresh All Forms" to load forms from your Notion database.</p>
-                    </div>
-                `;
+                // Only show placeholder if content is empty
+                const formsContent = document.getElementById('forms-content');
+                if (formsContent.innerHTML.trim() === '') {
+                    formsContent.innerHTML = `
+                        <div style="text-align: center; padding: 2rem; color: #666;">
+                            <h4>No Database Records Loaded</h4>
+                            <p>Click "Refresh Database" to load data from your Notion database.</p>
+                        </div>
+                    `;
+                }
                 document.getElementById('forms-loading').style.display = 'none';
                 document.getElementById('forms-content').style.display = 'block';
                 document.getElementById('forms-error').style.display = 'none';
             }
         }
 
-        // Load questions page
-        function loadQuestionsPage() {
-            // Check if we have cached questions data
-            if (window.questionsData && window.questionsData.length > 0) {
-                // Re-render the existing cached data
-                renderQuestionsTable(window.questionsData);
-                document.getElementById('questions-loading').style.display = 'none';
-                document.getElementById('questions-content').style.display = 'block';
-                document.getElementById('questions-error').style.display = 'none';
-            } else {
-                // Show forms with individual refresh buttons
-                renderQuestionsPlaceholder();
-                document.getElementById('questions-loading').style.display = 'none';
-                document.getElementById('questions-content').style.display = 'block';
-                document.getElementById('questions-error').style.display = 'none';
-            }
-        }
 
         // Admin functions
         function refreshAllForms() {
@@ -869,42 +843,15 @@
             });
         }
 
-        function refreshAllQuestions() {
-            // Show loading state on both admin and questions views
-            const adminButton = document.querySelector('button[onclick="refreshAllQuestions()"]');
-            const originalText = adminButton.innerHTML;
-            adminButton.innerHTML = '⏳ Refreshing...';
-            adminButton.disabled = true;
 
-            // Call the questions webhook
-            loadQuestionsFromWebhook().then(() => {
-                // Update admin stats after successful refresh
-                updateAdminStats();
-
-                // Reset button
-                adminButton.innerHTML = originalText;
-                adminButton.disabled = false;
-            }).catch(() => {
-                // Reset button on error
-                adminButton.innerHTML = originalText;
-                adminButton.disabled = false;
-            });
-        }
-
-        function refreshQuestionsForForm(formId) {
-            // TODO: Send form ID to N8n webhook for specific form questions
-            console.log('Refreshing questions for form:', formId);
-            alert(`TODO: This will send form ID "${formId}" to the questions webhook. Please implement the N8n webhook to handle individual form questions.`);
-        }
 
         function updateAdminStats() {
             const formsCount = window.formsData ? window.formsData.length : 0;
-            const questionsCount = window.questionsData ? (Array.isArray(window.questionsData) ? window.questionsData.length : Object.keys(window.questionsData).length) : 0;
             const lastSync = window.lastSyncTime ?
                 new Date(window.lastSyncTime).toLocaleString() : 'Never';
 
             document.getElementById('admin-forms-count').textContent = formsCount;
-            document.getElementById('admin-questions-count').textContent = questionsCount;
+            document.getElementById('admin-questions-count').textContent = formsCount; // Show forms count
             document.getElementById('admin-last-sync').textContent = lastSync;
         }
 
@@ -922,6 +869,12 @@
 
                 const data = await response.json();
                 console.log('Forms webhook response:', data);
+
+                // Store data globally and in localStorage
+                window.formsData = data;
+                window.lastSyncTime = Date.now();
+                localStorage.setItem('formsData', JSON.stringify(data));
+                localStorage.setItem('lastSyncTime', window.lastSyncTime.toString());
 
                 // Render forms table
                 renderFormsTable(data);
@@ -943,40 +896,6 @@
             }
         }
 
-        // Load questions from webhook
-        async function loadQuestionsFromWebhook() {
-            try {
-                const response = await fetch(CONFIG.questionsWebhookUrl, {
-                    method: 'GET',
-                    headers: CONFIG.headers
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                console.log('Questions webhook response:', data);
-
-                // Render questions table
-                renderQuestionsTable(data);
-
-                document.getElementById('questions-loading').style.display = 'none';
-                document.getElementById('questions-content').style.display = 'block';
-
-                return Promise.resolve();
-
-            } catch (error) {
-                console.error('Error loading questions:', error);
-                document.getElementById('questions-error').innerHTML = `
-                    Error loading questions: ${error.message}
-                `;
-                document.getElementById('questions-loading').style.display = 'none';
-                document.getElementById('questions-error').style.display = 'block';
-
-                return Promise.reject(error);
-            }
-        }
 
         // Render forms table
         function renderFormsTable(data) {
@@ -1083,89 +1002,12 @@
             // Data loaded successfully
         }
 
-        // Render questions placeholder with individual form buttons
-        function renderQuestionsPlaceholder() {
-            // Check if we have forms data to show individual buttons
-            if (window.formsData && window.formsData.length > 0) {
-                let formsHTML = `
-                    <div class="database-table-container">
-                        <div style="padding: 1rem; background: #f8f9fa; border-radius: 6px; margin-bottom: 1rem;">
-                            <h4 style="margin: 0 0 0.5rem 0;">Questions by Form</h4>
-                            <p style="margin: 0; color: #666;">Click a button below to refresh questions for a specific form. Each button will send the form ID to the N8n webhook.</p>
-                        </div>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem;">
-                `;
-
-                window.formsData.forEach(form => {
-                    formsHTML += `
-                        <div style="padding: 1rem; border: 1px solid #e1e5e9; border-radius: 6px; background: #fff;">
-                            <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
-                                <span style="font-size: 1.2rem; margin-right: 0.5rem;">📋</span>
-                                <strong>${form.title}</strong>
-                            </div>
-                            <p style="margin: 0 0 1rem 0; color: #666; font-size: 0.9rem;">
-                                Form ID: ${form.id}<br>
-                                Category: ${form.category}
-                            </p>
-                            <button class="lt-btn lt-btn-primary" onclick="refreshQuestionsForForm('${form.id}')" style="width: 100%;">
-                                ❓ Refresh Questions
-                            </button>
-                        </div>
-                    `;
-                });
-
-                formsHTML += `
-                        </div>
-                    </div>
-                `;
-
-                document.getElementById('questions-content').innerHTML = formsHTML;
-            } else {
-                // No forms loaded yet
-                document.getElementById('questions-content').innerHTML = `
-                    <div style="text-align: center; padding: 2rem; color: #666;">
-                        <h4>No Forms Available</h4>
-                        <p>Load forms first to see individual question refresh buttons.</p>
-                        <p style="font-size: 0.9rem; margin-top: 1rem;">
-                            Go to the <strong>Forms</strong> tab and click "Refresh All Forms" first.
-                        </p>
-                    </div>
-                `;
-            }
-        }
-
-        // Render questions table
-        function renderQuestionsTable(data) {
-            // Store questions data globally
-            window.questionsData = data;
-            
-            // For now, just show the raw data in a simple format
-            // You can customize this based on the questions data structure
-            let questionsHTML = `
-                <div class="database-table-container">
-                    <div style="padding: 1rem; background: #f8f9fa; border-radius: 6px; margin-bottom: 1rem;">
-                        <h4 style="margin: 0 0 0.5rem 0;">Questions Data</h4>
-                        <p style="margin: 0; color: #666;">Loaded ${Array.isArray(data) ? data.length : Object.keys(data).length} question records</p>
-                    </div>
-                    <div class="debug-section">
-                        <h4>Raw Questions Data</h4>
-                        <div class="debug-content">${JSON.stringify(data, null, 2)}</div>
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('questions-content').innerHTML = questionsHTML;
-
-            // Persist questions data in localStorage
-            localStorage.setItem('questionsData', JSON.stringify(data));
-        }
 
 
         // Initialize the dashboard
         document.addEventListener('DOMContentLoaded', function() {
             // Restore data from localStorage if available
             const storedFormsData = localStorage.getItem('formsData');
-            const storedQuestionsData = localStorage.getItem('questionsData');
             const storedSyncTime = localStorage.getItem('lastSyncTime');
 
             if (storedFormsData) {
@@ -1179,17 +1021,9 @@
                 }
             }
 
-            if (storedQuestionsData) {
-                try {
-                    window.questionsData = JSON.parse(storedQuestionsData);
-                } catch (error) {
-                    console.error('Error parsing stored questions data:', error);
-                    localStorage.removeItem('questionsData');
-                }
-            }
-
-            // Load forms page by default
+            // Load database page by default and show stored data
             loadFormsPage();
+            showForms();
 
             // Update admin stats
             updateAdminStats();
