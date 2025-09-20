@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real Form Test</title>
+    <link rel="stylesheet" href="forms/components/universalFormStyle.css">
+</head>
+<body>
+    <h1>Real Form Test</h1>
+    <p>This tests your actual form components with real form data.</p>
+    
+    <!-- Form container -->
+    <div id="locumtele-form-test123"></div>
+    
+    <!-- Load your actual components -->
+    <script src="forms/components/universalFormLoader.js"></script>
+    <script src="forms/components/ghl-redirect.js"></script>
+    
+    <script>
+        // Real form data (similar to what you'd have in your dashboard)
+        var realFormData = {
+            id: "test123",
+            title: "Weight Loss Screening Form",
+            category: "weightloss",
+            consultType: "consultation",
+            questions: [
+                {
+                    id: "q1",
+                    text: "What is your current weight?",
+                    type: "text",
+                    required: true
+                },
+                {
+                    id: "q2",
+                    text: "What is your height?",
+                    type: "text",
+                    required: true
+                },
+                {
+                    id: "q3",
+                    text: "Have you tried weight loss medications before?",
+                    type: "select",
+                    required: true,
+                    options: [
+                        {value: "yes", text: "Yes"},
+                        {value: "no", text: "No"}
+                    ]
+                },
+                {
+                    id: "q4",
+                    text: "What is your goal weight?",
+                    type: "text",
+                    required: true
+                }
+            ]
+        };
+        
+        // Test the form loader
+        document.addEventListener('DOMContentLoaded', function() {
+            const formLoader = new UniversalFormLoader();
+            formLoader.generateForm(realFormData, 'locumtele-form-test123')
+                .then(() => {
+                    console.log('Form loaded successfully!');
+                })
+                .catch(error => {
+                    console.error('Error loading form:', error);
+                    document.getElementById('locumtele-form-test123').innerHTML = 
+                        '<p style="color: red;">Error loading form: ' + error.message + '</p>';
+                });
+        });
+    </script>
+</body>
+</html>
