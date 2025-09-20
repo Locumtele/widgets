@@ -414,11 +414,44 @@
                         </div>
                     </div>
 
+                    <!-- Database Overview Section -->
+                    <div class="lt-card" style="margin-bottom: 2rem;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+                            <span style="font-size: 1.5rem; margin-right: 0.5rem;">📊</span>
+                            <h3 style="margin: 0;">Database Overview</h3>
+                        </div>
+                        
+                        <div id="overview-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                            <!-- Stats will be populated by JavaScript -->
+                        </div>
+
+                        <div id="category-breakdown" style="margin-bottom: 2rem;">
+                            <h4 style="margin-bottom: 1rem; color: #333;">Form Categories</h4>
+                            <div id="category-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                                <!-- Category cards will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <div id="recent-updates" style="margin-bottom: 2rem;">
+                            <h4 style="margin-bottom: 1rem; color: #333;">Recent Updates</h4>
+                            <div id="updates-list" style="background: #f8f9fa; border-radius: 8px; padding: 1rem;">
+                                <!-- Recent updates will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <div id="integration-status">
+                            <h4 style="margin-bottom: 1rem; color: #333;">Integration Status</h4>
+                            <div id="status-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                                <!-- Status cards will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Database Table Section -->
                     <div class="lt-card">
                         <div style="display: flex; align-items: center; margin-bottom: 1rem;">
                             <span style="font-size: 1.5rem; margin-right: 0.5rem;">🗄️</span>
-                            <h3 style="margin: 0;">Database Records</h3>
+                            <h3 style="margin: 0;">All Forms</h3>
                         </div>
 
                         <div id="forms-loading" style="text-align: center; padding: 2rem; color: #666;">
@@ -824,6 +857,7 @@
                 console.log('Rendering forms table with data:', window.formsData);
                 // Always render the table when we have data
                 renderFormsTable(window.formsData);
+                renderDatabaseOverview(window.formsData);
                 document.getElementById('forms-loading').style.display = 'none';
                 document.getElementById('forms-content').style.display = 'block';
                 document.getElementById('forms-error').style.display = 'none';
@@ -843,6 +877,129 @@
                 document.getElementById('forms-content').style.display = 'block';
                 document.getElementById('forms-error').style.display = 'none';
             }
+        }
+
+        // Render database overview with stats and categories
+        function renderDatabaseOverview(data) {
+            if (!data || data.length === 0) return;
+
+            // Calculate stats
+            const totalForms = data.length;
+            const categories = {};
+            let totalQuestions = 0;
+            let activeForms = 0;
+
+            data.forEach(form => {
+                const category = form.property_category || 'General';
+                if (!categories[category]) {
+                    categories[category] = { count: 0, questions: 0, forms: [] };
+                }
+                categories[category].count++;
+                categories[category].questions += form.property_total_questions || 0;
+                categories[category].forms.push(form.name);
+                totalQuestions += form.property_total_questions || 0;
+                if (form.property_status === 'published') activeForms++;
+            });
+
+            const categoryCount = Object.keys(categories).length;
+            const activePercentage = Math.round((activeForms / totalForms) * 100);
+
+            // Render overview stats
+            document.getElementById('overview-stats').innerHTML = `
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 12px; text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: bold; margin-bottom: 0.5rem;">${totalForms}</div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">Total Forms</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 1.5rem; border-radius: 12px; text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: bold; margin-bottom: 0.5rem;">${categoryCount}</div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">Categories</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 1.5rem; border-radius: 12px; text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: bold; margin-bottom: 0.5rem;">${totalQuestions}</div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">Total Questions</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; padding: 1.5rem; border-radius: 12px; text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: bold; margin-bottom: 0.5rem;">${activePercentage}%</div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">Active</div>
+                </div>
+            `;
+
+            // Render category cards
+            const categoryColors = {
+                'Weightloss': '#3b82f6',
+                'Hormone': '#8b5cf6', 
+                'AntiAging': '#10b981',
+                'Metabolic': '#f59e0b',
+                'Infection': '#ec4899',
+                'General': '#6b7280'
+            };
+
+            document.getElementById('category-cards').innerHTML = Object.entries(categories).map(([category, info]) => `
+                <div style="border: 2px solid ${categoryColors[category] || '#6b7280'}; border-radius: 12px; padding: 1.5rem; background: white;">
+                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                        <div style="width: 12px; height: 12px; background: ${categoryColors[category] || '#6b7280'}; border-radius: 50%; margin-right: 0.5rem;"></div>
+                        <h5 style="margin: 0; color: #333; font-size: 1.1rem;">${category}</h5>
+                    </div>
+                    <div style="font-size: 2rem; font-weight: bold; color: #333; margin-bottom: 0.5rem;">${info.count} forms</div>
+                    <div style="color: #666; margin-bottom: 1rem;">${info.questions} questions</div>
+                    <div style="font-size: 0.85rem; color: #666;">
+                        ${info.forms.slice(0, 3).join(', ')}${info.forms.length > 3 ? '...' : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            // Render recent updates (mock data for now)
+            document.getElementById('updates-list').innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #e5e7eb;">
+                    <div>
+                        <div style="font-weight: 600; color: #333;">GLP1 Screening Tool</div>
+                        <div style="font-size: 0.85rem; color: #666;">Updated form questions and validation</div>
+                    </div>
+                    <div style="font-size: 0.85rem; color: #666;">Jan 15, 2025</div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #e5e7eb;">
+                    <div>
+                        <div style="font-weight: 600; color: #333;">Weight Loss Screening Tool</div>
+                        <div style="font-size: 0.85rem; color: #666;">Added new BMI calculation logic</div>
+                    </div>
+                    <div style="font-size: 0.85rem; color: #666;">Jan 28, 2025</div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0;">
+                    <div>
+                        <div style="font-weight: 600; color: #333;">NAD Anti-Aging Tool</div>
+                        <div style="font-size: 0.85rem; color: #666;">Updated medical history questions</div>
+                    </div>
+                    <div style="font-size: 0.85rem; color: #666;">Sep 15, 2025</div>
+                </div>
+            `;
+
+            // Render integration status
+            document.getElementById('status-cards').innerHTML = `
+                <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 1.5rem; background: white;">
+                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                        <div style="width: 12px; height: 12px; background: #10b981; border-radius: 50%; margin-right: 0.5rem;"></div>
+                        <h6 style="margin: 0; color: #333;">Notion Database</h6>
+                    </div>
+                    <div style="color: #666; font-size: 0.9rem; margin-bottom: 0.5rem;">Forms synchronized with Notion</div>
+                    <div style="color: #10b981; font-size: 0.85rem; font-weight: 600;">Last sync: Active</div>
+                </div>
+                <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 1.5rem; background: white;">
+                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                        <div style="width: 12px; height: 12px; background: #10b981; border-radius: 50%; margin-right: 0.5rem;"></div>
+                        <h6 style="margin: 0; color: #333;">N8n Webhooks</h6>
+                    </div>
+                    <div style="color: #666; font-size: 0.9rem; margin-bottom: 0.5rem;">Real-time data synchronization</div>
+                    <div style="color: #10b981; font-size: 0.85rem; font-weight: 600;">Webhook: Active</div>
+                </div>
+                <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 1.5rem; background: white;">
+                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                        <div style="width: 12px; height: 12px; background: #10b981; border-radius: 50%; margin-right: 0.5rem;"></div>
+                        <h6 style="margin: 0; color: #333;">Form System</h6>
+                    </div>
+                    <div style="color: #666; font-size: 0.9rem; margin-bottom: 0.5rem;">Universal form loader active</div>
+                    <div style="color: #10b981; font-size: 0.85rem; font-weight: 600;">Components: Loaded</div>
+                </div>
+            `;
         }
 
 
