@@ -1273,9 +1273,9 @@
             // Create embed code using your existing components
             var embedCode = '<!-- ' + formName + ' Form -->\n';
             embedCode += '<div id="locumtele-form-' + formId + '"></div>\n';
-            embedCode += '<link rel="stylesheet" href="https://raw.githubusercontent.com/locumtele/ltGlobalWidgets/main/forms/components/universalFormStyle.css">\n';
-            embedCode += '<script src="https://raw.githubusercontent.com/locumtele/ltGlobalWidgets/main/forms/components/universalFormLoader.js"></script>\n';
-            embedCode += '<script src="https://raw.githubusercontent.com/locumtele/ltGlobalWidgets/main/forms/components/ghl-redirect.js"></script>\n';
+            embedCode += '<link rel="stylesheet" href="https://raw.githubusercontent.com/Locumtele/widgets/master/forms/components/universalFormStyle.css">\n';
+            embedCode += '<script src="https://raw.githubusercontent.com/Locumtele/widgets/master/forms/components/universalFormLoader.js"></script>\n';
+            embedCode += '<script src="https://raw.githubusercontent.com/Locumtele/widgets/master/forms/components/ghl-redirect.js"></script>\n';
             embedCode += '<script>loadForm("' + formId + '");</script>';
             
             navigator.clipboard.writeText(embedCode).then(function() {
