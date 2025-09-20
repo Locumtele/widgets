@@ -1270,34 +1270,11 @@
         
         // Copy individual form link function
         function copyFormLink(formId, formName) {
-            // First generate the complete JavaScript file
-            var formData = window.formsData.find(f => f.id === formId);
-            if (!formData) {
-                alert('Form data not found!');
-                return;
-            }
-            
-            var jsContent = generateFormFile(formId, formData);
-            
-            // Create simple embed code
-            var embedCode = `<!-- ${formName} Form -->
-<div id="locumtele-form-${formId}"></div>
-<script src="./forms/${formId}.js"></script>`;
-            
-            // Download the JavaScript file
-            uploadToGitHub(formId, jsContent);
-            
-            // Copy the embed code
-            navigator.clipboard.writeText(embedCode).then(function() {
-                alert('✅ Generated ' + formName + ' form file and copied embed code!\\n\\nThe .js file has been downloaded. Upload it to GitHub at: forms/' + formId + '.js');
+            // Just copy the form ID for now
+            navigator.clipboard.writeText(formId).then(function() {
+                alert('✅ Copied form ID: ' + formId);
             }).catch(function(err) {
-                var textArea = document.createElement('textarea');
-                textArea.value = embedCode;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                alert('✅ Generated ' + formName + ' form file and copied embed code!');
+                alert('Form ID: ' + formId);
             });
         }
     </script>
