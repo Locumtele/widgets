@@ -431,21 +431,21 @@
                                         <div style="width: 8px; height: 8px; background: #28a745; border-radius: 50%; margin-right: 0.5rem;"></div>
                                         <strong>Database Records</strong>
                                     </div>
-                                    <span id="admin-forms-count" style="font-size: 1.5rem; color: #333;">0</span>
+                                    <span id="admin-forms-count" style="font-size: 1.5rem; color: #333;">--</span>
                                 </div>
                                 <div style="padding: 1rem; border: 1px solid #e1e5e9; border-radius: 6px; background: #fff;">
                                     <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
                                         <div style="width: 8px; height: 8px; background: #ffc107; border-radius: 50%; margin-right: 0.5rem;"></div>
                                         <strong>Last Sync</strong>
                                     </div>
-                                    <span id="admin-questions-count" style="font-size: 1.5rem; color: #333;">0</span>
+                                    <span id="admin-questions-count" style="font-size: 1.5rem; color: #333;">--</span>
                                 </div>
                                 <div style="padding: 1rem; border: 1px solid #e1e5e9; border-radius: 6px; background: #fff;">
                                     <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
                                         <div style="width: 8px; height: 8px; background: #007bff; border-radius: 50%; margin-right: 0.5rem;"></div>
                                         <strong>Last Sync</strong>
                                     </div>
-                                    <span id="admin-last-sync" style="font-size: 0.9rem; color: #666;">Never</span>
+                                    <span id="admin-last-sync" style="font-size: 0.9rem; color: #666;">--</span>
                                 </div>
                             </div>
                         </div>
@@ -1099,12 +1099,12 @@
             loadFormsPage();
             showForms();
 
-            // Update admin stats
-            updateAdminStats();
-
             // Debug: Log what we have
             console.log('Page loaded. window.formsData:', window.formsData);
             console.log('localStorage formsData:', localStorage.getItem('formsData'));
+
+            // Update admin stats after data loading
+            updateAdminStats();
         });
     </script>
 </body>
