@@ -1270,14 +1270,9 @@
         
         // Copy individual form link function
         function copyFormLink(formId, formName) {
-            // Use the existing universal form system
-            var embedCode = '<!-- ' + formName + ' Form -->\n';
-            embedCode += '<div id="locumtele-form-' + formId + '"></div>\n';
-            embedCode += '<script src="./forms/components/universalFormLoader.js"></script>\n';
-            embedCode += '<script>loadForm("' + formId + '");</script>';
-            
-            navigator.clipboard.writeText(embedCode).then(function() {
-                alert('✅ Copied embed code for: ' + formName);
+            // Simple approach - just copy the form ID for now
+            navigator.clipboard.writeText(formId).then(function() {
+                alert('✅ Copied form ID: ' + formId);
             }).catch(function(err) {
                 alert('Form ID: ' + formId);
             });
