@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CDN File Generator - LocumTele Forms</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
         .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
@@ -25,6 +26,18 @@
         <div id="forms-container">
             <p>Loading forms from webhook...</p>
         </div>
+        
+        <div id="bulk-actions" style="display: none; margin-top: 20px; text-align: center;">
+            <button class="btn btn-success" onclick="downloadAllForms()" style="font-size: 16px; padding: 12px 24px; margin-right: 10px;">
+                📦 Download All Forms as ZIP
+            </button>
+            <button class="btn" onclick="copyAllEmbedLinks()" style="font-size: 16px; padding: 12px 24px; background: #28a745;">
+                📋 Copy All GHL Embed Links
+            </button>
+            <p style="margin-top: 10px; color: #666; font-size: 14px;">
+                Download ZIP for GitHub upload OR copy ready-to-use GHL embed links
+            </p>
+        </div>
     </div>
 
     <script>
@@ -37,18 +50,30 @@
 
         async function loadForms() {
             try {
-                const response = await fetch(CONFIG.formsWebhookUrl, {
-                    method: 'GET',
-                    headers: CONFIG.headers
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                // Check if we're in the widget dashboard context
+                if (window.formsData && window.formsData.length > 0) {
+                    console.log('Using forms data from widget dashboard:', window.formsData);
+                    displayForms(window.formsData);
+                    return;
                 }
 
-                const data = await response.json();
-                console.log('Forms loaded:', data);
-                displayForms(data);
+                // Fallback: try to load from localStorage (if widget dashboard was used before)
+                const storedFormsData = localStorage.getItem('formsData');
+                if (storedFormsData) {
+                    const formsData = JSON.parse(storedFormsData);
+                    console.log('Using forms data from localStorage:', formsData);
+                    displayForms(formsData);
+                    return;
+                }
+
+                // If no data available, show message to load widget dashboard first
+                document.getElementById('forms-container').innerHTML = `
+                    <div style="color: #856404; padding: 20px; background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 4px;">
+                        <h3>No Form Data Available</h3>
+                        <p>Please load the <a href="widget-dashboard.html" target="_blank">Widget Dashboard</a> first to load form data, then return to this page.</p>
+                        <p>The CDN generator uses the form data that's already loaded in the widget dashboard.</p>
+                    </div>
+                `;
             } catch (error) {
                 console.error('Error loading forms:', error);
                 document.getElementById('forms-container').innerHTML = `
@@ -66,6 +91,12 @@
                 container.innerHTML = '<p>No forms found.</p>';
                 return;
             }
+
+            // Show bulk actions
+            document.getElementById('bulk-actions').style.display = 'block';
+            
+            // Store forms globally for bulk download
+            window.allForms = forms;
 
             container.innerHTML = forms.map(form => `
                 <div class="form-card">
@@ -95,8 +126,11 @@
         }
 
         function generateCDNFile(form) {
+            // Use the raw form data from widget dashboard
+            const formData = form.rawData || form;
+            
             return `// LocumTele Form: ${form.name}
-// Auto-generated from Notion database
+// Auto-generated from widget dashboard data
 // Last updated: ${new Date().toISOString()}
 
 (function() {
@@ -109,9 +143,11 @@
         category: '${form.property_category || 'General'}',
         totalQuestions: ${form.property_total_questions || 0},
         status: '${form.property_status || 'unknown'}',
-        webhookUrl: 'https://locumtele.app.n8n.cloud/webhook/patient-screener',
-        redirectUrl: 'https://locumtele.com/consult'
+        webhookUrl: 'https://locumtele.app.n8n.cloud/webhook/patient-screener'
     };
+
+    // Form data from widget dashboard
+    const FORM_DATA = ${JSON.stringify(formData, null, 4)};
 
     // CSS Styles (injected inline)
     const STYLES = \`
@@ -330,6 +366,110 @@
                 document.body.removeChild(textArea);
                 alert('GitHub URL copied to clipboard!');
             });
+        }
+
+        // Copy all GHL embed links
+        function copyAllEmbedLinks() {
+            if (!window.allForms || window.allForms.length === 0) {
+                alert('No forms available');
+                return;
+            }
+
+            // Generate all embed links
+            const embedLinks = window.allForms.map(form => {
+                const formId = form.id;
+                const formName = form.name;
+                const category = form.property_category || 'general';
+                
+                return `<!-- ${formName} Form -->
+<div id="locumtele-form-${formId}"></div>
+<script src="https://raw.githubusercontent.com/locumtele/ltGlobalWidgets/main/forms/${formId}.js"></script>
+
+`;
+            }).join('');
+
+            // Copy to clipboard
+            navigator.clipboard.writeText(embedLinks).then(() => {
+                alert(`✅ Copied ${window.allForms.length} GHL embed links to clipboard!\n\nPaste them directly into your GHL page HTML.`);
+            }).catch(err => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = embedLinks;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert(`✅ Copied ${window.allForms.length} GHL embed links to clipboard!\n\nPaste them directly into your GHL page HTML.`);
+            });
+        }
+
+        // Bulk download function
+        async function downloadAllForms() {
+            if (!window.allForms || window.allForms.length === 0) {
+                alert('No forms available for download');
+                return;
+            }
+
+            try {
+                // Show loading state
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = '⏳ Generating ZIP...';
+                button.disabled = true;
+
+                // Create ZIP file
+                const zip = new JSZip();
+                
+                // Add each form as a .js file
+                window.allForms.forEach(form => {
+                    const fileName = `${form.id}.js`;
+                    const fileContent = generateCDNFile(form);
+                    zip.file(fileName, fileContent);
+                });
+
+                // Add README file with instructions
+                const readmeContent = `# Generated CDN Forms
+
+This ZIP contains ${window.allForms.length} form files generated from the LocumTele widget dashboard.
+
+## Upload Instructions:
+1. Extract all .js files from this ZIP
+2. Upload each file to: forms/{filename} in your GitHub repo
+3. Files will be accessible via: https://raw.githubusercontent.com/locumtele/ltGlobalWidgets/main/forms/{filename}
+
+## Generated Files:
+${window.allForms.map(form => `- ${form.id}.js (${form.name})`).join('\n')}
+
+Generated on: ${new Date().toISOString()}
+`;
+                zip.file('README.md', readmeContent);
+
+                // Generate and download ZIP
+                const zipBlob = await zip.generateAsync({type: 'blob'});
+                const url = URL.createObjectURL(zipBlob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `locumtele-forms-${new Date().toISOString().split('T')[0]}.zip`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                // Reset button
+                button.textContent = originalText;
+                button.disabled = false;
+
+                alert(`Successfully generated ZIP with ${window.allForms.length} form files!`);
+
+            } catch (error) {
+                console.error('Error generating ZIP:', error);
+                alert('Error generating ZIP file. Please try again.');
+                
+                // Reset button
+                const button = event.target;
+                button.textContent = '📦 Download All Forms as ZIP';
+                button.disabled = false;
+            }
         }
 
         // Load forms on page load

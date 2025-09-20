@@ -1129,6 +1129,7 @@
                                 <th>Consult Type</th>
                                 <th>Status</th>
                                 <th>Questions</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1162,6 +1163,11 @@
                         <td>
                             <div class="question-count">${form.totalQuestions}</div>
                         </td>
+                        <td>
+                            <button class="btn btn-sm copy-form-btn" data-form-id="${form.id}" data-form-name="${form.title}" style="background: #007bff; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">
+                                📋 Copy
+                            </button>
+                        </td>
                     </tr>
                 `;
             });
@@ -1171,6 +1177,7 @@
                     </table>
                 </div>
 
+
                 <div class="debug-section">
                     <h4>Raw Data (for debugging)</h4>
                     <div class="debug-content">${JSON.stringify(data, null, 2)}</div>
@@ -1178,6 +1185,15 @@
             `;
 
             document.getElementById('forms-content').innerHTML = tableHTML;
+            
+            // Add event listeners for copy buttons
+            document.querySelectorAll('.copy-form-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const formId = this.getAttribute('data-form-id');
+                    const formName = this.getAttribute('data-form-name');
+                    copyFormLink(formId, formName);
+                });
+            });
 
             // Don't overwrite window.formsData - it should contain the raw webhook data
             // Only update if this is a fresh load from webhook
@@ -1223,6 +1239,23 @@
             // Update admin stats after data loading
             updateAdminStats();
         });
+
+        // Copy individual form link function
+        function copyFormLink(formId, formName) {
+            var embedCode = '<!-- ' + formName + ' Form -->\n<div id="locumtele-form-' + formId + '"></div>\n<script src="./forms/' + formId + '.js"></script>';
+            
+            navigator.clipboard.writeText(embedCode).then(function() {
+                alert('✅ Copied ' + formName + ' embed code to clipboard!');
+            }).catch(function(err) {
+                var textArea = document.createElement('textarea');
+                textArea.value = embedCode;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('✅ Copied ' + formName + ' embed code to clipboard!');
+            });
+        }
     </script>
 </body>
 </html>
