@@ -77,8 +77,18 @@
                     <h3>Generated CDN File Content:</h3>
                     <div class="code-block">${generateCDNFile(form)}</div>
                     
+                    <h4>GitHub Upload Instructions:</h4>
+                    <div style="background: #e9ecef; padding: 15px; border-radius: 4px; margin: 10px 0;">
+                        <p><strong>1.</strong> Download the file below</p>
+                        <p><strong>2.</strong> Upload to: <code>forms/${form.id}.js</code> in your GitHub repo</p>
+                        <p><strong>3.</strong> The embed will load from: <code>https://raw.githubusercontent.com/locumtele/ltGlobalWidgets/main/forms/${form.id}.js</code></p>
+                    </div>
+                    
                     <button class="btn btn-success" onclick="downloadFile('${form.id}.js', \`${generateCDNFile(form)}\`)">
                         📥 Download ${form.id}.js
+                    </button>
+                    <button class="btn" onclick="copyToClipboard('https://raw.githubusercontent.com/locumtele/ltGlobalWidgets/main/forms/${form.id}.js')">
+                        📋 Copy GitHub URL
                     </button>
                 </div>
             `).join('');
@@ -304,6 +314,22 @@
             document.body.appendChild(element);
             element.click();
             document.body.removeChild(element);
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('GitHub URL copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('GitHub URL copied to clipboard!');
+            });
         }
 
         // Load forms on page load

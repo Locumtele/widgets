@@ -834,14 +834,14 @@
             }
         }
 
-        // Generate short embed code that loads from CDN
+        // Generate short embed code that loads from GitHub CDN
         function generateShortEmbedCode(form) {
             return `<!-- LocumTele Form: ${form.title} -->
 <div id="locumtele-form-${form.id}"></div>
 <script>
 (function() {
     var script = document.createElement('script');
-    script.src = 'https://locumtele.com/forms/${form.id}.js';
+    script.src = 'https://raw.githubusercontent.com/locumtele/ltGlobalWidgets/main/forms/${form.id}.js';
     script.async = true;
     document.head.appendChild(script);
 })();
