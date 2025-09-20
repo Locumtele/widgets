@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Form Generator Demo</title>
+    <link rel="stylesheet" href="components/universalFormStyle.css">
+    <style>
+        body {
+            background: #f5f5f5;
+            padding: 2rem;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .demo-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .demo-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .demo-button {
+            padding: 0.75rem 1.5rem;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+        
+        .demo-button:hover {
+            background: #0056b3;
+        }
+        
+        .demo-button.secondary {
+            background: #6c757d;
+        }
+        
+        .demo-button.secondary:hover {
+            background: #545b62;
+        }
+        
+        .form-preview {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            background: #f8f9fa;
+            min-height: 200px;
+        }
+        
+        .json-preview {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>Universal Form Generator Demo</h1>
+            <p>This system can generate forms from any JSON data structure. Click the buttons below to see different examples.</p>
+        </div>
+
+        <div class="demo-section">
+            <h2>Form Examples</h2>
+            <div class="demo-buttons">
+                <button class="demo-button" onclick="loadSimpleForm()">Simple Contact Form</button>
+                <button class="demo-button" onclick="loadMedicalForm()">Medical Screening Form</button>
+                <button class="demo-button" onclick="loadSurveyForm()">Multi-Step Survey</button>
+                <button class="demo-button" onclick="loadComplexForm()">Complex Assessment</button>
+                <button class="demo-button secondary" onclick="clearForm()">Clear Form</button>
+            </div>
+            
+            <div id="form-container" class="form-preview">
+                <p style="text-align: center; color: #666; margin-top: 4rem;">
+                    Click a button above to load a form example
+                </p>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>Current Form Data Structure</h2>
+            <div id="json-preview" class="json-preview">
+                No form loaded
+            </div>
+        </div>
+    </div>
+
+    <script src="components/universalFormLoader.js"></script>
+    <script>
+        // Example form data structures
+        const formExamples = {
+            simple: {
+                title: "Contact Form",
+                subtitle: "Get in touch with us",
+                category: "contact",
+                questions: [
+                    {
+                        text: "Full Name",
+                        type: "text",
+                        required: true,
+                        placeholder: "Enter your full name"
+                    },
+                    {
+                        text: "Email Address",
+                        type: "email",
+                        required: true,
+                        placeholder: "Enter your email"
+                    },
+                    {
+                        text: "Phone Number",
+                        type: "phone",
+                        required: true,
+                        placeholder: "Enter your phone number"
+                    },
+                    {
+                        text: "Message",
+                        type: "textarea",
+                        required: true,
+                        placeholder: "Tell us about your inquiry",
+                        rows: 4
+                    }
+                ]
+            },
+
+            medical: {
+                title: "Medical Screening",
+                subtitle: "Complete this screening to determine your eligibility",
+                category: "medical",
+                questions: [
+                    {
+                        text: "Full Name",
+                        type: "text",
+                        required: true
+                    },
+                    {
+                        text: "Email Address",
+                        type: "email",
+                        required: true
+                    },
+                    {
+                        text: "Date of Birth",
+                        type: "date",
+                        required: true
+                    },
+                    {
+                        text: "Gender",
+                        type: "radio",
+                        required: true,
+                        options: ["Male", "Female", "Other"]
+                    },
+                    {
+                        text: "Height (feet and inches)",
+                        type: "height",
+                        required: true
+                    },
+                    {
+                        text: "Weight (pounds)",
+                        type: "weight",
+                        required: true
+                    },
+                    {
+                        text: "Do you have any allergies?",
+                        type: "radio",
+                        required: true,
+                        options: ["Yes", "No"],
+                        safeAnswers: ["No"],
+                        disqualifyAnswers: ["Yes"]
+                    },
+                    {
+                        text: "Current medications",
+                        type: "textarea",
+                        required: false,
+                        placeholder: "List any current medications"
+                    }
+                ]
+            },
+
+            survey: {
+                title: "Customer Satisfaction Survey",
+                subtitle: "Help us improve our services",
+                category: "survey",
+                "Personal Information": [
+                    {
+                        text: "Name",
+                        type: "text",
+                        required: true
+                    },
+                    {
+                        text: "Email",
+                        type: "email",
+                        required: true
+                    }
+                ],
+                "Service Rating": [
+                    {
+                        text: "How would you rate our service?",
+                        type: "radio",
+                        required: true,
+                        options: ["Excellent", "Good", "Fair", "Poor"]
+                    },
+                    {
+                        text: "What did you like most?",
+                        type: "checkbox",
+                        required: false,
+                        options: ["Quality", "Speed", "Customer Service", "Price", "Convenience"]
+                    }
+                ],
+                "Feedback": [
+                    {
+                        text: "Additional comments",
+                        type: "textarea",
+                        required: false,
+                        placeholder: "Any other feedback?"
+                    }
+                ]
+            },
+
+            complex: {
+                title: "Comprehensive Assessment",
+                subtitle: "Detailed evaluation form",
+                category: "assessment",
+                questions: [
+                    {
+                        text: "Personal Information",
+                        type: "text",
+                        required: true,
+                        placeholder: "Full name"
+                    },
+                    {
+                        text: "Email Address",
+                        type: "email",
+                        required: true
+                    },
+                    {
+                        text: "Phone Number",
+                        type: "phone",
+                        required: true
+                    },
+                    {
+                        text: "Date of Birth",
+                        type: "date",
+                        required: true
+                    },
+                    {
+                        text: "Gender",
+                        type: "radio",
+                        required: true,
+                        options: ["Male", "Female", "Non-binary", "Prefer not to say"]
+                    },
+                    {
+                        text: "Height (feet and inches)",
+                        type: "height",
+                        required: true
+                    },
+                    {
+                        text: "Weight (pounds)",
+                        type: "weight",
+                        required: true
+                    },
+                    {
+                        text: "Do you have diabetes?",
+                        type: "radio",
+                        required: true,
+                        options: ["No", "Type 1", "Type 2", "Prediabetes"],
+                        safeAnswers: ["No"],
+                        flagAnswers: ["Prediabetes"],
+                        disqualifyAnswers: ["Type 1", "Type 2"]
+                    },
+                    {
+                        text: "Current medications",
+                        type: "textarea",
+                        required: false,
+                        placeholder: "List all current medications"
+                    },
+                    {
+                        text: "Upload ID",
+                        type: "file",
+                        required: true,
+                        accept: "image/*,.pdf"
+                    }
+                ]
+            }
+        };
+
+        let currentFormData = null;
+
+        // Load form functions
+        async function loadSimpleForm() {
+            currentFormData = formExamples.simple;
+            await loadForm(currentFormData);
+        }
+
+        async function loadMedicalForm() {
+            currentFormData = formExamples.medical;
+            await loadForm(currentFormData);
+        }
+
+        async function loadSurveyForm() {
+            currentFormData = formExamples.survey;
+            await loadForm(currentFormData);
+        }
+
+        async function loadComplexForm() {
+            currentFormData = formExamples.complex;
+            await loadForm(currentFormData);
+        }
+
+        function clearForm() {
+            document.getElementById('form-container').innerHTML = '<p style="text-align: center; color: #666; margin-top: 4rem;">Click a button above to load a form example</p>';
+            document.getElementById('json-preview').textContent = 'No form loaded';
+            currentFormData = null;
+        }
+
+        async function loadForm(formData) {
+            try {
+                // Update JSON preview
+                document.getElementById('json-preview').textContent = JSON.stringify(formData, null, 2);
+                
+                // Generate form
+                await window.UniversalFormLoader.generateForm(formData, 'form-container', {
+                    showProgress: true,
+                    allowBackNavigation: true,
+                    submitText: 'Submit Form'
+                });
+                
+                console.log('Form loaded successfully');
+            } catch (error) {
+                console.error('Error loading form:', error);
+                alert('Error loading form: ' + error.message);
+            }
+        }
+
+        // Initialize demo
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Universal Form Demo initialized');
+        });
+    </script>
+</body>
+</html>

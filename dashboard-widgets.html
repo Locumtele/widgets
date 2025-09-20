@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Widget Dashboard - LocumTele</title>
+    <link rel="stylesheet" href="documentation/locumtele/brand/brand.css">
+    <link rel="stylesheet" href="documentation/locumtele/brand/dashboard-framework.css">
+    <link rel="stylesheet" href="documentation/locumtele/brand/sites-consolidated.css">
+    <style>
+        /* Custom styles specific to this dashboard */
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid #fcc;
+        }
+
+        .success {
+            background: #efe;
+            color: #363;
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid #cfc;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .debug-content {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .two-panel-layout {
+            display: flex;
+            gap: 1rem;
+            height: calc(100vh - 200px);
+        }
+
+        .left-panel {
+            width: 300px;
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+
+        .right-panel {
+            flex: 1;
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+
+        .category-nav {
+            margin-bottom: 1rem;
+        }
+
+        .category-nav button {
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #e1e5e9;
+            background: white;
+            color: #333;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .category-nav button:hover {
+            background: #f8f9fa;
+        }
+
+        .category-nav button.active {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        .form-toggle {
+            background: white;
+            border: 1px solid var(--lt-gray-200);
+            border-radius: var(--lt-radius-lg);
+            margin-bottom: var(--lt-space-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--lt-shadow-sm);
+            overflow: hidden;
+        }
+
+        /* Different backgrounds for form types */
+        .form-toggle.screener {
+            background: var(--lt-green-light);
+            border-color: var(--lt-green);
+        }
+
+        .form-toggle.reassessment {
+            background: var(--lt-blue-light);
+            border-color: var(--lt-blue);
+        }
+
+        .form-toggle.form {
+            background: var(--lt-gray-50);
+            border-color: var(--lt-gray-300);
+        }
+
+        .form-toggle:hover {
+            border-color: var(--lt-blue);
+            box-shadow: var(--lt-shadow-md);
+        }
+
+        .form-toggle.active {
+            border-color: var(--lt-blue);
+            box-shadow: var(--lt-shadow-md);
+        }
+
+        .form-toggle-header {
+            padding: var(--lt-space-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--lt-space-md);
+            background: var(--lt-gray-50);
+        }
+
+        .toggle-arrow {
+            background: var(--lt-blue);
+            color: white;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: var(--lt-font-weight-bold);
+            transition: all 0.2s ease;
+            box-shadow: var(--lt-shadow-sm);
+            border: 2px solid white;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .form-toggle:hover .toggle-arrow {
+            background: var(--lt-blue-dark);
+            transform: scale(1.05);
+        }
+
+        .form-toggle.active .toggle-arrow {
+            transform: rotate(180deg);
+        }
+
+        .form-toggle-content {
+            padding: 0 var(--lt-space-lg) var(--lt-space-lg) var(--lt-space-lg);
+            display: none;
+            background: var(--lt-gray-50);
+            border-top: 1px solid var(--lt-gray-200);
+            animation: slideDown 0.2s ease-out;
+        }
+
+        .form-toggle.active .form-toggle-content {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .questions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .questions-table th {
+            background: #f8f9fa;
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #e1e5e9;
+            font-size: 0.9rem;
+        }
+
+        .questions-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #e1e5e9;
+            vertical-align: top;
+            font-size: 0.9rem;
+        }
+
+        .questions-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .question-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .question-meta {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-type, .question-section {
+            background: #e9ecef;
+            color: #495057;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .question-section {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .answer-options {
+            margin-top: 0.5rem;
+        }
+
+        .answer-options strong {
+            font-size: 0.8rem;
+            color: #666;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .answer-option {
+            display: inline-block;
+            background: #f8f9fa;
+            padding: 0.25rem 0.5rem;
+            margin: 0.125rem 0.25rem 0.125rem 0;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            border: 1px solid #e9ecef;
+        }
+
+        .answer-option.flag-answer {
+            background: #fff3cd;
+            border-color: #ffeaa7;
+            color: #856404;
+        }
+
+        .answer-option.disqualify-answer {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+
+        .no-questions {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 2rem;
+        }
+
+        .lt-api-section h2 {
+            background: var(--lt-blue);
+            color: white;
+            padding: var(--lt-space-md) var(--lt-space-lg);
+            margin: 0 0 var(--lt-space-md) 0;
+            border-radius: var(--lt-radius-lg);
+            font-size: 1.3rem;
+            font-weight: var(--lt-font-weight-bold);
+            box-shadow: var(--lt-shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--lt-space-sm);
+        }
+
+        /* Different colored backgrounds for categories */
+        .lt-api-section#weightloss h2 {
+            background: var(--lt-green);
+        }
+
+        .lt-api-section#hormone h2 {
+            background: var(--lt-blue);
+        }
+
+        .lt-api-section#skincare h2 {
+            background: var(--lt-gray-600);
+        }
+
+        .lt-api-section#sexualhealth h2 {
+            background: var(--lt-gray-700);
+        }
+
+        .lt-api-section#antiaging h2 {
+            background: var(--lt-gray-500);
+        }
+
+        .lt-api-section#other h2 {
+            background: var(--lt-gray-400);
+        }
+
+        .lt-section-divider {
+            height: 1px;
+            background: var(--lt-gray-200);
+            margin-bottom: var(--lt-space-lg);
+        }
+
+        .form-title-section {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .form-title-section h3 {
+            margin: 0;
+            color: var(--lt-gray-800);
+            font-size: 1.2rem;
+            font-weight: var(--lt-font-weight-bold);
+            line-height: 1.3;
+            flex-shrink: 0;
+        }
+
+        .form-badges {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .form-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .question-count {
+            background: var(--lt-blue);
+            color: white;
+            padding: var(--lt-space-xs) var(--lt-space-sm);
+            border-radius: var(--lt-radius-sm);
+            font-size: 0.8rem;
+            font-weight: var(--lt-font-weight-medium);
+            box-shadow: var(--lt-shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--lt-space-xs);
+        }
+
+        .question-count::before {
+            content: "📋";
+            font-size: 0.8rem;
+        }
+
+        /* Use existing brand badge styles with slight modifications */
+        .form-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--lt-space-xs) var(--lt-space-sm);
+            border-radius: var(--lt-radius-sm);
+            font-size: 0.75rem;
+            font-weight: var(--lt-font-weight-medium);
+            text-transform: capitalize;
+            transition: all 0.2s ease;
+        }
+
+        /* Form Type Colors using brand colors */
+        .form-badge.screener {
+            background: var(--lt-green-light);
+            color: var(--lt-green-dark);
+        }
+
+        .form-badge.reassessment {
+            background: var(--lt-blue-light);
+            color: var(--lt-blue-dark);
+        }
+
+        .form-badge.form {
+            background: var(--lt-gray-100);
+            color: var(--lt-gray-700);
+        }
+
+        /* Category Colors using brand colors */
+        .form-badge.weightloss {
+            background: var(--lt-green-light);
+            color: var(--lt-green-dark);
+        }
+
+        .form-badge.hormone {
+            background: var(--lt-blue-light);
+            color: var(--lt-blue-dark);
+        }
+
+        .form-badge.skincare {
+            background: var(--lt-gray-100);
+            color: var(--lt-gray-700);
+        }
+
+        .form-badge.sexualhealth {
+            background: var(--lt-gray-100);
+            color: var(--lt-gray-700);
+        }
+
+        .form-badge.antiaging {
+            background: var(--lt-gray-100);
+            color: var(--lt-gray-700);
+        }
+
+        .form-badge.other {
+            background: var(--lt-gray-100);
+            color: var(--lt-gray-700);
+        }
+
+        /* Status Colors using brand colors */
+        .form-badge.published {
+            background: var(--lt-green-light);
+            color: var(--lt-green-dark);
+        }
+
+        .form-badge.draft {
+            background: var(--lt-gray-100);
+            color: var(--lt-gray-700);
+        }
+
+        .form-badge.archived {
+            background: var(--lt-gray-100);
+            color: var(--lt-gray-700);
+        }
+
+        .form-badge.unknown {
+            background: var(--lt-gray-100);
+            color: var(--lt-gray-700);
+        }
+
+        .show-condition {
+            font-size: 0.8rem;
+        }
+
+        .condition-text {
+            background: #e7f3ff;
+            color: #0066cc;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            border: 1px solid #b3d9ff;
+            display: inline-block;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body class="lt-branded">
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <nav class="dashboard-sidebar" id="sidebar">
+            <div class="logo">
+                <img src="documentation/locumtele/brand/locumteleLogo.png" alt="LocumTele Logo">
+            </div>
+            <ul class="dashboard-nav">
+                <li class="dashboard-nav-item">
+                    <a href="#" class="dashboard-nav-link active" onclick="loadPage('dashboard', this)">🏠 Dashboard</a>
+                </li>
+                <li class="dashboard-nav-item">
+                    <a href="#" class="dashboard-nav-link has-submenu" onclick="event.preventDefault(); loadPageAndToggleSubmenu('assets', event)">
+                        🎯 Assets
+                        <span class="dashboard-nav-arrow">▶</span>
+                    </a>
+                    <ul class="dashboard-nav-submenu">
+                        <li class="dashboard-nav-item">
+                            <a href="#" class="dashboard-nav-link" onclick="loadPage('assets-screeners', this)">📝 Screeners</a>
+                        </li>
+                        <li class="dashboard-nav-item">
+                            <a href="#" class="dashboard-nav-link" onclick="loadPage('assets-reassessments', this)">🔄 Reassessments</a>
+                        </li>
+                        <li class="dashboard-nav-item">
+                            <a href="#" class="dashboard-nav-link" onclick="loadPage('assets-calendars', this)">📅 Calendars</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dashboard-nav-item">
+                    <a href="#" class="dashboard-nav-link has-submenu" onclick="event.preventDefault(); loadPageAndToggleSubmenu('forms', event)">
+                        🗄️ Database
+                        <span class="dashboard-nav-arrow">▶</span>
+                    </a>
+                    <ul class="dashboard-nav-submenu">
+                        <li class="dashboard-nav-item">
+                            <a href="#" class="dashboard-nav-link" onclick="loadPage('db-screeners', this)">📝 Screeners</a>
+                        </li>
+                        <li class="dashboard-nav-item">
+                            <a href="#" class="dashboard-nav-link" onclick="loadPage('db-reassessments', this)">🔄 Reassessments</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dashboard-nav-item">
+                    <a href="#" class="dashboard-nav-link" onclick="loadPage('admin', this)">⚙️ Admin</a>
+                </li>
+                <li class="dashboard-nav-item dashboard-elle-support">
+                    <a href="#" class="dashboard-elle-container" onclick="loadPage('support', this)">
+                        <img src="documentation/locumtele/brand/locumteleBot-Elle_blue.jpg" alt="Elle" class="dashboard-elle-image">
+                        <div class="dashboard-talk-bubble">
+                            <span>Need help?</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Top Navigation Bar -->
+        <div class="dashboard-header">
+            <h1 id="page-title">🏥 Widget Dashboard</h1>
+            <p class="page-description" id="page-description">Forms Management for Healthcare Widgets</p>
+        </div>
+        
+        <!-- Main Content Area -->
+        <div class="dashboard-content">
+            <div class="dashboard-container">
+                <!-- Dynamic Page Content -->
+                <div id="page-content" class="dashboard-page-content">
+                    <!-- Content will be loaded here dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="dashboard-mobile-toggle" onclick="toggleSidebar()">☰</button>
+    </div>
+
+    <script>
+        // Configuration
+        const CONFIG = {
+            dataWebhookUrl: 'https://locumtele.app.n8n.cloud/webhook/notion-forms',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        // Global data storage
+        let formsData = [];
+        let lastSyncTime = null;
+
+        // Load page content dynamically
+        async function loadPage(pageId, clickedElement = null) {
+            try {
+                console.log('Loading page:', pageId);
+                // Show loading state
+                const pageContent = document.getElementById('page-content');
+                pageContent.innerHTML = '<div class="dashboard-loading"><div class="dashboard-spinner"></div><p>Loading...</p></div>';
+                
+                // Load the page content
+                const response = await fetch(`pages/widgets/${pageId}.html`);
+                if (!response.ok) {
+                    throw new Error(`Failed to load page: ${pageId}`);
+                }
+                
+                const content = await response.text();
+                pageContent.innerHTML = content;
+                
+                // Update active menu item
+                const menuLinks = document.querySelectorAll('.dashboard-nav-link');
+                menuLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                if (clickedElement) {
+                    clickedElement.classList.add('active');
+                }
+                
+                // Special handling for screeners page - highlight the submenu item
+                if (pageId === 'db-screeners') {
+                    const screenersLink = document.querySelector('a[onclick*="db-screeners"]');
+                    if (screenersLink) {
+                        screenersLink.classList.add('active');
+                    }
+                }
+                
+            // Update top navbar title and description
+            const topNavbar = document.querySelector('.dashboard-header h1');
+            const pageDescription = document.querySelector('.dashboard-header .page-description');
+            
+            // Set page-specific titles and descriptions
+            if (pageId === 'dashboard') {
+                topNavbar.innerHTML = '🏥 Widget Dashboard';
+                pageDescription.textContent = 'Forms Management for Healthcare Widgets';
+            } else if (pageId === 'forms') {
+                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🗄️ Database';
+                pageDescription.textContent = 'Manage and view all form data from Notion';
+                // Auto-expand Forms submenu
+                const formsLink = document.querySelector('.dashboard-nav-link.has-submenu');
+                const submenu = formsLink.nextElementSibling;
+                const arrow = formsLink.querySelector('.dashboard-nav-arrow');
+                if (submenu && arrow) {
+                    submenu.classList.add('open');
+                    arrow.classList.add('rotated');
+                }
+            } else if (pageId === 'db-screeners') {
+                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🗄️ Database <span style="opacity: 0.7;">/</span> 📝 Screeners';
+                pageDescription.textContent = 'Patient screening forms and data management';
+                // Auto-expand Database submenu
+                const databaseLinks = document.querySelectorAll('.dashboard-nav-link.has-submenu');
+                const databaseLink = databaseLinks[1]; // Second submenu (Database)
+                const submenu = databaseLink.nextElementSibling;
+                const arrow = databaseLink.querySelector('.dashboard-nav-arrow');
+                if (submenu && arrow) {
+                    submenu.classList.add('open');
+                    arrow.classList.add('rotated');
+                }
+            } else if (pageId === 'db-reassessments') {
+                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🗄️ Database <span style="opacity: 0.7;">/</span> 🔄 Reassessments';
+                pageDescription.textContent = 'Patient reassessment forms and follow-up data';
+                // Auto-expand Database submenu
+                const databaseLinks = document.querySelectorAll('.dashboard-nav-link.has-submenu');
+                const databaseLink = databaseLinks[1]; // Second submenu (Database)
+                const submenu = databaseLink.nextElementSibling;
+                const arrow = databaseLink.querySelector('.dashboard-nav-arrow');
+                if (submenu && arrow) {
+                    submenu.classList.add('open');
+                    arrow.classList.add('rotated');
+                }
+            } else if (pageId === 'assets-screeners') {
+                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🎯 Assets <span style="opacity: 0.7;">/</span> 📝 Screeners';
+                pageDescription.textContent = 'Embed codes and tracking scripts for screener forms';
+                // Auto-expand Assets submenu
+                const assetsLinks = document.querySelectorAll('.dashboard-nav-link.has-submenu');
+                const assetsLink = assetsLinks[0]; // First submenu (Assets)
+                const submenu = assetsLink.nextElementSibling;
+                const arrow = assetsLink.querySelector('.dashboard-nav-arrow');
+                if (submenu && arrow) {
+                    submenu.classList.add('open');
+                    arrow.classList.add('rotated');
+                }
+            } else if (pageId === 'assets-reassessments') {
+                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🎯 Assets <span style="opacity: 0.7;">/</span> 🔄 Reassessments';
+                pageDescription.textContent = 'Embed codes and tracking scripts for reassessment forms';
+                // Auto-expand Assets submenu
+                const assetsLinks = document.querySelectorAll('.dashboard-nav-link.has-submenu');
+                const assetsLink = assetsLinks[0]; // First submenu (Assets)
+                const submenu = assetsLink.nextElementSibling;
+                const arrow = assetsLink.querySelector('.dashboard-nav-arrow');
+                if (submenu && arrow) {
+                    submenu.classList.add('open');
+                    arrow.classList.add('rotated');
+                }
+            } else if (pageId === 'assets-calendars') {
+                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🎯 Assets <span style="opacity: 0.7;">/</span> 📅 Calendars';
+                pageDescription.textContent = 'Embed codes and tracking scripts for calendar widgets';
+                // Auto-expand Assets submenu
+                const assetsLinks = document.querySelectorAll('.dashboard-nav-link.has-submenu');
+                const assetsLink = assetsLinks[0]; // First submenu (Assets)
+                const submenu = assetsLink.nextElementSibling;
+                const arrow = assetsLink.querySelector('.dashboard-nav-arrow');
+                if (submenu && arrow) {
+                    submenu.classList.add('open');
+                    arrow.classList.add('rotated');
+                }
+            } else if (pageId === 'admin') {
+                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> ⚙️ Admin';
+                pageDescription.textContent = 'System administration and data management controls';
+            } else if (pageId === 'support') {
+                topNavbar.innerHTML = '🏥 Widget Dashboard <span style="opacity: 0.7;">/</span> 🆘 Support';
+                pageDescription.textContent = 'Get help with LocumTele widgets, forms, and technical support';
+            }
+                
+                // Trigger animations
+                const animatedElements = pageContent.querySelectorAll('.site-animate-on-load');
+                animatedElements.forEach((element, index) => {
+                    element.style.opacity = '1';
+                    element.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                });
+                
+                // Initialize page-specific functionality
+                if (pageId === 'db-screeners' || pageId === 'db-reassessments') {
+                    // Small delay to ensure content is fully rendered
+                    setTimeout(() => {
+                        initializeFormsPage(pageId);
+                    }, 100);
+                } else if (pageId === 'admin') {
+                    setTimeout(() => {
+                        initializeAdminPage();
+                    }, 100);
+                }
+                
+            } catch (error) {
+                console.error('Error loading page:', error);
+                pageContent.innerHTML = `
+                    <div class="dashboard-card" style="text-align: center; padding: 2rem;">
+                        <h2>Error Loading Page</h2>
+                        <p>Sorry, there was an error loading the ${pageId} page. Please try again.</p>
+                        <a href="#" class="dashboard-btn dashboard-btn-primary" onclick="loadPage('dashboard')">Return to Dashboard</a>
+                    </div>
+                `;
+            }
+        }
+        
+        function loadPageAndToggleSubmenu(pageId, event) {
+            // Prevent default behavior
+            event.preventDefault();
+            
+            // First load the page
+            loadPage(pageId, event.target);
+            
+            // Then toggle the submenu
+            toggleSubmenu(event);
+        }
+        
+        function toggleSubmenu(event) {
+            event.preventDefault();
+            const submenu = event.target.nextElementSibling;
+            const arrow = event.target.querySelector('.dashboard-nav-arrow');
+            
+            if (submenu && arrow) {
+                submenu.classList.toggle('open');
+                arrow.classList.toggle('rotated');
+            }
+        }
+        
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+        
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.querySelector('.dashboard-mobile-toggle');
+            
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(event.target) && 
+                !toggle.contains(event.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+        
+        // Prevent unwanted navigation
+        document.addEventListener('click', function(event) {
+            // If clicking on a link that should load a page dynamically
+            if (event.target.matches('a[onclick*="loadPage"]')) {
+                event.preventDefault();
+            }
+        });
+
+        // Initialize forms page (screeners or reassessments)
+        function initializeFormsPage(pageType) {
+            console.log('Initializing forms page:', pageType);
+            loadFormsData(pageType);
+            
+            // Add category navigation functionality
+            const navItems = document.querySelectorAll('.screeners-nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const category = this.getAttribute('href').substring(1);
+                    
+                    // Update active nav item
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter and render forms by category
+                    filterFormsByCategory(category, pageType);
+                });
+            });
+        }
+
+        // Filter forms by category
+        function filterFormsByCategory(category, pageType) {
+            const container = document.getElementById('forms-content');
+            if (!container) return;
+
+            if (formsData.length === 0) {
+                container.innerHTML = '<p>No forms data available.</p>';
+                return;
+            }
+
+            // Filter forms by type first
+            let filteredForms = formsData;
+            if (pageType) {
+                filteredForms = formsData.filter(form => {
+                    if (pageType === 'screeners') {
+                        return form.formType === 'screener';
+                    } else if (pageType === 'reassessments') {
+                        return form.formType === 'reassessment';
+                    }
+                    return true;
+                });
+            }
+
+            // Then filter by category
+            if (category !== 'all') {
+                filteredForms = filteredForms.filter(form => form.category === category);
+            }
+
+            if (filteredForms.length === 0) {
+                const categoryText = category === 'all' ? 'all' : getCategoryDisplayName(category);
+                container.innerHTML = `<p>No forms available in ${categoryText} category.</p>`;
+                return;
+            }
+
+            // Group forms by category
+            const categories = [...new Set(filteredForms.map(form => form.category))];
+            
+            const contentHTML = categories.map(cat => {
+                const categoryForms = filteredForms.filter(form => form.category === cat);
+                
+                return `
+                    <div class="lt-api-section site-animate-on-load" id="${cat}">
+                        <h2>${getCategoryIcon(cat)} ${getCategoryDisplayName(cat)}</h2>
+                        <div class="lt-section-divider"></div>
+                        
+                        ${categoryForms.map(form => `
+                            <div class="form-toggle ${form.formType}">
+                                <div class="form-toggle-header" onclick="toggleFormQuestions('${form.id}')">
+                                    <span class="toggle-arrow">▼</span>
+                                    <div class="form-title-section">
+                                        <h3>${form.title}</h3>
+                                        <div class="form-badges">
+                                            <span class="form-badge ${form.formType}">${form.formType}</span>
+                                            <span class="form-badge ${form.category}">${form.category}</span>
+                                            <span class="form-badge ${form.status}">${form.status}</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-meta">
+                                        <span class="question-count">${form.totalQuestions || 0} questions</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-toggle-content" id="questions-${form.id}" style="display: none;">
+                                    ${form.questions && form.questions.length > 0 ? `
+                                        <table class="questions-table">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 12%;">Section</th>
+                                                    <th style="width: 25%;">Question</th>
+                                                    <th style="width: 10%;">Type</th>
+                                                    <th style="width: 12%;">Safe</th>
+                                                    <th style="width: 12%;">Flag</th>
+                                                    <th style="width: 12%;">Disqualify</th>
+                                                    <th style="width: 17%;">Show Condition</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${form.questions.map(question => `
+                                                    <tr>
+                                                        <td>
+                                                            ${question.section ? `<span class="question-section">${question.section}</span>` : '<span style="color: #999;">—</span>'}
+                                                        </td>
+                                                        <td>
+                                                            <div class="question-title">${question.questionText || question.question || 'No question text'}</div>
+                                                        </td>
+                                                        <td>
+                                                            <span class="question-type">${question.questionType || question.type || 'Unknown'}</span>
+                                                        </td>
+                                                        <td>
+                                                            ${question.answerOptions && question.answerOptions.length > 0 ? `
+                                                                <div class="answer-options">
+                                                                    ${question.answerOptions.map(option => `
+                                                                        <span class="answer-option">${option}</span>
+                                                                    `).join('')}
+                                                                </div>
+                                                            ` : '<span style="color: #999; font-style: italic;">—</span>'}
+                                                        </td>
+                                                        <td>
+                                                            ${question.flagAnswers && question.flagAnswers.length > 0 ? `
+                                                                <div class="answer-options">
+                                                                    ${question.flagAnswers.map(option => `
+                                                                        <span class="answer-option flag-answer">${option}</span>
+                                                                    `).join('')}
+                                                                </div>
+                                                            ` : '<span style="color: #999; font-style: italic;">—</span>'}
+                                                        </td>
+                                                        <td>
+                                                            ${question.disqualifyAnswers && question.disqualifyAnswers.length > 0 ? `
+                                                                <div class="answer-options">
+                                                                    ${question.disqualifyAnswers.map(option => `
+                                                                        <span class="answer-option disqualify-answer">${option}</span>
+                                                                    `).join('')}
+                                                                </div>
+                                                            ` : '<span style="color: #999; font-style: italic;">—</span>'}
+                                                        </td>
+                                                        <td>
+                                                            ${question.showCondition || question.condition || question.showIf ? `
+                                                                <div class="show-condition">
+                                                                    <span class="condition-text">${question.showCondition || question.condition || question.showIf}</span>
+                                                                </div>
+                                                            ` : '<span style="color: #999; font-style: italic;">Always</span>'}
+                                                        </td>
+                                                    </tr>
+                                                `).join('')}
+                                            </tbody>
+                                        </table>
+                                    ` : '<p class="no-questions">No questions available for this form.</p>'}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = contentHTML;
+        }
+
+        // Initialize admin page
+        function initializeAdminPage() {
+            console.log('Initializing admin page');
+            updateAdminStats();
+        }
+
+        // Load forms data with filtering
+        async function loadFormsData(formType = null) {
+            try {
+                // Show loading state
+                const loadingEl = document.getElementById('forms-loading');
+                const contentEl = document.getElementById('forms-content');
+                const errorEl = document.getElementById('forms-error');
+                
+                if (loadingEl) loadingEl.style.display = 'block';
+                if (contentEl) contentEl.style.display = 'none';
+                if (errorEl) errorEl.style.display = 'none';
+
+                // Try to load from localStorage first
+                const stored = localStorage.getItem('formsData');
+                const storedTime = localStorage.getItem('lastSyncTime');
+                
+                if (stored && storedTime) {
+                    formsData = JSON.parse(stored);
+                    lastSyncTime = parseInt(storedTime);
+                    renderFormsTable(formType);
+                    if (loadingEl) loadingEl.style.display = 'none';
+                    if (contentEl) contentEl.style.display = 'block';
+                    return;
+                }
+
+                // Load from webhook
+                await refreshAllData();
+            } catch (error) {
+                console.error('Error loading forms data:', error);
+                const loadingEl = document.getElementById('forms-loading');
+                const errorEl = document.getElementById('forms-error');
+                if (loadingEl) loadingEl.style.display = 'none';
+                if (errorEl) {
+                    errorEl.style.display = 'block';
+                    errorEl.innerHTML = `Error loading forms: ${error.message}`;
+                }
+            }
+        }
+
+
+        // Refresh all data from webhook
+        async function refreshAllData() {
+            try {
+                document.getElementById('forms-loading').style.display = 'block';
+                document.getElementById('forms-content').style.display = 'none';
+                document.getElementById('forms-error').style.display = 'none';
+
+                const response = await fetch(CONFIG.dataWebhookUrl, {
+                    method: 'GET',
+                    headers: CONFIG.headers
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('Webhook response:', data);
+
+                // Process the data
+                processCombinedData(data);
+
+                // Update both views
+                renderFormsTable();
+
+                // Hide loading states and show content
+                document.getElementById('forms-loading').style.display = 'none';
+                document.getElementById('forms-content').style.display = 'block';
+                document.getElementById('questions-loading').style.display = 'none';
+                document.getElementById('questions-content').style.display = 'block';
+
+                // Show success message
+                document.getElementById('forms-success').style.display = 'block';
+                document.getElementById('forms-success').innerHTML = 'Data refreshed successfully!';
+                setTimeout(() => {
+                    document.getElementById('forms-success').style.display = 'none';
+                }, 3000);
+
+            } catch (error) {
+                console.error('Error refreshing data:', error);
+                document.getElementById('forms-loading').style.display = 'none';
+                document.getElementById('forms-error').style.display = 'block';
+                document.getElementById('forms-error').innerHTML = `Error refreshing data: ${error.message}`;
+            }
+        }
+
+        // Process combined data from webhook
+        function processCombinedData(data) {
+            formsData = [];
+
+            if (Array.isArray(data)) {
+                // Separate forms and questions data
+                const formItems = data.filter(item => item.id && item.name && !item.formId);
+                const questionItems = data.filter(item => item.formId && item.sections);
+
+                // Process forms
+                formItems.forEach(formData => {
+                    formsData.push({
+                        id: formData.id,
+                        title: formData.name,
+                        category: formData.property_category || 'General',
+                        totalQuestions: formData.property_total_questions || 0,
+                        formType: formData.property_form_type || 'screener',
+                        status: formData.property_status || 'unknown',
+                        url: formData.url,
+                        rawData: formData
+                    });
+                });
+
+                // Process questions and match with forms
+                questionItems.forEach(questionData => {
+                    const form = formsData.find(f => f.id === questionData.formId);
+                    if (form) {
+                        // Convert sections to flat questions array
+                        const questions = [];
+                        Object.keys(questionData.sections).forEach(sectionName => {
+                            questionData.sections[sectionName].forEach(question => {
+                                questions.push({
+                                    ...question,
+                                    section: sectionName,
+                                    answerOptions: question.safeAnswers || []
+                                });
+                            });
+                        });
+                        
+                        form.questions = questions;
+                    }
+                });
+
+                // Set questions data to forms data for compatibility
+            }
+
+            // Store data
+            lastSyncTime = Date.now();
+            localStorage.setItem('formsData', JSON.stringify(formsData));
+            localStorage.setItem('lastSyncTime', lastSyncTime.toString());
+        }
+
+        // Render forms with questions in two-column layout
+        function renderFormsTable(formType = null) {
+            // Use the new filterFormsByCategory function with 'all' category
+            filterFormsByCategory('all', formType);
+        }
+
+        // Helper function to get category icon
+        function getCategoryIcon(category) {
+            const icons = {
+                'weightloss': '⚖️',
+                'hormone': '🧬',
+                'skincare': '✨',
+                'sexualhealth': '💊',
+                'antiaging': '⏰',
+                'other': '🔬'
+            };
+            return icons[category] || '📋';
+        }
+
+        // Helper function to get category display name
+        function getCategoryDisplayName(category) {
+            const names = {
+                'weightloss': 'Weight Loss',
+                'hormone': 'Hormone Therapy',
+                'skincare': 'Hair & Skin Care',
+                'sexualhealth': 'Sexual Health',
+                'antiaging': 'Anti-Aging',
+                'other': 'Other'
+            };
+            return names[category] || category;
+        }
+
+        // Toggle form questions display
+        function toggleFormQuestions(formId) {
+            const questionsDiv = document.getElementById(`questions-${formId}`);
+            const arrow = document.querySelector(`[onclick="toggleFormQuestions('${formId}')"] .toggle-arrow`);
+            const formToggle = document.querySelector(`[onclick="toggleFormQuestions('${formId}')"]`).closest('.form-toggle');
+            
+            if (questionsDiv && arrow && formToggle) {
+                if (questionsDiv.style.display === 'none') {
+                    questionsDiv.style.display = 'block';
+                    arrow.textContent = '▲';
+                    formToggle.classList.add('active');
+                } else {
+                    questionsDiv.style.display = 'none';
+                    arrow.textContent = '▼';
+                    formToggle.classList.remove('active');
+                }
+            }
+        }
+
+        // Update admin stats
+        function updateAdminStats() {
+            const formsCount = formsData.length;
+            const lastSync = lastSyncTime ? new Date(lastSyncTime).toLocaleString() : 'Never';
+
+            const formsCountEl = document.getElementById('forms-count');
+            const lastSyncEl = document.getElementById('last-sync');
+
+            if (formsCountEl) formsCountEl.textContent = formsCount;
+            if (lastSyncEl) lastSyncEl.textContent = lastSync;
+
+            // Update debug info
+            updateDebugInfo();
+        }
+
+        // Utility functions
+        function showLoading(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) element.style.display = 'block';
+        }
+
+        function hideLoading(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) element.style.display = 'none';
+        }
+
+        function showError(elementId, message) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.innerHTML = message;
+                element.style.display = 'block';
+            }
+        }
+
+        function showSuccess(elementId, message) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.innerHTML = message;
+                element.style.display = 'block';
+                setTimeout(() => {
+                    element.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        // Load dashboard by default
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPage('dashboard');
+        });
+        // Clear all data
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
+                formsData = [];
+                lastSyncTime = null;
+                
+                    localStorage.removeItem('formsData');
+                    localStorage.removeItem('lastSyncTime');
+                
+                // Update displays
+                renderFormsTable();
+                updateAdminStats();
+                
+                showSuccess('forms-success', 'All data cleared successfully!');
+            }
+        }
+
+        // Update debug information
+        function updateDebugInfo() {
+            const debugContent = document.getElementById('debug-content');
+            if (debugContent) {
+                const debugData = {
+                    formsCount: formsData.length,
+                    lastSync: lastSyncTime ? new Date(lastSyncTime).toLocaleString() : 'Never',
+                    sampleForm: formsData.length > 0 ? formsData[0] : null
+                };
+                
+                debugContent.textContent = JSON.stringify(debugData, null, 2);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<div class="dashboard-card">
+    <h2>📅 Calendar Widgets - Embed Codes & Tracking</h2>
+    <p>Copy and paste these embed codes to add calendar widgets to your website. These widgets help patients schedule consultations and appointments.</p>
+</div>
+
+<!-- Loading State -->
+<div id="forms-loading" class="dashboard-card" style="display: none;">
+    <div class="dashboard-loading">
+        <div class="dashboard-spinner"></div>
+        <p>Loading calendar widgets...</p>
+    </div>
+</div>
+
+<!-- Error State -->
+<div id="forms-error" class="dashboard-card" style="display: none;">
+    <div class="error">
+        <h3>Error Loading Calendar Widgets</h3>
+        <p>There was an error loading the calendar widgets. Please try again.</p>
+    </div>
+</div>
+
+<!-- Success State -->
+<div id="forms-success" class="dashboard-card" style="display: none;">
+    <div class="success">
+        <h3>Calendar Widgets Loaded Successfully</h3>
+        <p>All calendar widgets have been loaded and embed codes are ready.</p>
+    </div>
+</div>
+
+<!-- Forms Content -->
+<div id="forms-content" class="dashboard-card">
+    <h3>🎯 Available Calendar Widgets</h3>
+    <p>Click on any calendar widget below to see its ready-to-copy embed code.</p>
+    
+    <div id="forms-list">
+        <!-- Calendar widgets will be loaded here dynamically -->
+    </div>
+</div>
+
+<div class="dashboard-card">
+    <h3>📋 Pre-built Calendar Examples</h3>
+    <p>Ready-to-use embed codes for different calendar scenarios.</p>
+    
+    <div class="form-group">
+        <label class="form-label">Weight Loss Consultation Calendar:</label>
+        <div class="code-block">
+            <pre><code>&lt;!-- Weight Loss Consultation Calendar --&gt;
+&lt;link rel="stylesheet" href="https://locumtele.github.io/widgets/forms/components/universalFormStyle.css"&gt;
+&lt;script src="https://locumtele.github.io/widgets/forms/components/universalFormLoader.js"&gt;&lt;/script&gt;
+
+&lt;div id="weightloss-calendar"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+    const weightlossCalendarConfig = {
+        title: "Schedule Your Weight Loss Consultation",
+        type: "calendar",
+        category: "weightloss",
+        consultationTypes: ["sync", "async"],
+        description: "Book your consultation to discuss GLP-1 weight loss treatment options",
+        timezone: "America/New_York",
+        businessHours: {
+            start: "09:00",
+            end: "17:00",
+            days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+        },
+        syncStates: ["AR", "DC", "DE", "ID", "KS", "LA", "MS", "NM", "RI", "WV", "NC", "SC", "ME"]
+    };
+    
+    await window.generateCalendarWidget(weightlossCalendarConfig, 'weightloss-calendar');
+&lt;/script&gt;</code></pre>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">Hormone Therapy Consultation Calendar:</label>
+        <div class="code-block">
+            <pre><code>&lt;!-- Hormone Therapy Consultation Calendar --&gt;
+&lt;link rel="stylesheet" href="https://locumtele.github.io/widgets/forms/components/universalFormStyle.css"&gt;
+&lt;script src="https://locumtele.github.io/widgets/forms/components/universalFormLoader.js"&gt;&lt;/script&gt;
+
+&lt;div id="hormone-calendar"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+    const hormoneCalendarConfig = {
+        title: "Schedule Your Hormone Therapy Consultation",
+        type: "calendar",
+        category: "hormone",
+        consultationTypes: ["sync", "async"],
+        description: "Book your consultation to discuss hormone therapy treatment options",
+        timezone: "America/New_York",
+        businessHours: {
+            start: "09:00",
+            end: "17:00",
+            days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+        },
+        syncStates: ["AR", "DC", "DE", "ID", "KS", "LA", "MS", "NM", "RI", "WV", "NC", "SC", "ME"]
+    };
+    
+    await window.generateCalendarWidget(hormoneCalendarConfig, 'hormone-calendar');
+&lt;/script&gt;</code></pre>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">State-Specific Calendar (Sync Only):</label>
+        <div class="code-block">
+            <pre><code>&lt;!-- State-Specific Sync Calendar --&gt;
+&lt;link rel="stylesheet" href="https://locumtele.github.io/widgets/forms/components/universalFormStyle.css"&gt;
+&lt;script src="https://locumtele.github.io/widgets/forms/components/universalFormLoader.js"&gt;&lt;/script&gt;
+
+&lt;div id="sync-calendar"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+    const syncCalendarConfig = {
+        title: "Schedule Your Consultation (Sync Only)",
+        type: "calendar",
+        category: "weightloss",
+        consultationTypes: ["sync"], // Only sync consultations
+        description: "This state requires synchronous consultations only",
+        timezone: "America/New_York",
+        businessHours: {
+            start: "09:00",
+            end: "17:00",
+            days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+        },
+        syncStates: ["AR", "DC", "DE", "ID", "KS", "LA", "MS", "NM", "RI", "WV", "NC", "SC", "ME"]
+    };
+    
+    await window.generateCalendarWidget(syncCalendarConfig, 'sync-calendar');
+&lt;/script&gt;</code></pre>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-card">
+    <h3>🔧 Footer Tracking Script</h3>
+    <p>Add this script to your website's footer for proper redirect handling and calendar integration.</p>
+    
+    <div class="form-group">
+        <label class="form-label">GoHighLevel Footer Code:</label>
+        <div class="code-block">
+            <pre><code>&lt;!-- Add this to your GHL site footer in Website Settings > Footer Code --&gt;
+&lt;script src="https://locumtele.github.io/widgets/forms/components/ghl-redirect.js"&gt;&lt;/script&gt;</code></pre>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">Calendar Integration Script:</label>
+        <div class="code-block">
+            <pre><code>&lt;!-- Add this for calendar-specific functionality --&gt;
+&lt;script src="https://locumtele.github.io/widgets/forms/components/calendar-integration.js"&gt;&lt;/script&gt;</code></pre>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-card">
+    <h3>📊 Calendar Widget Flow</h3>
+    <p>Calendar widgets provide a streamlined booking experience:</p>
+    <ol>
+        <li><strong>Calendar Display:</strong> Patient sees available time slots</li>
+        <li><strong>State Selection:</strong> Patient selects their state (if not already known)</li>
+        <li><strong>Consultation Type:</strong> System determines sync vs async based on state</li>
+        <li><strong>Time Selection:</strong> Patient picks available appointment time</li>
+        <li><strong>Booking Confirmation:</strong> Appointment is scheduled and confirmed</li>
+        <li><strong>Redirect:</strong> Patient is redirected to appropriate fee page</li>
+    </ol>
+    
+    <div class="form-group">
+        <label class="form-label">Supported Calendar Categories:</label>
+        <ul>
+            <li><code>weightloss</code> → Weight loss consultation booking</li>
+            <li><code>hormone</code> → Hormone therapy consultation booking</li>
+            <li><code>antiaging</code> → Anti-aging consultation booking</li>
+            <li><code>sexual</code> → Sexual health consultation booking</li>
+            <li><code>hairskin</code> → Hair & skin consultation booking</li>
+        </ul>
+    </div>
+</div>
+
+<div class="dashboard-card">
+    <h3>⚙️ Calendar Configuration Options</h3>
+    <p>Customize your calendar widget with these configuration options:</p>
+    
+    <div class="form-group">
+        <label class="form-label">Business Hours:</label>
+        <div class="code-block">
+            <pre><code>businessHours: {
+    start: "09:00",        // Start time (24-hour format)
+    end: "17:00",          // End time (24-hour format)
+    days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"] // Available days
+}</code></pre>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">Consultation Types:</label>
+        <div class="code-block">
+            <pre><code>consultationTypes: ["sync", "async"]  // Both types available
+consultationTypes: ["sync"]          // Sync only (for sync-only states)
+consultationTypes: ["async"]         // Async only (for async-only states)</code></pre>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">Sync-Only States:</label>
+        <div class="code-block">
+            <pre><code>syncStates: ["AR", "DC", "DE", "ID", "KS", "LA", "MS", "NM", "RI", "WV", "NC", "SC", "ME"]</code></pre>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-card">
+    <h3>💡 Best Practices for Calendar Widgets</h3>
+    <ul>
+        <li><strong>Clear Messaging:</strong> Explain what type of consultation they're booking</li>
+        <li><strong>State Awareness:</strong> Show sync vs async options based on patient's state</li>
+        <li><strong>Time Zone:</strong> Always specify the correct timezone for your practice</li>
+        <li><strong>Business Hours:</strong> Set realistic availability that matches your schedule</li>
+        <li><strong>Follow-up:</strong> Send confirmation emails and reminders</li>
+        <li><strong>Integration:</strong> Connect with your existing scheduling system</li>
+    </ul>
+</div>
+
+<style>
+.code-block {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    overflow-x: auto;
+}
+
+.code-block pre {
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.code-block code {
+    background: none;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+ol {
+    padding-left: 1.5rem;
+}
+
+ol li {
+    margin-bottom: 0.5rem;
+}
+
+ul {
+    padding-left: 1.5rem;
+}
+
+ul li {
+    margin-bottom: 0.25rem;
+}
+
+code {
+    background: #e9ecef;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+</style>

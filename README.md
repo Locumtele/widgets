@@ -8,11 +8,12 @@ Visit the [GitHub Pages site](https://locumtele.github.io/widgets/) to see all w
 
 ## 📋 Widget Types
 
-### 📝 Dynamic Forms
-- **Medical Screening Forms**: Patient intake and assessment forms
-- **JSON-Driven**: Generate forms dynamically from configuration files
-- **Multiple Question Types**: Text, email, phone, checkbox, select, file inputs
-- **Conditional Logic**: Show/hide questions based on user responses
+### 📝 Universal Form System
+- **Any Data Structure**: Generate forms from any JSON data structure
+- **Auto-Detection**: Automatically detects question types and form structure
+- **Multiple Form Types**: Single forms, multi-step forms, and surveys
+- **Comprehensive Question Types**: Text, email, phone, number, date, radio, checkbox, select, textarea, file, height, weight
+- **Advanced Logic**: Disqualification handling, conditional questions, validation
 - **Mobile Optimized**: Responsive design with iOS zoom prevention
 - **API Integration**: Seamless integration with n8n webhooks
 
@@ -28,58 +29,55 @@ Visit the [GitHub Pages site](https://locumtele.github.io/widgets/) to see all w
 
 ## 🛠️ Quick Start
 
-### Universal Loader (Recommended)
+### Universal Form System (Recommended)
 ```html
-<script src="https://locumtele.github.io/widgets/forms/components/globalForm.js"></script>
+<link rel="stylesheet" href="https://locumtele.github.io/widgets/forms/components/universalFormStyle.css">
+<script src="https://locumtele.github.io/widgets/forms/components/universalFormLoader.js"></script>
 <script>
-    // Load a form
-    GlobalWidgets.loadForm('forms/screeners/glp1.json', 'form-container');
+    // Your form data (any structure!)
+    const formData = {
+        title: "Medical Screening",
+        questions: [
+            { text: "Name", type: "text", required: true },
+            { text: "Email", type: "email", required: true },
+            { text: "Do you have diabetes?", type: "radio", options: ["No", "Yes"], 
+              safeAnswers: ["No"], disqualifyAnswers: ["Yes"] }
+        ]
+    };
     
-    // Get available widgets
-    const widgets = GlobalWidgets.getAvailableForms();
+    // Generate form
+    await window.generateForm(formData, 'form-container');
 </script>
 <div id="form-container"></div>
 ```
 
 ## 📚 Documentation
 
-### For Form Integration
-- **[Quick Start Guide](forms/documentation/QUICK_START.md)** - Get started with forms in 5 minutes
+### Universal Form System
+- **[Universal Forms Guide](forms/README-universal-forms.md)** - Complete documentation for the universal form system
+- **[Demo Page](forms/universal-form-demo.html)** - Interactive demo with examples
+- **[Cleanup Summary](forms/CLEANUP-SUMMARY.md)** - What changed in the latest update
+
+### Legacy Documentation
 - **[n8n Integration](forms/documentation/N8N_INTEGRATION.md)** - Internal team automation setup
 - **[Client API Docs](forms/documentation/CLIENT_API_DOCUMENTATION.md)** - For external clients with custom forms
 
-### Available Forms
-- **GLP-1 Weight Loss** - Weight management screening
-- **NAD Anti-Aging** - Anti-aging therapy assessment  
-- **Sermorelin Hormone** - Hormone therapy screening
-- **And 10+ more specialty forms**
-
 ### Examples
-- `forms/example-form.html` - Basic form selector
-- `forms/advanced-example.html` - Advanced demo with metadata
+- `forms/universal-form-demo.html` - Interactive demo with multiple form types
+- `glp1-screening-form.html` - Example of complex medical screening form
 
 ## 📁 Project Structure
 
 ```
-locumtele-widgets/
-├── forms/                       # Dynamic form system
+ltGlobalWidgets/
+├── forms/                       # Universal form system
 │   ├── components/              # Form system components
-│   │   ├── formLoader.js       # Main form generator
-│   │   ├── globalForm.js       # Universal form loader
-│   │   ├── qTemplate.html      # Master form template
-│   │   ├── formStyle.css       # Form styling
-│   │   └── ghl-redirect.js     # GoHighLevel integration
-│   ├── documentation/           # Form documentation
-│   │   ├── CLIENT_API_DOCUMENTATION.md
-│   │   ├── N8N_INTEGRATION.md
-│   │   └── QUICK_START.md
-│   ├── example-form.html       # Basic usage example
-│   ├── advanced-example.html   # Advanced demo
-│   ├── screeners/              # JSON configuration files
-│   │   ├── glp1.json
-│   │   ├── nad.json
-│   │   └── sermorelin.json
-│   └── reassessments/          # Reassessment forms
+│   │   ├── universalFormLoader.js    # Universal form generator
+│   │   ├── universalFormStyle.css    # Universal styling
+│   │   └── ghl-redirect.js           # GoHighLevel integration
+│   ├── universal-form-demo.html      # Interactive demo
+│   ├── README-universal-forms.md     # Complete documentation
+│   └── CLEANUP-SUMMARY.md            # What changed
 ├── calendars/                   # Calendar widgets
 │   ├── weightloss.html
 │   ├── antiaging.html
@@ -112,33 +110,41 @@ locumtele-widgets/
 
 ## 🌐 Embedding Widgets
 
-### Universal Loader (Recommended)
-The easiest way to integrate widgets is using the universal loader:
+### Universal Form System (Recommended)
+The easiest way to integrate forms is using the universal form system:
 
 ```html
-<script src="https://locumtele.github.io/widgets/forms/components/globalForm.js"></script>
+<link rel="stylesheet" href="https://locumtele.github.io/widgets/forms/components/universalFormStyle.css">
+<script src="https://locumtele.github.io/widgets/forms/components/universalFormLoader.js"></script>
 <script>
-    // Load a form
-    GlobalWidgets.loadForm('forms/screeners/glp1.json', 'form-container');
+    // Your form data (any structure!)
+    const formData = {
+        title: "Medical Screening",
+        questions: [
+            { text: "Name", type: "text", required: true },
+            { text: "Email", type: "email", required: true }
+        ]
+    };
     
-    // Get available forms
-    const forms = GlobalWidgets.getAvailableForms();
-    console.log(forms);
-    
-    // Load form data without rendering
-    GlobalWidgets.loadFormData('forms/screeners/nad.json').then(data => {
-        console.log('Form data:', data);
-    });
+    // Generate form
+    await window.generateForm(formData, 'form-container');
 </script>
 ```
 
-### Direct Form Integration
-For more control, use the formLoader directly:
-
+### Multi-Step Forms
 ```html
-<script src="https://locumtele.github.io/widgets/forms/components/formLoader.js"></script>
 <script>
-    FormLoader.generateForm('forms/screeners/glp1.json', 'form-container');
+    const surveyData = {
+        title: "Patient Survey",
+        "Personal Info": [
+            { text: "Name", type: "text", required: true }
+        ],
+        "Medical History": [
+            { text: "Allergies", type: "textarea" }
+        ]
+    };
+    
+    await window.generateForm(surveyData, 'form-container');
 </script>
 ```
 
@@ -207,9 +213,10 @@ For support, email support@yourdomain.com or create an issue in this repository.
 
 ## 🔄 Version History
 
-- **v1.0.0** - Initial release with dynamic form loader
-- **v1.1.0** - Added mobile optimizations
+- **v2.0.0** - Universal Form System - Generate forms from any JSON data structure
 - **v1.2.0** - Enhanced validation and conditional logic
+- **v1.1.0** - Added mobile optimizations
+- **v1.0.0** - Initial release with dynamic form loader
 
 ---
 

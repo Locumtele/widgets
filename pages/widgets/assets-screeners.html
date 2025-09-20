@@ -1,0 +1,393 @@
+<div class="dashboard-card">
+    <h2>📝 Screener Forms - Embed Codes & Tracking</h2>
+    <p>Copy and paste these embed codes to add screener forms to your website. Each form includes the complete patient journey: form submission → state selection → webhook → fee page redirect.</p>
+</div>
+
+<!-- Loading State -->
+<div id="forms-loading" class="dashboard-card" style="display: none;">
+    <div class="dashboard-loading">
+        <div class="dashboard-spinner"></div>
+        <p>Loading screener forms...</p>
+    </div>
+</div>
+
+<!-- Error State -->
+<div id="forms-error" class="dashboard-card" style="display: none;">
+    <div class="error">
+        <h3>Error Loading Forms</h3>
+        <p>There was an error loading the screener forms. Please try again.</p>
+    </div>
+</div>
+
+<!-- Success State -->
+<div id="forms-success" class="dashboard-card" style="display: none;">
+    <div class="success">
+        <h3>Forms Loaded Successfully</h3>
+        <p>All screener forms have been loaded and embed codes are ready.</p>
+    </div>
+</div>
+
+<!-- Forms Content -->
+<div id="forms-content" class="dashboard-card">
+    <h3>🎯 Available Screener Forms</h3>
+    <p>Click on any form below to see its ready-to-copy embed code.</p>
+    
+    <div id="forms-list">
+        <!-- Forms will be loaded here dynamically -->
+    </div>
+</div>
+
+
+
+<style>
+.code-block {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    overflow-x: auto;
+}
+
+.code-block pre {
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.code-block code {
+    background: none;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+ol {
+    padding-left: 1.5rem;
+}
+
+ol li {
+    margin-bottom: 0.5rem;
+}
+
+ul {
+    padding-left: 1.5rem;
+}
+
+ul li {
+    margin-bottom: 0.25rem;
+}
+
+code {
+    background: #e9ecef;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.form-item {
+    background: white;
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.form-item:hover {
+    border-color: #007bff;
+    box-shadow: 0 2px 8px rgba(0,123,255,0.15);
+}
+
+.form-item.active {
+    border-color: #007bff;
+    background: #f8f9ff;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.form-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.form-meta {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.form-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.form-badge.category {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.form-badge.type {
+    background: #e8f5e8;
+    color: #2e7d32;
+}
+
+.form-badge.status {
+    background: #fff3e0;
+    color: #f57c00;
+}
+
+.embed-code-box {
+    margin-top: 1rem;
+    background: white;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.embed-code-header {
+    margin-bottom: 1rem;
+}
+
+.loading-text {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.25rem;
+}
+
+.loading-subtext {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.code-container {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+}
+
+.embed-code-text {
+    flex: 1;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #f8f9fa;
+    resize: vertical;
+    min-height: 100px;
+    max-height: 300px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.copy-button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s ease;
+    flex-shrink: 0;
+    height: fit-content;
+}
+
+.copy-button:hover {
+    background: #0056b3;
+}
+
+.copy-button.copied {
+    background: #28a745;
+}
+</style>
+
+<script>
+// Global data storage
+let formsData = [];
+
+// Load forms data when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    loadFormsData();
+});
+
+// Load forms data
+async function loadFormsData() {
+    try {
+        // Show loading state
+        document.getElementById('forms-loading').style.display = 'block';
+        document.getElementById('forms-content').style.display = 'none';
+        document.getElementById('forms-error').style.display = 'none';
+
+        // Try to load from localStorage first (same data as Database page)
+        const stored = localStorage.getItem('formsData');
+        const storedTime = localStorage.getItem('lastSyncTime');
+        
+        if (stored && storedTime) {
+            formsData = JSON.parse(stored);
+            renderFormsList();
+            document.getElementById('forms-loading').style.display = 'none';
+            document.getElementById('forms-content').style.display = 'block';
+            return;
+        }
+
+        // If no data in localStorage, try to get it from the parent dashboard
+        if (window.parent && window.parent.formsData) {
+            formsData = window.parent.formsData;
+            renderFormsList();
+            document.getElementById('forms-loading').style.display = 'none';
+            document.getElementById('forms-content').style.display = 'block';
+            return;
+        }
+
+        // Fallback: show message to load Database page first
+        document.getElementById('forms-loading').style.display = 'none';
+        document.getElementById('forms-content').innerHTML = `
+            <p>No forms data available. Please load the Database page first to sync forms data.</p>
+            <a href="#" onclick="window.parent.loadPage('db-screeners')" class="dashboard-btn dashboard-btn-primary">Go to Database</a>
+        `;
+        document.getElementById('forms-content').style.display = 'block';
+        
+    } catch (error) {
+        console.error('Error loading forms data:', error);
+        document.getElementById('forms-loading').style.display = 'none';
+        document.getElementById('forms-error').style.display = 'block';
+    }
+}
+
+
+// Render forms list
+function renderFormsList() {
+    const container = document.getElementById('forms-list');
+    if (!container) return;
+
+    // Filter for screener forms only
+    const screenerForms = formsData.filter(form => form.formType === 'screener');
+
+    if (screenerForms.length === 0) {
+        container.innerHTML = '<p>No screener forms available.</p>';
+        return;
+    }
+
+    const formsHTML = screenerForms.map(form => `
+        <div class="form-item">
+            <div class="form-header">
+                <h4 class="form-title">${form.title}</h4>
+                <div class="form-meta">
+                    <span class="form-badge category">${form.category}</span>
+                    <span class="form-badge type">${form.formType}</span>
+                    <span class="form-badge status">${form.status}</span>
+                    <span class="form-badge">${form.totalQuestions} questions</span>
+                </div>
+            </div>
+            
+            <div class="embed-code-box">
+                <div class="embed-code-header">
+                    <span class="loading-text">Loading ${form.title.toLowerCase()}...</span>
+                    <span class="loading-subtext">Ready to copy embed code</span>
+                </div>
+                <div class="code-container">
+                    <textarea class="embed-code-text" readonly>${generateEmbedCode(form)}</textarea>
+                    <button class="copy-button" onclick="copyEmbedCode('${form.id}')">Copy</button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+    container.innerHTML = formsHTML;
+}
+
+
+// Generate embed code for a form
+function generateEmbedCode(form) {
+    const formData = {
+        title: form.title,
+        category: form.category,
+        questions: form.questions || []
+    };
+    
+    return `<!-- ${form.title} - Universal Form System -->
+<link rel="stylesheet" href="https://locumtele.github.io/widgets/forms/components/universalFormStyle.css">
+<script src="https://locumtele.github.io/widgets/forms/components/universalFormLoader.js"></script>
+
+<div id="form-container-${form.id}"></div>
+
+<script>
+    const formData = ${JSON.stringify(formData, null, 4)};
+    
+    // Generate form
+    window.generateForm(formData, 'form-container-${form.id}');
+</script>
+
+<!-- Add this to your site footer for proper redirect handling -->
+<script src="https://locumtele.github.io/widgets/forms/components/ghl-redirect.js"></script>`;
+}
+
+// Copy embed code to clipboard
+async function copyEmbedCode(formId) {
+    const button = document.querySelector(`[onclick="copyEmbedCode('${formId}')"]`);
+    const formItem = button.closest('.form-item');
+    const embedCode = formItem.querySelector('.embed-code-text');
+    
+    if (!embedCode) {
+        console.error('Embed code textarea not found for form:', formId);
+        return;
+    }
+    
+    try {
+        await navigator.clipboard.writeText(embedCode.value);
+        button.textContent = 'Copied!';
+        button.classList.add('copied');
+        
+        setTimeout(() => {
+            button.textContent = 'Copy';
+            button.classList.remove('copied');
+        }, 2000);
+    } catch (err) {
+        console.error('Failed to copy: ', err);
+        // Fallback for older browsers
+        embedCode.select();
+        document.execCommand('copy');
+        
+        button.textContent = 'Copied!';
+        button.classList.add('copied');
+        
+        setTimeout(() => {
+            button.textContent = 'Copy';
+            button.classList.remove('copied');
+        }, 2000);
+    }
+}
+</script>

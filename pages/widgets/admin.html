@@ -1,0 +1,52 @@
+<div class="lt-card">
+    <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+        <span style="font-size: 1.5rem; margin-right: 0.5rem;">⚙️</span>
+        <h3 style="margin: 0;">Admin Controls</h3>
+    </div>
+
+    <!-- System Status -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number" id="forms-count">0</div>
+            <div class="stat-label">Forms Loaded</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="questions-count">0</div>
+            <div class="stat-label">Questions Loaded</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="last-sync">Never</div>
+            <div class="stat-label">Last Sync</div>
+        </div>
+    </div>
+
+    <!-- Webhook Controls -->
+    <div style="margin-bottom: 2rem;">
+        <h4 style="margin-bottom: 1rem;">Data Management</h4>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <button onclick="refreshAllData()" class="btn btn-success btn-lg">
+                🔄 Refresh All Data
+            </button>
+            <button onclick="clearAllData()" class="btn btn-danger">
+                🗑️ Clear All Data
+            </button>
+        </div>
+    </div>
+
+    <!-- Webhook Configuration -->
+    <div style="margin-bottom: 2rem;">
+        <h4 style="margin-bottom: 1rem;">Webhook Configuration</h4>
+        <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; font-family: monospace; font-size: 0.9rem;">
+            <strong>Data Endpoint:</strong> https://locumtele.app.n8n.cloud/webhook/notion-forms<br>
+            <small>Returns combined forms and questions data</small>
+        </div>
+    </div>
+
+    <!-- Debug Information -->
+    <div>
+        <h4 style="margin-bottom: 1rem;">Debug Information</h4>
+        <div class="debug-content" id="debug-content">
+            No data loaded yet. Click "Refresh All Data" to load information.
+        </div>
+    </div>
+</div>

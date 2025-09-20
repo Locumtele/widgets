@@ -1,0 +1,71 @@
+<!-- Page Header -->
+<header class="site-page-header">
+    <h1>⚙️ Admin Controls</h1>
+    <p>System administration and data management controls</p>
+</header>
+
+<!-- Elle's Introduction Section -->
+<div class="lt-section-intro site-animate-on-load">
+    <div class="lt-section-robot"></div>
+    <div class="lt-section-content">
+        <h2>System Administration</h2>
+        <p>Manage your widget system data, monitor system status, and configure webhook endpoints. Use the controls below to refresh data, clear cache, and view system information.</p>
+    </div>
+</div>
+
+<!-- System Status -->
+<div class="lt-grid lt-grid-2 site-animate-on-load">
+    <div class="lt-card">
+        <div class="lt-card-header">
+            <h3 class="lt-card-title">📊 System Status</h3>
+            <p class="lt-card-subtitle">Current system metrics and data status</p>
+        </div>
+        <div class="lt-stat-card">
+            <div class="lt-stat-number" id="forms-count">0</div>
+            <div class="lt-stat-label">Forms Loaded</div>
+        </div>
+        <div class="lt-stat-card">
+            <div class="lt-stat-number" id="last-sync">Never</div>
+            <div class="lt-stat-label">Last Sync</div>
+        </div>
+    </div>
+    
+    <div class="lt-card">
+        <div class="lt-card-header">
+            <h3 class="lt-card-title">🔧 Data Management</h3>
+            <p class="lt-card-subtitle">Refresh and manage your system data</p>
+        </div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
+            <button onclick="refreshAllData()" class="lt-btn lt-btn-success">
+                🔄 Refresh All Data
+            </button>
+            <button onclick="clearAllData()" class="lt-btn lt-btn-danger">
+                🗑️ Clear All Data
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Configuration & Debug -->
+<div class="lt-grid lt-grid-2 site-animate-on-load delay-1">
+    <div class="lt-card">
+        <div class="lt-card-header">
+            <h3 class="lt-card-title">🔗 Webhook Configuration</h3>
+            <p class="lt-card-subtitle">Data endpoint configuration</p>
+        </div>
+        <div class="lt-code-block">
+            <strong>Data Endpoint:</strong> https://locumtele.app.n8n.cloud/webhook/notion-forms<br>
+            <small>Returns combined forms and questions data</small>
+        </div>
+    </div>
+    
+    <div class="lt-card">
+        <div class="lt-card-header">
+            <h3 class="lt-card-title">🐛 Debug Information</h3>
+            <p class="lt-card-subtitle">System debug data and logs</p>
+        </div>
+        <div class="lt-code-block" id="debug-content">
+            No data loaded yet. Click "Refresh All Data" to load information.
+        </div>
+    </div>
+</div>
