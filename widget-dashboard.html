@@ -822,15 +822,8 @@
             // Check if we have cached data
             if (window.formsData && window.formsData.length > 0) {
                 console.log('Rendering forms table with data:', window.formsData);
-                // Only re-render if content is empty or shows placeholder
-                const formsContent = document.getElementById('forms-content');
-                const hasPlaceholder = formsContent.innerHTML.includes('No Database Records Loaded') || 
-                                     formsContent.innerHTML.includes('No forms found') ||
-                                     formsContent.innerHTML.trim() === '';
-                
-                if (hasPlaceholder) {
-                    renderFormsTable(window.formsData);
-                }
+                // Always render the table when we have data
+                renderFormsTable(window.formsData);
                 document.getElementById('forms-loading').style.display = 'none';
                 document.getElementById('forms-content').style.display = 'block';
                 document.getElementById('forms-error').style.display = 'none';
