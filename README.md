@@ -77,6 +77,8 @@ Visit the [GitHub Pages site](https://locumtele.github.io/widgets/) to see all w
 ### Additional Documentation
 - **[Client API Docs](documentation/clinics/patient-forms-api.md)** - For external clients with custom forms
 - **[Widget Dashboard](widget-dashboard.html)** - Internal widget management interface
+- **[Embed Types Guide](docs/EMBED_TYPES.md)** - Three embed types documentation
+- **[API Dashboard](api-dashboard.html)** - API integration dashboard
 
 ### Examples
 - `forms/universal-form-demo.html` - Interactive demo with multiple form types
@@ -86,21 +88,26 @@ Visit the [GitHub Pages site](https://locumtele.github.io/widgets/) to see all w
 
 ```
 ltGlobalWidgets/
+├── README.md                    # Main project documentation
+├── api-dashboard.html           # API integration dashboard
+├── widget-dashboard.html        # Widget management dashboard
 ├── forms/                       # Universal form system
 │   ├── components/              # Form system components
 │   │   ├── universalFormLoader.js    # Universal form generator
-│   │   ├── universalFormStyle.css    # Universal styling
-│   │   └── ghl-redirect.js           # GoHighLevel integration
+│   │   └── universalFormStyle.css    # Universal styling
 │   ├── universal-form-demo.html      # Interactive demo
 │   ├── README-universal-forms.md     # Complete documentation
 │   └── state-selector.html           # State selection for forms
-├── pages/                       # Dashboard and widget pages
-│   ├── integrations/            # Integration dashboard
-│   └── widgets/                 # Widget management dashboard
-├── documentation/               # Brand assets and documentation
-│   ├── clinics/                 # Client API documentation
-│   └── locumtele/brand/         # Brand CSS system
-└── widget-dashboard.html        # Main widget dashboard
+├── docs/                        # Documentation and examples
+│   ├── EMBED_TYPES.md           # Three embed types documentation
+│   ├── README_widget.md         # Widget dashboard documentation
+│   ├── pages/                   # Dashboard and widget pages
+│   │   ├── integrations/        # Integration dashboard
+│   │   └── widgets/             # Widget management dashboard
+│   └── examples/                # Test files and examples
+└── documentation/               # Brand assets and documentation
+    ├── clinics/                 # Client API documentation
+    └── locumtele/brand/         # Brand CSS system
 ```
 
 ## 🔧 Customization
