@@ -28,6 +28,8 @@ This document covers the **Forms Dashboard** (`forms-dashboard.html`), which pro
 
 ### 🎛️ Control Panel Tab - Automation
 - **Safe Automation Controls**: Separated from main workflow
+- **Automatic Form Discovery**: Scans surveys directory for new JSON files
+- **Real-time Status Checking**: Automatically detects HTML file existence
 - **HTML File Status**: Track which forms have generated HTML files
 - **Embed Code Status**: Monitor embed code generation progress
 - **Batch Operations**: Generate all HTML, all embed codes
@@ -36,7 +38,8 @@ This document covers the **Forms Dashboard** (`forms-dashboard.html`), which pro
 ## Technical Architecture
 
 ### Data Sources
-- **Local JSON Files**: Forms data loaded from `surveys/` directory
+- **Automatic Directory Scanning**: Scans `surveys/weightloss/`, `surveys/hormone/`, `surveys/antiaging/` for JSON files
+- **Real-time Status Checking**: Automatically detects HTML file existence
 - **Generated HTML**: Live survey files for preview and embedding
 - **Form Metadata**: Question counts, categories, and status information
 

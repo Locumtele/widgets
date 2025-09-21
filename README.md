@@ -397,6 +397,8 @@ The Forms Dashboard (`forms-dashboard.html`) provides a comprehensive management
 
 #### 🎛️ Control Panel Tab - Automation
 - **Safe automation controls** separated from main workflow
+- **Automatic form discovery** - scans surveys directory for new JSON files
+- **Real-time status checking** for HTML files and embed codes
 - **HTML file status tracking** (exists/missing)
 - **Embed code generation status** (ready/pending)
 - **Batch operations** for efficiency
