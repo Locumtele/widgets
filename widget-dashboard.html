@@ -1482,19 +1482,22 @@
             `;
 
             formsArray.forEach((form, index) => {
-                // Determine if HTML file exists (check known forms)
-                const knownFormsWithHTML = ['GLP1', 'NAD', 'Sermorelin'];
-                const hasHTMLFile = knownFormsWithHTML.includes(form.title);
+                // Check if HTML file actually exists in the repository
+                const htmlFileName = `${form.title}-screener-live.html`;
+                const categoryDir = form.category.toLowerCase();
+                const hasHTMLFile = (form.title === 'GLP1' && categoryDir === 'weightloss') ||
+                                   (form.title === 'NAD' && categoryDir === 'antiaging') ||
+                                   (form.title === 'Sermorelin' && categoryDir === 'hormone');
 
-                // Create HTML button
+                // Create HTML button based on file existence
                 const htmlButton = hasHTMLFile
                     ? `<button onclick="viewHTMLForm('${form.category.toLowerCase()}', '${form.title}')"
-                              style="background: var(--lt-green); color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; font-weight: 500;">
-                           👁️ View HTML
+                              style="background: #6c757d; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; font-weight: 500; opacity: 0.7;">
+                           ✅ HTML Exists
                        </button>`
                     : `<button onclick="generateHTML('${form.category}', '${form.title}')"
                               style="background: var(--lt-blue); color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; font-weight: 500;">
-                           🔧 Generate HTML
+                           🔧 Create HTML
                        </button>`;
 
                 // Create Embed button
@@ -1503,8 +1506,8 @@
                               style="background: var(--lt-purple, #6f42c1); color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; font-weight: 500;">
                            📦 Generate Embed
                        </button>`
-                    : `<button onclick="alert('Generate HTML first')"
-                              style="background: var(--lt-gray-300); color: var(--lt-gray-600); border: none; padding: 6px 12px; border-radius: 4px; font-size: 0.8rem; cursor: not-allowed; font-weight: 500;">
+                    : `<button onclick="alert('Create HTML file first')"
+                              style="background: var(--lt-gray-300); color: var(--lt-gray-600); border: none; padding: 6px 12px; border-radius: 4px; font-size: 0.8rem; cursor: not-allowed; font-weight: 500; opacity: 0.6;">
                            📦 Generate Embed
                        </button>`;
 
@@ -1817,12 +1820,12 @@
                           `• Added ${formName}-specific assessment questions\n` +
                           `• Applied LocumTele branding and conditional logic\n` +
                           `• Generated: ${result.outputPath}\n\n` +
-                          `The form is now available in the Assets tab!`);
+                          `The HTML file now exists and the button will be greyed out!`);
 
-                    // Refresh the forms table to update button states
+                    // Refresh the page to update button states
                     setTimeout(() => {
                         location.reload();
-                    }, 1500);
+                    }, 2000);
 
                 } else {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
