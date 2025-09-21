@@ -126,7 +126,7 @@ class EnhancedFormGenerator:
         styles = self.generate_modern_styles()
 
         # Generate JavaScript for conditional logic and form handling
-        javascript = self.generate_form_javascript(category, consult_type, form_name)
+        javascript = self.generate_form_javascript(category, consult_type, form_name, len(sections))
 
         html = f'''
 <!DOCTYPE html>
@@ -962,14 +962,14 @@ class EnhancedFormGenerator:
             }
         '''
 
-    def generate_form_javascript(self, category: str, consult_type: str, form_name: str = "form") -> str:
+    def generate_form_javascript(self, category: str, consult_type: str, form_name: str = "form", total_sections: int = 4) -> str:
         """Generate JavaScript for form functionality and conditional logic - FIXED VERSION"""
         sync_only_states = json.dumps(self.sync_only_states)
 
         return f'''
             // Form state
             let currentSection = 1;
-            const totalSections = 4;
+            const totalSections = {total_sections};
             let formData = {{}};
             let isDisqualified = false;
             let errorMessages = new Map();
@@ -1623,6 +1623,9 @@ class EnhancedFormGenerator:
                     // Remove asterisk from required fields
                     questionText = questionText.replace('*', '').trim();
 
+                    // Escape apostrophes for JavaScript object keys
+                    const escapedQuestionText = questionText.replace(/'/g, "\\'");
+
                     // Skip contact info fields - they're already in contact section
                     const isContactField = contactFields.some(field =>
                         questionText.toLowerCase().includes(field) ||
@@ -1634,24 +1637,24 @@ class EnhancedFormGenerator:
                             // Handle file uploads
                             const fileData = formData[input.name];
                             if (fileData && typeof fileData === 'object' && fileData.filename) {{
-                                formAnswers[questionText] = fileData; // Include full file object
+                                formAnswers[escapedQuestionText] = fileData; // Include full file object
                             }}
                         }} else if (input.name && input.value) {{
                             if (input.type === 'radio' || input.type === 'checkbox') {{
                                 if (input.checked) {{
-                                    if (formAnswers[questionText]) {{
+                                    if (formAnswers[escapedQuestionText]) {{
                                         // Multiple selections (checkboxes)
-                                        if (Array.isArray(formAnswers[questionText])) {{
-                                            formAnswers[questionText].push(input.value);
+                                        if (Array.isArray(formAnswers[escapedQuestionText])) {{
+                                            formAnswers[escapedQuestionText].push(input.value);
                                         }} else {{
-                                            formAnswers[questionText] = [formAnswers[questionText], input.value];
+                                            formAnswers[escapedQuestionText] = [formAnswers[escapedQuestionText], input.value];
                                         }}
                                     }} else {{
-                                        formAnswers[questionText] = input.value;
+                                        formAnswers[escapedQuestionText] = input.value;
                                     }}
                                 }}
                             }} else {{
-                                formAnswers[questionText] = input.value;
+                                formAnswers[escapedQuestionText] = input.value;
                             }}
                         }}
                     }}
@@ -1669,7 +1672,7 @@ class EnhancedFormGenerator:
                 const activityLevelValue = formAnswers['What is your exercise level?'] || '';
                 const tobaccoUseValue = formAnswers['Do you currently use tobacco or vape?'] || '';
                 const mentalHealthValue = formAnswers['Are you currently experiencing depression with history of suicidal ideation?'] || '';
-                const idVerificationValue = formAnswers['Upload government ID (driver\'s license) for identity verification'] || '';
+                const idVerificationValue = formAnswers['Upload government ID (driver\\'s license) for identity verification'] || '';
 
                 // Filter out mapped fields from responses
                 const mappedFields = [
@@ -1678,7 +1681,7 @@ class EnhancedFormGenerator:
                     'What is your exercise level?',
                     'Do you currently use tobacco or vape?',
                     'Are you currently experiencing depression with history of suicidal ideation?',
-                    'Upload government ID (driver\'s license) for identity verification'
+                    'Upload government ID (driver\\'s license) for identity verification'
                 ];
 
                 const responses = {{}};

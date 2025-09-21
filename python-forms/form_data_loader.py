@@ -61,34 +61,14 @@ class FormDataLoader:
             print(f"Warning: Assessment file not found: {file_path}")
             return []
 
-
-        with open(file_path, 'r', encoding='utf-8') as f:
-            content = f.read()
-            # Parse the JSON data (skip the form metadata at top)
-            lines = content.strip().split('\n')
-            json_start = None
-            for i, line in enumerate(lines):
-                if line.strip() == '{' or line.strip().startswith('{"id"'):
-                    # Check if this is the main data object (has "questions" key)
-                    try:
-                        test_json = '\n'.join(lines[i:])
-                        test_data = json.loads(test_json)
-                        if 'questions' in test_data:
-                            json_start = i
-                            break
-                    except:
-                        continue
-
-            if json_start:
-                json_content = '\n'.join(lines[json_start:])
-                try:
-                    data = json.loads(json_content)
-                    questions = data.get('questions', [])
-                    return self._convert_questions(questions)
-                except json.JSONDecodeError as e:
-                    print(f"JSON parse error in assessment: {e}")
-
-        return []
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                questions = data.get('questions', [])
+                return self._convert_questions(questions)
+        except json.JSONDecodeError as e:
+            print(f"JSON parse error in assessment: {e}")
+            return []
 
     def _convert_questions(self, questions: List[Dict]) -> List[Dict]:
         """Convert Notion JSON format to our form generator format"""
