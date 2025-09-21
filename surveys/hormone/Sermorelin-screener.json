@@ -1,0 +1,247 @@
+{
+  "form": {
+    "name": Sermorelin,
+    "type": async
+    "category": hormone
+    "consultType": async,
+    "notionId": 27582abf-7eae-8069-bc7a-f0f01cbb7b67,
+  },
+{
+  "id": "27582abf-7eae-8069-bc7a-f0f01cbb7b67",
+  "name": "Sermorelin",
+  "url": "https://www.notion.so/Sermorelin-27582abf7eae8069bc7af0f01cbb7b67",
+  "property_category": "hormone",
+  "property_order": null,
+  "property_question_type": null,
+  "property_flag_answers": [],
+  "property_disqualify_message": "",
+  "property_form_type": "screener",
+  "property_sub_item": [
+    "27382abf-7eae-802e-ab28-dd9388009dc6",
+    "27382abf-7eae-8007-9617-fa4b84f0675c",
+    "27382abf-7eae-80b3-b431-e8785c796f32",
+    "27382abf-7eae-8041-b499-f1b3977bb727",
+    "27382abf-7eae-80cd-9334-ec172e8c7977",
+    "27382abf-7eae-8054-a959-f6d4b73c5be2",
+    "27382abf-7eae-804c-bfd9-c1bb0ac2b5dd"
+  ],
+  "property_consult_type": "async",
+  "property_safe_answers": [],
+  "property_last_updated": null,
+  "property_show_condition": "",
+  "property_required": false,
+  "property_form_status": "PUBLISHED",
+  "property_parent_item": [],
+  "property_disqualify_answers": [],
+  "property_section": null,
+  "property_checkbox_options": [],
+  "property_note_to_doctor": "",
+  "property_question_text": "Sermorelin",
+  "questions": [
+    {
+      "id": "27382abf-7eae-804c-bfd9-c1bb0ac2b5dd",
+      "name": "Have you previously received Sermorelin injections?",
+      "url": "https://www.notion.so/Have-you-previously-received-Sermorelin-injections-27382abf7eae804cbfd9c1bb0ac2b5dd",
+      "property_category": "hormone",
+      "property_order": 1,
+      "property_question_type": "radio",
+      "property_flag_answers": [],
+      "property_disqualify_message": "",
+      "property_form_type": null,
+      "property_sub_item": [],
+      "property_consult_type": null,
+      "property_safe_answers": [
+        "yes",
+        "no"
+      ],
+      "property_last_updated": null,
+      "property_show_condition": "always",
+      "property_required": true,
+      "property_form_status": null,
+      "property_parent_item": [
+        "27582abf-7eae-8069-bc7a-f0f01cbb7b67"
+      ],
+      "property_disqualify_answers": [],
+      "property_section": "Assessment",
+      "property_checkbox_options": [],
+      "property_note_to_doctor": "",
+      "property_question_text": "Have you previously received Sermorelin injections?"
+    },
+    {
+      "id": "27382abf-7eae-8054-a959-f6d4b73c5be2",
+      "name": "If yes, what dose?",
+      "url": "https://www.notion.so/If-yes-what-dose-27382abf7eae8054a959f6d4b73c5be2",
+      "property_category": "hormone",
+      "property_order": 2,
+      "property_question_type": "text",
+      "property_flag_answers": [],
+      "property_disqualify_message": "",
+      "property_form_type": null,
+      "property_sub_item": [],
+      "property_consult_type": null,
+      "property_safe_answers": [
+        "any_text"
+      ],
+      "property_last_updated": null,
+      "property_show_condition": "if_SQ-57_yes",
+      "property_required": true,
+      "property_form_status": null,
+      "property_parent_item": [
+        "27582abf-7eae-8069-bc7a-f0f01cbb7b67"
+      ],
+      "property_disqualify_answers": [],
+      "property_section": "Assessment",
+      "property_checkbox_options": [],
+      "property_note_to_doctor": "",
+      "property_question_text": "If yes, what dose?"
+    },
+    {
+      "id": "27382abf-7eae-80cd-9334-ec172e8c7977",
+      "name": "Are you currently receiving Sermorelin injections elsewhere?",
+      "url": "https://www.notion.so/Are-you-currently-receiving-Sermorelin-injections-elsewhere-27382abf7eae80cd9334ec172e8c7977",
+      "property_category": "hormone",
+      "property_order": 3,
+      "property_question_type": "radio",
+      "property_flag_answers": [
+        "yes"
+      ],
+      "property_disqualify_message": "",
+      "property_form_type": null,
+      "property_sub_item": [],
+      "property_consult_type": null,
+      "property_safe_answers": [
+        "no"
+      ],
+      "property_last_updated": null,
+      "property_show_condition": "always",
+      "property_required": true,
+      "property_form_status": null,
+      "property_parent_item": [
+        "27582abf-7eae-8069-bc7a-f0f01cbb7b67"
+      ],
+      "property_disqualify_answers": [],
+      "property_section": "Assessment",
+      "property_checkbox_options": [],
+      "property_note_to_doctor": "",
+      "property_question_text": "Are you currently receiving Sermorelin injections elsewhere?"
+    },
+    {
+      "id": "27382abf-7eae-8041-b499-f1b3977bb727",
+      "name": "If yes, what dose?",
+      "url": "https://www.notion.so/If-yes-what-dose-27382abf7eae8041b499f1b3977bb727",
+      "property_category": "hormone",
+      "property_order": 4,
+      "property_question_type": "text",
+      "property_flag_answers": [],
+      "property_disqualify_message": "",
+      "property_form_type": null,
+      "property_sub_item": [],
+      "property_consult_type": null,
+      "property_safe_answers": [
+        "any_text"
+      ],
+      "property_last_updated": null,
+      "property_show_condition": "if_SQ-59_yes",
+      "property_required": true,
+      "property_form_status": null,
+      "property_parent_item": [
+        "27582abf-7eae-8069-bc7a-f0f01cbb7b67"
+      ],
+      "property_disqualify_answers": [],
+      "property_section": "Assessment",
+      "property_checkbox_options": [],
+      "property_note_to_doctor": "",
+      "property_question_text": "If yes, what dose?"
+    },
+    {
+      "id": "27382abf-7eae-80b3-b431-e8785c796f32",
+      "name": "Do you currently have cancer or a history of cancer?",
+      "url": "https://www.notion.so/Do-you-currently-have-cancer-or-a-history-of-cancer-27382abf7eae80b3b431e8785c796f32",
+      "property_category": "hormone",
+      "property_order": 5,
+      "property_question_type": "radio",
+      "property_flag_answers": [],
+      "property_disqualify_message": "Sermorelin therapy is not appropriate for individuals with current or previous cancer. Please discuss alternative wellness approaches with your oncologist.",
+      "property_form_type": null,
+      "property_sub_item": [],
+      "property_consult_type": null,
+      "property_safe_answers": [
+        "no"
+      ],
+      "property_last_updated": null,
+      "property_show_condition": "always",
+      "property_required": true,
+      "property_form_status": null,
+      "property_parent_item": [
+        "27582abf-7eae-8069-bc7a-f0f01cbb7b67"
+      ],
+      "property_disqualify_answers": [
+        "yes"
+      ],
+      "property_section": "Assessment",
+      "property_checkbox_options": [],
+      "property_note_to_doctor": "",
+      "property_question_text": "Do you currently have cancer or a history of cancer?"
+    },
+    {
+      "id": "27382abf-7eae-8007-9617-fa4b84f0675c",
+      "name": "Do you have any history of thyroid issues (such as hypothyroidism)?",
+      "url": "https://www.notion.so/Do-you-have-any-history-of-thyroid-issues-such-as-hypothyroidism-27382abf7eae80079617fa4b84f0675c",
+      "property_category": "hormone",
+      "property_order": 6,
+      "property_question_type": "radio",
+      "property_flag_answers": [
+        "yes"
+      ],
+      "property_disqualify_message": "",
+      "property_form_type": null,
+      "property_sub_item": [],
+      "property_consult_type": null,
+      "property_safe_answers": [
+        "no"
+      ],
+      "property_last_updated": null,
+      "property_show_condition": "always",
+      "property_required": true,
+      "property_form_status": null,
+      "property_parent_item": [
+        "27582abf-7eae-8069-bc7a-f0f01cbb7b67"
+      ],
+      "property_disqualify_answers": [],
+      "property_section": "Assessment",
+      "property_checkbox_options": [],
+      "property_note_to_doctor": "",
+      "property_question_text": "Do you have any history of thyroid issues (such as hypothyroidism)?"
+    },
+    {
+      "id": "27382abf-7eae-802e-ab28-dd9388009dc6",
+      "name": "Is it controlled?",
+      "url": "https://www.notion.so/Is-it-controlled-27382abf7eae802eab28dd9388009dc6",
+      "property_category": "hormone",
+      "property_order": 7,
+      "property_question_type": "radio",
+      "property_flag_answers": [
+        "no"
+      ],
+      "property_disqualify_message": "Uncontrolled thyroid disease makes it unsafe for Sermorelin therapy. Please consult your healthcare provider.",
+      "property_form_type": null,
+      "property_sub_item": [],
+      "property_consult_type": null,
+      "property_safe_answers": [
+        "yes"
+      ],
+      "property_last_updated": null,
+      "property_show_condition": "if_SQ-63_yes",
+      "property_required": true,
+      "property_form_status": null,
+      "property_parent_item": [
+        "27582abf-7eae-8069-bc7a-f0f01cbb7b67"
+      ],
+      "property_disqualify_answers": [],
+      "property_section": "Assessment",
+      "property_checkbox_options": [],
+      "property_note_to_doctor": "",
+      "property_question_text": "Is it controlled?"
+    }
+  ]
+}
