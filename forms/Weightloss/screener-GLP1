@@ -1,0 +1,314 @@
+{
+  "form":
+    "name": async,
+    "type": async,
+    "category": Weightloss,
+    "consultType": async,
+    "notionId": 27582abf-7eae-805a-9e68-f2347298b0a7,
+},
+{
+  "GLP1": [
+    {
+      "id": "27382abf-7eae-804d-b2c3-eaf2e844816c",
+      "name": "BMI (auto-calculated by height and weight)",
+      "url": "https://www.notion.so/BMI-auto-calculated-by-height-and-weight-27382abf7eae804db2c3eaf2e844816c",
+      "property_category": "Weightloss",
+      "property_order": 1,
+      "property_question_type": "formula",
+      "property_flag_answers": [],
+      "property_disqualify_message": "",
+      "property_medication": [],
+      "property_form_type": null,
+      "property_sub_item": [],
+      "property_consult_type": null,
+      "property_safe_answers": [
+        "bmi_25_or_higher"
+      ],
+      "property_last_updated": null,
+      "property_show_condition": "always",
+      "property_required": true,
+      "property_form_status": null,
+      "property_parent_item": [
+        "27582abf-7eae-805a-9e68-f2347298b0a7"
+      ],
+      "property_disqualify_answers": [
+        "bmi_under_25"
+      ],
+      "property_section": "Assessment",
+      "property_checkbox_options": [],
+      "property_note_to_doctor": "",
+      "property_question_text": "BMI (auto-calculated by height and weight)"
+    },
+    {
+      "id": "27382abf-7eae-80c8-b268-f4354a8c9a9d",
+      "name": "Have you ever had an adverse or allergic reaction to any GLP-1 receptor agonist?",
+      "url": "https://www.notion.so/Have-you-ever-had-an-adverse-or-allergic-reaction-to-any-GLP-1-receptor-agonist-27382abf7eae80c8b268f4354a8c9a9d",
+      "property_category": "Weightloss",
+      "property_order": 2,
+      "property_question_type": "checkbox",
+      "property_flag_answers": [],
+      "property_disqualify_message": "For your safety, we cannot prescribe GLP-1 medications if you have had an allergic reaction to this type of medication before.",
+      "property_medication": [],
+      "property_form_type": null,
+      "property_sub_item": [],
+      "property_consult_type": null,
+      "property_safe_answers": [
+        "no"
+      ],
+      "property_last_updated": null,
+      "property_show_condition": "always",
+      "property_required": true,
+      "property_form_status": null,
+      "property_parent_item": [
+        "27582abf-7eae-805a-9e68-f2347298b0a7"
+      ],
+      "property_disqualify_answers": [
+        "semaglutide",
+        "tirzepatide",
+        "dulaglutide",
+        "exenatide",
+        "liraglutide",
+        "lixisenatide",
+        "other_glp1"
+      ],
+      "property_section": "Assessment",
+      "property_checkbox_options": [],
+      "property_note_to_doctor": "",
+      "property_question_text": "Have you ever had an adverse or allergic reaction to any GLP-1 receptor agonist?"
+    },
+    {
+      "id": "27382abf-7eae-8018-9350-ffc7b9a3334e",
+      "name": "Are you taking any of the following medications?",
+      "url": "https://www.notion.so/Are-you-taking-any-of-the-following-medications-27382abf7eae80189350ffc7b9a3334e",
+      "property_category": "Weightloss",
+      "property_order": 3,
+      "property_question_type": "checkbox",
+      "property_flag_answers": [
+        "insulin_secretagogues",
+        "other_glp1",
+        "insulin"
+      ],
+      "property_disqualify_message": "Your current medications may interact with GLP-1 therapy. Please work with your prescribing doctor to explore safe weight management options that won't interfere with your current treatment.",
+      "property_medication": [],
+      "property_form_type": null,
+      "property_sub_item": [],
+      "property_consult_type": null,
+      "property_safe_answers": [
+        "none_of_the_above"
+      ],
+      "property_last_updated": null,
+      "property_show_condition": "always",
+      "property_required": true,
+      "property_form_status": null,
+      "property_parent_item": [
+        "27582abf-7eae-805a-9e68-f2347298b0a7"
+      ],
+      "property_disqualify_answers": [
+        "abiraterone",
+        "somatrogon",
+        "chloroquine"
+      ],
+      "property_section": "Assessment",
+      "property_checkbox_options": [],
+      "property_note_to_doctor": "",
+      "property_question_text": "Are you taking any of the following medications?"
+    },
+    {
+      "id": "27382abf-7eae-803e-812f-e77a6d793a93",
+      "name": "What other GLP-1 medications are you taking and at what dose?",
+      "url": "https://www.notion.so/What-other-GLP-1-medications-are-you-taking-and-at-what-dose-27382abf7eae803e812fe77a6d793a93",
+      "property_category": "Weightloss",
+      "property_order": 4,
+      "property_question_type": "text",
+      "property_flag_answers": [],
+      "property_disqualify_message": "",
+      "property_medication": [],
+      "property_form_type": null,
+      "property_sub_item": [],
+      "property_consult_type": null,
+      "property_safe_answers": [
+        "any_text"
+      ],
+      "property_last_updated": null,
+      "property_show_condition": "if_other_glp1s_yes",
+      "property_required": true,
+      "property_form_status": null,
+      "property_parent_item": [
+        "27582abf-7eae-805a-9e68-f2347298b0a7"
+      ],
+      "property_disqualify_answers": [],
+      "property_section": "Assessment",
+      "property_checkbox_options": [],
+      "property_note_to_doctor": "",
+      "property_question_text": "What other GLP-1 medications are you taking and at what dose?"
+    },
+    {
+      "id": "27382abf-7eae-806a-a685-d4ddd4a29245",
+      "name": "Do you have any of the following medical conditions?",
+      "url": "https://www.notion.so/Do-you-have-any-of-the-following-medical-conditions-27382abf7eae806aa685d4ddd4a29245",
+      "property_category": "Weightloss",
+      "property_order": 5,
+      "property_question_type": "checkbox",
+      "property_flag_answers": [
+        "diabetes_type2",
+        "diabetic_retinopathy",
+        "diabetic_ketoacidosis",
+        "gallbladder_disease",
+        "kidney_disease",
+        "stomach_problems",
+        "bariatric_surgery"
+      ],
+      "property_disqualify_message": "Based on your medical history, GLP-1 medications may not be safe for you. We recommend discussing weight management options with your healthcare provider.",
+      "property_medication": [],
+      "property_form_type": null,
+      "property_sub_item": [],
+      "property_consult_type": null,
+      "property_safe_answers": [
+        "none_of_the_above"
+      ],
+      "property_last_updated": null,
+      "property_show_condition": "always",
+      "property_required": true,
+      "property_form_status": null,
+      "property_parent_item": [
+        "27582abf-7eae-805a-9e68-f2347298b0a7"
+      ],
+      "property_disqualify_answers": [
+        "diabetes_type1",
+        "pancreatitis",
+        "medullary_thyroid",
+        "men2",
+        "liver_disease",
+        "leber_neuropathy"
+      ],
+      "property_section": "Assessment",
+      "property_checkbox_options": [],
+      "property_note_to_doctor": "",
+      "property_question_text": "Do you have any of the following medical conditions?"
+    },
+    {
+      "id": "27382abf-7eae-80bb-b9ce-f5a5c34eaa76",
+      "name": "Do you currently have a known HbA1C >8%?",
+      "url": "https://www.notion.so/Do-you-currently-have-a-known-HbA1C-8-27382abf7eae80bbb9cef5a5c34eaa76",
+      "property_category": "Weightloss",
+      "property_order": 6,
+      "property_question_type": "radio",
+      "property_flag_answers": [],
+      "property_disqualify_message": "Your current HbA1C level requires specialized diabetes care. Please work with your endocrinologist or primary care doctor for the best approach.",
+      "property_medication": [],
+      "property_form_type": null,
+      "property_sub_item": [],
+      "property_consult_type": null,
+      "property_safe_answers": [
+        "no"
+      ],
+      "property_last_updated": null,
+      "property_show_condition": "always",
+      "property_required": true,
+      "property_form_status": null,
+      "property_parent_item": [
+        "27582abf-7eae-805a-9e68-f2347298b0a7"
+      ],
+      "property_disqualify_answers": [
+        "yes"
+      ],
+      "property_section": "Assessment",
+      "property_checkbox_options": [],
+      "property_note_to_doctor": "",
+      "property_question_text": "Do you currently have a known HbA1C >8%?"
+    },
+    {
+      "id": "27382abf-7eae-8085-8634-d70ce37228c7",
+      "name": "How much alcohol do you typically consume?",
+      "url": "https://www.notion.so/How-much-alcohol-do-you-typically-consume-27382abf7eae80858634d70ce37228c7",
+      "property_category": "Weightloss",
+      "property_order": 7,
+      "property_question_type": "radio",
+      "property_flag_answers": [
+        "1-2_daily"
+      ],
+      "property_disqualify_message": "Regular heavy alcohol consumption can interact dangerously with GLP-1\nmedications. We recommend discussing safer weight management options with\nyour healthcare provider.",
+      "property_medication": [],
+      "property_form_type": null,
+      "property_sub_item": [],
+      "property_consult_type": null,
+      "property_safe_answers": [
+        "none_of_the_above",
+        "0-2_weekly",
+        "3-5_weekly"
+      ],
+      "property_last_updated": null,
+      "property_show_condition": "always",
+      "property_required": true,
+      "property_form_status": null,
+      "property_parent_item": [
+        "27582abf-7eae-805a-9e68-f2347298b0a7"
+      ],
+      "property_disqualify_answers": [
+        "2+_daily"
+      ],
+      "property_section": "Assessment",
+      "property_checkbox_options": [],
+      "property_note_to_doctor": "",
+      "property_question_text": "How much alcohol do you typically consume?"
+    },
+    {
+      "id": "27382abf-7eae-803b-b33c-dae1916e0ce6",
+      "name": "Do you have family history of Multiple Endocrine Neoplasia Type 2 or\nMedullary Thyroid Carcinoma?",
+      "url": "https://www.notion.so/Do-you-have-family-history-of-Multiple-Endocrine-Neoplasia-Type-2-or-Medullary-Thyroid-Carcinoma-27382abf7eae803bb33cdae1916e0ce6",
+      "property_category": "Weightloss",
+      "property_order": 8,
+      "property_question_type": "radio",
+      "property_flag_answers": [
+        "yes"
+      ],
+      "property_disqualify_message": "",
+      "property_medication": [],
+      "property_form_type": null,
+      "property_sub_item": [],
+      "property_consult_type": null,
+      "property_safe_answers": [
+        "no"
+      ],
+      "property_last_updated": null,
+      "property_show_condition": "always",
+      "property_required": true,
+      "property_form_status": null,
+      "property_parent_item": [
+        "27582abf-7eae-805a-9e68-f2347298b0a7"
+      ],
+      "property_disqualify_answers": [],
+      "property_section": "Assessment",
+      "property_checkbox_options": [],
+      "property_note_to_doctor": "",
+      "property_question_text": "Do you have family history of Multiple Endocrine Neoplasia Type 2 or\nMedullary Thyroid Carcinoma?"
+    },
+    {
+      "id": "27382abf-7eae-8072-988a-fcfb62a8ea17",
+      "name": "Upload full-body photos",
+      "url": "https://www.notion.so/Upload-full-body-photos-27382abf7eae8072988afcfb62a8ea17",
+      "property_category": "Weightloss",
+      "property_order": 9,
+      "property_question_type": "file",
+      "property_flag_answers": [],
+      "property_disqualify_message": "",
+      "property_medication": [],
+      "property_form_type": null,
+      "property_sub_item": [],
+      "property_consult_type": null,
+      "property_safe_answers": [],
+      "property_last_updated": null,
+      "property_show_condition": "always",
+      "property_required": true,
+      "property_form_status": null,
+      "property_parent_item": [
+        "27582abf-7eae-805a-9e68-f2347298b0a7"
+      ],
+      "property_disqualify_answers": [],
+      "property_section": "Assessment",
+      "property_checkbox_options": [],
+      "property_note_to_doctor": "",
+      "property_question_text": "Upload full-body photos"
+    }
+  ]
+}
