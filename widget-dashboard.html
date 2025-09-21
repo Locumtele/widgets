@@ -1474,50 +1474,39 @@
                                 <th>Form Type</th>
                                 <th>Category</th>
                                 <th>Consult Type</th>
-                                <th>Status</th>
-                                <th>Questions</th>
-                                <th>Actions</th>
+                                <th>HTML</th>
+                                <th>Embed</th>
                             </tr>
                         </thead>
                         <tbody>
             `;
 
             formsArray.forEach((form, index) => {
-                // Determine status styling using brand colors
-                const statusStyle = form.status === 'PUBLISHED'
-                    ? 'background: var(--lt-green); color: white;'
-                    : 'background: var(--lt-gray-300); color: var(--lt-gray-700);';
-                const statusText = form.status === 'PUBLISHED' ? 'Published' : form.status || 'Draft';
-
                 // Determine if HTML file exists (check known forms)
                 const knownFormsWithHTML = ['GLP1', 'NAD', 'Sermorelin'];
                 const hasHTMLFile = knownFormsWithHTML.includes(form.title);
 
-                // Create action buttons
-                const generateHTMLButton = hasHTMLFile
+                // Create HTML button
+                const htmlButton = hasHTMLFile
                     ? `<button onclick="viewHTMLForm('${form.category.toLowerCase()}', '${form.title}')"
-                              style="background: var(--lt-green); color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; margin-right: 4px;">
+                              style="background: var(--lt-green); color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; font-weight: 500;">
                            👁️ View HTML
                        </button>`
                     : `<button onclick="generateHTML('${form.category}', '${form.title}')"
-                              style="background: var(--lt-blue); color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; margin-right: 4px;">
+                              style="background: var(--lt-blue); color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; font-weight: 500;">
                            🔧 Generate HTML
                        </button>`;
 
-                const generateEmbedButton = hasHTMLFile
+                // Create Embed button
+                const embedButton = hasHTMLFile
                     ? `<button onclick="generateEmbed('${form.category}', '${form.title}')"
-                              style="background: var(--lt-purple, #6f42c1); color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">
+                              style="background: var(--lt-purple, #6f42c1); color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; font-weight: 500;">
                            📦 Generate Embed
                        </button>`
                     : `<button onclick="alert('Generate HTML first')"
-                              style="background: var(--lt-gray-300); color: var(--lt-gray-600); border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; cursor: not-allowed;">
+                              style="background: var(--lt-gray-300); color: var(--lt-gray-600); border: none; padding: 6px 12px; border-radius: 4px; font-size: 0.8rem; cursor: not-allowed; font-weight: 500;">
                            📦 Generate Embed
                        </button>`;
-
-                const actionsContent = `<div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-start;">
-                    ${generateHTMLButton}
-                    ${generateEmbedButton}
-                </div>`;
 
                 tableHTML += `
                     <tr>
@@ -1534,16 +1523,10 @@
                             <span class="section-tag">${form.rawData.property_consult_type || 'N/A'}</span>
                         </td>
                         <td>
-                            <span class="status-badge" style="${statusStyle} padding: 2px 8px; border-radius: 12px; font-size: 0.75rem;">
-                                <span>●</span>
-                                ${statusText}
-                            </span>
+                            ${htmlButton}
                         </td>
                         <td>
-                            <div class="question-count">${form.totalQuestions}</div>
-                        </td>
-                        <td>
-                            ${actionsContent}
+                            ${embedButton}
                         </td>
                     </tr>
                 `;
@@ -1793,16 +1776,30 @@
             button.style.background = '#6c757d';
 
             try {
-                // Call our Python form generator
-                const response = await fetch('/api/generate-form', {
+                // Find the form data from embedded data
+                let formData = null;
+                for (const [key, data] of Object.entries(embeddedFormsData)) {
+                    if (data.name === formName && data.property_category === category) {
+                        formData = data;
+                        break;
+                    }
+                }
+
+                if (!formData) {
+                    throw new Error(`Form data not found for ${formName} in ${category}`);
+                }
+
+                // Call the Python form generator API
+                const response = await fetch('http://localhost:5000/generate-form', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        category: category.toLowerCase(),
-                        form_name: formName,
-                        consult_type: 'async'
+                        formName: formName,
+                        category: category,
+                        consultType: 'async',
+                        jsonPath: formData.jsonPath
                     })
                 });
 
@@ -1813,8 +1810,14 @@
                     button.textContent = '✅ Generated!';
                     button.style.background = 'var(--lt-green)';
 
-                    // Show success message with path
-                    alert(`HTML form generated successfully!\nSaved to: ${result.file_path}`);
+                    // Show success message with details
+                    alert(`✅ ${formName} form generated successfully!\n\n` +
+                          `The universal form generator:\n` +
+                          `• Loaded general sections (Patient Profile, Medical History, etc.)\n` +
+                          `• Added ${formName}-specific assessment questions\n` +
+                          `• Applied LocumTele branding and conditional logic\n` +
+                          `• Generated: ${result.outputPath}\n\n` +
+                          `The form is now available in the Assets tab!`);
 
                     // Refresh the forms table to update button states
                     setTimeout(() => {
@@ -1828,8 +1831,22 @@
             } catch (error) {
                 console.error('Error generating HTML:', error);
 
-                // Show error message with fallback instructions
-                const errorMsg = `Error generating HTML: ${error.message}\n\nFallback: Run this command manually:\ncd python-forms\npython3 generate_form.py --category ${category.toLowerCase()} --form-name ${formName}`;
+                // Show error message with setup instructions
+                const errorMsg = `🔧 Python Backend Setup Required\n\n` +
+                      `To enable one-click form generation:\n\n` +
+                      `1. Open terminal and navigate to:\n` +
+                      `   cd /Users/tatyanagomez/Projects/ltGlobalWidgets/python-forms\n\n` +
+                      `2. Install flask-cors (one time only):\n` +
+                      `   pip install flask-cors\n\n` +
+                      `3. Start the API server:\n` +
+                      `   python3 form_generator_api.py\n\n` +
+                      `4. Keep the terminal open and click Generate again!\n\n` +
+                      `Once running, clicking Generate will:\n` +
+                      `• Use the universal form generation system\n` +
+                      `• Load general sections + ${formName}-specific questions\n` +
+                      `• Apply LocumTele branding and conditional logic\n` +
+                      `• Generate production-ready HTML automatically\n` +
+                      `• Save to surveys directory and update Assets tab`;
                 alert(errorMsg);
 
                 // Reset button
@@ -1841,7 +1858,7 @@
 
         function viewHTMLForm(category, formName) {
             // Open the generated HTML form in a new tab
-            const formPath = `/surveys/${category}/${formName}-screener-live.html`;
+            const formPath = `surveys/${category.toLowerCase()}/${formName}-screener-live.html`;
             window.open(formPath, '_blank');
         }
 
