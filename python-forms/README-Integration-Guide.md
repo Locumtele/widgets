@@ -20,6 +20,14 @@ python3 flask_app.py
 
 ### 2. Update Your Embed Codes
 
+**Option A: Use Forms Dashboard (Recommended)**
+1. Open `forms-dashboard.html`
+2. Navigate to Dashboard tab (Embed Code Library)
+3. Copy embed codes for your forms
+4. Replace existing embeds with new codes
+
+**Option B: Use Python API Directly**
+
 Replace your existing JavaScript embeds with Python API calls:
 
 #### Before (JavaScript):

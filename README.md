@@ -262,6 +262,27 @@ surveys/{category}/ Sorts questions      Adds JavaScript   JavaScript validates
 - **Data parsing**: `form_data_loader.py`
 - **Generation script**: `regenerate_complete_form.py`
 
+## 📚 Documentation Index
+
+### 🏥 Core System Documentation
+- **[Python Form Generator](python-forms/README-Python-Form-Generator.md)** - Complete technical documentation for the form generation system
+- **[Quick Start Guide](python-forms/README-Quick-Start-Guide.md)** - Get up and running in minutes with simple commands
+- **[Integration Guide](python-forms/README-Integration-Guide.md)** - Deploy and integrate the Python system with existing workflows
+- **[Conditional Logic Reference](python-forms/README-Conditional-Logic-Reference.md)** - Complete reference for form question conditional logic
+
+### 🎛️ Dashboard & Interface Documentation
+- **[Forms Dashboard](docs/widgets/README-Forms-Dashboard.md)** - Complete guide to the embed code library and form management interface
+- **[CSS Framework](docs/brand/README-CSS-Framework.md)** - Brand system and dashboard framework for creating new interfaces
+
+### 🔌 API & Integration Documentation
+- **[Patient Screening API](docs/api/README-Patient-Screening-API.md)** - External API for submitting patient screening data from custom forms
+
+### 📋 Quick Reference
+- **Main Project Overview**: This README.md file
+- **Forms Dashboard**: `forms-dashboard.html` - Live embed code library
+- **Widget Dashboard**: `widget-dashboard.html` - Internal management interface
+- **API Dashboard**: `api-dashboard.html` - API integration dashboard
+
 ## 📚 Knowledge Base
 
 ### Critical Implementation Details
@@ -509,9 +530,13 @@ localStorage.removeItem('medicalForm_GLP1_Weightloss');
 - **Medical Advisor**: [To be updated]
 
 ### Documentation Locations
-- **Project README**: `/Users/tatyanagomez/Projects/ltGlobalWidgets/python-forms/README.md`
-- **Conditional Logic Docs**: `/Users/tatyanagomez/Projects/ltGlobalWidgets/python-forms/SHOW_CONDITION_PATTERNS.md`
-- **This Overview**: `/Users/tatyanagomez/Projects/ltGlobalWidgets/COMPREHENSIVE_PROJECT_OVERVIEW.md`
+- **Python Form Generator**: `/Users/tatyanagomez/Projects/ltGlobalWidgets/python-forms/README-Python-Form-Generator.md`
+- **Quick Start Guide**: `/Users/tatyanagomez/Projects/ltGlobalWidgets/python-forms/README-Quick-Start-Guide.md`
+- **Integration Guide**: `/Users/tatyanagomez/Projects/ltGlobalWidgets/python-forms/README-Integration-Guide.md`
+- **Conditional Logic Reference**: `/Users/tatyanagomez/Projects/ltGlobalWidgets/python-forms/README-Conditional-Logic-Reference.md`
+- **Forms Dashboard**: `/Users/tatyanagomez/Projects/ltGlobalWidgets/docs/widgets/README-Forms-Dashboard.md`
+- **CSS Framework**: `/Users/tatyanagomez/Projects/ltGlobalWidgets/docs/brand/README-CSS-Framework.md`
+- **Patient Screening API**: `/Users/tatyanagomez/Projects/ltGlobalWidgets/docs/api/README-Patient-Screening-API.md`
 
 ### Repository Information
 - **Location**: Local development at `/Users/tatyanagomez/Projects/ltGlobalWidgets/`

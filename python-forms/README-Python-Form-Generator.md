@@ -230,6 +230,12 @@ Advanced conditional logic for medical forms with comprehensive patterns.
 3. **Embed in GHL**: Use as custom HTML widget
 4. **Test webhook**: Verify data reaches n8n endpoint
 
+### For Client Deployment (Recommended)
+1. **Open Forms Dashboard**: `forms-dashboard.html`
+2. **Navigate to Dashboard tab**: Embed Code Library
+3. **Copy embed code**: Click "📋 Copy" button for desired form
+4. **Paste in client website**: Embed code is ready for deployment
+
 ### Local Development
 ```bash
 # Generate and test form
