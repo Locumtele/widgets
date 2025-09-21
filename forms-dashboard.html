@@ -522,11 +522,11 @@
                                             </td>
                                             <td>
                                                 <div class="action-buttons">
-                                                    <button class="action-btn btn-view" onclick="viewForm('${form.id}')">
-                                                        👁️ View
+                                                    <button class="action-btn btn-view" onclick="viewQuestions('${form.id}')">
+                                                        📋 View Questions
                                                     </button>
-                                                    <button class="action-btn btn-edit" onclick="editForm('${form.id}')">
-                                                        ✏️ Edit
+                                                    <button class="action-btn btn-edit" onclick="viewSurvey('${form.id}')">
+                                                        👁️ View Survey
                                                     </button>
                                                 </div>
                                             </td>
@@ -691,14 +691,14 @@
         }
 
         // Action functions
-        function viewForm(formId) {
+        function viewQuestions(formId) {
             const form = FORMS_DATA.forms.find(f => f.id === formId);
             if (!form) {
                 alert('Form not found');
                 return;
             }
 
-            // Create modal to show form details
+            // Create modal to show form details with categorized options
             const modal = document.createElement('div');
             modal.style.cssText = `
                 position: fixed;
@@ -719,30 +719,83 @@
                 background: white;
                 border-radius: 12px;
                 padding: 2rem;
-                max-width: 800px;
+                max-width: 900px;
                 width: 100%;
                 max-height: 80%;
                 overflow-y: auto;
                 box-shadow: 0 4px 24px rgba(0,0,0,0.15);
             `;
 
-            const questionsList = form.questions.map(q => `
-                <div style="border: 1px solid var(--lt-gray-200); border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
-                    <div style="font-weight: 600; color: var(--lt-gray-800); margin-bottom: 0.5rem;">
-                        ${q.property_question_text}
+            const questionsList = form.questions.map((q, index) => {
+                // Categorize options
+                const safeAnswers = q.property_safe_answers || [];
+                const flagAnswers = q.property_flag_answers || [];
+                const disqualifyAnswers = q.property_disqualify_answers || [];
+                
+                const renderOptions = (options, color, label) => {
+                    if (!options || options.length === 0) return '';
+                    return `
+                        <div style="margin-bottom: 0.5rem;">
+                            <div style="font-size: 0.8rem; font-weight: 600; color: ${color}; margin-bottom: 0.25rem;">
+                                ${label}:
+                            </div>
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.25rem;">
+                                ${options.map(option => `
+                                    <span style="background: ${color}20; color: ${color}; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.75rem; border: 1px solid ${color}40;">
+                                        ${option}
+                                    </span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                };
+
+                return `
+                    <div style="border: 1px solid var(--lt-gray-200); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; background: #fafafa;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                            <div style="font-weight: 600; color: var(--lt-gray-800); font-size: 1.1rem; flex: 1;">
+                                ${index + 1}. ${q.property_question_text}
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--lt-gray-500); margin-left: 1rem;">
+                                ${q.property_question_type}
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                            <div style="padding: 0.5rem; background: white; border-radius: 6px; border: 1px solid var(--lt-gray-200);">
+                                <div style="font-size: 0.8rem; font-weight: 600; color: var(--lt-gray-600); margin-bottom: 0.25rem;">Required</div>
+                                <div style="color: var(--lt-gray-800);">${q.property_required ? 'Yes' : 'No'}</div>
+                            </div>
+                            <div style="padding: 0.5rem; background: white; border-radius: 6px; border: 1px solid var(--lt-gray-200);">
+                                <div style="font-size: 0.8rem; font-weight: 600; color: var(--lt-gray-600); margin-bottom: 0.25rem;">Section</div>
+                                <div style="color: var(--lt-gray-800);">${q.property_section || 'N/A'}</div>
+                            </div>
+                            <div style="padding: 0.5rem; background: white; border-radius: 6px; border: 1px solid var(--lt-gray-200);">
+                                <div style="font-size: 0.8rem; font-weight: 600; color: var(--lt-gray-600); margin-bottom: 0.25rem;">Show Condition</div>
+                                <div style="color: var(--lt-gray-800);">${q.property_show_condition || 'Always'}</div>
+                            </div>
+                        </div>
+
+                        <div style="background: white; padding: 1rem; border-radius: 6px; border: 1px solid var(--lt-gray-200);">
+                            <div style="font-size: 0.9rem; font-weight: 600; color: var(--lt-gray-700); margin-bottom: 0.75rem;">Answer Logic:</div>
+                            ${renderOptions(safeAnswers, '#28a745', '✅ Safe Answers')}
+                            ${renderOptions(flagAnswers, '#ffc107', '⚠️ Flag Answers')}
+                            ${renderOptions(disqualifyAnswers, '#dc3545', '❌ Disqualify Answers')}
+                            
+                            ${q.property_disqualify_message ? `
+                                <div style="margin-top: 0.75rem; padding: 0.75rem; background: #f8d7da; border: 1px solid #f5c6cb; border-radius: 6px;">
+                                    <div style="font-size: 0.8rem; font-weight: 600; color: #721c24; margin-bottom: 0.25rem;">Disqualify Message:</div>
+                                    <div style="font-size: 0.85rem; color: #721c24;">${q.property_disqualify_message}</div>
+                                </div>
+                            ` : ''}
+                        </div>
                     </div>
-                    <div style="font-size: 0.85rem; color: var(--lt-gray-600); margin-bottom: 0.5rem;">
-                        Type: ${q.property_question_type} | Required: ${q.property_required ? 'Yes' : 'No'}
-                    </div>
-                    <div style="font-size: 0.8rem; color: var(--lt-gray-500);">
-                        Section: ${q.property_section || 'N/A'}
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
 
             modalContent.innerHTML = `
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h3 style="margin: 0; color: var(--lt-blue);">📝 ${form.name} - Form Details</h3>
+                    <h3 style="margin: 0; color: var(--lt-blue);">📋 ${form.name} - Question Logic</h3>
                     <button onclick="closeModal()" style="background: #dc3545; color: white; border: none; padding: 0.5rem; border-radius: 50%; cursor: pointer; font-size: 1.2rem;">✕</button>
                 </div>
                 
@@ -768,8 +821,8 @@
                 </div>
 
                 <div>
-                    <h4 style="color: var(--lt-gray-800); margin-bottom: 1rem;">Form-Specific Questions (${form.questionCount})</h4>
-                    <div style="max-height: 400px; overflow-y: auto;">
+                    <h4 style="color: var(--lt-gray-800); margin-bottom: 1rem;">Form-Specific Questions with Logic (${form.questionCount})</h4>
+                    <div style="max-height: 500px; overflow-y: auto;">
                         ${questionsList}
                     </div>
                 </div>
@@ -789,6 +842,109 @@
             });
         }
 
+        function viewSurvey(formId) {
+            const form = FORMS_DATA.forms.find(f => f.id === formId);
+            if (!form) {
+                alert('Form not found');
+                return;
+            }
+
+            // Determine the HTML file path based on form data
+            const categoryDir = form.category.toLowerCase();
+            const htmlFileName = `${form.name}-screener-live.html`;
+            const surveyPath = `surveys/${categoryDir}/${htmlFileName}`;
+
+            // Create modal to show survey preview
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                padding: 2rem;
+            `;
+
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                width: 100%;
+                max-width: 1200px;
+                height: 90%;
+                background: white;
+                border-radius: 12px;
+                overflow: hidden;
+                position: relative;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            `;
+
+            // Create close button
+            const closeBtn = document.createElement('button');
+            closeBtn.innerHTML = '✕';
+            closeBtn.style.cssText = `
+                position: absolute;
+                top: 15px;
+                right: 20px;
+                background: #dc3545;
+                color: white;
+                border: none;
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 16px;
+                font-weight: bold;
+                z-index: 10001;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            `;
+
+            // Create iframe
+            const iframe = document.createElement('iframe');
+            iframe.src = surveyPath;
+            iframe.style.cssText = `
+                width: 100%;
+                height: 100%;
+                border: none;
+            `;
+
+            // Add header
+            const header = document.createElement('div');
+            header.style.cssText = `
+                background: var(--lt-blue);
+                color: white;
+                padding: 1rem 2rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            `;
+            header.innerHTML = `👁️ ${form.name} Survey Preview`;
+
+            // Assemble modal
+            modalContent.appendChild(header);
+            modalContent.appendChild(iframe);
+            modalContent.appendChild(closeBtn);
+            modal.appendChild(modalContent);
+
+            // Close handlers
+            closeBtn.onclick = () => closeModal();
+            modal.onclick = (e) => {
+                if (e.target === modal) closeModal();
+            };
+
+            // Add to page
+            document.body.appendChild(modal);
+
+            // Store modal reference for cleanup
+            window.currentModal = modal;
+        }
+
         function closeModal() {
             if (window.currentModal) {
                 document.body.removeChild(window.currentModal);
@@ -796,9 +952,6 @@
             }
         }
 
-        function editForm(formId) {
-            alert(`Editing form: ${formId}`);
-        }
 
         function viewSubmission(submissionId) {
             alert(`Viewing submission: ${submissionId}`);
