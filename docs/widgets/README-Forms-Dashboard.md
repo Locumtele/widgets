@@ -171,6 +171,29 @@ const CONFIG = {
 3. **Buttons Not Working**: Verify JavaScript console for errors
 4. **Data Not Persisting**: Check localStorage availability
 
+### JavaScript Template Literal Issues
+**⚠️ CRITICAL LESSON LEARNED**: Template literals (backticks with `${}`) cause severe syntax errors when used within HTML content, especially when generating embed codes or alert messages.
+
+**Problem**: Template literals like:
+```javascript
+const embedCode = `<!-- ${formName} Form -->
+<script>
+    fetch('${surveyPath}')
+</script>`;
+```
+
+**Cause**: Browser parser interprets backticks and `${}` as template literal syntax, causing "Unexpected token" errors.
+
+**Solution**: Use string concatenation instead:
+```javascript
+const embedCode = '<!-- ' + formName + ' Form -->\n' +
+    '<script>\n' +
+    '    fetch(\'' + surveyPath + '\')\n' +
+    '</script>';
+```
+
+**Prevention**: Always use string concatenation (`'string' + variable + 'string'`) instead of template literals when building HTML content or complex strings within HTML files.
+
 ### Debug Information
 - **Console Logs**: Detailed logging for webhook calls
 - **Raw Data Display**: JSON data shown for debugging

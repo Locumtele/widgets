@@ -407,6 +407,8 @@ The Forms Dashboard (`forms-dashboard.html`) provides a comprehensive management
 
 ⚠️ **Note**: HTML generation and embed code creation buttons were removed due to JavaScript template literal syntax issues. HTML files must be generated manually using the Python scripts in the `python-forms/` directory.
 
+**🔧 JavaScript Issue**: Template literals (backticks with `${}`) cause severe syntax errors when used within HTML content. Always use string concatenation (`'string' + variable + 'string'`) instead of template literals when building HTML content or complex strings within HTML files.
+
 ### For GHL Integration
 1. **Generate form**: `cd python-forms && python3 regenerate_complete_form.py`
 2. **Extract HTML**: Copy entire content from `surveys/weightloss/GLP1-screener-live.html`
