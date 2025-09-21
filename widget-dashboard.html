@@ -787,73 +787,51 @@
                             </ul>
                         </div>
 
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 2rem;">
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
                 `;
 
                 for (const form of availableForms) {
                     const embedCode = generateProductionEmbedCode(form);
-                    const iframeCode = generateIframeEmbedCode(form);
 
                     embedCodesHTML += `
-                        <div style="background: #fff; border: 2px solid #e1e5e9; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                            <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
-                                <div style="width: 12px; height: 12px; background: #28a745; border-radius: 50%; margin-right: 0.75rem;"></div>
-                                <h5 style="margin: 0; color: #333; font-size: 1.2rem;">${form.name}</h5>
-                            </div>
+                        <div style="background: #fff; border: 1px solid #e1e5e9; border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <!-- Form Name and Status -->
+                                <div style="display: flex; align-items: center; min-width: 200px;">
+                                    <div style="width: 8px; height: 8px; background: #28a745; border-radius: 50%; margin-right: 0.5rem;"></div>
+                                    <div>
+                                        <h6 style="margin: 0; color: #333; font-size: 1rem; font-weight: 600;">${form.name}</h6>
+                                        <small style="color: #666; font-size: 0.8rem;">${form.category} • Production Ready</small>
+                                    </div>
+                                </div>
 
-                            <p style="color: #666; margin-bottom: 1.5rem; font-size: 0.9rem; line-height: 1.5;">
-                                ${form.description}
-                            </p>
+                                <!-- Embed Code Textarea -->
+                                <div style="flex: 1; margin: 0 1rem;">
+                                    <textarea
+                                        id="embed-${form.id}"
+                                        style="width: 100%; height: 60px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.7rem; border: 1px solid #ddd; border-radius: 4px; padding: 0.5rem; background: #f8f9fa; resize: none;"
+                                        readonly
+                                        onclick="this.select()"
+                                    >${embedCode}</textarea>
+                                </div>
 
-                            <div style="margin-bottom: 1.5rem;">
-                                <h6 style="margin: 0 0 0.75rem 0; color: #495057; font-size: 0.95rem;">🔗 Direct Embed (Recommended)</h6>
-                                <textarea
-                                    id="embed-${form.id}"
-                                    style="width: 100%; height: 140px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.75rem; border: 1px solid #ddd; border-radius: 6px; padding: 1rem; background: #f8f9fa;"
-                                    readonly
-                                    onclick="this.select()"
-                                >${embedCode}</textarea>
-                                <button
-                                    class="lt-btn lt-btn-primary"
-                                    onclick="copyEmbedCode('embed-${form.id}', '${form.name}')"
-                                    style="margin-top: 0.75rem; width: 100%; font-size: 0.9rem;"
-                                >
-                                    📋 Copy Direct Embed Code
-                                </button>
-                            </div>
-
-                            <div style="margin-bottom: 1.5rem;">
-                                <h6 style="margin: 0 0 0.75rem 0; color: #495057; font-size: 0.95rem;">🖼️ iFrame Embed (Alternative)</h6>
-                                <textarea
-                                    id="iframe-${form.id}"
-                                    style="width: 100%; height: 60px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.75rem; border: 1px solid #ddd; border-radius: 6px; padding: 1rem; background: #f8f9fa;"
-                                    readonly
-                                    onclick="this.select()"
-                                >${iframeCode}</textarea>
-                                <button
-                                    class="lt-btn lt-btn-secondary"
-                                    onclick="copyEmbedCode('iframe-${form.id}', '${form.name} (iFrame)')"
-                                    style="margin-top: 0.75rem; width: 100%; font-size: 0.9rem; background: #6c757d;"
-                                >
-                                    📋 Copy iFrame Code
-                                </button>
-                            </div>
-
-                            <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e9ecef;">
-                                <button
-                                    class="lt-btn"
-                                    onclick="previewForm('${form.file}')"
-                                    style="background: #17a2b8; color: white; flex: 1; font-size: 0.85rem;"
-                                >
-                                    👁️ Preview Form
-                                </button>
-                                <button
-                                    class="lt-btn"
-                                    onclick="testWebhook('${form.id}')"
-                                    style="background: #ffc107; color: #212529; flex: 1; font-size: 0.85rem;"
-                                >
-                                    🧪 Test Webhook
-                                </button>
+                                <!-- Action Buttons -->
+                                <div style="display: flex; gap: 0.5rem; min-width: 200px;">
+                                    <button
+                                        class="lt-btn"
+                                        onclick="copyEmbedCode('embed-${form.id}', '${form.name}')"
+                                        style="background: #007bff; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem; white-space: nowrap;"
+                                    >
+                                        📋 Copy
+                                    </button>
+                                    <button
+                                        class="lt-btn"
+                                        onclick="previewForm('${form.file}')"
+                                        style="background: #17a2b8; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem; white-space: nowrap;"
+                                    >
+                                        👁️ Preview
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     `;
@@ -913,8 +891,8 @@
 <div id="locumtele-${form.id}" style="width: 100%; max-width: 800px; margin: 0 auto;"></div>
 <script>
 (function() {
-    // Load the complete form HTML via fetch
-    fetch('https://raw.githubusercontent.com/locumtele/widgets/main/surveys/weightloss/GLP1-screener-live.html')
+    // Load the complete form HTML via fetch from GitHub Pages
+    fetch('${form.file}')
         .then(response => response.text())
         .then(html => {
             // Extract the form content (everything in body)
@@ -987,9 +965,8 @@
 
         // Preview form functionality
         function previewForm(formFile) {
-            // Open the form in a new window for preview
-            const formUrl = formFile; // Already using GitHub Pages URL
-            window.open(formUrl, '_blank');
+            // Open the live GitHub Pages hosted form in a new window
+            window.open(formFile, '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
         }
 
         // Test webhook functionality
