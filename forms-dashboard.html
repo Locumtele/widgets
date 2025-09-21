@@ -311,72 +311,75 @@
             submissions: []
         };
 
-        // Load forms from manifest file
+        // Load forms directly from GitHub Pages surveys directory
         async function loadFormsData() {
             try {
                 const forms = [];
                 
-                // First, try to load from manifest file
-                try {
-                    const manifestResponse = await fetch('https://locumtele.github.io/widgets/surveys/forms-manifest.json');
-                    if (manifestResponse.ok) {
-                        const manifest = await manifestResponse.json();
-                        
-                        // Load detailed form data for each form in manifest
-                        for (const manifestForm of manifest.forms || []) {
+                // Define the categories to scan
+                const categories = [
+                    { name: 'Weightloss', path: 'weightloss' },
+                    { name: 'Hormone', path: 'hormone' },
+                    { name: 'AntiAging', path: 'antiaging' }
+                ];
+
+                // Scan each category for JSON files
+                for (const category of categories) {
+                    try {
+                        // Try to load known forms for each category
+                        const knownForms = {
+                            'weightloss': ['GLP1-screener.json'],
+                            'hormone': ['Sermorelin-screener.json'],
+                            'antiaging': ['NAD-screener.json']
+                        };
+
+                        for (const formFile of knownForms[category.path] || []) {
                             try {
-                                const formResponse = await fetch(manifestForm.jsonUrl);
-                                if (formResponse.ok) {
-                                    const formData = await formResponse.json();
+                                const formUrl = `https://locumtele.github.io/widgets/surveys/${category.path}/${formFile}`;
+                                const response = await fetch(formUrl);
+                                
+                                if (response.ok) {
+                                    const formData = await response.json();
                                     const formSpecificQuestions = formData.questions || [];
                                     
+                                    // Extract form name from filename
+                                    const formName = formFile.replace('-screener.json', '').replace('-screener', '');
+                                    
+                                    // Check if HTML file exists
+                                    const htmlUrl = `https://locumtele.github.io/widgets/surveys/${category.path}/${formName}-screener-live.html`;
+                                    let htmlStatus = 'missing';
+                                    try {
+                                        const htmlResponse = await fetch(htmlUrl, { method: 'HEAD' });
+                                        htmlStatus = htmlResponse.ok ? 'exists' : 'missing';
+                                    } catch (e) {
+                                        htmlStatus = 'missing';
+                                    }
+                                    
                                     forms.push({
-                                        id: manifestForm.id || formData.id,
-                                        name: manifestForm.name || formData.name,
-                                        category: manifestForm.category || formData.property_category,
-                                        status: manifestForm.status || (formData.property_form_status === 'PUBLISHED' ? 'active' : 'draft'),
-                                        formType: manifestForm.formType || formData.property_form_type || 'screener',
-                                        consultType: manifestForm.consultType || formData.property_consult_type || 'async',
+                                        id: formData.id || formName.toLowerCase(),
+                                        name: formData.name || formName,
+                                        category: formData.property_category || category.name,
+                                        status: formData.property_form_status === 'PUBLISHED' ? 'active' : 'draft',
+                                        formType: formData.property_form_type || 'screener',
+                                        consultType: formData.property_consult_type || 'async',
                                         questions: formSpecificQuestions,
                                         questionCount: formSpecificQuestions.length,
                                         url: formData.url,
-                                        lastUpdated: manifestForm.lastUpdated || formData.property_last_updated,
+                                        lastUpdated: formData.property_last_updated,
                                         rawData: formData,
-                                        jsonUrl: manifestForm.jsonUrl,
-                                        htmlPath: manifestForm.htmlPath || `surveys/${manifestForm.category.toLowerCase()}/${manifestForm.name}-screener-live.html`,
-                                        htmlStatus: manifestForm.htmlStatus || 'missing',
-                                        embedStatus: manifestForm.embedStatus || 'pending'
+                                        jsonUrl: formUrl,
+                                        htmlPath: `surveys/${category.path}/${formName}-screener-live.html`,
+                                        htmlStatus: htmlStatus,
+                                        embedStatus: htmlStatus === 'exists' ? 'ready' : 'pending'
                                     });
                                 }
                             } catch (formError) {
-                                console.warn(`Could not load form data for ${manifestForm.name}:`, formError);
+                                console.warn(`Could not load ${formFile}:`, formError);
                             }
                         }
+                    } catch (categoryError) {
+                        console.warn(`Could not load category ${category.name}:`, categoryError);
                     }
-                } catch (manifestError) {
-                    console.warn('Could not load manifest file, falling back to hardcoded forms:', manifestError);
-                    
-                    // Fallback to hardcoded forms if manifest doesn't exist yet
-                    const fallbackForms = [
-                        {
-                            id: 'glp1',
-                            name: 'GLP1',
-                            category: 'Weightloss',
-                            status: 'active',
-                            formType: 'screener',
-                            consultType: 'async',
-                            questions: [],
-                            questionCount: 0,
-                            url: '',
-                            lastUpdated: new Date().toISOString(),
-                            rawData: {},
-                            jsonUrl: 'https://locumtele.github.io/widgets/surveys/weightloss/GLP1-screener.json',
-                            htmlPath: 'surveys/weightloss/GLP1-screener-live.html',
-                            htmlStatus: 'missing',
-                            embedStatus: 'pending'
-                        }
-                    ];
-                    forms.push(...fallbackForms);
                 }
 
                 // Add mock submissions for demonstration
