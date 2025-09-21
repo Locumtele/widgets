@@ -26,10 +26,10 @@ python-forms/
 ├── enhanced_form_generator.py       # Core medical form generation engine
 ├── form_data_loader.py             # JSON data loader from local directories
 ├── regenerate_complete_form.py     # Form regeneration script
-├── general/                        # Shared sections (Patient Profile, Medical History, etc.)
-│   ├── All-Patient Profile
-│   ├── All-Medical History
-│   └── All-Verification
+├── ../surveys/all-forms/           # Shared sections (Patient Profile, Medical History, etc.)
+│   ├── patient-profile.json
+│   ├── medical-history.json
+│   └── verification.json
 ├── SHOW_CONDITION_PATTERNS.md      # Conditional logic documentation
 └── README.md                      # This file
 ```
@@ -75,7 +75,7 @@ with open("medical_form.html", "w") as f:
 Intelligent JSON parser that combines general sections with form-specific assessments.
 
 **Features:**
-- **Dynamic loading**: Reads from local `general/` and `../surveys/{category}/` directories
+- **Dynamic loading**: Reads from local `../surveys/all-forms/` and `../surveys/{category}/` directories
 - **Question ordering**: Proper sorting by `property_order` field
 - **Option sorting**: Places "none", "none_of_the_above", "no" options last
 - **ID generation**: Creates unique question IDs from Notion data
@@ -207,7 +207,7 @@ Advanced conditional logic for medical forms with comprehensive patterns.
 ## 🔄 Development Workflow
 
 ### Making Changes
-1. **Update JSON data**: Modify files in `general/` or `../surveys/{category}/`
+1. **Update JSON data**: Modify files in `../surveys/all-forms/` or `../surveys/{category}/`
 2. **Update generator**: Modify `enhanced_form_generator.py` for UI/logic changes
 3. **Regenerate form**: Run `python3 regenerate_complete_form.py`
 4. **Test**: Open generated HTML file in browser
@@ -245,7 +245,7 @@ open surveys/weightloss/GLP1-screener-live.html
 - **`SHOW_CONDITION_PATTERNS.md`**: Complete conditional logic documentation
 - **`README.md`**: This comprehensive guide
 - **Form generator comments**: Inline documentation in code
-- **JSON examples**: Sample data structures in `general/` and `../surveys/` directories
+- **JSON examples**: Sample data structures in `../surveys/all-forms/` and `../surveys/` directories
 
 ## 🔧 Configuration
 

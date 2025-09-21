@@ -55,7 +55,7 @@ ltGlobalWidgets/
 │   ├── enhanced_form_generator.py      # Main form generation engine
 │   ├── form_data_loader.py            # JSON data parser
 │   ├── regenerate_complete_form.py    # Form generation script
-│   ├── general/                       # Shared form sections
+│   ├── surveys/all-forms/             # Shared form sections
 │   └── components/                    # Universal form components
 ├── surveys/                           # Generated forms and form data
 │   ├── weightloss/GLP1-screener-live.html  # Production form
@@ -97,7 +97,7 @@ ltGlobalWidgets/
 #### 2. Form Data Loader (`form_data_loader.py`)
 **Purpose**: Intelligent JSON parser and data combiner
 **Key Features**:
-- Loads general sections from local `general/` directory
+- Loads general sections from local `surveys/all-forms/` directory
 - Loads form-specific assessments from `/surveys/{category}/`
 - Combines data into complete form structure
 - Handles question ordering and option sorting
@@ -125,7 +125,7 @@ ltGlobalWidgets/
 ```
 JSON Data Sources → Form Data Loader → Enhanced Form Generator → HTML Form
      ↓                    ↓                      ↓               ↓
-general/          Combines sections    Generates UI      User fills form
+surveys/all-forms/  Combines sections    Generates UI      User fills form
 surveys/{category}/ Sorts questions      Adds JavaScript   JavaScript validates
                    Creates IDs          Applies styling   Sends to webhook
 ```
@@ -249,14 +249,14 @@ surveys/{category}/ Sorts questions      Adds JavaScript   JavaScript validates
 ## 🔄 Development Workflow
 
 ### Current Process
-1. **Update JSON data**: Modify files in `general/` or `../surveys/{category}/`
+1. **Update JSON data**: Modify files in `surveys/all-forms/` or `surveys/{category}/`
 2. **Update generator**: Modify `enhanced_form_generator.py` for UI/logic changes
 3. **Regenerate form**: Run `python3 regenerate_complete_form.py`
 4. **Test**: Open `surveys/weightloss/GLP1-screener-live.html` in browser
 5. **Deploy**: Copy HTML content to GHL widget
 
 ### Key Files to Modify
-- **JSON data**: `general/` and `../surveys/{category}/` files
+- **JSON data**: `surveys/all-forms/` and `surveys/{category}/` files
 - **Form logic**: `enhanced_form_generator.py`
 - **Data parsing**: `form_data_loader.py`
 - **Generation script**: `regenerate_complete_form.py`

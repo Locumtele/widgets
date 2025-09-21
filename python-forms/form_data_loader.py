@@ -11,13 +11,13 @@ class FormDataLoader:
 
     def load_general_sections(self) -> Dict[str, List[Dict]]:
         """Load general sections (Patient Profile, Medical History, Verification)"""
-        general_path = os.path.join(self.base_path, "general")
+        general_path = os.path.join(self.base_path, "..", "surveys", "all-forms")
         sections = {}
 
         section_files = {
-            "Patient Profile": "All-Patient Profile",
-            "Medical History": "All-Medical History",
-            "Verification": "All-Verification"
+            "Patient Profile": "patient-profile.json",
+            "Medical History": "medical-history.json",
+            "Verification": "verification.json"
         }
 
         for section_name, filename in section_files.items():
