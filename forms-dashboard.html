@@ -1268,153 +1268,26 @@
 
 
         function viewSubmission(submissionId) {
-            alert('Viewing submission: ' + submissionId);
+            // Placeholder for viewing submission details
+            console.log('Viewing submission:', submissionId);
         }
 
         function downloadSubmission(submissionId) {
-            alert('Downloading submission: ' + submissionId);
+            // Placeholder for downloading submission data
+            console.log('Downloading submission:', submissionId);
         }
 
-        // Control Panel Action Functions
-        function generateHTML(category, formName) {
-            const command = 'cd python-forms && python3 generate_form.py ' + category.toLowerCase() + ' ' + formName;
-            const instructions = '🔧 Generate HTML for ' + formName + ' (' + category + ')\n\n' +
-                'The automation is ready! Run this command in your terminal:\n\n' +
-                command + '\n\n' +
-                'This will:\n' +
-                '✅ Load the JSON form data\n' +
-                '✅ Generate the complete HTML file\n' +
-                '✅ Create the file at: surveys/' + category.toLowerCase() + '/' + formName + '-screener-live.html\n' +
-                '✅ Make it ready for embedding\n\n' +
-                'After running the command, refresh this dashboard to see the updated status.';
-
-            if (confirm(instructions + '\n\nWould you like to copy the command to clipboard?')) {
-                navigator.clipboard.writeText(command);
-                alert('Command copied to clipboard! Run it in your terminal, then refresh this page.');
-            }
-        }
-
-        function refreshHTML(category, formName) {
-            alert('🔄 Refreshing HTML for ' + formName + ' in ' + category + ' category...\n\nThis will regenerate the HTML file with the latest form data and logic.');
-        }
-
+        // View HTML File Function (still needed for existing HTML files)
         function viewHTMLFile(htmlPath) {
             window.open(htmlPath, '_blank');
         }
 
-        function generateEmbed(category, formName) {
-            const embedCode = '<!-- ' + formName + ' Medical Screening Form -->\n' +
-                '<div id="locumtele-' + formName.toLowerCase() + '-form" style="width: 100%; max-width: 800px; margin: 0 auto;"></div>\n' +
-                '<script>\n' +
-                '    (function() {\n' +
-                '        var script = document.createElement("script");\n' +
-                '        script.src = "https://locumtele.github.io/widgets/surveys/' + category.toLowerCase() + '/' + formName + '-screener-live.html";\n' +
-                '        script.async = true;\n' +
-                '        document.getElementById("locumtele-' + formName.toLowerCase() + '-form").appendChild(script);\n' +
-                '    })();\n' +
-                '</script>';
-
-            const instructions = '📦 Generate Embed Code for ' + formName + ' (' + category + ')\n\n' +
-                'The embed code is ready! Copy this code to deploy on client websites:\n\n' +
-                embedCode + '\n\n' +
-                'This embed code will:\n' +
-                '✅ Load the form from GitHub Pages\n' +
-                '✅ Display in a responsive container\n' +
-                '✅ Work on any website (GHL, WordPress, etc.)\n\n' +
-                'The form is already live at:\n' +
-                'https://locumtele.github.io/widgets/surveys/' + category.toLowerCase() + '/' + formName + '-screener-live.html';
-
-            if (confirm(instructions + '\n\nWould you like to copy the embed code to clipboard?')) {
-                navigator.clipboard.writeText(embedCode);
-                alert('Embed code copied to clipboard! Paste it on your client website.');
-            }
-        }
-
-        function refreshEmbed(category, formName) {
-            alert('🔄 Refreshing embed code for ' + formName + '...\n\nThis will regenerate the embed code with the latest HTML file.');
-        }
-
-        function generateAllHTML() {
-            const pendingForms = FORMS_DATA.forms.filter(form => {
-                const categoryDir = form.category.toLowerCase();
-                const hasHTML = form.name === 'GLP1' && categoryDir === 'weightloss';
-                return !hasHTML;
-            });
-
-            if (pendingForms.length === 0) {
-                alert('✅ All HTML files are already generated!');
-                return;
-            }
-
-            alert('🔧 Generating HTML for ' + pendingForms.length + ' pending forms:\n\n' + pendingForms.map(f => '• ' + f.name + ' (' + f.category + ')').join('\n') + '\n\nThis will call the Python form generator API for each form.');
-        }
-
-        function refreshAllHTML() {
-            const existingForms = FORMS_DATA.forms.filter(form => {
-                const categoryDir = form.category.toLowerCase();
-                return form.name === 'GLP1' && categoryDir === 'weightloss';
-            });
-
-            if (existingForms.length === 0) {
-                alert('No HTML files found to refresh! Generate HTML files first.');
-                return;
-            }
-
-            alert('🔄 Refreshing HTML for ' + existingForms.length + ' forms:\n\n' + existingForms.map(f => '• ' + f.name + ' (' + f.category + ')').join('\n') + '\n\nThis will regenerate HTML files with the latest form data and logic.');
-        }
-
-        function generateAllEmbeds() {
-            const readyForms = FORMS_DATA.forms.filter(form => {
-                const categoryDir = form.category.toLowerCase();
-                const hasHTML = form.name === 'GLP1' && categoryDir === 'weightloss';
-                return hasHTML;
-            });
-
-            if (readyForms.length === 0) {
-                alert('❌ No forms are ready for embed code generation. Generate HTML files first.');
-                return;
-            }
-
-            alert('📦 Generating embed codes for ' + readyForms.length + ' ready forms:\n\n' + readyForms.map(f => '• ' + f.name + ' (' + f.category + ')').join('\n') + '\n\nThis will create embed codes for client deployment.');
-        }
-
+        // Status Functions
         function refreshStatus() {
-            alert('🔄 Refreshing status...\n\nThis will reload all form data and check HTML file status.');
-            // Reload the page to refresh data
-            setTimeout(() => {
-                location.reload();
-            }, 1000);
-        }
-
-        function showHTMLStatus() {
-            const status = FORMS_DATA.forms.map(form => {
-                const categoryDir = form.category.toLowerCase();
-                const hasHTML = form.name === 'GLP1' && categoryDir === 'weightloss';
-                return form.name + ': ' + (hasHTML ? '✅ HTML exists' : '❌ HTML missing');
-            }).join('\n');
-
-            alert('📊 HTML Status Report:\n\n' + status);
-        }
-
-        function showEmbedStatus() {
-            const status = FORMS_DATA.forms.map(form => {
-                const categoryDir = form.category.toLowerCase();
-                const hasHTML = form.name === 'GLP1' && categoryDir === 'weightloss';
-                return form.name + ': ' + (hasHTML ? '✅ Ready for embed' : '⏳ Pending HTML');
-            }).join('\n');
-
-            alert('📊 Embed Status Report:\n\n' + status);
-        }
-
-        function showSystemStatus() {
-            const totalForms = FORMS_DATA.forms.length;
-            const htmlReady = FORMS_DATA.forms.filter(form => {
-                const categoryDir = form.category.toLowerCase();
-                return form.name === 'GLP1' && categoryDir === 'weightloss';
-            }).length;
-            const embedReady = htmlReady;
-
-            alert('📊 System Status Report:\n\n• Total Forms: ' + totalForms + '\n• HTML Ready: ' + htmlReady + '\n• Embed Ready: ' + embedReady + '\n• Pending: ' + (totalForms - htmlReady) + '\n\nSystem is ' + (htmlReady === totalForms ? 'fully operational' : 'partially ready') + '.');
+            loadFormsData().then(() => {
+                loadPage('control');
+                showNotification('Status refreshed successfully!', 'success');
+            });
         }
 
         // Embed Code Library Functions
@@ -1662,15 +1535,15 @@ For support, contact the development team.`;
         }
 
         function exportData() {
-            alert('Exporting all data...');
+            console.log('Exporting all data...');
         }
 
         function openSearch() {
-            alert('Opening search interface...');
+            console.log('Opening search interface...');
         }
 
         function createNewForm() {
-            alert('Creating new form...');
+            console.log('Creating new form...');
         }
 
         function toggleSidebar() {
