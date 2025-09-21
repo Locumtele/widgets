@@ -405,6 +405,8 @@ The Forms Dashboard (`forms-dashboard.html`) provides a comprehensive management
 - **Embed code generation status** (ready/pending)
 - **Batch operations** for efficiency
 
+⚠️ **Note**: HTML generation and embed code creation buttons were removed due to JavaScript template literal syntax issues. HTML files must be generated manually using the Python scripts in the `python-forms/` directory.
+
 ### For GHL Integration
 1. **Generate form**: `cd python-forms && python3 regenerate_complete_form.py`
 2. **Extract HTML**: Copy entire content from `surveys/weightloss/GLP1-screener-live.html`

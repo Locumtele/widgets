@@ -926,20 +926,14 @@
                                             <td>
                                                 <div class="action-buttons">
                                                     ${form.htmlStatus === 'exists' ? 
-                                                        `<button class="action-btn btn-edit" onclick="refreshHTML('${form.category}', '${form.name}')" style="background: var(--lt-green); color: white;">
-                                                            🔄 Refresh HTML
+                                                        `<button class="action-btn btn-view" onclick="viewHTMLFile('${form.htmlPath}')">
+                                                            👁️ View HTML
                                                         </button>` :
-                                                        `<button class="action-btn btn-edit" onclick="generateHTML('${form.category}', '${form.name}')" style="background: var(--lt-blue); color: white;">
-                                                            🔧 Create HTML
-                                                        </button>`
+                                                        `<span style="color: var(--lt-gray-500); font-size: 0.9rem;">HTML not generated</span>`
                                                     }
-                                                    ${form.embedStatus === 'ready' ? 
-                                                        `<button class="action-btn btn-edit" onclick="refreshEmbed('${form.category}', '${form.name}')" style="background: var(--lt-green); color: white;">
-                                                            🔄 Refresh Embed
-                                                        </button>` :
-                                                        `<button class="action-btn" onclick="alert('Create HTML file first')" style="background: var(--lt-gray-300); color: var(--lt-gray-600); cursor: not-allowed; opacity: 0.6;">
-                                                            📦 Generate Embed
-                                                        </button>`
+                                                    ${form.htmlStatus === 'exists' && form.embedStatus === 'ready' ? 
+                                                        `<span style="color: var(--lt-green-600); font-size: 0.9rem;">✅ Ready for embedding</span>` :
+                                                        `<span style="color: var(--lt-gray-500); font-size: 0.9rem;">Embed pending</span>`
                                                     }
                                                 </div>
                                             </td>
