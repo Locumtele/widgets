@@ -1383,48 +1383,19 @@
             }
 
             const categoryDir = form.category.toLowerCase();
-            const surveyPath = `surveys/${categoryDir}/${formName}-screener-live.html`;
+            const surveyPath = 'surveys/' + categoryDir + '/' + formName + '-screener-live.html';
             
-            const embedCode = `<!-- ${formName} Medical Screening Form -->
-<div id="locumtele-${formName.toLowerCase()}-form" style="width: 100%; max-width: 800px; margin: 0 auto;"></div>
-<script>
-(function() {
-    fetch('${surveyPath}')
-        .then(response => response.text())
-        .then(html => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            const formContent = doc.body.innerHTML;
-            
-            const container = document.getElementById('locumtele-${formName.toLowerCase()}-form');
-            if (container) {
-                container.innerHTML = formContent;
-                
-                const scripts = container.querySelectorAll('script');
-                scripts.forEach(script => {
-                    const newScript = document.createElement('script');
-                    if (script.src) {
-                        newScript.src = script.src;
-                    } else {
-                        newScript.textContent = script.textContent;
-                    }
-                    document.head.appendChild(newScript);
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error loading LocumTele form:', error);
-            const container = document.getElementById('locumtele-${formName.toLowerCase()}-form');
-            if (container) {
-                container.innerHTML = '<p style="color: #dc3545; text-align: center; padding: 2rem;">Form temporarily unavailable. Please try again later.</p>';
-            }
-        });
-})();
-<\/script>
-<!-- End ${formName} Form -->`;
+            const embedCode = '<!-- ' + formName + ' Medical Screening Form -->\n' +
+                '<iframe src="https://locumtele.github.io/widgets/' + surveyPath + '"\n' +
+                '        width="100%"\n' +
+                '        height="800"\n' +
+                '        frameborder="0"\n' +
+                '        style="border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">\n' +
+                '</iframe>\n' +
+                '<!-- End ' + formName + ' Form -->';
 
             navigator.clipboard.writeText(embedCode).then(() => {
-                showNotification(`📋 Copied embed code for ${formName}!`, 'success');
+                showNotification('📋 Copied embed code for ' + formName + '!', 'success');
             }).catch(() => {
                 // Fallback for older browsers
                 const textarea = document.createElement('textarea');
@@ -1433,7 +1404,7 @@
                 textarea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textarea);
-                showNotification(`📋 Copied embed code for ${formName}!`, 'success');
+                showNotification('📋 Copied embed code for ' + formName + '!', 'success');
             });
         }
 
