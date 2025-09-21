@@ -505,10 +505,11 @@
         // Load Forms page content (moved from Data)
         function loadFormsPage() {
             const totalSubmissions = FORMS_DATA.submissions.length;
-            const activeForms = FORMS_DATA.forms.filter(f => f.status === 'active').length;
-            const totalForms = FORMS_DATA.forms.length;
-            const avgCompletionRate = FORMS_DATA.forms.length > 0 ? 
-                FORMS_DATA.forms.reduce((sum, f) => sum + (f.questionCount || 0), 0) / totalForms : 0;
+            const readyForms = FORMS_DATA.forms.filter(f => f.htmlStatus === 'exists');
+            const activeForms = readyForms.filter(f => f.status === 'active').length;
+            const totalForms = readyForms.length;
+            const avgCompletionRate = totalForms > 0 ? 
+                readyForms.reduce((sum, f) => sum + (f.questionCount || 0), 0) / totalForms : 0;
 
             return `
                 <div class="dashboard-animate">
@@ -551,7 +552,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    ${FORMS_DATA.forms.map(form => `
+                                    ${FORMS_DATA.forms.filter(form => form.htmlStatus === 'exists').map(form => `
                                         <tr>
                                             <td>
                                                 <div style="font-weight: 600; color: var(--lt-gray-800);">${form.name}</div>
@@ -691,11 +692,10 @@
 
         // Load Dashboard page content (embed code library)
         function loadDashboardPage() {
-            // Get forms that have HTML files ready
-            const readyForms = FORMS_DATA.forms.filter(form => {
-                const categoryDir = form.category.toLowerCase();
-                return form.name === 'GLP1' && categoryDir === 'weightloss';
-            });
+            // Get forms that have both HTML files AND embed codes ready
+            const readyForms = FORMS_DATA.forms.filter(form => 
+                form.htmlStatus === 'exists' && form.embedStatus === 'ready'
+            );
 
             // Get unique categories
             const categories = [...new Set(readyForms.map(form => form.category))];
@@ -746,7 +746,18 @@
                                         </tr>
                                     </thead>
                                     <tbody id="embedTableBody">
-                                        ${readyForms.map(form => `
+                                        ${readyForms.length === 0 ? `
+                                            <tr>
+                                                <td colspan="6" style="text-align: center; padding: 3rem; color: var(--lt-gray-500);">
+                                                    <div style="font-size: 2rem; margin-bottom: 1rem;">📦</div>
+                                                    <div style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">No Forms Ready for Embedding</div>
+                                                    <div style="font-size: 0.9rem;">Forms will appear here once HTML files are generated and embed codes are created.</div>
+                                                    <div style="font-size: 0.8rem; margin-top: 1rem; color: var(--lt-gray-400);">
+                                                        Go to Control Panel to generate HTML files and embed codes.
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ` : readyForms.map(form => `
                                             <tr class="embed-row" data-category="${form.category}" data-name="${form.name.toLowerCase()}">
                                                 <td>
                                                     <div style="display: flex; align-items: center; gap: 0.5rem;">

@@ -12,14 +12,17 @@ This document covers the **Forms Dashboard** (`forms-dashboard.html`), which pro
 ## Features
 
 ### 📊 Dashboard Tab - Embed Code Library
+- **Shows Only Ready Forms**: Only displays forms with both HTML files AND embed codes ready
 - **Compact Table Layout**: Space-efficient design for hundreds of forms
 - **Category Toggle Buttons**: Filter by All, Weightloss, Hormone, Anti-Aging
 - **Search Functionality**: Real-time search across form names
 - **One-Click Copy**: Copy embed codes with single click
 - **Preview Buttons**: Test live surveys in new tab
 - **Bulk Operations**: Copy all codes, generate deployment reports
+- **Empty State**: Helpful message when no forms are ready for embedding
 
 ### 📝 Forms Tab - Form Management
+- **Shows Only HTML-Ready Forms**: Only displays forms with HTML files generated
 - **Form Overview**: Display all forms with question counts and categories
 - **Question Logic Visualization**: Color-coded safe/flag/disqualify options
 - **Survey Preview**: Modal iframe preview of live surveys

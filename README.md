@@ -382,6 +382,7 @@ if (syncOnlyStates.includes(selectedState)) {
 The Forms Dashboard (`forms-dashboard.html`) provides a comprehensive management interface for medical forms:
 
 #### 📊 Dashboard Tab - Embed Code Library
+- **Shows only forms with HTML files AND embed codes ready**
 - **Compact table layout** for hundreds of forms
 - **Category toggle buttons** (All, Weightloss, Hormone, Anti-Aging)
 - **Search functionality** for quick form finding
@@ -390,6 +391,7 @@ The Forms Dashboard (`forms-dashboard.html`) provides a comprehensive management
 - **Bulk operations** (copy all codes, deployment reports)
 
 #### 📝 Forms Tab - Form Management
+- **Shows only forms with HTML files ready**
 - **Form overview** with question counts and categories
 - **Question logic visualization** with color-coded safe/flag/disqualify options
 - **Survey preview** in modal iframe
