@@ -537,3 +537,48 @@ For technical support or questions about the API:
 ---
 
 **Last Updated:** January 15, 2025
+
+
+{
+  "contact": {
+    "name": "string",
+    "email": "string",
+    "gender": "string",
+    "dateOfBirth": "string (YYYY-MM-DD)",
+    "phone": "string",
+    "address1": "string",
+    "city": "string",
+    "state": "string",
+    "postalCode": "string",
+    "timezone": "string",
+    "type": "patient"
+  },
+  "patient": {
+    "rxRequested": "form name",
+    "height": "string",
+    "weight": "string",
+    "BMI": "string",
+    "pregnancy": "string",
+    "allergies": "string",
+    "activityLevel": "string",
+    "tobaccoUse": "string",
+    "mentalHealth": "suicide/depression",
+    "idVerification": "picture of ID"
+  },
+  "form": {
+    "formType": "string",
+    "category": "string",
+    "name": "string",
+    "responses": "all the responses that haven't already been mapped ",
+    "timestamp": "string (ISO 8601)",
+    "formVersion": "last updated date from notion data"
+  },
+  "clinic": {
+    "name": "{{location.name}}",
+    "id": "{{location.id}}",
+    "email": "{{location.email}}",
+    "phone": "{{location.phone}}",
+    "integration": "{{ custom_values.private }}" or "{{custom_values.private}}" - ghl shows me both ways im not sure which one it'll pick up but all these location ones should load from ghl when form is loaded
+    "type": "healthcare"
+  }
+}

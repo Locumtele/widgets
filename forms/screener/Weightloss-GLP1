@@ -25,8 +25,7 @@
     "27382abf-7eae-806a-a685-d4ddd4a29245",
     "27382abf-7eae-803e-812f-e77a6d793a93",
     "27382abf-7eae-8018-9350-ffc7b9a3334e",
-    "27382abf-7eae-80c8-b268-f4354a8c9a9d",
-    "27382abf-7eae-804d-b2c3-eaf2e844816c"
+    "27382abf-7eae-80c8-b268-f4354a8c9a9d"
   ],
   "property_consult_type": "async",
   "property_safe_answers": [],
@@ -42,42 +41,11 @@
   "property_question_text": "GLP1",
   "questions": [
     {
-      "id": "27382abf-7eae-804d-b2c3-eaf2e844816c",
-      "name": "BMI (auto-calculated by height and weight)",
-      "url": "https://www.notion.so/BMI-auto-calculated-by-height-and-weight-27382abf7eae804db2c3eaf2e844816c",
-      "property_category": "Weightloss",
-      "property_order": 1,
-      "property_question_type": "formula",
-      "property_flag_answers": [],
-      "property_disqualify_message": "",
-      "property_medication": [],
-      "property_form_type": null,
-      "property_sub_item": [],
-      "property_consult_type": null,
-      "property_safe_answers": [
-        "bmi_25_or_higher"
-      ],
-      "property_last_updated": null,
-      "property_show_condition": "always",
-      "property_required": true,
-      "property_form_status": null,
-      "property_parent_item": [
-        "27582abf-7eae-805a-9e68-f2347298b0a7"
-      ],
-      "property_disqualify_answers": [
-        "bmi_under_25"
-      ],
-      "property_section": "Assessment",
-      "property_checkbox_options": [],
-      "property_note_to_doctor": "",
-      "property_question_text": "BMI (auto-calculated by height and weight)"
-    },
-    {
       "id": "27382abf-7eae-80c8-b268-f4354a8c9a9d",
       "name": "Have you ever had an adverse or allergic reaction to any GLP-1 receptor agonist?",
       "url": "https://www.notion.so/Have-you-ever-had-an-adverse-or-allergic-reaction-to-any-GLP-1-receptor-agonist-27382abf7eae80c8b268f4354a8c9a9d",
       "property_category": "Weightloss",
-      "property_order": 2,
+      "property_order": 1,
       "property_question_type": "checkbox",
       "property_flag_answers": [],
       "property_disqualify_message": "For your safety, we cannot prescribe GLP-1 medications if you have had an allergic reaction to this type of medication before.",
@@ -114,7 +82,7 @@
       "name": "Are you taking any of the following medications?",
       "url": "https://www.notion.so/Are-you-taking-any-of-the-following-medications-27382abf7eae80189350ffc7b9a3334e",
       "property_category": "Weightloss",
-      "property_order": 3,
+      "property_order": 2,
       "property_question_type": "checkbox",
       "property_flag_answers": [
         "insulin_secretagogues",
@@ -151,7 +119,7 @@
       "name": "What other GLP-1 medications are you taking and at what dose?",
       "url": "https://www.notion.so/What-other-GLP-1-medications-are-you-taking-and-at-what-dose-27382abf7eae803e812fe77a6d793a93",
       "property_category": "Weightloss",
-      "property_order": 4,
+      "property_order": 3,
       "property_question_type": "text",
       "property_flag_answers": [],
       "property_disqualify_message": "",
@@ -180,7 +148,7 @@
       "name": "Do you have any of the following medical conditions?",
       "url": "https://www.notion.so/Do-you-have-any-of-the-following-medical-conditions-27382abf7eae806aa685d4ddd4a29245",
       "property_category": "Weightloss",
-      "property_order": 5,
+      "property_order": 4,
       "property_question_type": "checkbox",
       "property_flag_answers": [
         "diabetes_type2",
@@ -224,7 +192,7 @@
       "name": "Do you currently have a known HbA1C >8%?",
       "url": "https://www.notion.so/Do-you-currently-have-a-known-HbA1C-8-27382abf7eae80bbb9cef5a5c34eaa76",
       "property_category": "Weightloss",
-      "property_order": 6,
+      "property_order": 5,
       "property_question_type": "radio",
       "property_flag_answers": [],
       "property_disqualify_message": "Your current HbA1C level requires specialized diabetes care. Please work with your endocrinologist or primary care doctor for the best approach.",
@@ -255,7 +223,7 @@
       "name": "How much alcohol do you typically consume?",
       "url": "https://www.notion.so/How-much-alcohol-do-you-typically-consume-27382abf7eae80858634d70ce37228c7",
       "property_category": "Weightloss",
-      "property_order": 7,
+      "property_order": 6,
       "property_question_type": "radio",
       "property_flag_answers": [
         "1-2_daily"
@@ -290,7 +258,7 @@
       "name": "Do you have family history of Multiple Endocrine Neoplasia Type 2 or\nMedullary Thyroid Carcinoma?",
       "url": "https://www.notion.so/Do-you-have-family-history-of-Multiple-Endocrine-Neoplasia-Type-2-or-Medullary-Thyroid-Carcinoma-27382abf7eae803bb33cdae1916e0ce6",
       "property_category": "Weightloss",
-      "property_order": 8,
+      "property_order": 7,
       "property_question_type": "radio",
       "property_flag_answers": [
         "yes"
@@ -321,7 +289,7 @@
       "name": "Upload full-body photos",
       "url": "https://www.notion.so/Upload-full-body-photos-27382abf7eae8072988afcfb62a8ea17",
       "property_category": "Weightloss",
-      "property_order": 9,
+      "property_order": 8,
       "property_question_type": "file",
       "property_flag_answers": [],
       "property_disqualify_message": "",

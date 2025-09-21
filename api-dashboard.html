@@ -79,8 +79,20 @@
                 const pageContent = document.getElementById('page-content');
                 pageContent.innerHTML = '<div class="dashboard-loading"><div class="dashboard-spinner"></div><p>Loading...</p></div>';
                 
+                // Map page IDs to actual file names
+                const pageFileMap = {
+                    'dashboard': 'dashboard.html',
+                    'api-docs': 'api-docs.html',
+                    'screeners': 'int-screeners.html',
+                    'reassessments': 'int-reassessments.html',
+                    'calendar': 'int-calendar.html',
+                    'support': 'support.html'
+                };
+                
+                const fileName = pageFileMap[pageId] || `${pageId}.html`;
+                
                 // Load the page content
-                const response = await fetch(`pages/integrations/${pageId}.html`);
+                const response = await fetch(`docs/pages/api-pages/${fileName}`);
                 if (!response.ok) {
                     throw new Error(`Failed to load page: ${pageId}`);
                 }
