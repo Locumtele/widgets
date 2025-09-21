@@ -17,20 +17,20 @@ pip install -r requirements.txt
 python3 regenerate_complete_form.py
 ```
 
-This will generate `GLP1_Weightloss_Screening_COMPLETE.html` - a complete medical screening form ready for testing.
+This will generate `surveys/weightloss/GLP1-screener-live.html` - a complete medical screening form ready for testing.
 
 ## 📁 Project Structure
 
 ```
 python-forms/
 ├── enhanced_form_generator.py       # Core medical form generation engine
-├── form_data_loader.py             # JSON data loader from forms directory
+├── form_data_loader.py             # JSON data loader from local directories
 ├── regenerate_complete_form.py     # Form regeneration script
-├── GLP1_Weightloss_Screening_COMPLETE.html  # Generated form output
+├── general/                        # Shared sections (Patient Profile, Medical History, etc.)
+│   ├── All-Patient Profile
+│   ├── All-Medical History
+│   └── All-Verification
 ├── SHOW_CONDITION_PATTERNS.md      # Conditional logic documentation
-├── forms/                          # JSON data source
-│   ├── general/                   # Shared sections (Patient Profile, Medical History, etc.)
-│   └── screener/                  # Form-specific assessments
 └── README.md                      # This file
 ```
 
@@ -75,7 +75,7 @@ with open("medical_form.html", "w") as f:
 Intelligent JSON parser that combines general sections with form-specific assessments.
 
 **Features:**
-- **Dynamic loading**: Reads from `/forms/general/` and `/forms/screener/` directories
+- **Dynamic loading**: Reads from local `general/` and `../surveys/{category}/` directories
 - **Question ordering**: Proper sorting by `property_order` field
 - **Option sorting**: Places "none", "none_of_the_above", "no" options last
 - **ID generation**: Creates unique question IDs from Notion data
@@ -207,7 +207,7 @@ Advanced conditional logic for medical forms with comprehensive patterns.
 ## 🔄 Development Workflow
 
 ### Making Changes
-1. **Update JSON data**: Modify files in `/forms/general/` or `/forms/screener/`
+1. **Update JSON data**: Modify files in `general/` or `../surveys/{category}/`
 2. **Update generator**: Modify `enhanced_form_generator.py` for UI/logic changes
 3. **Regenerate form**: Run `python3 regenerate_complete_form.py`
 4. **Test**: Open generated HTML file in browser
@@ -218,7 +218,7 @@ Advanced conditional logic for medical forms with comprehensive patterns.
 3. **Document**: Update `SHOW_CONDITION_PATTERNS.md`
 
 ### Adding New Forms
-1. **Create JSON**: Add new file to `/forms/screener/` directory
+1. **Create JSON**: Add new file to `../surveys/{category}/` directory
 2. **Update loader**: Modify `form_data_loader.py` if needed
 3. **Generate**: Use existing generation system
 
@@ -234,7 +234,7 @@ Advanced conditional logic for medical forms with comprehensive patterns.
 ```bash
 # Generate and test form
 python3 regenerate_complete_form.py
-open GLP1_Weightloss_Screening_COMPLETE.html
+open surveys/weightloss/GLP1-screener-live.html
 
 # Monitor changes
 # Edit files → regenerate → test → repeat
@@ -245,7 +245,7 @@ open GLP1_Weightloss_Screening_COMPLETE.html
 - **`SHOW_CONDITION_PATTERNS.md`**: Complete conditional logic documentation
 - **`README.md`**: This comprehensive guide
 - **Form generator comments**: Inline documentation in code
-- **JSON examples**: Sample data structures in `/forms/` directory
+- **JSON examples**: Sample data structures in `general/` and `../surveys/` directories
 
 ## 🔧 Configuration
 

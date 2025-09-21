@@ -112,7 +112,7 @@ def embed_type_1():
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Embed Type 1: Form Only</title>
-        <link rel="stylesheet" href="https://locumtele.github.io/widgets/forms/components/universalFormStyle.css">
+        <link rel="stylesheet" href="https://locumtele.github.io/widgets/python-forms/components/universalFormStyle.css">
     </head>
     <body>
         <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
@@ -249,7 +249,7 @@ def demo_form():
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Demo Form</title>
-        <link rel="stylesheet" href="https://locumtele.github.io/widgets/forms/components/universalFormStyle.css">
+        <link rel="stylesheet" href="https://locumtele.github.io/widgets/python-forms/components/universalFormStyle.css">
     </head>
     <body>
         <div style="max-width: 800px; margin: 0 auto; padding: 20px;">

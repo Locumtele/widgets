@@ -6,7 +6,7 @@ import os
 from typing import Dict, List, Any
 
 class FormDataLoader:
-    def __init__(self, base_path: str = "../forms"):
+    def __init__(self, base_path: str = "."):
         self.base_path = base_path
 
     def load_general_sections(self) -> Dict[str, List[Dict]]:
@@ -53,9 +53,9 @@ class FormDataLoader:
 
     def load_form_assessment(self, category: str, form_name: str) -> List[Dict]:
         """Load assessment questions for a specific form"""
-        screener_path = os.path.join(self.base_path, "screener")
-        filename = f"{category}-{form_name}"
-        file_path = os.path.join(screener_path, filename)
+        surveys_path = os.path.join(self.base_path, "..", "surveys", category.lower())
+        filename = f"{form_name}-screener.json"
+        file_path = os.path.join(surveys_path, filename)
 
         if not os.path.exists(file_path):
             print(f"Warning: Assessment file not found: {file_path}")
@@ -158,19 +158,22 @@ class FormDataLoader:
         return form_data
 
     def list_available_forms(self) -> List[Dict[str, str]]:
-        """List all available forms in the screener directory"""
-        screener_path = os.path.join(self.base_path, "screener")
+        """List all available forms in the surveys directory"""
+        surveys_path = os.path.join(self.base_path, "..", "surveys")
         forms = []
 
-        if os.path.exists(screener_path):
-            for filename in os.listdir(screener_path):
-                if '-' in filename:
-                    category, form_name = filename.split('-', 1)
-                    forms.append({
-                        "category": category,
-                        "form_name": form_name,
-                        "filename": filename
-                    })
+        if os.path.exists(surveys_path):
+            for category_dir in os.listdir(surveys_path):
+                category_path = os.path.join(surveys_path, category_dir)
+                if os.path.isdir(category_path):
+                    for filename in os.listdir(category_path):
+                        if filename.endswith('-screener.json'):
+                            form_name = filename.replace('-screener.json', '')
+                            forms.append({
+                                "category": category_dir.title(),
+                                "form_name": form_name,
+                                "filename": filename
+                            })
 
         return forms
 

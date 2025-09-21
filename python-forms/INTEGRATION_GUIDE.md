@@ -24,7 +24,7 @@ Replace your existing JavaScript embeds with Python API calls:
 
 #### Before (JavaScript):
 ```html
-<script src="https://locumtele.github.io/widgets/forms/components/universalFormLoader.js"></script>
+<script src="https://locumtele.github.io/widgets/python-forms/components/universalFormLoader.js"></script>
 <script>
     const formData = { /* your form data */ };
     await window.generateForm(formData, 'form-container');

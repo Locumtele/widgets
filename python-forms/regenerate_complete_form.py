@@ -30,7 +30,7 @@ print("\n🔧 Generating complete form with all fixes...")
 generator = EnhancedFormGenerator()
 html = generator.generate_notion_form(form_data)
 
-filename = "GLP1_Weightloss_Screening_COMPLETE.html"
+filename = "../surveys/weightloss/GLP1-screener-live.html"
 
 with open(filename, 'w', encoding='utf-8') as f:
     f.write(html)
