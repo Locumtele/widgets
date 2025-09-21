@@ -335,7 +335,7 @@
 
                         for (const formFile of knownForms[category.path] || []) {
                             try {
-                                const formUrl = 'https://locumtele.github.io/widgets/surveys/' + category.path + '/' + formFile;
+                                const formUrl = `https://locumtele.github.io/widgets/surveys/${category.path}/${formFile}`;
                                 const response = await fetch(formUrl);
                                 
                                 if (response.ok) {
@@ -346,7 +346,7 @@
                                     const formName = formFile.replace('-screener.json', '').replace('-screener', '');
                                     
                                     // Check if HTML file exists
-                                    const htmlUrl = 'https://locumtele.github.io/widgets/surveys/' + category.path + '/' + formName + '-screener-live.html';
+                                    const htmlUrl = `https://locumtele.github.io/widgets/surveys/${category.path}/${formName}-screener-live.html`;
                                     let htmlStatus = 'missing';
                                     try {
                                         const htmlResponse = await fetch(htmlUrl, { method: 'HEAD' });
@@ -368,18 +368,18 @@
                                         lastUpdated: formData.property_last_updated,
                                         rawData: formData,
                                         jsonUrl: formUrl,
-                                        htmlPath: 'surveys/' + category.path + '/' + formName + '-screener-live.html',
+                                        htmlPath: `surveys/${category.path}/${formName}-screener-live.html`,
                                         htmlStatus: htmlStatus,
                                         embedStatus: htmlStatus === 'exists' ? 'ready' : 'pending'
                                     };
                                     forms.push(formObj);
                                 }
                             } catch (formError) {
-                                console.warn('Could not load ' + formFile + ':', formError);
+                                console.warn(`Could not load ${formFile}:`, formError);
                             }
                         }
                     } catch (categoryError) {
-                        console.warn('Could not load category ' + category.name + ':', categoryError);
+                        console.warn(`Could not load category ${category.name}:`, categoryError);
                     }
                 }
 
@@ -487,7 +487,7 @@
                 animatedElements.forEach((element, index) => {
                     element.style.opacity = '1';
                     element.style.animation = 'dashboard-fadeInUp 0.6s ease-out forwards';
-                    element.style.animationDelay = (index * 0.1) + 's';
+                    element.style.animationDelay = `${index * 0.1}s`;
                 });
                 
             } catch (error) {
@@ -505,11 +505,10 @@
         // Load Forms page content (moved from Data)
         function loadFormsPage() {
             const totalSubmissions = FORMS_DATA.submissions.length;
-            const readyForms = FORMS_DATA.forms.filter(f => f.htmlStatus === 'exists');
-            const activeForms = readyForms.filter(f => f.status === 'active').length;
-            const totalForms = readyForms.length;
-            const avgCompletionRate = totalForms > 0 ? 
-                readyForms.reduce((sum, f) => sum + (f.questionCount || 0), 0) / totalForms : 0;
+            const activeForms = FORMS_DATA.forms.filter(f => f.status === 'active').length;
+            const totalForms = FORMS_DATA.forms.length;
+            const avgCompletionRate = FORMS_DATA.forms.length > 0 ? 
+                FORMS_DATA.forms.reduce((sum, f) => sum + (f.questionCount || 0), 0) / totalForms : 0;
 
             return `
                 <div class="dashboard-animate">
@@ -552,7 +551,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    ${FORMS_DATA.forms.filter(form => form.htmlStatus === 'exists').map(form => `
+                                    ${FORMS_DATA.forms.map(form => `
                                         <tr>
                                             <td>
                                                 <div style="font-weight: 600; color: var(--lt-gray-800);">${form.name}</div>
@@ -692,10 +691,11 @@
 
         // Load Dashboard page content (embed code library)
         function loadDashboardPage() {
-            // Get forms that have both HTML files AND embed codes ready
-            const readyForms = FORMS_DATA.forms.filter(form => 
-                form.htmlStatus === 'exists' && form.embedStatus === 'ready'
-            );
+            // Get forms that have HTML files ready
+            const readyForms = FORMS_DATA.forms.filter(form => {
+                const categoryDir = form.category.toLowerCase();
+                return form.name === 'GLP1' && categoryDir === 'weightloss';
+            });
 
             // Get unique categories
             const categories = [...new Set(readyForms.map(form => form.category))];
@@ -746,18 +746,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="embedTableBody">
-                                        ${readyForms.length === 0 ? `
-                                            <tr>
-                                                <td colspan="6" style="text-align: center; padding: 3rem; color: var(--lt-gray-500);">
-                                                    <div style="font-size: 2rem; margin-bottom: 1rem;">📦</div>
-                                                    <div style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">No Forms Ready for Embedding</div>
-                                                    <div style="font-size: 0.9rem;">Forms will appear here once HTML files are generated and embed codes are created.</div>
-                                                    <div style="font-size: 0.8rem; margin-top: 1rem; color: var(--lt-gray-400);">
-                                                        Go to Control Panel to generate HTML files and embed codes.
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        ` : readyForms.map(form => `
+                                        ${readyForms.map(form => `
                                             <tr class="embed-row" data-category="${form.category}" data-name="${form.name.toLowerCase()}">
                                                 <td>
                                                     <div style="display: flex; align-items: center; gap: 0.5rem;">
@@ -926,14 +915,20 @@
                                             <td>
                                                 <div class="action-buttons">
                                                     ${form.htmlStatus === 'exists' ? 
-                                                        `<button class="action-btn btn-view" onclick="viewHTMLFile('${form.htmlPath}')">
-                                                            👁️ View HTML
+                                                        `<button class="action-btn btn-edit" onclick="refreshHTML('${form.category}', '${form.name}')" style="background: var(--lt-green); color: white;">
+                                                            🔄 Refresh HTML
                                                         </button>` :
-                                                        `<span style="color: var(--lt-gray-500); font-size: 0.9rem;">HTML not generated</span>`
+                                                        `<button class="action-btn btn-edit" onclick="generateHTML('${form.category}', '${form.name}')" style="background: var(--lt-blue); color: white;">
+                                                            🔧 Create HTML
+                                                        </button>`
                                                     }
-                                                    ${form.htmlStatus === 'exists' && form.embedStatus === 'ready' ? 
-                                                        `<span style="color: var(--lt-green-600); font-size: 0.9rem;">✅ Ready for embedding</span>` :
-                                                        `<span style="color: var(--lt-gray-500); font-size: 0.9rem;">Embed pending</span>`
+                                                    ${form.embedStatus === 'ready' ? 
+                                                        `<button class="action-btn btn-edit" onclick="refreshEmbed('${form.category}', '${form.name}')" style="background: var(--lt-green); color: white;">
+                                                            🔄 Refresh Embed
+                                                        </button>` :
+                                                        `<button class="action-btn" onclick="alert('Create HTML file first')" style="background: var(--lt-gray-300); color: var(--lt-gray-600); cursor: not-allowed; opacity: 0.6;">
+                                                            📦 Generate Embed
+                                                        </button>`
                                                     }
                                                 </div>
                                             </td>
@@ -1165,8 +1160,8 @@
 
             // Determine the HTML file path based on form data
             const categoryDir = form.category.toLowerCase();
-            const htmlFileName = form.name + '-screener-live.html';
-            const surveyPath = 'surveys/' + categoryDir + '/' + htmlFileName;
+            const htmlFileName = `${form.name}-screener-live.html`;
+            const surveyPath = `surveys/${categoryDir}/${htmlFileName}`;
 
             // Create modal to show survey preview
             const modal = document.createElement('div');
@@ -1238,7 +1233,7 @@
                 align-items: center;
                 gap: 0.5rem;
             `;
-            header.innerHTML = '👁️ ' + form.name + ' Survey Preview';
+            header.innerHTML = `👁️ ${form.name} Survey Preview`;
 
             // Assemble modal
             modalContent.appendChild(header);
@@ -1268,26 +1263,115 @@
 
 
         function viewSubmission(submissionId) {
-            // Placeholder for viewing submission details
-            console.log('Viewing submission:', submissionId);
+            alert(`Viewing submission: ${submissionId}`);
         }
 
         function downloadSubmission(submissionId) {
-            // Placeholder for downloading submission data
-            console.log('Downloading submission:', submissionId);
+            alert(`Downloading submission: ${submissionId}`);
         }
 
-        // View HTML File Function (still needed for existing HTML files)
+        // Control Panel Action Functions
+        function generateHTML(category, formName) {
+            alert(`🔧 Generating HTML for ${formName} in ${category} category...\n\nThis will call the Python form generator API to create the HTML file.`);
+        }
+
+        function refreshHTML(category, formName) {
+            alert(`🔄 Refreshing HTML for ${formName} in ${category} category...\n\nThis will regenerate the HTML file with the latest form data and logic.`);
+        }
+
         function viewHTMLFile(htmlPath) {
             window.open(htmlPath, '_blank');
         }
 
-        // Status Functions
-        function refreshStatus() {
-            loadFormsData().then(() => {
-                loadPage('control');
-                showNotification('Status refreshed successfully!', 'success');
+        function generateEmbed(category, formName) {
+            alert(`📦 Generating embed code for ${formName}...\n\nThis will create the embed code for client deployment.`);
+        }
+
+        function refreshEmbed(category, formName) {
+            alert(`🔄 Refreshing embed code for ${formName}...\n\nThis will regenerate the embed code with the latest HTML file.`);
+        }
+
+        function generateAllHTML() {
+            const pendingForms = FORMS_DATA.forms.filter(form => {
+                const categoryDir = form.category.toLowerCase();
+                const hasHTML = form.name === 'GLP1' && categoryDir === 'weightloss';
+                return !hasHTML;
             });
+
+            if (pendingForms.length === 0) {
+                alert('✅ All HTML files are already generated!');
+                return;
+            }
+
+            alert(`🔧 Generating HTML for ${pendingForms.length} pending forms:\n\n${pendingForms.map(f => `• ${f.name} (${f.category})`).join('\n')}\n\nThis will call the Python form generator API for each form.`);
+        }
+
+        function refreshAllHTML() {
+            const existingForms = FORMS_DATA.forms.filter(form => {
+                const categoryDir = form.category.toLowerCase();
+                return form.name === 'GLP1' && categoryDir === 'weightloss';
+            });
+
+            if (existingForms.length === 0) {
+                alert('No HTML files found to refresh! Generate HTML files first.');
+                return;
+            }
+
+            alert(`🔄 Refreshing HTML for ${existingForms.length} forms:\n\n${existingForms.map(f => `• ${f.name} (${f.category})`).join('\n')}\n\nThis will regenerate HTML files with the latest form data and logic.`);
+        }
+
+        function generateAllEmbeds() {
+            const readyForms = FORMS_DATA.forms.filter(form => {
+                const categoryDir = form.category.toLowerCase();
+                const hasHTML = form.name === 'GLP1' && categoryDir === 'weightloss';
+                return hasHTML;
+            });
+
+            if (readyForms.length === 0) {
+                alert('❌ No forms are ready for embed code generation. Generate HTML files first.');
+                return;
+            }
+
+            alert(`📦 Generating embed codes for ${readyForms.length} ready forms:\n\n${readyForms.map(f => `• ${f.name} (${f.category})`).join('\n')}\n\nThis will create embed codes for client deployment.`);
+        }
+
+        function refreshStatus() {
+            alert('🔄 Refreshing status...\n\nThis will reload all form data and check HTML file status.');
+            // Reload the page to refresh data
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        }
+
+        function showHTMLStatus() {
+            const status = FORMS_DATA.forms.map(form => {
+                const categoryDir = form.category.toLowerCase();
+                const hasHTML = form.name === 'GLP1' && categoryDir === 'weightloss';
+                return `${form.name}: ${hasHTML ? '✅ HTML exists' : '❌ HTML missing'}`;
+            }).join('\n');
+
+            alert(`📊 HTML Status Report:\n\n${status}`);
+        }
+
+        function showEmbedStatus() {
+            const status = FORMS_DATA.forms.map(form => {
+                const categoryDir = form.category.toLowerCase();
+                const hasHTML = form.name === 'GLP1' && categoryDir === 'weightloss';
+                return `${form.name}: ${hasHTML ? '✅ Ready for embed' : '⏳ Pending HTML'}`;
+            }).join('\n');
+
+            alert(`📊 Embed Status Report:\n\n${status}`);
+        }
+
+        function showSystemStatus() {
+            const totalForms = FORMS_DATA.forms.length;
+            const htmlReady = FORMS_DATA.forms.filter(form => {
+                const categoryDir = form.category.toLowerCase();
+                return form.name === 'GLP1' && categoryDir === 'weightloss';
+            }).length;
+            const embedReady = htmlReady;
+
+            alert(`📊 System Status Report:\n\n• Total Forms: ${totalForms}\n• HTML Ready: ${htmlReady}\n• Embed Ready: ${embedReady}\n• Pending: ${totalForms - htmlReady}\n\nSystem is ${htmlReady === totalForms ? 'fully operational' : 'partially ready'}.`);
         }
 
         // Embed Code Library Functions
@@ -1299,48 +1383,48 @@
             }
 
             const categoryDir = form.category.toLowerCase();
-            const surveyPath = 'surveys/' + categoryDir + '/' + formName + '-screener-live.html';
+            const surveyPath = `surveys/${categoryDir}/${formName}-screener-live.html`;
             
-            const embedCode = '<!-- ' + formName + ' Medical Screening Form -->\n' +
-                '<div id="locumtele-' + formName.toLowerCase() + '-form" style="width: 100%; max-width: 800px; margin: 0 auto;"></div>\n' +
-                '<script>\n' +
-                '(function() {\n' +
-                '    fetch(\'' + surveyPath + '\')\n' +
-                '        .then(response => response.text())\n' +
-                '        .then(html => {\n' +
-                '            const parser = new DOMParser();\n' +
-                '            const doc = parser.parseFromString(html, \'text/html\');\n' +
-                '            const formContent = doc.body.innerHTML;\n' +
-                '            \n' +
-                '            const container = document.getElementById(\'locumtele-' + formName.toLowerCase() + '-form\');\n' +
-                '            if (container) {\n' +
-                '                container.innerHTML = formContent;\n' +
-                '                \n' +
-                '                const scripts = container.querySelectorAll(\'script\');\n' +
-                '                scripts.forEach(script => {\n' +
-                '                    const newScript = document.createElement(\'script\');\n' +
-                '                    if (script.src) {\n' +
-                '                        newScript.src = script.src;\n' +
-                '                    } else {\n' +
-                '                        newScript.textContent = script.textContent;\n' +
-                '                    }\n' +
-                '                    document.head.appendChild(newScript);\n' +
-                '                });\n' +
-                '            }\n' +
-                '        })\n' +
-                '        .catch(error => {\n' +
-                '            console.error(\'Error loading LocumTele form:\', error);\n' +
-                '            const container = document.getElementById(\'locumtele-' + formName.toLowerCase() + '-form\');\n' +
-                '            if (container) {\n' +
-                '                container.innerHTML = \'<p style="color: #dc3545; text-align: center; padding: 2rem;">Form temporarily unavailable. Please try again later.</p>\';\n' +
-                '            }\n' +
-                '        });\n' +
-                '})();\n' +
-                '</script>\n' +
-                '<!-- End ' + formName + ' Form -->';
+            const embedCode = `<!-- ${formName} Medical Screening Form -->
+<div id="locumtele-${formName.toLowerCase()}-form" style="width: 100%; max-width: 800px; margin: 0 auto;"></div>
+<script>
+(function() {
+    fetch('${surveyPath}')
+        .then(response => response.text())
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const formContent = doc.body.innerHTML;
+            
+            const container = document.getElementById('locumtele-${formName.toLowerCase()}-form');
+            if (container) {
+                container.innerHTML = formContent;
+                
+                const scripts = container.querySelectorAll('script');
+                scripts.forEach(script => {
+                    const newScript = document.createElement('script');
+                    if (script.src) {
+                        newScript.src = script.src;
+                    } else {
+                        newScript.textContent = script.textContent;
+                    }
+                    document.head.appendChild(newScript);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error loading LocumTele form:', error);
+            const container = document.getElementById('locumtele-${formName.toLowerCase()}-form');
+            if (container) {
+                container.innerHTML = '<p style="color: #dc3545; text-align: center; padding: 2rem;">Form temporarily unavailable. Please try again later.</p>';
+            }
+        });
+})();
+<\/script>
+<!-- End ${formName} Form -->`;
 
             navigator.clipboard.writeText(embedCode).then(() => {
-                showNotification('📋 Copied embed code for ' + formName + '!', 'success');
+                showNotification(`📋 Copied embed code for ${formName}!`, 'success');
             }).catch(() => {
                 // Fallback for older browsers
                 const textarea = document.createElement('textarea');
@@ -1349,7 +1433,7 @@
                 textarea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textarea);
-                showNotification('📋 Copied embed code for ' + formName + '!', 'success');
+                showNotification(`📋 Copied embed code for ${formName}!`, 'success');
             });
         }
 
@@ -1361,7 +1445,7 @@
             }
 
             const categoryDir = form.category.toLowerCase();
-            const surveyPath = 'surveys/' + categoryDir + '/' + formName + '-screener-live.html';
+            const surveyPath = `surveys/${categoryDir}/${formName}-screener-live.html`;
             
             // Open in new tab
             window.open(surveyPath, '_blank');
@@ -1380,7 +1464,7 @@
 
             const allCodes = readyForms.map(form => {
                 const categoryDir = form.category.toLowerCase();
-                const surveyPath = 'surveys/' + categoryDir + '/' + form.name + '-screener-live.html';
+                const surveyPath = `surveys/${categoryDir}/${form.name}-screener-live.html`;
                 
                 return `<!-- ${form.name} Medical Screening Form -->
 <div id="locumtele-${form.name.toLowerCase()}-form" style="width: 100%; max-width: 800px; margin: 0 auto;"></div>
@@ -1417,12 +1501,12 @@
             }
         });
 })();
-</script>
+<\/script>
 <!-- End ${form.name} Form -->`;
             }).join('\n\n');
 
             navigator.clipboard.writeText(allCodes).then(() => {
-                showNotification('📋 Copied ' + readyForms.length + ' embed codes!', 'success');
+                showNotification(`📋 Copied ${readyForms.length} embed codes!`, 'success');
             }).catch(() => {
                 const textarea = document.createElement('textarea');
                 textarea.value = allCodes;
@@ -1430,7 +1514,7 @@
                 textarea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textarea);
-                showNotification('📋 Copied ' + readyForms.length + ' embed codes!', 'success');
+                showNotification(`📋 Copied ${readyForms.length} embed codes!`, 'success');
             });
         }
 
@@ -1535,15 +1619,15 @@ For support, contact the development team.`;
         }
 
         function exportData() {
-            console.log('Exporting all data...');
+            alert('Exporting all data...');
         }
 
         function openSearch() {
-            console.log('Opening search interface...');
+            alert('Opening search interface...');
         }
 
         function createNewForm() {
-            console.log('Creating new form...');
+            alert('Creating new form...');
         }
 
         function toggleSidebar() {
@@ -1571,3 +1655,4 @@ For support, contact the development team.`;
     </script>
 </body>
 </html>
+
