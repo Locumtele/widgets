@@ -1283,24 +1283,24 @@
 
         // Control Panel Action Functions
         function generateHTML(category, formName) {
+            const command = `cd python-forms && python3 generate_form.py ${category.toLowerCase()} ${formName}`;
             const instructions = `🔧 Generate HTML for ${formName} (${category})
 
-To generate the HTML file, run this command locally:
+The automation is ready! Run this command in your terminal:
 
-cd python-forms
-python3 regenerate_complete_form.py
+${command}
 
-Or use the specific form generator:
-python3 generate_form.py ${category.toLowerCase()} ${formName}
+This will:
+✅ Load the JSON form data
+✅ Generate the complete HTML file
+✅ Create the file at: surveys/${category.toLowerCase()}/${formName}-screener-live.html
+✅ Make it ready for embedding
 
-The HTML file will be created at:
-surveys/${category.toLowerCase()}/${formName}-screener-live.html
+After running the command, refresh this dashboard to see the updated status.`;
 
-Once created, refresh this dashboard to see the updated status.`;
-
-            if (confirm(instructions + '\n\nWould you like to copy these instructions to clipboard?')) {
-                navigator.clipboard.writeText(`cd python-forms\npython3 generate_form.py ${category.toLowerCase()} ${formName}`);
-                alert('Instructions copied to clipboard!');
+            if (confirm(instructions + '\n\nWould you like to copy the command to clipboard?')) {
+                navigator.clipboard.writeText(command);
+                alert('Command copied to clipboard! Run it in your terminal, then refresh this page.');
             }
         }
 
@@ -1313,7 +1313,35 @@ Once created, refresh this dashboard to see the updated status.`;
         }
 
         function generateEmbed(category, formName) {
-            alert(`📦 Generating embed code for ${formName}...\n\nThis will create the embed code for client deployment.`);
+            const embedCode = `<!-- ${formName} Medical Screening Form -->
+<div id="locumtele-${formName.toLowerCase()}-form" style="width: 100%; max-width: 800px; margin: 0 auto;"></div>
+<script>
+    (function() {
+        var script = document.createElement('script');
+        script.src = 'https://locumtele.github.io/widgets/surveys/${category.toLowerCase()}/${formName}-screener-live.html';
+        script.async = true;
+        document.getElementById('locumtele-${formName.toLowerCase()}-form').appendChild(script);
+    })();
+</script>`;
+
+            const instructions = `📦 Generate Embed Code for ${formName} (${category})
+
+The embed code is ready! Copy this code to deploy on client websites:
+
+${embedCode}
+
+This embed code will:
+✅ Load the form from GitHub Pages
+✅ Display in a responsive container
+✅ Work on any website (GHL, WordPress, etc.)
+
+The form is already live at:
+https://locumtele.github.io/widgets/surveys/${category.toLowerCase()}/${formName}-screener-live.html`;
+
+            if (confirm(instructions + '\n\nWould you like to copy the embed code to clipboard?')) {
+                navigator.clipboard.writeText(embedCode);
+                alert('Embed code copied to clipboard! Paste it on your client website.');
+            }
         }
 
         function refreshEmbed(category, formName) {
