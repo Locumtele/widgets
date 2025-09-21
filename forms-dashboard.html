@@ -1385,17 +1385,17 @@
             const surveyPath = 'surveys/' + categoryDir + '/' + formName + '-screener-live.html';
             
             const embedCode = '<!-- ' + formName + ' Medical Screening Form -->\n' +
-                '<div style="width: 100%; max-width: 800px; margin: 0 auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow: hidden;">\n' +
-                '  <iframe\n' +
-                '      src="https://locumtele.github.io/widgets/' + surveyPath + '"\n' +
-                '      width="100%"\n' +
-                '      height="800"\n' +
-                '      frameborder="0"\n' +
-                '      scrolling="yes"\n' +
-                '      allow="scripts"\n' +
-                '      sandbox="allow-scripts allow-same-origin allow-forms"\n' +
-                '      style="border: none; display: block; border-radius: 8px;">\n' +
-                '  </iframe>\n' +
+                '<div style="width: 100%; max-width: 800px; margin: 0 auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">\n' +
+                '    <iframe \n' +
+                '        src="https://locumtele.github.io/widgets/' + surveyPath + '"\n' +
+                '        width="100%"\n' +
+                '        height="900"\n' +
+                '        frameborder="0"\n' +
+                '        scrolling="auto"\n' +
+                '        allow="scripts; forms; same-origin"\n' +
+                '        sandbox="allow-scripts allow-same-origin allow-forms allow-popups"\n' +
+                '        style="border: none; display: block; min-height: 900px;">\n' +
+                '    </iframe>\n' +
                 '</div>\n' +
                 '<!-- End ' + formName + ' Form -->';
 
