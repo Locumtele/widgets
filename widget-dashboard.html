@@ -313,7 +313,10 @@
             </div>
             <ul class="site-nav-menu">
                 <li class="site-nav-item">
-                    <a href="#" class="site-nav-link active" onclick="showAssets(this)">📦 Assets</a>
+                    <a href="#" class="site-nav-link active" onclick="showDashboard(this)">📊 Dashboard</a>
+                </li>
+                <li class="site-nav-item">
+                    <a href="#" class="site-nav-link" onclick="showAssets(this)">📦 Assets</a>
                 </li>
                 <li class="site-nav-item">
                     <a href="#" class="site-nav-link" onclick="showForms(this)">🗄️ Database</a>
@@ -323,13 +326,20 @@
 
         <!-- Top Navigation Bar -->
         <div class="site-top-navbar">
-            <h1>📦 Assets</h1>
-            <p class="page-description">Form Assets Generator</p>
+            <h1>📊 Dashboard</h1>
+            <p class="page-description">System Overview & Analytics</p>
         </div>
 
         <!-- Main Content Area -->
         <div class="site-content-area">
             <div class="site-container">
+                <!-- Dashboard Page -->
+                <div id="dashboard-view" style="display: block;">
+                    <div id="dashboard-content">
+                        <!-- Content will be dynamically generated -->
+                    </div>
+                </div>
+
                 <!-- Assets Page -->
                 <div id="assets-view" style="display: none;">
                     <div id="assets-content">
@@ -380,38 +390,6 @@
                         </div>
                     </div>
 
-                    <!-- Database Overview Section -->
-                    <div class="lt-card" style="margin-bottom: 2rem;">
-                        <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
-                            <span style="font-size: 1.5rem; margin-right: 0.5rem;">📊</span>
-                            <h3 style="margin: 0;">Database Overview</h3>
-                        </div>
-                        
-                        <div id="overview-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
-                            <!-- Stats will be populated by JavaScript -->
-                        </div>
-
-                        <div id="category-breakdown" style="margin-bottom: 2rem;">
-                            <h4 style="margin-bottom: 1rem; color: #333;">Form Categories</h4>
-                            <div id="category-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-                                <!-- Category cards will be populated by JavaScript -->
-                            </div>
-                        </div>
-
-                        <div id="recent-updates" style="margin-bottom: 2rem;">
-                            <h4 style="margin-bottom: 1rem; color: #333;">Recent Updates</h4>
-                            <div id="updates-list" style="background: #f8f9fa; border-radius: 8px; padding: 1rem;">
-                                <!-- Recent updates will be populated by JavaScript -->
-                            </div>
-                        </div>
-
-                        <div id="integration-status">
-                            <h4 style="margin-bottom: 1rem; color: #333;">Integration Status</h4>
-                            <div id="status-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-                                <!-- Status cards will be populated by JavaScript -->
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Database Table Section -->
                     <div class="lt-card">
@@ -631,11 +609,72 @@
         }
 
         // Navigation functions
+        function showDashboard(clickedElement) {
+            // Update active menu item
+            updateActiveMenuItem(clickedElement);
+
+            // Hide other views and show dashboard
+            document.getElementById('assets-view').style.display = 'none';
+            document.getElementById('forms-view').style.display = 'none';
+            document.getElementById('dashboard-view').style.display = 'block';
+
+            // Update top navbar
+            document.querySelector('.site-top-navbar h1').innerHTML = '📊 Dashboard';
+            document.querySelector('.site-top-navbar .page-description').textContent = 'System Overview & Analytics';
+
+            // Load dashboard page
+            loadDashboardPage();
+        }
+
+        function loadDashboardPage() {
+            console.log('loadDashboardPage called');
+
+            // Use assets data instead of forms database data
+            const availableAssets = [
+                {
+                    id: 'glp1-weightloss-screening',
+                    name: 'GLP1 Weightloss Screening',
+                    category: 'Weightloss',
+                    file: 'https://locumtele.github.io/widgets/surveys/weightloss/GLP1-screener-live.html',
+                    description: 'Complete GLP-1 medication screening form with BMI calculation, medical history, and conditional logic',
+                    status: 'live',
+                    questions: 15,
+                    deployedSites: 3
+                },
+                // Add more forms as they become available
+                {
+                    id: 'hormone-therapy-screening',
+                    name: 'Hormone Therapy Screening',
+                    category: 'Hormone',
+                    file: 'https://locumtele.github.io/widgets/surveys/hormone/hormone-screener-live.html',
+                    description: 'Comprehensive hormone therapy eligibility assessment',
+                    status: 'development',
+                    questions: 12,
+                    deployedSites: 0
+                },
+                {
+                    id: 'nad-anti-aging-screening',
+                    name: 'NAD Anti-Aging Screening',
+                    category: 'AntiAging',
+                    file: 'https://locumtele.github.io/widgets/surveys/antiaging/nad-screener-live.html',
+                    description: 'NAD+ therapy screening with medical history validation',
+                    status: 'development',
+                    questions: 10,
+                    deployedSites: 0
+                }
+            ];
+
+            console.log('Rendering dashboard with assets data:', availableAssets);
+            // Render the dashboard overview with assets data
+            renderDashboardOverview(availableAssets);
+        }
+
         function showForms(clickedElement) {
             // Update active menu item
             updateActiveMenuItem(clickedElement);
 
             // Hide other views and show forms
+            document.getElementById('dashboard-view').style.display = 'none';
             document.getElementById('assets-view').style.display = 'none';
             document.getElementById('forms-view').style.display = 'block';
 
@@ -654,6 +693,7 @@
             updateActiveMenuItem(clickedElement);
 
             // Hide other views and show assets
+            document.getElementById('dashboard-view').style.display = 'none';
             document.getElementById('forms-view').style.display = 'none';
             document.getElementById('assets-view').style.display = 'block';
 
@@ -1212,7 +1252,6 @@
                 console.log('Rendering forms table with data:', window.formsData);
                 // Always render the table when we have data
                 renderFormsTable(window.formsData);
-                renderDatabaseOverview(window.formsData);
                 document.getElementById('forms-loading').style.display = 'none';
                 document.getElementById('forms-content').style.display = 'block';
                 document.getElementById('forms-error').style.display = 'none';
@@ -1355,6 +1394,148 @@
                     <div style="color: #10b981; font-size: 0.85rem; font-weight: 600;">Components: Loaded</div>
                 </div>
             `;
+        }
+
+        // Render dashboard overview with stats and categories based on assets data
+        function renderDashboardOverview(data) {
+            if (!data || data.length === 0) return;
+
+            // Calculate stats from assets data
+            const totalAssets = data.length;
+            const categories = {};
+            let totalQuestions = 0;
+            let liveForms = 0;
+            let totalDeployments = 0;
+
+            data.forEach(asset => {
+                const category = asset.category || 'General';
+                if (!categories[category]) {
+                    categories[category] = { count: 0, questions: 0, forms: [], deployments: 0 };
+                }
+                categories[category].count++;
+                categories[category].questions += asset.questions || 0;
+                categories[category].forms.push(asset.name);
+                categories[category].deployments += asset.deployedSites || 0;
+                totalQuestions += asset.questions || 0;
+                totalDeployments += asset.deployedSites || 0;
+                if (asset.status === 'live') liveForms++;
+            });
+
+            const categoryCount = Object.keys(categories).length;
+            const livePercentage = Math.round((liveForms / totalAssets) * 100);
+
+            // Find elements in dashboard view and render stats
+            const dashboardView = document.getElementById('dashboard-view');
+            if (!dashboardView) return;
+
+            const overviewStats = dashboardView.querySelector('#overview-stats');
+            if (overviewStats) {
+                overviewStats.innerHTML = `
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 12px; text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: bold; margin-bottom: 0.5rem;">${totalAssets}</div>
+                        <div style="font-size: 0.9rem; opacity: 0.9;">Production Assets</div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 1.5rem; border-radius: 12px; text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: bold; margin-bottom: 0.5rem;">${liveForms}</div>
+                        <div style="font-size: 0.9rem; opacity: 0.9;">Live Forms</div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 1.5rem; border-radius: 12px; text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: bold; margin-bottom: 0.5rem;">${totalDeployments}</div>
+                        <div style="font-size: 0.9rem; opacity: 0.9;">Active Deployments</div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; padding: 1.5rem; border-radius: 12px; text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: bold; margin-bottom: 0.5rem;">${livePercentage}%</div>
+                        <div style="font-size: 0.9rem; opacity: 0.9;">Ready for Production</div>
+                    </div>
+                `;
+            }
+
+            // Render category cards
+            const categoryColors = {
+                'Weightloss': '#3b82f6',
+                'Hormone': '#8b5cf6',
+                'AntiAging': '#10b981',
+                'Metabolic': '#f59e0b',
+                'Infection': '#ec4899',
+                'General': '#6b7280'
+            };
+
+            const categoryCards = dashboardView.querySelector('#category-cards');
+            if (categoryCards) {
+                categoryCards.innerHTML = Object.entries(categories).map(([category, info]) => `
+                    <div style="border: 2px solid ${categoryColors[category] || '#6b7280'}; border-radius: 12px; padding: 1.5rem; background: white;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <div style="width: 12px; height: 12px; background: ${categoryColors[category] || '#6b7280'}; border-radius: 50%; margin-right: 0.5rem;"></div>
+                            <h5 style="margin: 0; color: #333; font-size: 1.1rem;">${category}</h5>
+                        </div>
+                        <div style="font-size: 2rem; font-weight: bold; color: #333; margin-bottom: 0.5rem;">${info.count} assets</div>
+                        <div style="color: #666; margin-bottom: 0.5rem;">${info.deployments} deployments</div>
+                        <div style="color: #666; margin-bottom: 1rem;">${info.questions} total questions</div>
+                        <div style="font-size: 0.85rem; color: #666;">
+                            ${info.forms.slice(0, 2).join(', ')}${info.forms.length > 2 ? '...' : ''}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Render recent updates (production asset updates)
+            const updatesList = dashboardView.querySelector('#updates-list');
+            if (updatesList) {
+                updatesList.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #e5e7eb;">
+                        <div>
+                            <div style="font-weight: 600; color: #333;">🚀 GLP1 Screening Live</div>
+                            <div style="font-size: 0.85rem; color: #666;">Production deployment complete with 3 active sites</div>
+                        </div>
+                        <div style="font-size: 0.85rem; color: #10b981;">LIVE</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #e5e7eb;">
+                        <div>
+                            <div style="font-weight: 600; color: #333;">🔧 Hormone Therapy Asset</div>
+                            <div style="font-size: 0.85rem; color: #666;">Development in progress - embed codes ready</div>
+                        </div>
+                        <div style="font-size: 0.85rem; color: #f59e0b;">DEV</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0;">
+                        <div>
+                            <div style="font-weight: 600; color: #333;">🔧 NAD Anti-Aging Asset</div>
+                            <div style="font-size: 0.85rem; color: #666;">Development in progress - testing phase</div>
+                        </div>
+                        <div style="font-size: 0.85rem; color: #f59e0b;">DEV</div>
+                    </div>
+                `;
+            }
+
+            // Render integration status (production asset status)
+            const statusCards = dashboardView.querySelector('#status-cards');
+            if (statusCards) {
+                statusCards.innerHTML = `
+                    <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 1.5rem; background: white;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <div style="width: 12px; height: 12px; background: #10b981; border-radius: 50%; margin-right: 0.5rem;"></div>
+                            <h6 style="margin: 0; color: #333;">GitHub Pages</h6>
+                        </div>
+                        <div style="color: #666; font-size: 0.9rem; margin-bottom: 0.5rem;">Production forms hosted and live</div>
+                        <div style="color: #10b981; font-size: 0.85rem; font-weight: 600;">Hosting: Active</div>
+                    </div>
+                    <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 1.5rem; background: white;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <div style="width: 12px; height: 12px; background: #10b981; border-radius: 50%; margin-right: 0.5rem;"></div>
+                            <h6 style="margin: 0; color: #333;">Embed System</h6>
+                        </div>
+                        <div style="color: #666; font-size: 0.9rem; margin-bottom: 0.5rem;">Client-ready embed codes generated</div>
+                        <div style="color: #10b981; font-size: 0.85rem; font-weight: 600;">Deploy: Ready</div>
+                    </div>
+                    <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 1.5rem; background: white;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <div style="width: 12px; height: 12px; background: #10b981; border-radius: 50%; margin-right: 0.5rem;"></div>
+                            <h6 style="margin: 0; color: #333;">Webhook Integration</h6>
+                        </div>
+                        <div style="color: #666; font-size: 0.9rem; margin-bottom: 0.5rem;">Data collection pipeline active</div>
+                        <div style="color: #10b981; font-size: 0.85rem; font-weight: 600;">Pipeline: Active</div>
+                    </div>
+                `;
+            }
         }
 
 
@@ -1607,9 +1788,9 @@
                 }
             }
 
-            // Load database page by default and show stored data
+            // Load dashboard page by default and show stored data
             loadFormsPage();
-            showForms();
+            showDashboard();
 
             // Debug: Log what we have
             console.log('Page loaded. window.formsData:', window.formsData);
