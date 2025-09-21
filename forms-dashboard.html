@@ -828,6 +828,9 @@
                                 <button class="dashboard-btn dashboard-btn-primary" onclick="generateAllHTML()">
                                     🔧 Generate All HTML
                                 </button>
+                                <button class="dashboard-btn dashboard-btn-outline" onclick="refreshAllHTML()">
+                                    🔄 Refresh All HTML
+                                </button>
                                 <button class="dashboard-btn dashboard-btn-secondary" onclick="refreshStatus()">
                                     🔄 Refresh Status
                                 </button>
@@ -876,16 +879,16 @@
                                             <td>
                                                 <div class="action-buttons">
                                                     ${form.htmlStatus === 'exists' ? 
-                                                        `<button class="action-btn btn-view" onclick="viewHTMLFile('${form.htmlPath}')" style="background: #6c757d; color: white;">
-                                                            👁️ View HTML
+                                                        `<button class="action-btn btn-edit" onclick="refreshHTML('${form.category}', '${form.name}')" style="background: var(--lt-green); color: white;">
+                                                            🔄 Refresh HTML
                                                         </button>` :
                                                         `<button class="action-btn btn-edit" onclick="generateHTML('${form.category}', '${form.name}')" style="background: var(--lt-blue); color: white;">
                                                             🔧 Create HTML
                                                         </button>`
                                                     }
                                                     ${form.embedStatus === 'ready' ? 
-                                                        `<button class="action-btn btn-edit" onclick="generateEmbed('${form.category}', '${form.name}')" style="background: var(--lt-green); color: white;">
-                                                            📦 Generate Embed
+                                                        `<button class="action-btn btn-edit" onclick="refreshEmbed('${form.category}', '${form.name}')" style="background: var(--lt-green); color: white;">
+                                                            🔄 Refresh Embed
                                                         </button>` :
                                                         `<button class="action-btn" onclick="alert('Create HTML file first')" style="background: var(--lt-gray-300); color: var(--lt-gray-600); cursor: not-allowed; opacity: 0.6;">
                                                             📦 Generate Embed
@@ -1236,12 +1239,20 @@
             alert(`🔧 Generating HTML for ${formName} in ${category} category...\n\nThis will call the Python form generator API to create the HTML file.`);
         }
 
+        function refreshHTML(category, formName) {
+            alert(`🔄 Refreshing HTML for ${formName} in ${category} category...\n\nThis will regenerate the HTML file with the latest form data and logic.`);
+        }
+
         function viewHTMLFile(htmlPath) {
             window.open(htmlPath, '_blank');
         }
 
         function generateEmbed(category, formName) {
             alert(`📦 Generating embed code for ${formName}...\n\nThis will create the embed code for client deployment.`);
+        }
+
+        function refreshEmbed(category, formName) {
+            alert(`🔄 Refreshing embed code for ${formName}...\n\nThis will regenerate the embed code with the latest HTML file.`);
         }
 
         function generateAllHTML() {
@@ -1257,6 +1268,20 @@
             }
 
             alert(`🔧 Generating HTML for ${pendingForms.length} pending forms:\n\n${pendingForms.map(f => `• ${f.name} (${f.category})`).join('\n')}\n\nThis will call the Python form generator API for each form.`);
+        }
+
+        function refreshAllHTML() {
+            const existingForms = FORMS_DATA.forms.filter(form => {
+                const categoryDir = form.category.toLowerCase();
+                return form.name === 'GLP1' && categoryDir === 'weightloss';
+            });
+
+            if (existingForms.length === 0) {
+                alert('No HTML files found to refresh! Generate HTML files first.');
+                return;
+            }
+
+            alert(`🔄 Refreshing HTML for ${existingForms.length} forms:\n\n${existingForms.map(f => `• ${f.name} (${f.category})`).join('\n')}\n\nThis will regenerate HTML files with the latest form data and logic.`);
         }
 
         function generateAllEmbeds() {
