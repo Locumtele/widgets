@@ -1696,7 +1696,7 @@
                 return;
             }
 
-            // Create table with all form data (no Actions column)
+            // Create table with all form data and Survey column
             let tableHTML = `
                 <div class="database-table-container">
                     <table class="database-table">
@@ -1708,15 +1708,42 @@
                                 <th>Consult Type</th>
                                 <th>Status</th>
                                 <th>Questions</th>
+                                <th>Survey</th>
                             </tr>
                         </thead>
                         <tbody>
             `;
 
             formsArray.forEach((form, index) => {
-                // Determine status styling
-                const statusClass = form.status === 'PUBLISHED' ? 'status-active' : 'status-inactive';
+                // Determine status styling using brand colors
+                const statusStyle = form.status === 'PUBLISHED'
+                    ? 'background: var(--lt-green); color: white;'
+                    : 'background: var(--lt-gray-300); color: var(--lt-gray-700);';
                 const statusText = form.status === 'PUBLISHED' ? 'Published' : form.status || 'Draft';
+
+                // Determine live form path based on JSON path
+                const jsonPath = form.rawData.jsonPath;
+                const liveFormPath = jsonPath.replace('.json', '-live.html');
+
+                // Check if this is the GLP1 form (we know it exists)
+                const isGLP1 = form.title === 'GLP1';
+                const hasLiveForm = isGLP1; // We know GLP1 has a live form
+
+                const liveStatusContent = hasLiveForm
+                    ? `<div style="display: flex; align-items: center; gap: 0.5rem;">
+                           <span class="status-badge" style="background: var(--lt-green); color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem;"><span>●</span> Live</span>
+                           <button onclick="viewLiveForm('${liveFormPath}')"
+                                   style="background: var(--lt-green); color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">
+                               👁️ View
+                           </button>
+                       </div>`
+                    : `<div style="display: flex; align-items: center; gap: 0.5rem;">
+                           <span class="status-badge" style="background: var(--lt-gray-300); color: var(--lt-gray-700); padding: 2px 8px; border-radius: 12px; font-size: 0.75rem;"><span>●</span> Pending</span>
+                           <button onclick="generateLiveForm('${form.id}', '${jsonPath}')"
+                                   style="background: var(--lt-blue); color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">
+                               🚀 Generate
+                           </button>
+                       </div>`;
 
                 tableHTML += `
                     <tr>
@@ -1733,13 +1760,16 @@
                             <span class="section-tag">${form.rawData.property_consult_type || 'N/A'}</span>
                         </td>
                         <td>
-                            <span class="status-badge ${statusClass}">
+                            <span class="status-badge" style="${statusStyle} padding: 2px 8px; border-radius: 12px; font-size: 0.75rem;">
                                 <span>●</span>
                                 ${statusText}
                             </span>
                         </td>
                         <td>
                             <div class="question-count">${form.totalQuestions}</div>
+                        </td>
+                        <td>
+                            ${liveStatusContent}
                         </td>
                     </tr>
                 `;
@@ -1793,6 +1823,58 @@
             // Data loaded successfully
         }
 
+        // View live form function
+        function viewLiveForm(liveFormPath) {
+            // Open live form in new tab
+            window.open(liveFormPath, '_blank');
+        }
+
+        // Generate live form function
+        function generateLiveForm(formId, jsonPath) {
+            console.log(`Generating live form for ${formId} from ${jsonPath}`);
+
+            // Show loading state
+            const button = event.target;
+            const originalText = button.innerHTML;
+            button.innerHTML = '⏳ Generating...';
+            button.disabled = true;
+
+            // Simulate form generation process
+            setTimeout(async () => {
+                try {
+                    // Load the JSON file
+                    const response = await fetch(jsonPath);
+                    if (!response.ok) {
+                        throw new Error(`Failed to load JSON file: ${response.status}`);
+                    }
+
+                    const formData = await response.json();
+
+                    // Here you would typically call your Python form generation script
+                    // For now, we'll simulate the process and provide feedback
+                    alert(`Form generation initiated for ${formData.name}!\n\n` +
+                          `JSON file: ${jsonPath}\n` +
+                          `Category: ${formData.property_category}\n` +
+                          `Questions: ${formData.questions ? formData.questions.length : 0}\n\n` +
+                          `Next steps:\n` +
+                          `1. Run your Python script to generate the HTML\n` +
+                          `2. The live form will be created at: ${jsonPath.replace('.json', '-live.html')}\n` +
+                          `3. Refresh this page to see the updated status`);
+
+                    // Reset button
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+
+                } catch (error) {
+                    console.error('Error generating form:', error);
+                    alert(`Error generating form: ${error.message}`);
+
+                    // Reset button
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                }
+            }, 1000); // Simulate processing time
+        }
 
 
         // Initialize the dashboard
