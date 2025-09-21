@@ -777,59 +777,116 @@
                             All forms include professional styling, validation, conditional logic, and webhook integration.
                         </p>
 
-                        <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
-                            <h5 style="margin: 0 0 0.5rem 0; color: #495057;">📋 Integration Instructions</h5>
-                            <ul style="margin: 0; padding-left: 1.5rem; color: #6c757d; font-size: 0.9rem;">
-                                <li>Copy the embed code below</li>
-                                <li>Paste anywhere in your client's HTML</li>
-                                <li>Form loads instantly with full functionality</li>
-                                <li>Data automatically sends to your n8n webhook</li>
-                            </ul>
+                        <!-- Integration Instructions & Technical Details Combined -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+                            <div class="lt-alert lt-alert-info">
+                                <div class="lt-card-header">
+                                    <h5 class="lt-card-title" style="font-size: 1.1rem; margin-bottom: 0;">📋 Integration Instructions</h5>
+                                </div>
+                                <ol style="margin: 0; padding-left: 1.5rem; font-size: 0.95rem; line-height: 1.7;">
+                                    <li><strong>Click "Copy"</strong> next to any form below</li>
+                                    <li><strong>Paste</strong> the embed code into your client's HTML</li>
+                                    <li><strong>Form loads</strong> instantly with full functionality</li>
+                                    <li><strong>Data submits</strong> automatically to your n8n webhook</li>
+                                    <li><strong>Preview forms</strong> using the "Preview" button</li>
+                                </ol>
+                            </div>
+
+                            <div class="lt-card" style="background: linear-gradient(135deg, var(--lt-blue) 0%, var(--lt-blue-dark) 100%); color: white; border: none;">
+                                <div class="lt-card-header" style="border-bottom-color: rgba(255,255,255,0.2);">
+                                    <h5 class="lt-card-title" style="color: white; font-size: 1.1rem; margin-bottom: 0;">🔧 Technical Details</h5>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; font-size: 0.9rem;">
+                                    <div>
+                                        <div style="font-weight: 600; margin-bottom: 0.75rem; opacity: 0.95; color: white;">Form Features</div>
+                                        <ul style="margin: 0; padding-left: 1.2rem; opacity: 0.85; line-height: 1.6; color: white;">
+                                            <li>Real-time BMI calculation</li>
+                                            <li>Conditional question logic</li>
+                                            <li>Phone validation & formatting</li>
+                                            <li>Mobile responsive design</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 600; margin-bottom: 0.75rem; opacity: 0.95; color: white;">Integration</div>
+                                        <ul style="margin: 0; padding-left: 1.2rem; opacity: 0.85; line-height: 1.6; color: white;">
+                                            <li>Webhook integration</li>
+                                            <li>GHL location data</li>
+                                            <li>State-based routing</li>
+                                            <li>Form persistence</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <!-- Category Navigation -->
+                        <div style="margin-bottom: 2rem;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                                <h5 style="margin: 0; color: #333;">Filter by Category:</h5>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <button onclick="filterCategory('all')" class="category-filter active" data-category="all" style="padding: 0.4rem 0.8rem; border: 1px solid #007bff; background: #007bff; color: white; border-radius: 20px; cursor: pointer; font-size: 0.8rem; transition: all 0.2s;">
+                                        All Forms
+                                    </button>
+                                    <button onclick="filterCategory('Weightloss')" class="category-filter" data-category="Weightloss" style="padding: 0.4rem 0.8rem; border: 1px solid #28a745; background: transparent; color: #28a745; border-radius: 20px; cursor: pointer; font-size: 0.8rem; transition: all 0.2s;">
+                                        Weightloss
+                                    </button>
+                                    <button onclick="filterCategory('Hormone')" class="category-filter" data-category="Hormone" style="padding: 0.4rem 0.8rem; border: 1px solid #8b5cf6; background: transparent; color: #8b5cf6; border-radius: 20px; cursor: pointer; font-size: 0.8rem; transition: all 0.2s;">
+                                        Hormone
+                                    </button>
+                                    <button onclick="filterCategory('AntiAging')" class="category-filter" data-category="AntiAging" style="padding: 0.4rem 0.8rem; border: 1px solid #10b981; background: transparent; color: #10b981; border-radius: 20px; cursor: pointer; font-size: 0.8rem; transition: all 0.2s;">
+                                        Anti-Aging
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="forms-container" style="display: flex; flex-direction: column; gap: 1rem;">
                 `;
 
                 for (const form of availableForms) {
                     const embedCode = generateProductionEmbedCode(form);
 
                     embedCodesHTML += `
-                        <div style="background: #fff; border: 1px solid #e1e5e9; border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                            <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="form-row" data-category="${form.category}" style="background: #fff; border: 1px solid #e1e5e9; border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
                                 <!-- Form Name and Status -->
-                                <div style="display: flex; align-items: center; min-width: 200px;">
-                                    <div style="width: 8px; height: 8px; background: #28a745; border-radius: 50%; margin-right: 0.5rem;"></div>
+                                <div style="display: flex; align-items: center; flex: 1;">
+                                    <div style="width: 8px; height: 8px; background: #28a745; border-radius: 50%; margin-right: 0.75rem;"></div>
                                     <div>
-                                        <h6 style="margin: 0; color: #333; font-size: 1rem; font-weight: 600;">${form.name}</h6>
-                                        <small style="color: #666; font-size: 0.8rem;">${form.category} • Production Ready</small>
+                                        <h6 style="margin: 0; color: #333; font-size: 1.1rem; font-weight: 600;">${form.name}</h6>
+                                        <div style="display: flex; align-items: center; gap: 1rem; margin-top: 0.25rem;">
+                                            <small style="color: #666; font-size: 0.8rem;">${form.category} • Production Ready</small>
+                                            <small style="color: #888; font-size: 0.75rem;">${form.description}</small>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <!-- Embed Code Textarea -->
-                                <div style="flex: 1; margin: 0 1rem;">
-                                    <textarea
-                                        id="embed-${form.id}"
-                                        style="width: 100%; height: 60px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.7rem; border: 1px solid #ddd; border-radius: 4px; padding: 0.5rem; background: #f8f9fa; resize: none;"
-                                        readonly
-                                        onclick="this.select()"
-                                    >${embedCode}</textarea>
-                                </div>
+                                <!-- Hidden textarea for copying -->
+                                <textarea
+                                    id="embed-${form.id}"
+                                    style="position: absolute; left: -9999px; opacity: 0;"
+                                    readonly
+                                >${embedCode}</textarea>
 
                                 <!-- Action Buttons -->
-                                <div style="display: flex; gap: 0.5rem; min-width: 200px;">
+                                <div style="display: flex; gap: 0.75rem;">
                                     <button
                                         class="lt-btn"
                                         onclick="copyEmbedCode('embed-${form.id}', '${form.name}')"
-                                        style="background: #007bff; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem; white-space: nowrap;"
+                                        style="background: #007bff; color: white; padding: 0.6rem 1.2rem; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500; transition: all 0.2s;"
+                                        onmouseover="this.style.background='#0056b3'; this.style.transform='translateY(-1px)'"
+                                        onmouseout="this.style.background='#007bff'; this.style.transform='translateY(0)'"
                                     >
-                                        📋 Copy
+                                        📋 Copy Embed Code
                                     </button>
                                     <button
                                         class="lt-btn"
-                                        onclick="previewForm('${form.file}')"
-                                        style="background: #17a2b8; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem; white-space: nowrap;"
+                                        onclick="previewFormModal('${form.file}')"
+                                        style="background: #17a2b8; color: white; padding: 0.6rem 1.2rem; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500; transition: all 0.2s;"
+                                        onmouseover="this.style.background='#138496'; this.style.transform='translateY(-1px)'"
+                                        onmouseout="this.style.background='#17a2b8'; this.style.transform='translateY(0)'"
                                     >
-                                        👁️ Preview
+                                        👁️ Preview Form
                                     </button>
                                 </div>
                             </div>
@@ -838,32 +895,6 @@
                 }
 
                 embedCodesHTML += `
-                        </div>
-
-                        <div style="margin-top: 3rem; padding: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; color: white;">
-                            <h4 style="margin: 0 0 1rem 0; color: white;">🔧 Technical Details</h4>
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
-                                <div>
-                                    <h6 style="color: rgba(255,255,255,0.9); margin-bottom: 0.5rem;">Form Features</h6>
-                                    <ul style="margin: 0; padding-left: 1.5rem; color: rgba(255,255,255,0.8); font-size: 0.9rem;">
-                                        <li>Real-time BMI calculation</li>
-                                        <li>Conditional question logic</li>
-                                        <li>Phone number validation</li>
-                                        <li>File upload support</li>
-                                        <li>Mobile responsive design</li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h6 style="color: rgba(255,255,255,0.9); margin-bottom: 0.5rem;">Integration</h6>
-                                    <ul style="margin: 0; padding-left: 1.5rem; color: rgba(255,255,255,0.8); font-size: 0.9rem;">
-                                        <li>Automatic webhook submission</li>
-                                        <li>GHL location data included</li>
-                                        <li>State-based consult routing</li>
-                                        <li>Form persistence (localStorage)</li>
-                                        <li>Professional error handling</li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 `;
@@ -963,15 +994,156 @@
             }
         }
 
-        // Preview form functionality
-        function previewForm(formFile) {
-            // Open the live GitHub Pages hosted form in a new window
-            window.open(formFile, '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+        // Preview form in modal overlay
+        function previewFormModal(formFile) {
+            // Create modal overlay
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 2rem;
+            `;
+
+            // Create iframe container
+            const container = document.createElement('div');
+            container.style.cssText = `
+                width: 100%;
+                max-width: 1200px;
+                height: 90%;
+                background: white;
+                border-radius: 12px;
+                overflow: hidden;
+                position: relative;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            `;
+
+            // Create close button
+            const closeBtn = document.createElement('button');
+            closeBtn.innerHTML = '✕';
+            closeBtn.style.cssText = `
+                position: absolute;
+                top: 15px;
+                right: 20px;
+                background: #dc3545;
+                color: white;
+                border: none;
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 16px;
+                font-weight: bold;
+                z-index: 10001;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            `;
+
+            // Create iframe
+            const iframe = document.createElement('iframe');
+            iframe.src = formFile;
+            iframe.style.cssText = `
+                width: 100%;
+                height: 100%;
+                border: none;
+            `;
+
+            // Add header
+            const header = document.createElement('div');
+            header.style.cssText = `
+                background: #f8f9fa;
+                padding: 1rem 2rem;
+                border-bottom: 1px solid #dee2e6;
+                font-weight: 600;
+                color: #495057;
+            `;
+            header.textContent = 'Form Preview';
+
+            // Assemble modal
+            container.appendChild(header);
+            container.appendChild(iframe);
+            container.appendChild(closeBtn);
+            modal.appendChild(container);
+
+            // Close handlers
+            closeBtn.onclick = () => document.body.removeChild(modal);
+            modal.onclick = (e) => {
+                if (e.target === modal) document.body.removeChild(modal);
+            };
+
+            // Add to page
+            document.body.appendChild(modal);
+
+            showNotification('👁️ Loading form preview...', 'info');
         }
 
         // Test webhook functionality
         function testWebhook(formId) {
             showNotification('🧪 Webhook test functionality coming soon!', 'info');
+        }
+
+
+        // Category filtering functionality
+        function filterCategory(category) {
+            // Update active button
+            document.querySelectorAll('.category-filter').forEach(btn => {
+                btn.classList.remove('active');
+                if (category === 'all') {
+                    btn.style.background = 'transparent';
+                    btn.style.color = btn.getAttribute('data-category') === 'all' ? '#007bff' :
+                                      btn.getAttribute('data-category') === 'Weightloss' ? '#28a745' :
+                                      btn.getAttribute('data-category') === 'Hormone' ? '#8b5cf6' : '#10b981';
+                } else {
+                    const btnCategory = btn.getAttribute('data-category');
+                    if (btnCategory === category) {
+                        btn.style.background = btn.style.color;
+                        btn.style.color = 'white';
+                    } else {
+                        btn.style.background = 'transparent';
+                        btn.style.color = btnCategory === 'all' ? '#007bff' :
+                                          btnCategory === 'Weightloss' ? '#28a745' :
+                                          btnCategory === 'Hormone' ? '#8b5cf6' : '#10b981';
+                    }
+                }
+            });
+
+            // Set active button
+            const activeBtn = document.querySelector(`[data-category="${category}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+                if (category === 'all') {
+                    activeBtn.style.background = '#007bff';
+                    activeBtn.style.color = 'white';
+                }
+            }
+
+            // Show/hide form rows
+            document.querySelectorAll('.form-row').forEach(row => {
+                if (category === 'all' || row.getAttribute('data-category') === category) {
+                    row.style.display = 'block';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            // Update forms count
+            const visibleCount = document.querySelectorAll('.form-row:not([style*="display: none"])').length;
+            const totalCount = document.querySelectorAll('.form-row').length;
+
+            showNotification(
+                category === 'all'
+                    ? `📋 Showing all ${totalCount} forms`
+                    : `📋 Showing ${visibleCount} ${category} forms`,
+                'info'
+            );
         }
 
         // Show notification system
