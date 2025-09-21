@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms Dashboard - LocumTele</title>
+    <link rel="stylesheet" href="https://locumtele.github.io/widgets/docs/brand/brand.css">
+    <link rel="stylesheet" href="https://locumtele.github.io/widgets/docs/brand/dashboard-framework.css">
+    <link rel="stylesheet" href="https://locumtele.github.io/widgets/docs/brand/sites-consolidated.css">
+    <style>
+        /* Additional custom styles for forms dashboard */
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .data-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--lt-blue);
+        }
+
+        .data-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .data-card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .data-card-icon {
+            font-size: 1.5rem;
+            margin-right: 0.75rem;
+            color: var(--lt-blue);
+        }
+
+        .data-card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--lt-gray-800);
+            margin: 0;
+        }
+
+        .data-card-content {
+            color: var(--lt-gray-600);
+            line-height: 1.6;
+        }
+
+        .data-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .data-stat {
+            background: linear-gradient(135deg, var(--lt-blue) 0%, var(--lt-green) 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .data-stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .data-stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .data-table-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table thead {
+            background: linear-gradient(135deg, var(--lt-blue) 0%, var(--lt-blue-dark) 100%);
+            color: white;
+        }
+
+        .data-table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .data-table tbody tr {
+            border-bottom: 1px solid var(--lt-gray-200);
+            transition: all 0.2s ease;
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--lt-gray-50);
+        }
+
+        .data-table td {
+            padding: 1rem;
+            vertical-align: top;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-draft {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .btn-view {
+            background: var(--lt-blue);
+            color: white;
+        }
+
+        .btn-edit {
+            background: var(--lt-green);
+            color: white;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--lt-gray-300);
+            border-radius: 50%;
+            border-top-color: var(--lt-blue);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--lt-gray-500);
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="lt-branded">
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <nav class="dashboard-sidebar" id="sidebar">
+            <div class="logo">
+                <img src="https://locumtele.github.io/widgets/docs/brand/locumteleLogo.png" alt="LocumTele Logo">
+            </div>
+            <ul class="dashboard-nav">
+                <li class="dashboard-nav-item">
+                    <a href="#" class="dashboard-nav-link active" onclick="loadPage('data', this)">
+                        📊 Data
+                    </a>
+                </li>
+                <li class="dashboard-nav-item">
+                    <a href="#" class="dashboard-nav-link" onclick="loadPage('forms', this)">
+                        📝 Forms
+                    </a>
+                </li>
+                <li class="dashboard-nav-item">
+                    <a href="#" class="dashboard-nav-link" onclick="loadPage('analytics', this)">
+                        📈 Analytics
+                    </a>
+                </li>
+                <li class="dashboard-nav-item">
+                    <a href="#" class="dashboard-nav-link" onclick="loadPage('settings', this)">
+                        ⚙️ Settings
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Top Navigation Bar -->
+        <div class="dashboard-header">
+            <h1>📊 Data</h1>
+            <p class="page-description">Form Data Management & Analytics</p>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="dashboard-content">
+            <div class="dashboard-container">
+                <!-- Dynamic Page Content -->
+                <div id="page-content" class="dashboard-page-content">
+                    <!-- Data page content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="dashboard-mobile-toggle" onclick="toggleSidebar()">☰</button>
+
+    <script>
+        // Dashboard configuration
+        const DASHBOARD_CONFIG = {
+            title: "Forms Dashboard",
+            headerTitle: "📊 Data",
+            headerDescription: "Form Data Management & Analytics",
+            pages: {
+                'data': { 
+                    title: '📊 Data', 
+                    description: 'Form Data Management & Analytics',
+                    icon: '📊'
+                },
+                'forms': { 
+                    title: '📝 Forms', 
+                    description: 'Form Builder & Management',
+                    icon: '📝'
+                },
+                'analytics': { 
+                    title: '📈 Analytics', 
+                    description: 'Performance & Usage Analytics',
+                    icon: '📈'
+                },
+                'settings': { 
+                    title: '⚙️ Settings', 
+                    description: 'Dashboard Configuration',
+                    icon: '⚙️'
+                }
+            }
+        };
+
+        // Load actual form data from JSON files
+        let FORMS_DATA = {
+            forms: [],
+            submissions: []
+        };
+
+        // Load forms from surveys directory
+        async function loadFormsData() {
+            try {
+                const forms = [];
+                
+                // Load GLP1 form from weightloss directory
+                const glp1Response = await fetch('surveys/weightloss/GLP1-screener.json');
+                if (glp1Response.ok) {
+                    const glp1Data = await glp1Response.json();
+                    const formSpecificQuestions = glp1Data.questions || [];
+                    
+                    forms.push({
+                        id: glp1Data.id,
+                        name: glp1Data.name,
+                        category: glp1Data.property_category,
+                        status: glp1Data.property_form_status === 'PUBLISHED' ? 'active' : 'draft',
+                        formType: glp1Data.property_form_type,
+                        consultType: glp1Data.property_consult_type,
+                        questions: formSpecificQuestions,
+                        questionCount: formSpecificQuestions.length,
+                        url: glp1Data.url,
+                        lastUpdated: glp1Data.property_last_updated,
+                        rawData: glp1Data
+                    });
+                }
+
+                // Add mock submissions for demonstration
+                const mockSubmissions = [
+                    {
+                        id: 'sub_001',
+                        formId: '27582abf-7eae-805a-9e68-f2347298b0a7',
+                        formName: 'GLP1',
+                        submittedAt: '2025-01-15T10:30:00Z',
+                        patientName: 'John Doe',
+                        patientEmail: 'john.doe@email.com',
+                        status: 'completed',
+                        data: {
+                            bmi: 28.5,
+                            age: 35,
+                            weight: 180,
+                            height: 72
+                        }
+                    },
+                    {
+                        id: 'sub_002',
+                        formId: '27582abf-7eae-805a-9e68-f2347298b0a7',
+                        formName: 'GLP1',
+                        submittedAt: '2025-01-15T09:15:00Z',
+                        patientName: 'Jane Smith',
+                        patientEmail: 'jane.smith@email.com',
+                        status: 'completed',
+                        data: {
+                            age: 42,
+                            symptoms: ['fatigue', 'mood_swings'],
+                            previousTreatment: false
+                        }
+                    }
+                ];
+
+                FORMS_DATA = {
+                    forms: forms,
+                    submissions: mockSubmissions
+                };
+
+                return FORMS_DATA;
+            } catch (error) {
+                console.error('Error loading forms data:', error);
+                return { forms: [], submissions: [] };
+            }
+        }
+
+        // Load page content dynamically
+        async function loadPage(pageId, clickedElement = null) {
+            try {
+                console.log('Loading page:', pageId);
+                
+                // Show loading state
+                const pageContent = document.getElementById('page-content');
+                pageContent.innerHTML = '<div class="dashboard-loading"><div class="dashboard-spinner"></div><p>Loading...</p></div>';
+                
+                // Load forms data if not already loaded
+                if (FORMS_DATA.forms.length === 0) {
+                    await loadFormsData();
+                }
+                
+                // Update active menu item
+                const menuLinks = document.querySelectorAll('.dashboard-nav-link');
+                menuLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                if (clickedElement) {
+                    clickedElement.classList.add('active');
+                }
+                
+                // Update header based on page
+                const header = document.querySelector('.dashboard-header h1');
+                const description = document.querySelector('.dashboard-header .page-description');
+                
+                if (DASHBOARD_CONFIG.pages[pageId]) {
+                    header.innerHTML = DASHBOARD_CONFIG.pages[pageId].title;
+                    description.textContent = DASHBOARD_CONFIG.pages[pageId].description;
+                }
+                
+                // Load page content based on pageId
+                let content = '';
+                switch(pageId) {
+                    case 'data':
+                        content = loadDataPage();
+                        break;
+                    case 'forms':
+                        content = loadFormsPage();
+                        break;
+                    case 'analytics':
+                        content = loadAnalyticsPage();
+                        break;
+                    case 'settings':
+                        content = loadSettingsPage();
+                        break;
+                    default:
+                        content = loadDataPage();
+                }
+                
+                pageContent.innerHTML = content;
+                
+                // Trigger animations
+                const animatedElements = pageContent.querySelectorAll('.dashboard-animate');
+                animatedElements.forEach((element, index) => {
+                    element.style.opacity = '1';
+                    element.style.animation = 'dashboard-fadeInUp 0.6s ease-out forwards';
+                    element.style.animationDelay = `${index * 0.1}s`;
+                });
+                
+            } catch (error) {
+                console.error('Error loading page:', error);
+                pageContent.innerHTML = `
+                    <div class="dashboard-card" style="text-align: center; padding: 2rem;">
+                        <h2>Error Loading Page</h2>
+                        <p>Sorry, there was an error loading the ${pageId} page. Please try again.</p>
+                        <button class="dashboard-btn dashboard-btn-primary" onclick="loadPage('data')">Return to Data</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Load Data page content
+        function loadDataPage() {
+            const totalSubmissions = FORMS_DATA.submissions.length;
+            const activeForms = FORMS_DATA.forms.filter(f => f.status === 'active').length;
+            const totalForms = FORMS_DATA.forms.length;
+            const avgCompletionRate = FORMS_DATA.forms.length > 0 ? 
+                FORMS_DATA.forms.reduce((sum, f) => sum + (f.questionCount || 0), 0) / totalForms : 0;
+
+            return `
+                <div class="dashboard-animate">
+                    <!-- Stats Overview -->
+                        <div class="data-stats">
+                            <div class="data-stat">
+                                <div class="data-stat-value">${totalSubmissions.toLocaleString()}</div>
+                                <div class="data-stat-label">Total Submissions</div>
+                            </div>
+                            <div class="data-stat">
+                                <div class="data-stat-value">${activeForms}</div>
+                                <div class="data-stat-label">Active Forms</div>
+                            </div>
+                            <div class="data-stat">
+                                <div class="data-stat-value">${avgCompletionRate.toFixed(0)}</div>
+                                <div class="data-stat-label">Avg Questions per Form</div>
+                            </div>
+                            <div class="data-stat">
+                                <div class="data-stat-value">${totalForms}</div>
+                                <div class="data-stat-label">Total Forms</div>
+                            </div>
+                        </div>
+
+                    <!-- Forms Overview -->
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h2 class="dashboard-card-title">📝 Forms Overview</h2>
+                        </div>
+                        <div class="data-table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Form Name</th>
+                                        <th>Category</th>
+                                        <th>Status</th>
+                                        <th>Questions</th>
+                                        <th>Form Type</th>
+                                        <th>Consult Type</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${FORMS_DATA.forms.map(form => `
+                                        <tr>
+                                            <td>
+                                                <div style="font-weight: 600; color: var(--lt-gray-800);">${form.name}</div>
+                                                <div style="font-size: 0.8rem; color: var(--lt-gray-500);">${form.questionCount} form-specific questions</div>
+                                            </td>
+                                            <td>
+                                                <span class="status-badge" style="background: var(--lt-blue-light); color: var(--lt-blue-dark);">
+                                                    ${form.category}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="status-badge ${form.status === 'active' ? 'status-active' : form.status === 'draft' ? 'status-draft' : 'status-inactive'}">
+                                                    ${form.status}
+                                                </span>
+                                            </td>
+                                            <td style="font-weight: 600; color: var(--lt-gray-800);">
+                                                ${form.questionCount}
+                                            </td>
+                                            <td style="color: var(--lt-gray-600);">
+                                                ${form.formType || 'N/A'}
+                                            </td>
+                                            <td style="color: var(--lt-gray-600);">
+                                                ${form.consultType || 'N/A'}
+                                            </td>
+                                            <td>
+                                                <div class="action-buttons">
+                                                    <button class="action-btn btn-view" onclick="viewForm('${form.id}')">
+                                                        👁️ View
+                                                    </button>
+                                                    <button class="action-btn btn-edit" onclick="editForm('${form.id}')">
+                                                        ✏️ Edit
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Recent Submissions -->
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h2 class="dashboard-card-title">📋 Recent Submissions</h2>
+                        </div>
+                        <div class="data-table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Patient</th>
+                                        <th>Form</th>
+                                        <th>Submitted</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${FORMS_DATA.submissions.map(submission => `
+                                        <tr>
+                                            <td>
+                                                <div style="font-weight: 600; color: var(--lt-gray-800);">${submission.patientName}</div>
+                                                <div style="font-size: 0.8rem; color: var(--lt-gray-500);">${submission.patientEmail}</div>
+                                            </td>
+                                            <td style="font-weight: 500; color: var(--lt-gray-700);">
+                                                ${submission.formName}
+                                            </td>
+                                            <td style="color: var(--lt-gray-600);">
+                                                ${new Date(submission.submittedAt).toLocaleString()}
+                                            </td>
+                                            <td>
+                                                <span class="status-badge status-active">
+                                                    ${submission.status}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div class="action-buttons">
+                                                    <button class="action-btn btn-view" onclick="viewSubmission('${submission.id}')">
+                                                        👁️ View
+                                                    </button>
+                                                    <button class="action-btn btn-edit" onclick="downloadSubmission('${submission.id}')">
+                                                        📥 Download
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="data-grid">
+                        <div class="data-card">
+                            <div class="data-card-header">
+                                <span class="data-card-icon">📊</span>
+                                <h3 class="data-card-title">Export Data</h3>
+                            </div>
+                            <div class="data-card-content">
+                                <p>Export form submissions and analytics data in various formats (CSV, JSON, Excel).</p>
+                                <button class="dashboard-btn dashboard-btn-primary" onclick="exportData()">
+                                    📤 Export All Data
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="data-card">
+                            <div class="data-card-header">
+                                <span class="data-card-icon">🔍</span>
+                                <h3 class="data-card-title">Search & Filter</h3>
+                            </div>
+                            <div class="data-card-content">
+                                <p>Search through submissions and filter by date, form, or patient information.</p>
+                                <button class="dashboard-btn dashboard-btn-secondary" onclick="openSearch()">
+                                    🔍 Open Search
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="data-card">
+                            <div class="data-card-header">
+                                <span class="data-card-icon">📈</span>
+                                <h3 class="data-card-title">Analytics</h3>
+                            </div>
+                            <div class="data-card-content">
+                                <p>View detailed analytics and performance metrics for your forms.</p>
+                                <button class="dashboard-btn dashboard-btn-outline" onclick="loadPage('analytics')">
+                                    📈 View Analytics
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Load Forms page content
+        function loadFormsPage() {
+            return `
+                <div class="dashboard-animate">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h2 class="dashboard-card-title">📝 Forms Management</h2>
+                            <button class="dashboard-btn dashboard-btn-primary" onclick="createNewForm()">
+                                ➕ Create New Form
+                            </button>
+                        </div>
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📝</div>
+                            <h3>Forms Management</h3>
+                            <p>This page will contain form creation and management tools.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Load Analytics page content
+        function loadAnalyticsPage() {
+            return `
+                <div class="dashboard-animate">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h2 class="dashboard-card-title">📈 Analytics Dashboard</h2>
+                        </div>
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📈</div>
+                            <h3>Analytics Dashboard</h3>
+                            <p>This page will contain detailed analytics and performance metrics.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Load Settings page content
+        function loadSettingsPage() {
+            return `
+                <div class="dashboard-animate">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h2 class="dashboard-card-title">⚙️ Settings</h2>
+                        </div>
+                        <div class="empty-state">
+                            <div class="empty-state-icon">⚙️</div>
+                            <h3>Dashboard Settings</h3>
+                            <p>This page will contain dashboard configuration options.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Action functions
+        function viewForm(formId) {
+            const form = FORMS_DATA.forms.find(f => f.id === formId);
+            if (!form) {
+                alert('Form not found');
+                return;
+            }
+
+            // Create modal to show form details
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+                padding: 2rem;
+            `;
+
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: white;
+                border-radius: 12px;
+                padding: 2rem;
+                max-width: 800px;
+                width: 100%;
+                max-height: 80%;
+                overflow-y: auto;
+                box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+            `;
+
+            const questionsList = form.questions.map(q => `
+                <div style="border: 1px solid var(--lt-gray-200); border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+                    <div style="font-weight: 600; color: var(--lt-gray-800); margin-bottom: 0.5rem;">
+                        ${q.property_question_text}
+                    </div>
+                    <div style="font-size: 0.85rem; color: var(--lt-gray-600); margin-bottom: 0.5rem;">
+                        Type: ${q.property_question_type} | Required: ${q.property_required ? 'Yes' : 'No'}
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--lt-gray-500);">
+                        Section: ${q.property_section || 'N/A'}
+                    </div>
+                </div>
+            `).join('');
+
+            modalContent.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h3 style="margin: 0; color: var(--lt-blue);">📝 ${form.name} - Form Details</h3>
+                    <button onclick="closeModal()" style="background: #dc3545; color: white; border: none; padding: 0.5rem; border-radius: 50%; cursor: pointer; font-size: 1.2rem;">✕</button>
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                        <div style="padding: 1rem; background: var(--lt-gray-50); border-radius: 8px;">
+                            <div style="font-weight: 600; color: var(--lt-gray-800);">Category</div>
+                            <div style="color: var(--lt-gray-600);">${form.category}</div>
+                        </div>
+                        <div style="padding: 1rem; background: var(--lt-gray-50); border-radius: 8px;">
+                            <div style="font-weight: 600; color: var(--lt-gray-800);">Status</div>
+                            <div style="color: var(--lt-gray-600);">${form.status}</div>
+                        </div>
+                        <div style="padding: 1rem; background: var(--lt-gray-50); border-radius: 8px;">
+                            <div style="font-weight: 600; color: var(--lt-gray-800);">Questions</div>
+                            <div style="color: var(--lt-gray-600);">${form.questionCount}</div>
+                        </div>
+                        <div style="padding: 1rem; background: var(--lt-gray-50); border-radius: 8px;">
+                            <div style="font-weight: 600; color: var(--lt-gray-800);">Form Type</div>
+                            <div style="color: var(--lt-gray-600);">${form.formType}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="color: var(--lt-gray-800); margin-bottom: 1rem;">Form-Specific Questions (${form.questionCount})</h4>
+                    <div style="max-height: 400px; overflow-y: auto;">
+                        ${questionsList}
+                    </div>
+                </div>
+            `;
+
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+
+            // Store modal reference for cleanup
+            window.currentModal = modal;
+
+            // Close modal when clicking outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+        }
+
+        function closeModal() {
+            if (window.currentModal) {
+                document.body.removeChild(window.currentModal);
+                window.currentModal = null;
+            }
+        }
+
+        function editForm(formId) {
+            alert(`Editing form: ${formId}`);
+        }
+
+        function viewSubmission(submissionId) {
+            alert(`Viewing submission: ${submissionId}`);
+        }
+
+        function downloadSubmission(submissionId) {
+            alert(`Downloading submission: ${submissionId}`);
+        }
+
+        function exportData() {
+            alert('Exporting all data...');
+        }
+
+        function openSearch() {
+            alert('Opening search interface...');
+        }
+
+        function createNewForm() {
+            alert('Creating new form...');
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.querySelector('.dashboard-mobile-toggle');
+            
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(event.target) && 
+                !toggle.contains(event.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load the data page by default
+            loadPage('data');
+        });
+    </script>
+</body>
+</html>
