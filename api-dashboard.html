@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LocumTele Integration Dashboard</title>
-    <link rel="stylesheet" href="documentation/locumtele/brand/brand.css">
-    <link rel="stylesheet" href="documentation/locumtele/brand/dashboard-framework.css">
-    <link rel="stylesheet" href="documentation/locumtele/brand/sites-consolidated.css">
+    <link rel="stylesheet" href="https://locumtele.github.io/widgets/docs/brand/brand.css">
+    <link rel="stylesheet" href="https://locumtele.github.io/widgets/docs/brand/dashboard-framework.css">
+    <link rel="stylesheet" href="https://locumtele.github.io/widgets/docs/brand/sites-consolidated.css">
 </head>
 <body class="lt-branded">
     <div class="dashboard-layout">
         <!-- Sidebar Navigation -->
         <nav class="dashboard-sidebar" id="sidebar">
             <div class="logo">
-                <img src="documentation/locumtele/brand/locumteleLogo.png" alt="LocumTele Logo">
+                <img src="https://locumtele.github.io/widgets/docs/brand/locumteleLogo.png" alt="LocumTele Logo">
             </div>
             <ul class="dashboard-nav">
                 <li class="dashboard-nav-item">
@@ -41,7 +41,7 @@
                 </li>
                 <li class="dashboard-nav-item dashboard-elle-support">
                     <a href="#" class="dashboard-elle-container" onclick="loadPage('support', this)">
-                        <img src="documentation/locumtele/brand/locumteleBot-Elle_blue.jpg" alt="Elle" class="dashboard-elle-image">
+                        <img src="https://locumtele.github.io/widgets/docs/brand/locumteleBot-Elle_blue.jpg" alt="Elle" class="dashboard-elle-image">
                         <div class="dashboard-talk-bubble">
                             <span>Need help?</span>
                         </div>
@@ -92,7 +92,7 @@
                 const fileName = pageFileMap[pageId] || `${pageId}.html`;
                 
                 // Load the page content
-                const response = await fetch(`docs/pages/api-pages/${fileName}`);
+                const response = await fetch(`https://locumtele.github.io/widgets/docs/api/api-htmls/${fileName}`);
                 if (!response.ok) {
                     throw new Error(`Failed to load page: ${pageId}`);
                 }
