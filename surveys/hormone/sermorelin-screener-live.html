@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sermorelin Assessment</title>
+    <title>Sermorelin Assessment</title>
     <style>
             * {
                 box-sizing: border-box;
@@ -379,7 +379,7 @@
     <div class="form-wrapper">
         <!-- Fixed Title Container -->
         <div class="title-container">
-            <h1 class="form-title">sermorelin Assessment</h1>
+            <h1 class="form-title">Sermorelin Assessment</h1>
             <p class="form-subtitle">See if you prequalify by completing this questionnaire</p>
             <div class="progress-container">
                 <div class="progress-bar">
@@ -1355,7 +1355,7 @@ Your wellbeing is our top priority.</div>
             let errorMessages = new Map();
 
             // Local storage key for this form
-            const storageKey = 'medicalForm_sermorelin_hormone';
+            const storageKey = 'medicalForm_Sermorelin_hormone';
 
             // Sync-only states
             const syncOnlyStates = ["AR", "DC", "DE", "ID", "KS", "LA", "MS", "NM", "RI", "WV", "NC", "SC", "ME"];
@@ -1700,7 +1700,7 @@ Your wellbeing is our top priority.</div>
                         formData.bmi = bmi.toFixed(1);
 
                         // Check BMI disqualification for GLP1 specifically (only if form name includes GLP1)
-                        if ('sermorelin'.includes('GLP1') && bmi < 25) {
+                        if ('Sermorelin'.includes('GLP1') && bmi < 25) {
                             // Find BMI question in Assessment section if it exists
                             const assessmentBmiQuestion = document.querySelector('[data-question-id*="BMI"], [data-question-id*="bmi"], .bmi-result').closest('.question-wrapper');
                             if (assessmentBmiQuestion) {
@@ -2087,7 +2087,7 @@ Your wellbeing is our top priority.</div>
                         type: 'patient'
                     },
                     patient: {
-                        rxRequested: 'sermorelin',
+                        rxRequested: 'Sermorelin',
                         height: `${heightFeet}'${heightInches}"`,
                         weight: weight,
                         BMI: bmi.replace('BMI: ', '').replace('Enter height and weight above', ''),
@@ -2101,7 +2101,7 @@ Your wellbeing is our top priority.</div>
                     form: {
                         formType: 'screener',
                         category: 'hormone',
-                        name: 'sermorelin',
+                        name: 'Sermorelin',
                         responses: responses,
                         timestamp: new Date().toISOString(),
                         formVersion: new Date().toISOString().split('T')[0] // Current date as version
