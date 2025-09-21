@@ -1876,18 +1876,29 @@
                 return;
             }
 
-            // Provide instructions to run the Python form generator
-            const pythonCommand = `python3 python-forms/universal_form_generator.py "${jsonPath}"`;
-            const outputPath = jsonPath.replace('.json', '-live.html');
+            // For now, show that only GLP1 generation is automated
+            const formName = formData.name;
+            const category = formData.property_category;
 
-            alert(`🚀 To generate the live form, run this command in your terminal:\n\n` +
-                  `${pythonCommand}\n\n` +
-                  `This will:\n` +
-                  `1. Read the JSON file: ${jsonPath}\n` +
-                  `2. Generate the live HTML form: ${outputPath}\n` +
-                  `3. Apply LocumTele branding and styling\n` +
-                  `4. Include all form logic and validation\n\n` +
-                  `After running the command, refresh this page to see the updated status.`);
+            if (formName === 'GLP1') {
+                alert(`🚀 To generate the ${formName} form:\n\n` +
+                      `1. Navigate to python-forms directory:\n` +
+                      `   cd python-forms\n\n` +
+                      `2. Run the automated generator:\n` +
+                      `   python3 regenerate_complete_form.py\n\n` +
+                      `This will generate: surveys/weightloss/GLP1-screener-live.html\n\n` +
+                      `After running, refresh this page to see updated status.`);
+            } else {
+                alert(`⚠️ ${formName} Form Generation\n\n` +
+                      `Currently, only GLP1 forms have automated generation.\n\n` +
+                      `To create ${formName} forms:\n` +
+                      `1. The JSON data exists at: ${jsonPath}\n` +
+                      `2. You'll need to modify python-forms/regenerate_complete_form.py\n` +
+                      `3. Change line 18 from "GLP1" to "${formName}"\n` +
+                      `4. Change line 18 from "Weightloss" to "${category}"\n` +
+                      `5. Run: cd python-forms && python3 regenerate_complete_form.py\n\n` +
+                      `This will create: ${jsonPath.replace('.json', '-live.html')}`);
+            }
 
             // Reset button
             button.innerHTML = originalText;
