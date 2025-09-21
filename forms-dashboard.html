@@ -693,8 +693,7 @@
         function loadDashboardPage() {
             // Get forms that have HTML files ready
             const readyForms = FORMS_DATA.forms.filter(form => {
-                const categoryDir = form.category.toLowerCase();
-                return form.name === 'GLP1' && categoryDir === 'weightloss';
+                return form.htmlStatus === 'exists' && form.embedStatus === 'ready';
             });
 
             // Get unique categories
@@ -1424,8 +1423,7 @@
 
         function copyAllEmbedCodes() {
             const readyForms = FORMS_DATA.forms.filter(form => {
-                const categoryDir = form.category.toLowerCase();
-                return form.name === 'GLP1' && categoryDir === 'weightloss';
+                return form.htmlStatus === 'exists' && form.embedStatus === 'ready';
             });
 
             if (readyForms.length === 0) {
@@ -1491,8 +1489,7 @@
 
         function generateDeploymentReport() {
             const readyForms = FORMS_DATA.forms.filter(form => {
-                const categoryDir = form.category.toLowerCase();
-                return form.name === 'GLP1' && categoryDir === 'weightloss';
+                return form.htmlStatus === 'exists' && form.embedStatus === 'ready';
             });
 
             const report = `📊 LocumTele Survey Deployment Report
