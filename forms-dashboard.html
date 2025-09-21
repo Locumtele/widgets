@@ -1272,7 +1272,25 @@
 
         // Control Panel Action Functions
         function generateHTML(category, formName) {
-            alert(`🔧 Generating HTML for ${formName} in ${category} category...\n\nThis will call the Python form generator API to create the HTML file.`);
+            const instructions = `🔧 Generate HTML for ${formName} (${category})
+
+To generate the HTML file, run this command locally:
+
+cd python-forms
+python3 regenerate_complete_form.py
+
+Or use the specific form generator:
+python3 generate_form.py ${category.toLowerCase()} ${formName}
+
+The HTML file will be created at:
+surveys/${category.toLowerCase()}/${formName}-screener-live.html
+
+Once created, refresh this dashboard to see the updated status.`;
+
+            if (confirm(instructions + '\n\nWould you like to copy these instructions to clipboard?')) {
+                navigator.clipboard.writeText(`cd python-forms\npython3 generate_form.py ${category.toLowerCase()} ${formName}`);
+                alert('Instructions copied to clipboard!');
+            }
         }
 
         function refreshHTML(category, formName) {
