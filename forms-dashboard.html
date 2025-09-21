@@ -336,9 +336,11 @@
                         for (const formFile of knownForms[category.path] || []) {
                             try {
                                 const formUrl = `https://locumtele.github.io/widgets/surveys/${category.path}/${formFile}`;
+                                console.log(`Trying to load: ${formUrl}`);
                                 const response = await fetch(formUrl);
                                 
                                 if (response.ok) {
+                                    console.log(`Successfully loaded: ${formFile}`);
                                     const formData = await response.json();
                                     const formSpecificQuestions = formData.questions || [];
                                     
@@ -355,7 +357,7 @@
                                         htmlStatus = 'missing';
                                     }
                                     
-                                    forms.push({
+                                    const formObj = {
                                         id: formData.id || formName.toLowerCase(),
                                         name: formData.name || formName,
                                         category: formData.property_category || category.name,
@@ -371,7 +373,9 @@
                                         htmlPath: `surveys/${category.path}/${formName}-screener-live.html`,
                                         htmlStatus: htmlStatus,
                                         embedStatus: htmlStatus === 'exists' ? 'ready' : 'pending'
-                                    });
+                                    };
+                                    console.log(`Adding form:`, formObj);
+                                    forms.push(formObj);
                                 }
                             } catch (formError) {
                                 console.warn(`Could not load ${formFile}:`, formError);
