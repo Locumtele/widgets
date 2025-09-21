@@ -635,18 +635,18 @@
                     id: 'glp1-weightloss-screening',
                     name: 'GLP1 Weightloss Screening',
                     category: 'Weightloss',
-                    file: 'https://locumtele.github.io/widgets/surveys/weightloss/GLP1-screener-live.html',
+                    file: 'surveys/weightloss/GLP1-screener-live.html',
                     description: 'Complete GLP-1 medication screening form with BMI calculation, medical history, and conditional logic',
                     status: 'live',
                     questions: 15,
                     deployedSites: 3
                 },
-                // Add more forms as they become available
+                // Add more forms as they become available (placeholder data)
                 {
                     id: 'hormone-therapy-screening',
                     name: 'Hormone Therapy Screening',
                     category: 'Hormone',
-                    file: 'https://locumtele.github.io/widgets/surveys/hormone/hormone-screener-live.html',
+                    file: 'surveys/hormone/hormone-screener-live.html',
                     description: 'Comprehensive hormone therapy eligibility assessment',
                     status: 'development',
                     questions: 12,
@@ -656,7 +656,7 @@
                     id: 'nad-anti-aging-screening',
                     name: 'NAD Anti-Aging Screening',
                     category: 'AntiAging',
-                    file: 'https://locumtele.github.io/widgets/surveys/antiaging/nad-screener-live.html',
+                    file: 'surveys/antiaging/nad-screener-live.html',
                     description: 'NAD+ therapy screening with medical history validation',
                     status: 'development',
                     questions: 10,
@@ -1245,28 +1245,71 @@
 
         // Load forms page
         function loadFormsPage() {
-            console.log('loadFormsPage called. window.formsData:', window.formsData);
-            
-            // Check if we have cached data
-            if (window.formsData && window.formsData.length > 0) {
-                console.log('Rendering forms table with data:', window.formsData);
-                // Always render the table when we have data
-                renderFormsTable(window.formsData);
-                document.getElementById('forms-loading').style.display = 'none';
-                document.getElementById('forms-content').style.display = 'block';
-                document.getElementById('forms-error').style.display = 'none';
-            } else {
-                console.log('No forms data available, showing placeholder');
-                // Only show placeholder if content is empty
-                const formsContent = document.getElementById('forms-content');
-                if (formsContent.innerHTML.trim() === '') {
-                    formsContent.innerHTML = `
-                        <div style="text-align: center; padding: 2rem; color: #666;">
-                            <h4>No Database Records Loaded</h4>
-                            <p>Click "Refresh Database" to load data from your Notion database.</p>
-                        </div>
-                    `;
+            console.log('loadFormsPage called - loading local JSON forms');
+
+            // Load actual JSON forms from the project
+            loadLocalJsonForms();
+        }
+
+        // Load JSON forms from local files
+        async function loadLocalJsonForms() {
+            const formsPaths = [
+                'surveys/weightloss/GLP1-screener.json',
+                'surveys/hormone/Sermorelin-screener.json',
+                'surveys/antiaging/NAD-screener.json'
+            ];
+
+            try {
+                const formsData = [];
+
+                // Load each JSON form
+                for (const path of formsPaths) {
+                    try {
+                        const response = await fetch(path);
+                        if (response.ok) {
+                            const formData = await response.json();
+                            // Count questions
+                            const questionCount = formData.questions ? formData.questions.length : 0;
+
+                            // Format data to match expected structure
+                            const formattedData = {
+                                id: formData.id,
+                                name: formData.name,
+                                property_category: formData.property_category,
+                                property_form_status: formData.property_form_status || 'DRAFT',
+                                property_total_questions: questionCount,
+                                property_consult_type: formData.property_consult_type || 'async',
+                                url: formData.url,
+                                jsonPath: path
+                            };
+
+                            formsData.push(formattedData);
+                        }
+                    } catch (error) {
+                        console.warn(`Could not load form at ${path}:`, error);
+                    }
                 }
+
+                console.log('Loaded local JSON forms:', formsData);
+
+                if (formsData.length > 0) {
+                    renderFormsTable(formsData);
+                    document.getElementById('forms-loading').style.display = 'none';
+                    document.getElementById('forms-content').style.display = 'block';
+                    document.getElementById('forms-error').style.display = 'none';
+                } else {
+                    throw new Error('No JSON forms found');
+                }
+
+            } catch (error) {
+                console.error('Error loading local JSON forms:', error);
+                const formsContent = document.getElementById('forms-content');
+                formsContent.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: #666;">
+                        <h4>No JSON Forms Found</h4>
+                        <p>No JSON form files found in the surveys directory.</p>
+                    </div>
+                `;
                 document.getElementById('forms-loading').style.display = 'none';
                 document.getElementById('forms-content').style.display = 'block';
                 document.getElementById('forms-error').style.display = 'none';
@@ -1633,7 +1676,7 @@
                             category: formData.property_category || 'General',
                             totalQuestions: formData.property_total_questions || 0,
                             formType: formData.property_form_type || 'screener',
-                            status: formData.property_status || 'unknown',
+                            status: formData.property_form_status || 'DRAFT',
                             url: formData.url,
                         rawData: formData
                     });
@@ -1653,7 +1696,7 @@
                 return;
             }
 
-            // Create table with all form data
+            // Create table with all form data (no Actions column)
             let tableHTML = `
                 <div class="database-table-container">
                     <table class="database-table">
@@ -1665,7 +1708,6 @@
                                 <th>Consult Type</th>
                                 <th>Status</th>
                                 <th>Questions</th>
-                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1673,8 +1715,8 @@
 
             formsArray.forEach((form, index) => {
                 // Determine status styling
-                const statusClass = form.status === 'published' ? 'status-active' : 'status-inactive';
-                const statusText = form.status === 'published' ? 'Published' : form.status || 'Unknown';
+                const statusClass = form.status === 'PUBLISHED' ? 'status-active' : 'status-inactive';
+                const statusText = form.status === 'PUBLISHED' ? 'Published' : form.status || 'Draft';
 
                 tableHTML += `
                     <tr>
@@ -1698,24 +1740,6 @@
                         </td>
                         <td>
                             <div class="question-count">${form.totalQuestions}</div>
-                        </td>
-                        <td>
-                            <div style="display: flex; flex-direction: column; gap: 0.5rem; min-width: 300px;">
-                                <textarea 
-                                    id="embed-${form.id}" 
-                                    style="width: 100%; height: 80px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.75rem; border: 1px solid #ddd; border-radius: 4px; padding: 0.5rem; background: #f8f9fa; resize: vertical;"
-                                    readonly
-                                    onclick="this.select()"
-                                ></textarea>
-                                <button 
-                                    class="btn btn-sm copy-form-btn" 
-                                    data-form-id="${form.id}" 
-                                    data-form-name="${form.title}" 
-                                    style="background: #007bff; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; width: 100%;"
-                                >
-                                    📋 Copy Embed Code
-                                </button>
-                            </div>
                         </td>
                     </tr>
                 `;
