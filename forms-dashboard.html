@@ -1385,17 +1385,14 @@
             const surveyPath = 'surveys/' + categoryDir + '/' + formName + '-screener-live.html';
             
             const embedCode = '<!-- ' + formName + ' Medical Screening Form -->\n' +
-                '<div id="locumtele-' + formName.toLowerCase() + '-form" style="width: 100%; max-width: 800px; margin: 0 auto;">\n' +
-                '    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">\n' +
-                '        <div style="background: white; padding: 0; border-radius: 8px; overflow: hidden;">\n' +
-                '            <iframe src="https://locumtele.github.io/widgets/' + surveyPath + '"\n' +
-                '                    width="100%"\n' +
-                '                    height="600"\n' +
-                '                    frameborder="0"\n' +
-                '                    style="border: none; display: block; transform: scale(0.8); transform-origin: top left; width: 125%; height: 750px;">\n' +
-                '            </iframe>\n' +
-                '        </div>\n' +
-                '    </div>\n' +
+                '<div style="max-width: 600px; margin: 20px auto; padding: 20px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e9ecef;">\n' +
+                '    <h3 style="color: #2c3e50; margin-bottom: 10px; font-size: 20px;">' + formName + ' Medical Assessment</h3>\n' +
+                '    <p style="color: #666; margin-bottom: 20px; font-size: 14px;">Complete this questionnaire to see if you prequalify for treatment.</p>\n' +
+                '    <a href="https://locumtele.github.io/widgets/' + surveyPath + '" \n' +
+                '       target="_blank" \n' +
+                '       style="display: inline-block; background: #007bff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 500; font-size: 16px;">\n' +
+                '        Start ' + formName + ' Assessment\n' +
+                '    </a>\n' +
                 '</div>\n' +
                 '<!-- End ' + formName + ' Form -->';
 
