@@ -1,99 +1,107 @@
 # Widget Dashboard Documentation
 
 ## Overview
-The Widget Dashboard is a comprehensive management system for LocumTele's widget ecosystem. It provides a centralized interface for viewing, managing, and refreshing form data through N8n webhook integrations, and serves as the main hub for widget management.
+The Widget Dashboard ecosystem consists of multiple specialized dashboards for different aspects of LocumTele's widget system:
+
+- **`widget-dashboard.html`** - Internal widget management and N8n webhook integrations
+- **`forms-dashboard.html`** - Forms management, question logic, and embed code library
+- **`api-dashboard.html`** - API integration and documentation
+
+This document covers the **Forms Dashboard** (`forms-dashboard.html`), which provides a comprehensive interface for medical form management and client deployment.
 
 ## Features
 
-### 📋 Forms Management
-- **Forms Tab**: Displays all forms from Notion database
-- **Real-time Data**: Fetches latest form information via N8n webhook
-- **Data Persistence**: Forms data cached in localStorage
-- **Table View**: Clean, organized display of form information
+### 📊 Dashboard Tab - Embed Code Library
+- **Compact Table Layout**: Space-efficient design for hundreds of forms
+- **Category Toggle Buttons**: Filter by All, Weightloss, Hormone, Anti-Aging
+- **Search Functionality**: Real-time search across form names
+- **One-Click Copy**: Copy embed codes with single click
+- **Preview Buttons**: Test live surveys in new tab
+- **Bulk Operations**: Copy all codes, generate deployment reports
 
-#### Forms Table Columns
-- **Name**: Form title/name
-- **Form Type**: Type of form (e.g., screener)
-- **Category**: Form category (e.g., Weightloss, Hormone, AntiAging)
-- **Consult Type**: Consultation type (e.g., async)
-- **Status**: Form status (e.g., published)
-- **Questions**: Number of questions in the form
+### 📝 Forms Tab - Form Management
+- **Form Overview**: Display all forms with question counts and categories
+- **Question Logic Visualization**: Color-coded safe/flag/disqualify options
+- **Survey Preview**: Modal iframe preview of live surveys
+- **Recent Submissions**: Track form completion data
+- **Form Details**: View comprehensive form information
 
-### ❓ Questions Management
-- **Questions Tab**: Individual form question management
-- **Per-Form Buttons**: Each form has its own "Refresh Questions" button
-- **Form ID Integration**: Buttons send specific form IDs to N8n webhook
-- **Data Display**: Shows questions data in organized format
-
-### ⚙️ Admin Controls
-- **Refresh All Forms**: Updates all forms data from Notion
-- **Refresh All Questions**: Updates all questions data from Notion
-- **System Status**: Real-time counts and sync information
-- **Webhook Configuration**: Displays current webhook endpoints
+### 🎛️ Control Panel Tab - Automation
+- **Safe Automation Controls**: Separated from main workflow
+- **HTML File Status**: Track which forms have generated HTML files
+- **Embed Code Status**: Monitor embed code generation progress
+- **Batch Operations**: Generate all HTML, all embed codes
+- **System Status**: Comprehensive status reporting
 
 ## Technical Architecture
 
-### Webhook Endpoints
-- **Forms Webhook**: `https://locumtele.app.n8n.cloud/webhook/notion-forms`
-- **Questions Webhook**: `https://locumtele.app.n8n.cloud/webhook/notion-questions`
+### Data Sources
+- **Local JSON Files**: Forms data loaded from `surveys/` directory
+- **Generated HTML**: Live survey files for preview and embedding
+- **Form Metadata**: Question counts, categories, and status information
 
 ### Data Storage
-- **Local Storage**: Forms and questions data persisted locally
-- **Cache Management**: Automatic data restoration on page reload
-- **Sync Tracking**: Last sync timestamps stored and displayed
+- **Local Storage**: Forms data cached for performance
+- **Dynamic Loading**: Data loaded on-demand for efficiency
+- **State Management**: Preserves data across tab switches
 
 ### Navigation System
-- **Tab-based Interface**: Forms, Questions, Admin tabs
+- **Tab-based Interface**: Dashboard, Forms, Analytics, Control Panel tabs
 - **Dynamic Content**: Content loads based on active tab
-- **State Management**: Preserves data across tab switches
+- **Modal System**: Overlay dialogs for detailed views
 
 ## File Structure
 
 ```
-widget-dashboard.html
-├── Forms Section
-│   ├── Forms Table Display
-│   ├── Data Loading Logic
-│   └── Webhook Integration
-├── Questions Section
-│   ├── Individual Form Buttons
-│   ├── Questions Data Display
-│   └── Form ID Management
-├── Admin Section
-│   ├── Refresh Controls
-│   ├── System Status
-│   └── Webhook Configuration
+forms-dashboard.html
+├── Dashboard Tab (Embed Code Library)
+│   ├── Compact Table Layout
+│   ├── Category Toggle System
+│   ├── Search Functionality
+│   ├── One-Click Copy System
+│   └── Bulk Operations
+├── Forms Tab (Form Management)
+│   ├── Form Overview Table
+│   ├── Question Logic Visualization
+│   ├── Survey Preview Modal
+│   └── Recent Submissions
+├── Control Panel Tab (Automation)
+│   ├── Status Tracking
+│   ├── HTML File Management
+│   ├── Embed Code Generation
+│   └── Batch Operations
 └── JavaScript Functions
     ├── Navigation Functions
     ├── Data Loading Functions
-    ├── Webhook Functions
+    ├── Embed Code Functions
+    ├── Modal Functions
     └── UI Rendering Functions
 ```
 
 ## Usage Instructions
 
-### 1. Accessing the Dashboard
-- Open `widget-dashboard.html` in a web browser
+### 1. Accessing the Forms Dashboard
+- Open `forms-dashboard.html` in a web browser
 - Ensure you're running a local server (e.g., `python3 -m http.server 8000`)
-- Navigate to `http://localhost:8000/widget-dashboard.html`
+- Navigate to `http://localhost:8000/forms-dashboard.html`
 
-### 2. Loading Forms Data
-1. Go to **Forms** tab
-2. Click **"Refresh All Forms"** in Admin tab
-3. Forms will load and display in organized table
-4. Data persists across page reloads
+### 2. Using the Embed Code Library (Dashboard Tab)
+1. **Search/Filter**: Use search bar and category toggles to find forms
+2. **Copy Embed Code**: Click "📋 Copy" button for desired form
+3. **Preview Survey**: Click "👁️" to test live survey
+4. **Bulk Operations**: Use "Copy All Codes" or "Deployment Report" buttons
 
-### 3. Managing Questions
-1. Go to **Questions** tab
-2. Individual form buttons will appear for each loaded form
-3. Click **"❓ Refresh Questions"** for specific forms
-4. Questions data will load and display
+### 3. Managing Forms (Forms Tab)
+1. **View Form Details**: Click "View Questions" to see question logic
+2. **Preview Survey**: Click "View Survey" to test live form
+3. **Track Submissions**: Monitor recent form completions
+4. **Analyze Logic**: Review safe/flag/disqualify answer patterns
 
-### 4. Admin Functions
-1. Go to **Admin** tab
-2. Use **"Refresh All Forms"** to update all forms
-3. Use **"Refresh All Questions"** to update all questions
-4. Monitor system status and sync information
+### 4. Automation Controls (Control Panel Tab)
+1. **Check Status**: View HTML file and embed code status
+2. **Generate HTML**: Click "Create HTML" for missing files
+3. **Generate Embeds**: Create embed codes for ready forms
+4. **Bulk Operations**: Use batch operations for efficiency
 
 ## Data Flow
 

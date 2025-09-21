@@ -67,6 +67,7 @@ ltGlobalWidgets/
 │   ├── brand/                        # Brand assets and CSS
 │   └── widgets/                      # Widget dashboard docs
 ├── widget-dashboard.html             # Widget management interface
+├── forms-dashboard.html              # Forms management & embed code library
 ├── api-dashboard.html                # API integration dashboard
 └── archive-ignore/                   # Outdated files and old systems
 ```
@@ -356,11 +357,41 @@ if (syncOnlyStates.includes(selectedState)) {
 
 ## 🚀 Deployment & Integration
 
+### Forms Dashboard
+The Forms Dashboard (`forms-dashboard.html`) provides a comprehensive management interface for medical forms:
+
+#### 📊 Dashboard Tab - Embed Code Library
+- **Compact table layout** for hundreds of forms
+- **Category toggle buttons** (All, Weightloss, Hormone, Anti-Aging)
+- **Search functionality** for quick form finding
+- **One-click embed code copying** for client deployment
+- **Preview buttons** to test live surveys
+- **Bulk operations** (copy all codes, deployment reports)
+
+#### 📝 Forms Tab - Form Management
+- **Form overview** with question counts and categories
+- **Question logic visualization** with color-coded safe/flag/disqualify options
+- **Survey preview** in modal iframe
+- **Recent submissions** tracking
+
+#### 🎛️ Control Panel Tab - Automation
+- **Safe automation controls** separated from main workflow
+- **HTML file status tracking** (exists/missing)
+- **Embed code generation status** (ready/pending)
+- **Batch operations** for efficiency
+
 ### For GHL Integration
 1. **Generate form**: `cd python-forms && python3 regenerate_complete_form.py`
 2. **Extract HTML**: Copy entire content from `surveys/weightloss/GLP1-screener-live.html`
 3. **Embed in GHL**: Paste as custom HTML widget
 4. **Test webhook**: Verify data reaches n8n endpoint at `https://locumtele.app.n8n.cloud/webhook/patient-screener`
+
+### For Client Deployment
+1. **Open Forms Dashboard**: `forms-dashboard.html`
+2. **Navigate to Dashboard tab**: Embed Code Library
+3. **Search/filter forms**: Use category toggles and search bar
+4. **Copy embed code**: Click "📋 Copy" button for desired form
+5. **Paste in client website**: Embed code is ready for deployment
 
 ### Local Development & Testing
 ```bash
@@ -504,6 +535,10 @@ localStorage.removeItem('medicalForm_GLP1_Weightloss');
 - ✅ Added full address to contact section in API data
 - ✅ Restructured answers to use question text as keys, removed contact duplication
 - ✅ Updated comprehensive documentation
+- ✅ Created Forms Dashboard with embed code library
+- ✅ Built compact table layout for hundreds of forms
+- ✅ Added category toggle system and search functionality
+- ✅ Implemented one-click embed code copying for client deployment
 
 ## 🔍 Code Quality & Standards
 
