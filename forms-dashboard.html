@@ -1346,7 +1346,7 @@
                 return;
             }
 
-            alert(`🔧 Generating HTML for ${pendingForms.length} pending forms:\n\n${pendingForms.map(f => `• ${f.name} (${f.category})`).join('\n')}\n\nThis will call the Python form generator API for each form.`);
+            alert('🔧 Generating HTML for ' + pendingForms.length + ' pending forms:\n\n' + pendingForms.map(f => '• ' + f.name + ' (' + f.category + ')').join('\n') + '\n\nThis will call the Python form generator API for each form.');
         }
 
         function refreshAllHTML() {
@@ -1360,7 +1360,7 @@
                 return;
             }
 
-            alert(`🔄 Refreshing HTML for ${existingForms.length} forms:\n\n${existingForms.map(f => `• ${f.name} (${f.category})`).join('\n')}\n\nThis will regenerate HTML files with the latest form data and logic.`);
+            alert('🔄 Refreshing HTML for ' + existingForms.length + ' forms:\n\n' + existingForms.map(f => '• ' + f.name + ' (' + f.category + ')').join('\n') + '\n\nThis will regenerate HTML files with the latest form data and logic.');
         }
 
         function generateAllEmbeds() {
@@ -1375,7 +1375,7 @@
                 return;
             }
 
-            alert(`📦 Generating embed codes for ${readyForms.length} ready forms:\n\n${readyForms.map(f => `• ${f.name} (${f.category})`).join('\n')}\n\nThis will create embed codes for client deployment.`);
+            alert('📦 Generating embed codes for ' + readyForms.length + ' ready forms:\n\n' + readyForms.map(f => '• ' + f.name + ' (' + f.category + ')').join('\n') + '\n\nThis will create embed codes for client deployment.');
         }
 
         function refreshStatus() {
@@ -1390,20 +1390,20 @@
             const status = FORMS_DATA.forms.map(form => {
                 const categoryDir = form.category.toLowerCase();
                 const hasHTML = form.name === 'GLP1' && categoryDir === 'weightloss';
-                return `${form.name}: ${hasHTML ? '✅ HTML exists' : '❌ HTML missing'}`;
+                return form.name + ': ' + (hasHTML ? '✅ HTML exists' : '❌ HTML missing');
             }).join('\n');
 
-            alert(`📊 HTML Status Report:\n\n${status}`);
+            alert('📊 HTML Status Report:\n\n' + status);
         }
 
         function showEmbedStatus() {
             const status = FORMS_DATA.forms.map(form => {
                 const categoryDir = form.category.toLowerCase();
                 const hasHTML = form.name === 'GLP1' && categoryDir === 'weightloss';
-                return `${form.name}: ${hasHTML ? '✅ Ready for embed' : '⏳ Pending HTML'}`;
+                return form.name + ': ' + (hasHTML ? '✅ Ready for embed' : '⏳ Pending HTML');
             }).join('\n');
 
-            alert(`📊 Embed Status Report:\n\n${status}`);
+            alert('📊 Embed Status Report:\n\n' + status);
         }
 
         function showSystemStatus() {
@@ -1414,7 +1414,7 @@
             }).length;
             const embedReady = htmlReady;
 
-            alert(`📊 System Status Report:\n\n• Total Forms: ${totalForms}\n• HTML Ready: ${htmlReady}\n• Embed Ready: ${embedReady}\n• Pending: ${totalForms - htmlReady}\n\nSystem is ${htmlReady === totalForms ? 'fully operational' : 'partially ready'}.`);
+            alert('📊 System Status Report:\n\n• Total Forms: ' + totalForms + '\n• HTML Ready: ' + htmlReady + '\n• Embed Ready: ' + embedReady + '\n• Pending: ' + (totalForms - htmlReady) + '\n\nSystem is ' + (htmlReady === totalForms ? 'fully operational' : 'partially ready') + '.');
         }
 
         // Embed Code Library Functions
@@ -1467,7 +1467,7 @@
 <!-- End ${formName} Form -->`;
 
             navigator.clipboard.writeText(embedCode).then(() => {
-                showNotification(`📋 Copied embed code for ${formName}!`, 'success');
+                showNotification('📋 Copied embed code for ' + formName + '!', 'success');
             }).catch(() => {
                 // Fallback for older browsers
                 const textarea = document.createElement('textarea');
@@ -1476,7 +1476,7 @@
                 textarea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textarea);
-                showNotification(`📋 Copied embed code for ${formName}!`, 'success');
+                showNotification('📋 Copied embed code for ' + formName + '!', 'success');
             });
         }
 
@@ -1549,7 +1549,7 @@
             }).join('\n\n');
 
             navigator.clipboard.writeText(allCodes).then(() => {
-                showNotification(`📋 Copied ${readyForms.length} embed codes!`, 'success');
+                showNotification('📋 Copied ' + readyForms.length + ' embed codes!', 'success');
             }).catch(() => {
                 const textarea = document.createElement('textarea');
                 textarea.value = allCodes;
@@ -1557,7 +1557,7 @@
                 textarea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textarea);
-                showNotification(`📋 Copied ${readyForms.length} embed codes!`, 'success');
+                showNotification('📋 Copied ' + readyForms.length + ' embed codes!', 'success');
             });
         }
 
