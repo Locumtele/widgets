@@ -1385,12 +1385,18 @@
             const surveyPath = 'surveys/' + categoryDir + '/' + formName + '-screener-live.html';
             
             const embedCode = '<!-- ' + formName + ' Medical Screening Form -->\n' +
-                '<iframe src="https://locumtele.github.io/widgets/' + surveyPath + '"\n' +
-                '        width="100%"\n' +
-                '        height="600"\n' +
-                '        frameborder="0"\n' +
-                '        style="border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); max-width: 800px; margin: 0 auto;">\n' +
-                '</iframe>\n' +
+                '<div id="locumtele-' + formName.toLowerCase() + '-form" style="width: 100%; max-width: 800px; margin: 0 auto;">\n' +
+                '    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">\n' +
+                '        <div style="background: white; padding: 0; border-radius: 8px; overflow: hidden;">\n' +
+                '            <iframe src="https://locumtele.github.io/widgets/' + surveyPath + '"\n' +
+                '                    width="100%"\n' +
+                '                    height="600"\n' +
+                '                    frameborder="0"\n' +
+                '                    style="border: none; display: block; transform: scale(0.8); transform-origin: top left; width: 125%; height: 750px;">\n' +
+                '            </iframe>\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '</div>\n' +
                 '<!-- End ' + formName + ' Form -->';
 
             navigator.clipboard.writeText(embedCode).then(() => {
