@@ -336,11 +336,9 @@
                         for (const formFile of knownForms[category.path] || []) {
                             try {
                                 const formUrl = `https://locumtele.github.io/widgets/surveys/${category.path}/${formFile}`;
-                                console.log(`Trying to load: ${formUrl}`);
                                 const response = await fetch(formUrl);
                                 
                                 if (response.ok) {
-                                    console.log(`Successfully loaded: ${formFile}`);
                                     const formData = await response.json();
                                     const formSpecificQuestions = formData.questions || [];
                                     
@@ -374,7 +372,6 @@
                                         htmlStatus: htmlStatus,
                                         embedStatus: htmlStatus === 'exists' ? 'ready' : 'pending'
                                     };
-                                    console.log(`Adding form:`, formObj);
                                     forms.push(formObj);
                                 }
                             } catch (formError) {
