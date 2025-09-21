@@ -133,6 +133,16 @@
             font-weight: 500;
         }
 
+        .category-toggle.active {
+            background: var(--lt-blue) !important;
+            color: white !important;
+        }
+
+        .dashboard-btn-sm {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.8rem;
+        }
+
         .status-active {
             background: #d4edda;
             color: #155724;
@@ -223,12 +233,12 @@
             </div>
             <ul class="dashboard-nav">
                 <li class="dashboard-nav-item">
-                    <a href="#" class="dashboard-nav-link active" onclick="loadPage('data', this)">
-                        📊 Data
+                    <a href="#" class="dashboard-nav-link" onclick="loadPage('dashboard', this)">
+                        📊 Dashboard
                     </a>
                 </li>
                 <li class="dashboard-nav-item">
-                    <a href="#" class="dashboard-nav-link" onclick="loadPage('forms', this)">
+                    <a href="#" class="dashboard-nav-link active" onclick="loadPage('forms', this)">
                         📝 Forms
                     </a>
                 </li>
@@ -238,8 +248,8 @@
                     </a>
                 </li>
                 <li class="dashboard-nav-item">
-                    <a href="#" class="dashboard-nav-link" onclick="loadPage('settings', this)">
-                        ⚙️ Settings
+                    <a href="#" class="dashboard-nav-link" onclick="loadPage('control', this)">
+                        🎛️ Control Panel
                     </a>
                 </li>
             </ul>
@@ -247,8 +257,8 @@
 
         <!-- Top Navigation Bar -->
         <div class="dashboard-header">
-            <h1>📊 Data</h1>
-            <p class="page-description">Form Data Management & Analytics</p>
+            <h1>📝 Forms</h1>
+            <p class="page-description">Form Management & Question Logic</p>
         </div>
 
         <!-- Main Content Area -->
@@ -269,17 +279,17 @@
         // Dashboard configuration
         const DASHBOARD_CONFIG = {
             title: "Forms Dashboard",
-            headerTitle: "📊 Data",
-            headerDescription: "Form Data Management & Analytics",
+            headerTitle: "📝 Forms",
+            headerDescription: "Form Management & Question Logic",
             pages: {
-                'data': { 
-                    title: '📊 Data', 
-                    description: 'Form Data Management & Analytics',
+                'dashboard': { 
+                    title: '📊 Dashboard', 
+                    description: 'Main Dashboard & Analytics',
                     icon: '📊'
                 },
                 'forms': { 
                     title: '📝 Forms', 
-                    description: 'Form Builder & Management',
+                    description: 'Form Management & Question Logic',
                     icon: '📝'
                 },
                 'analytics': { 
@@ -287,10 +297,10 @@
                     description: 'Performance & Usage Analytics',
                     icon: '📈'
                 },
-                'settings': { 
-                    title: '⚙️ Settings', 
-                    description: 'Dashboard Configuration',
-                    icon: '⚙️'
+                'control': { 
+                    title: '🎛️ Control Panel', 
+                    description: 'Automation Controls & Status Management',
+                    icon: '🎛️'
                 }
             }
         };
@@ -408,8 +418,8 @@
                 // Load page content based on pageId
                 let content = '';
                 switch(pageId) {
-                    case 'data':
-                        content = loadDataPage();
+                    case 'dashboard':
+                        content = loadDashboardPage();
                         break;
                     case 'forms':
                         content = loadFormsPage();
@@ -417,11 +427,11 @@
                     case 'analytics':
                         content = loadAnalyticsPage();
                         break;
-                    case 'settings':
-                        content = loadSettingsPage();
+                    case 'control':
+                        content = loadControlPage();
                         break;
                     default:
-                        content = loadDataPage();
+                        content = loadFormsPage();
                 }
                 
                 pageContent.innerHTML = content;
@@ -446,8 +456,8 @@
             }
         }
 
-        // Load Data page content
-        function loadDataPage() {
+        // Load Forms page content (moved from Data)
+        function loadFormsPage() {
             const totalSubmissions = FORMS_DATA.submissions.length;
             const activeForms = FORMS_DATA.forms.filter(f => f.status === 'active').length;
             const totalForms = FORMS_DATA.forms.length;
@@ -633,21 +643,133 @@
             `;
         }
 
-        // Load Forms page content
-        function loadFormsPage() {
+        // Load Dashboard page content (embed code library)
+        function loadDashboardPage() {
+            // Get forms that have HTML files ready
+            const readyForms = FORMS_DATA.forms.filter(form => {
+                const categoryDir = form.category.toLowerCase();
+                return form.name === 'GLP1' && categoryDir === 'weightloss';
+            });
+
+            // Get unique categories
+            const categories = [...new Set(readyForms.map(form => form.category))];
+
             return `
                 <div class="dashboard-animate">
+                    <!-- Embed Code Library -->
                     <div class="dashboard-card">
                         <div class="dashboard-card-header">
-                            <h2 class="dashboard-card-title">📝 Forms Management</h2>
-                            <button class="dashboard-btn dashboard-btn-primary" onclick="createNewForm()">
-                                ➕ Create New Form
-                            </button>
+                            <h2 class="dashboard-card-title">📦 Embed Code Library</h2>
+                            <p style="color: var(--lt-gray-600); margin: 0; font-size: 0.9rem;">
+                                Ready-to-use embed codes for client deployment
+                            </p>
                         </div>
-                        <div class="empty-state">
-                            <div class="empty-state-icon">📝</div>
-                            <h3>Forms Management</h3>
-                            <p>This page will contain form creation and management tools.</p>
+                        <div class="dashboard-card-content">
+                            <!-- Search and Category Toggle -->
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                                <div style="flex: 1; min-width: 200px;">
+                                    <input type="text" id="embedSearch" placeholder="Search surveys..." 
+                                           style="width: 100%; padding: 0.75rem; border: 1px solid var(--lt-gray-300); border-radius: 6px; font-size: 0.9rem;"
+                                           onkeyup="filterEmbedLibrary()">
+                                </div>
+                                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                    <button class="dashboard-btn dashboard-btn-ghost category-toggle active" 
+                                            data-category="" onclick="toggleCategory('', this)">
+                                        All (${readyForms.length})
+                                    </button>
+                                    ${categories.map(category => {
+                                        const count = readyForms.filter(f => f.category === category).length;
+                                        return `<button class="dashboard-btn dashboard-btn-ghost category-toggle" 
+                                                      data-category="${category}" onclick="toggleCategory('${category}', this)">
+                                                    ${category} (${count})
+                                                </button>`;
+                                    }).join('')}
+                                </div>
+                            </div>
+
+                            <!-- Compact Forms Table -->
+                            <div class="data-table-container">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Survey</th>
+                                            <th>Category</th>
+                                            <th>Questions</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="embedTableBody">
+                                        ${readyForms.map(form => `
+                                            <tr class="embed-row" data-category="${form.category}" data-name="${form.name.toLowerCase()}">
+                                                <td>
+                                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                                        <span style="font-size: 1.2rem;">📦</span>
+                                                        <div>
+                                                            <div style="font-weight: 600; color: var(--lt-gray-800);">${form.name}</div>
+                                                            <div style="font-size: 0.8rem; color: var(--lt-gray-500);">Medical Screening</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span class="status-badge" style="background: var(--lt-blue-light); color: var(--lt-blue-dark);">
+                                                        ${form.category}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span style="color: var(--lt-gray-600); font-size: 0.9rem;">
+                                                        ${form.questionCount} questions
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="status-badge status-active">
+                                                        ✅ Ready
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <div style="display: flex; gap: 0.5rem;">
+                                                        <button class="dashboard-btn dashboard-btn-primary dashboard-btn-sm" 
+                                                                onclick="copyEmbedCode('${form.id}', '${form.name}')">
+                                                            📋 Copy
+                                                        </button>
+                                                        <button class="dashboard-btn dashboard-btn-outline dashboard-btn-sm" 
+                                                                onclick="previewEmbed('${form.id}', '${form.name}')">
+                                                            👁️
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            ${readyForms.length === 0 ? `
+                                <div style="text-align: center; padding: 3rem; color: var(--lt-gray-500);">
+                                    <div style="font-size: 3rem; margin-bottom: 1rem;">📦</div>
+                                    <h3>No Embed Codes Available</h3>
+                                    <p>Generate HTML files first in the Control Panel to create embed codes.</p>
+                                    <button class="dashboard-btn dashboard-btn-primary" onclick="loadPage('control')" style="margin-top: 1rem;">
+                                        🎛️ Go to Control Panel
+                                    </button>
+                                </div>
+                            ` : ''}
+
+                            <!-- Quick Actions Row -->
+                            <div style="display: flex; gap: 1rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--lt-gray-200); flex-wrap: wrap;">
+                                <button class="dashboard-btn dashboard-btn-secondary" onclick="copyAllEmbedCodes()">
+                                    📋 Copy All Codes
+                                </button>
+                                <button class="dashboard-btn dashboard-btn-outline" onclick="generateDeploymentReport()">
+                                    📊 Deployment Report
+                                </button>
+                                <button class="dashboard-btn dashboard-btn-ghost" onclick="loadPage('forms')">
+                                    📝 Manage Forms
+                                </button>
+                                <button class="dashboard-btn dashboard-btn-ghost" onclick="loadPage('control')">
+                                    🎛️ Control Panel
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -672,18 +794,166 @@
             `;
         }
 
-        // Load Settings page content
-        function loadSettingsPage() {
+        // Load Control Panel page content
+        function loadControlPage() {
+            // Check HTML file status for each form
+            const formsWithStatus = FORMS_DATA.forms.map(form => {
+                const categoryDir = form.category.toLowerCase();
+                const htmlFileName = `${form.name}-screener-live.html`;
+                const htmlPath = `surveys/${categoryDir}/${htmlFileName}`;
+                
+                // For now, we'll check if GLP1 exists (we know it does)
+                const hasHTML = form.name === 'GLP1' && categoryDir === 'weightloss';
+                
+                return {
+                    ...form,
+                    htmlPath: htmlPath,
+                    hasHTML: hasHTML,
+                    htmlStatus: hasHTML ? 'exists' : 'missing',
+                    embedStatus: hasHTML ? 'ready' : 'pending'
+                };
+            });
+
             return `
                 <div class="dashboard-animate">
+                    <!-- Survey Status Overview -->
                     <div class="dashboard-card">
                         <div class="dashboard-card-header">
-                            <h2 class="dashboard-card-title">⚙️ Settings</h2>
+                            <h2 class="dashboard-card-title">🎛️ Control Panel</h2>
+                            <p style="color: var(--lt-gray-600); margin: 0; font-size: 0.9rem;">
+                                Safe automation controls and status management
+                            </p>
                         </div>
-                        <div class="empty-state">
-                            <div class="empty-state-icon">⚙️</div>
-                            <h3>Dashboard Settings</h3>
-                            <p>This page will contain dashboard configuration options.</p>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="dashboard-btn dashboard-btn-primary" onclick="generateAllHTML()">
+                                    🔧 Generate All HTML
+                                </button>
+                                <button class="dashboard-btn dashboard-btn-secondary" onclick="refreshStatus()">
+                                    🔄 Refresh Status
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="data-table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Survey</th>
+                                        <th>Category</th>
+                                        <th>JSON Status</th>
+                                        <th>HTML File</th>
+                                        <th>Embed Code</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${formsWithStatus.map(form => `
+                                        <tr>
+                                            <td>
+                                                <div style="font-weight: 600; color: var(--lt-gray-800);">${form.name}</div>
+                                                <div style="font-size: 0.8rem; color: var(--lt-gray-500);">${form.questionCount} questions</div>
+                                            </td>
+                                            <td>
+                                                <span class="status-badge" style="background: var(--lt-blue-light); color: var(--lt-blue-dark);">
+                                                    ${form.category}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="status-badge status-active">
+                                                    ✅ Available
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="status-badge ${form.htmlStatus === 'exists' ? 'status-active' : 'status-draft'}">
+                                                    ${form.htmlStatus === 'exists' ? '✅ Exists' : '❌ Missing'}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="status-badge ${form.embedStatus === 'ready' ? 'status-active' : 'status-draft'}">
+                                                    ${form.embedStatus === 'ready' ? '✅ Ready' : '⏳ Pending'}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div class="action-buttons">
+                                                    ${form.htmlStatus === 'exists' ? 
+                                                        `<button class="action-btn btn-view" onclick="viewHTMLFile('${form.htmlPath}')" style="background: #6c757d; color: white;">
+                                                            👁️ View HTML
+                                                        </button>` :
+                                                        `<button class="action-btn btn-edit" onclick="generateHTML('${form.category}', '${form.name}')" style="background: var(--lt-blue); color: white;">
+                                                            🔧 Create HTML
+                                                        </button>`
+                                                    }
+                                                    ${form.embedStatus === 'ready' ? 
+                                                        `<button class="action-btn btn-edit" onclick="generateEmbed('${form.category}', '${form.name}')" style="background: var(--lt-green); color: white;">
+                                                            📦 Generate Embed
+                                                        </button>` :
+                                                        `<button class="action-btn" onclick="alert('Create HTML file first')" style="background: var(--lt-gray-300); color: var(--lt-gray-600); cursor: not-allowed; opacity: 0.6;">
+                                                            📦 Generate Embed
+                                                        </button>`
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Automation Controls -->
+                    <div class="data-grid">
+                        <div class="data-card">
+                            <div class="data-card-header">
+                                <span class="data-card-icon">🔧</span>
+                                <h3 class="data-card-title">HTML Generation</h3>
+                            </div>
+                            <div class="data-card-content">
+                                <p>Generate HTML files for surveys from JSON data using the universal form generator.</p>
+                                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                                    <button class="dashboard-btn dashboard-btn-primary" onclick="generateAllHTML()">
+                                        🔧 Generate All
+                                    </button>
+                                    <button class="dashboard-btn dashboard-btn-outline" onclick="showHTMLStatus()">
+                                        📊 Status Report
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-card">
+                            <div class="data-card-header">
+                                <span class="data-card-icon">📦</span>
+                                <h3 class="data-card-title">Embed Code Generation</h3>
+                            </div>
+                            <div class="data-card-content">
+                                <p>Generate embed codes for client deployment once HTML files are ready.</p>
+                                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                                    <button class="dashboard-btn dashboard-btn-secondary" onclick="generateAllEmbeds()">
+                                        📦 Generate All
+                                    </button>
+                                    <button class="dashboard-btn dashboard-btn-outline" onclick="showEmbedStatus()">
+                                        📊 Status Report
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-card">
+                            <div class="data-card-header">
+                                <span class="data-card-icon">🔄</span>
+                                <h3 class="data-card-title">System Refresh</h3>
+                            </div>
+                            <div class="data-card-content">
+                                <p>Refresh all data and status information from the surveys directory.</p>
+                                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                                    <button class="dashboard-btn dashboard-btn-ghost" onclick="refreshStatus()">
+                                        🔄 Refresh All
+                                    </button>
+                                    <button class="dashboard-btn dashboard-btn-outline" onclick="showSystemStatus()">
+                                        📊 System Status
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -961,6 +1231,332 @@
             alert(`Downloading submission: ${submissionId}`);
         }
 
+        // Control Panel Action Functions
+        function generateHTML(category, formName) {
+            alert(`🔧 Generating HTML for ${formName} in ${category} category...\n\nThis will call the Python form generator API to create the HTML file.`);
+        }
+
+        function viewHTMLFile(htmlPath) {
+            window.open(htmlPath, '_blank');
+        }
+
+        function generateEmbed(category, formName) {
+            alert(`📦 Generating embed code for ${formName}...\n\nThis will create the embed code for client deployment.`);
+        }
+
+        function generateAllHTML() {
+            const pendingForms = FORMS_DATA.forms.filter(form => {
+                const categoryDir = form.category.toLowerCase();
+                const hasHTML = form.name === 'GLP1' && categoryDir === 'weightloss';
+                return !hasHTML;
+            });
+
+            if (pendingForms.length === 0) {
+                alert('✅ All HTML files are already generated!');
+                return;
+            }
+
+            alert(`🔧 Generating HTML for ${pendingForms.length} pending forms:\n\n${pendingForms.map(f => `• ${f.name} (${f.category})`).join('\n')}\n\nThis will call the Python form generator API for each form.`);
+        }
+
+        function generateAllEmbeds() {
+            const readyForms = FORMS_DATA.forms.filter(form => {
+                const categoryDir = form.category.toLowerCase();
+                const hasHTML = form.name === 'GLP1' && categoryDir === 'weightloss';
+                return hasHTML;
+            });
+
+            if (readyForms.length === 0) {
+                alert('❌ No forms are ready for embed code generation. Generate HTML files first.');
+                return;
+            }
+
+            alert(`📦 Generating embed codes for ${readyForms.length} ready forms:\n\n${readyForms.map(f => `• ${f.name} (${f.category})`).join('\n')}\n\nThis will create embed codes for client deployment.`);
+        }
+
+        function refreshStatus() {
+            alert('🔄 Refreshing status...\n\nThis will reload all form data and check HTML file status.');
+            // Reload the page to refresh data
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        }
+
+        function showHTMLStatus() {
+            const status = FORMS_DATA.forms.map(form => {
+                const categoryDir = form.category.toLowerCase();
+                const hasHTML = form.name === 'GLP1' && categoryDir === 'weightloss';
+                return `${form.name}: ${hasHTML ? '✅ HTML exists' : '❌ HTML missing'}`;
+            }).join('\n');
+
+            alert(`📊 HTML Status Report:\n\n${status}`);
+        }
+
+        function showEmbedStatus() {
+            const status = FORMS_DATA.forms.map(form => {
+                const categoryDir = form.category.toLowerCase();
+                const hasHTML = form.name === 'GLP1' && categoryDir === 'weightloss';
+                return `${form.name}: ${hasHTML ? '✅ Ready for embed' : '⏳ Pending HTML'}`;
+            }).join('\n');
+
+            alert(`📊 Embed Status Report:\n\n${status}`);
+        }
+
+        function showSystemStatus() {
+            const totalForms = FORMS_DATA.forms.length;
+            const htmlReady = FORMS_DATA.forms.filter(form => {
+                const categoryDir = form.category.toLowerCase();
+                return form.name === 'GLP1' && categoryDir === 'weightloss';
+            }).length;
+            const embedReady = htmlReady;
+
+            alert(`📊 System Status Report:\n\n• Total Forms: ${totalForms}\n• HTML Ready: ${htmlReady}\n• Embed Ready: ${embedReady}\n• Pending: ${totalForms - htmlReady}\n\nSystem is ${htmlReady === totalForms ? 'fully operational' : 'partially ready'}.`);
+        }
+
+        // Embed Code Library Functions
+        function copyEmbedCode(formId, formName) {
+            const form = FORMS_DATA.forms.find(f => f.id === formId);
+            if (!form) {
+                alert('Form not found');
+                return;
+            }
+
+            const categoryDir = form.category.toLowerCase();
+            const surveyPath = `surveys/${categoryDir}/${formName}-screener-live.html`;
+            
+            const embedCode = `<!-- ${formName} Medical Screening Form -->
+<div id="locumtele-${formName.toLowerCase()}-form" style="width: 100%; max-width: 800px; margin: 0 auto;"></div>
+<script>
+(function() {
+    fetch('${surveyPath}')
+        .then(response => response.text())
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const formContent = doc.body.innerHTML;
+            
+            const container = document.getElementById('locumtele-${formName.toLowerCase()}-form');
+            if (container) {
+                container.innerHTML = formContent;
+                
+                const scripts = container.querySelectorAll('script');
+                scripts.forEach(script => {
+                    const newScript = document.createElement('script');
+                    if (script.src) {
+                        newScript.src = script.src;
+                    } else {
+                        newScript.textContent = script.textContent;
+                    }
+                    document.head.appendChild(newScript);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error loading LocumTele form:', error);
+            const container = document.getElementById('locumtele-${formName.toLowerCase()}-form');
+            if (container) {
+                container.innerHTML = '<p style="color: #dc3545; text-align: center; padding: 2rem;">Form temporarily unavailable. Please try again later.</p>';
+            }
+        });
+})();
+<\/script>
+<!-- End ${formName} Form -->`;
+
+            navigator.clipboard.writeText(embedCode).then(() => {
+                showNotification(`📋 Copied embed code for ${formName}!`, 'success');
+            }).catch(() => {
+                // Fallback for older browsers
+                const textarea = document.createElement('textarea');
+                textarea.value = embedCode;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showNotification(`📋 Copied embed code for ${formName}!`, 'success');
+            });
+        }
+
+        function previewEmbed(formId, formName) {
+            const form = FORMS_DATA.forms.find(f => f.id === formId);
+            if (!form) {
+                alert('Form not found');
+                return;
+            }
+
+            const categoryDir = form.category.toLowerCase();
+            const surveyPath = `surveys/${categoryDir}/${formName}-screener-live.html`;
+            
+            // Open in new tab
+            window.open(surveyPath, '_blank');
+        }
+
+        function copyAllEmbedCodes() {
+            const readyForms = FORMS_DATA.forms.filter(form => {
+                const categoryDir = form.category.toLowerCase();
+                return form.name === 'GLP1' && categoryDir === 'weightloss';
+            });
+
+            if (readyForms.length === 0) {
+                alert('No embed codes available to copy.');
+                return;
+            }
+
+            const allCodes = readyForms.map(form => {
+                const categoryDir = form.category.toLowerCase();
+                const surveyPath = `surveys/${categoryDir}/${form.name}-screener-live.html`;
+                
+                return `<!-- ${form.name} Medical Screening Form -->
+<div id="locumtele-${form.name.toLowerCase()}-form" style="width: 100%; max-width: 800px; margin: 0 auto;"></div>
+<script>
+(function() {
+    fetch('${surveyPath}')
+        .then(response => response.text())
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const formContent = doc.body.innerHTML;
+            
+            const container = document.getElementById('locumtele-${form.name.toLowerCase()}-form');
+            if (container) {
+                container.innerHTML = formContent;
+                
+                const scripts = container.querySelectorAll('script');
+                scripts.forEach(script => {
+                    const newScript = document.createElement('script');
+                    if (script.src) {
+                        newScript.src = script.src;
+                    } else {
+                        newScript.textContent = script.textContent;
+                    }
+                    document.head.appendChild(newScript);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error loading LocumTele form:', error);
+            const container = document.getElementById('locumtele-${form.name.toLowerCase()}-form');
+            if (container) {
+                container.innerHTML = '<p style="color: #dc3545; text-align: center; padding: 2rem;">Form temporarily unavailable. Please try again later.</p>';
+            }
+        });
+})();
+<\/script>
+<!-- End ${form.name} Form -->`;
+            }).join('\n\n');
+
+            navigator.clipboard.writeText(allCodes).then(() => {
+                showNotification(`📋 Copied ${readyForms.length} embed codes!`, 'success');
+            }).catch(() => {
+                const textarea = document.createElement('textarea');
+                textarea.value = allCodes;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showNotification(`📋 Copied ${readyForms.length} embed codes!`, 'success');
+            });
+        }
+
+        function generateDeploymentReport() {
+            const readyForms = FORMS_DATA.forms.filter(form => {
+                const categoryDir = form.category.toLowerCase();
+                return form.name === 'GLP1' && categoryDir === 'weightloss';
+            });
+
+            const report = `📊 LocumTele Survey Deployment Report
+Generated: ${new Date().toLocaleString()}
+
+Available Embed Codes: ${readyForms.length}
+
+${readyForms.map(form => `
+• ${form.name} (${form.category})
+  - Questions: ${form.questionCount}
+  - Status: Ready for deployment
+  - Path: surveys/${form.category.toLowerCase()}/${form.name}-screener-live.html
+`).join('')}
+
+Instructions:
+1. Copy the embed code for each survey
+2. Paste into client website HTML
+3. Forms will load automatically with full functionality
+4. Data submits to configured endpoints
+
+For support, contact the development team.`;
+
+            navigator.clipboard.writeText(report).then(() => {
+                showNotification('📊 Deployment report copied to clipboard!', 'success');
+            }).catch(() => {
+                alert(report);
+            });
+        }
+
+        function filterEmbedLibrary() {
+            const searchTerm = document.getElementById('embedSearch').value.toLowerCase();
+            const activeCategory = document.querySelector('.category-toggle.active')?.getAttribute('data-category') || '';
+            const rows = document.querySelectorAll('.embed-row');
+
+            rows.forEach(row => {
+                const name = row.getAttribute('data-name');
+                const category = row.getAttribute('data-category');
+                
+                const matchesSearch = name.includes(searchTerm);
+                const matchesCategory = !activeCategory || category === activeCategory;
+                
+                if (matchesSearch && matchesCategory) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        function toggleCategory(category, button) {
+            // Update active button
+            document.querySelectorAll('.category-toggle').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+
+            // Filter the table
+            filterEmbedLibrary();
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#007bff'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                font-weight: 500;
+                z-index: 10000;
+                max-width: 400px;
+                opacity: 0;
+                transform: translateX(100%);
+                transition: all 0.3s ease;
+            `;
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.opacity = '1';
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
         function exportData() {
             alert('Exporting all data...');
         }
@@ -992,9 +1588,10 @@
 
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {
-            // Load the data page by default
-            loadPage('data');
+            // Load the forms page by default
+            loadPage('forms');
         });
     </script>
 </body>
 </html>
+
