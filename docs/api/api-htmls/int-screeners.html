@@ -1,0 +1,628 @@
+<!-- Page Header -->
+<header class="site-page-header">
+    <h1>📝 Screeners</h1>
+    <p>Submit patient screening data from your custom forms to our centralized processing system</p>
+</header>
+
+<!-- Two Column Layout -->
+<div class="screeners-layout">
+    <!-- Left Column - Sticky Navigation -->
+    <div class="screeners-nav-column">
+        <nav class="screeners-nav">
+            <a href="#overview" class="screeners-nav-item active">🎯 Overview</a>
+            <a href="#field-descriptions" class="screeners-nav-item">📝 Field Descriptions</a>
+            <a href="#documentation" class="screeners-nav-item">📋 Documentation</a>
+            <a href="#response" class="screeners-nav-item">📤 Response</a>
+            <a href="#testing" class="screeners-nav-item">🧪 Testing</a>
+            <a href="#data-processing" class="screeners-nav-item">🔄 Processing</a>
+            <a href="#support" class="screeners-nav-item">🆘 Need Help?</a>
+        </nav>
+    </div>
+
+    <!-- Right Column - Content -->
+    <div class="screeners-content-column">
+
+<!-- Overview Section -->
+<div class="lt-api-section site-animate-on-load" id="overview">
+    <h2>🎯 Overview</h2>
+    <div class="lt-section-divider"></div>
+    <p>This API allows clinics to submit patient screening data from their own custom forms to our centralized processing system. The API accepts data from any screening category and processes it through a standardized webhook endpoint.</p>
+    
+    <h3>Use Cases</h3>
+    <ul>
+        <li><strong>Custom Form Integration</strong>: Submit data from your own patient screening forms</li>
+        <li><strong>Third-party Form Builders</strong>: Integrate with Typeform, Gravity Forms, etc.</li>
+        <li><strong>Mobile Apps</strong>: Submit screening data from custom mobile applications</li>
+        <li><strong>Existing Systems</strong>: Connect your current patient management system</li>
+    </ul>
+
+    <h3>Supported Categories</h3>
+    <p>Our API supports the following screening categories:</p>
+    
+    <div class="lt-category-grid">
+        <div class="lt-category-card">
+            <strong>Weightloss</strong>
+            <small>GLP-1, Semaglutide, Liraglutide</small>
+        </div>
+        <div class="lt-category-card">
+            <strong>Hormone Therapy</strong>
+            <small>Sermorelin, Testosterone, Estrogen</small>
+        </div>
+        <div class="lt-category-card">
+            <strong>Hair & Skin Care</strong>
+            <small>Acne, Hair Loss, Skincare</small>
+        </div>
+        <div class="lt-category-card">
+            <strong>Sexual Health</strong>
+            <small>ED, Herpes, STI Screening</small>
+        </div>
+        <div class="lt-category-card">
+            <strong>Anti-Aging</strong>
+            <small>NAD, Anti-aging treatments</small>
+        </div>
+    </div>
+</div>
+
+<!-- Field Descriptions -->
+<div class="lt-api-section site-animate-on-load delay-1" id="field-descriptions">
+    <h2>📝 Field Descriptions</h2>
+    <div class="lt-section-divider"></div>
+    <p>Detailed information about each field in the API request. All fields are required except for <code>patient.patientId</code>, which is only required for repeat patients (those already in the system). The patient ID is provided back via webhook response for future submissions.</p>
+    
+    <h3 class="lt-section-title" data-tag="contact"></h3>
+    <table class="lt-field-table">
+        <thead>
+            <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>contact.name</code></td>
+                <td>string</td>
+                <td>Patient's full name</td>
+                <td>"John Doe"</td>
+            </tr>
+            <tr>
+                <td><code>contact.email</code></td>
+                <td>string</td>
+                <td>Patient's email address</td>
+                <td>"john@example.com"</td>
+            </tr>
+            <tr>
+                <td><code>contact.gender</code></td>
+                <td>string</td>
+                <td>Patient's gender</td>
+                <td>"male", "female"</td>
+            </tr>
+            <tr>
+                <td><code>contact.dateOfBirth</code></td>
+                <td>string</td>
+                <td>Patient's date of birth</td>
+                <td>"1990-01-01"</td>
+            </tr>
+            <tr>
+                <td><code>contact.phone</code></td>
+                <td>string</td>
+                <td>Patient's phone number</td>
+                <td>"5551234567"</td>
+            </tr>
+            <tr>
+                <td><code>contact.type</code></td>
+                <td>string</td>
+                <td>Contact type (always "patient")</td>
+                <td>"patient"</td>
+            </tr>
+            <tr>
+                <td><code>contact.address1</code></td>
+                <td>string</td>
+                <td>Patient's street address</td>
+                <td>"123 Main St"</td>
+            </tr>
+            <tr>
+                <td><code>contact.city</code></td>
+                <td>string</td>
+                <td>Patient's city</td>
+                <td>"Los Angeles"</td>
+            </tr>
+            <tr>
+                <td><code>contact.state</code></td>
+                <td>string</td>
+                <td>Patient's state</td>
+                <td>"CA"</td>
+            </tr>
+            <tr>
+                <td><code>contact.postalCode</code></td>
+                <td>string</td>
+                <td>Patient's ZIP code</td>
+                <td>"90210"</td>
+            </tr>
+            <tr>
+                <td><code>contact.timezone</code></td>
+                <td>string</td>
+                <td>Patient's timezone</td>
+                <td>"America/Los_Angeles"</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 class="lt-section-title" data-tag="patient"></h3>
+    <table class="lt-field-table">
+        <thead>
+            <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>patient.patientId</code></td>
+                <td>string</td>
+                <td>Your internal patient ID (only required for repeat patients)</td>
+                <td>"PAT_12345"</td>
+            </tr>
+            <tr>
+                <td><code>patient.rxRequested</code></td>
+                <td>string</td>
+                <td>Medication requested</td>
+                <td>"semaglutide", "sermorelin"</td>
+            </tr>
+            <tr>
+                <td><code>patient.height</code></td>
+                <td>string</td>
+                <td>Patient's height</td>
+                <td>"6'0\"", "72 inches"</td>
+            </tr>
+            <tr>
+                <td><code>patient.weight</code></td>
+                <td>string</td>
+                <td>Patient's weight</td>
+                <td>"200", "200 lbs"</td>
+            </tr>
+            <tr>
+                <td><code>patient.conditions</code></td>
+                <td>array</td>
+                <td>Medical conditions</td>
+                <td>["diabetes_type2", "hypertension"]</td>
+            </tr>
+            <tr>
+                <td><code>patient.medications</code></td>
+                <td>array</td>
+                <td>Current medications</td>
+                <td>["metformin", "lisinopril"]</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 class="lt-section-title" data-tag="form"></h3>
+    <table class="lt-field-table">
+        <thead>
+            <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>form.formType</code></td>
+                <td>string</td>
+                <td>Type of form</td>
+                <td>"screener", "reassessment"</td>
+            </tr>
+            <tr>
+                <td><code>form.category</code></td>
+                <td>string</td>
+                <td>Screening category</td>
+                <td>"weightloss", "hormone", "skincare"</td>
+            </tr>
+            <tr>
+                <td><code>form.screener</code></td>
+                <td>string</td>
+                <td>Specific screener name</td>
+                <td>"GLP1", "sermorelin", "acne"</td>
+            </tr>
+            <tr>
+                <td><code>form.screenerData</code></td>
+                <td>string</td>
+                <td>Raw question-answer data</td>
+                <td>"Height: 6'0\". Weight: 200 lbs."</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 class="lt-section-title" data-tag="clinic"></h3>
+    <table class="lt-field-table">
+        <thead>
+            <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>clinic.name</code></td>
+                <td>string</td>
+                <td>Your clinic's name</td>
+                <td>"Downtown Medical Center"</td>
+            </tr>
+            <tr>
+                <td><code>clinic.id</code></td>
+                <td>string</td>
+                <td>Your clinic's unique identifier</td>
+                <td>"12345"</td>
+            </tr>
+            <tr>
+                <td><code>clinic.email</code></td>
+                <td>string</td>
+                <td>Clinic contact email</td>
+                <td>"info@downtownmedical.com"</td>
+            </tr>
+            <tr>
+                <td><code>clinic.phone</code></td>
+                <td>string</td>
+                <td>Clinic phone number</td>
+                <td>"555-123-4567"</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Documentation -->
+<div class="lt-api-section site-animate-on-load delay-2" id="documentation">
+    <h2>📋 Documentation</h2>
+    <div class="lt-section-divider"></div>
+    
+    <h3>Endpoint</h3>
+    <div class="lt-endpoint">
+        <span class="lt-method">POST</span>
+        <span class="lt-url">https://locumtele.app.n8n.cloud/webhook/patient-screener</span>
+    </div>
+    <p><strong>Authentication:</strong> Currently, no authentication is required. Rate limiting is applied to prevent abuse.</p>
+
+    <h3>Request Body</h3>
+    <p>The API accepts a structured JSON payload organized into logical sections:</p>
+    
+    <div class="lt-code">
+<pre><code>{
+  "contact": {
+    "name": "string",
+    "email": "string",
+    "gender": "string",
+    "dateOfBirth": "string (YYYY-MM-DD)",
+    "phone": "string",
+    "address1": "string",
+    "city": "string",
+    "state": "string",
+    "postalCode": "string",
+    "timezone": "string",
+    "type": "patient"
+  },
+  "patient": {
+    "patientId": "string",
+    "contactId": "string",
+    "rxRequested": "string",
+    "height": "string",
+    "weight": "string",
+    "BMI": "string",
+    "pregnancy": "string",
+    "conditions": ["string"],
+    "medications": ["string"],
+    "allergies": "string",
+    "activityLevel": "string",
+    "tobaccoUse": "string",
+    "alcoholUse": "string",
+    "otcConsumption": ["string"],
+    "mentalHealth": "string"
+  },
+  "form": {
+    "formType": "string",
+    "category": "string",
+    "screener": "string",
+    "screenerData": "string",
+    "timestamp": "string (ISO 8601)",
+    "formVersion": "string"
+  },
+  "clinic": {
+    "name": "string",
+    "id": "string",
+    "email": "string",
+    "phone": "string",
+    "type": "healthcare"
+  }
+}</code></pre>
+    </div>
+</div>
+
+<!-- Response Documentation -->
+<div class="lt-api-section site-animate-on-load delay-3" id="response">
+    <h2>📤 Response Documentation</h2>
+    <div class="lt-section-divider"></div>
+    
+    <h3>Success Response</h3>
+    <p><strong>Status Code:</strong> <code>302 Found</code></p>
+    <p><strong>Headers:</strong></p>
+    <div class="lt-code">
+<pre><code>Location: https://yourdomain.com/consult?category={category}&locationId={locationId}</code></pre>
+    </div>
+    <p>The API will redirect the user to an appropriate consultation page based on the screening category.</p>
+
+    <h3>Error Response</h3>
+    <p><strong>Status Code:</strong> <code>400 Bad Request</code></p>
+    <p><strong>Response Body:</strong></p>
+    <div class="lt-code">
+<pre><code>{
+  "error": "string",
+  "message": "string",
+  "missingFields": ["string"]
+}</code></pre>
+    </div>
+
+    <h3>Common Error Codes</h3>
+    <table class="lt-field-table">
+        <thead>
+            <tr>
+                <th>Status Code</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>400</td>
+                <td>Bad Request - Invalid or missing required fields</td>
+            </tr>
+            <tr>
+                <td>422</td>
+                <td>Unprocessable Entity - Data validation failed</td>
+            </tr>
+            <tr>
+                <td>429</td>
+                <td>Too Many Requests - Rate limit exceeded</td>
+            </tr>
+            <tr>
+                <td>500</td>
+                <td>Internal Server Error - Server processing error</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Testing -->
+<div class="lt-api-section site-animate-on-load delay-4" id="testing">
+    <div class="lt-section-header">
+        <h2>🧪 Testing</h2>
+        <div class="lt-status-badge lt-status-inactive">Not Active - Test endpoint is currently not active</div>
+    </div>
+    <div class="lt-section-divider"></div>
+    <p>Test your integration with our test endpoint before going live:</p>
+    
+    <!-- Test URL -->
+    <div class="lt-endpoint">
+        <span class="lt-method">POST</span>
+        <span class="lt-url">https://locumtele.app.n8n.cloud/webhook/patientforms-test</span>
+    </div>
+
+    <h3>Sample Test Data</h3>
+    <div class="lt-code">
+<pre><code>{
+  "contact": {
+    "name": "Test Patient",
+    "email": "test@example.com",
+    "gender": "male",
+    "dateOfBirth": "1990-01-01",
+    "phone": "5551234567",
+    "type": "patient"
+  },
+  "patient": {
+    "patientId": "TEST_12345",
+    "rxRequested": "semaglutide",
+    "height": "6'0\"",
+    "weight": "200",
+    "BMI": "28.5",
+    "pregnancy": "no",
+    "conditions": ["diabetes_type2"],
+    "medications": ["metformin"],
+    "allergies": "none",
+    "activityLevel": "moderate",
+    "tobaccoUse": "no",
+    "alcoholUse": "1-2_daily",
+    "otcConsumption": ["multivitamin"],
+    "mentalHealth": "none"
+  },
+  "form": {
+    "formType": "screener",
+    "category": "weightloss",
+    "screener": "GLP1",
+    "screenerData": "Previous GLP-1 Experience: none. Weight Loss Goals: 30 pounds.",
+    "timestamp": "2025-01-15T10:00:00.000Z",
+    "formVersion": "1.0.0"
+  },
+  "clinic": {
+    "name": "Test Clinic",
+    "id": "TEST_12345",
+    "email": "test@testclinic.com",
+    "phone": "555-123-4567",
+    "type": "healthcare"
+  }
+}</code></pre>
+    </div>
+    
+    <h3>HTML/JavaScript Form</h3>
+    <div class="lt-code">
+<pre><code>&lt;form id="patient-form"&gt;
+    &lt;input type="text" name="fullName" placeholder="Full Name" required&gt;
+    &lt;input type="email" name="email" placeholder="Email" required&gt;
+    &lt;input type="tel" name="phone" placeholder="Phone" required&gt;
+    &lt;input type="date" name="dateOfBirth" required&gt;
+    &lt;select name="gender" required&gt;
+        &lt;option value=""&gt;Select Gender&lt;/option&gt;
+        &lt;option value="male"&gt;Male&lt;/option&gt;
+        &lt;option value="female"&gt;Female&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;button type="submit"&gt;Submit Screening&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+document.getElementById('patient-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+    
+    // Add metadata
+    data.timestamp = new Date().toISOString();
+    data.formVersion = '1.0';
+    data.screeningCategory = 'custom';
+    
+    try {
+        const response = await fetch('https://locumtele.app.n8n.cloud/webhook/patientforms-test', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+        
+        if (response.ok) {
+            alert('Screening submitted successfully!');
+        } else {
+            alert('Error submitting screening');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error submitting screening');
+    }
+});
+&lt;/script&gt;</code></pre>
+    </div>
+
+    <h3>WordPress/Gravity Forms</h3>
+    <div class="lt-code">
+<pre><code>// Add this to your functions.php or as a plugin
+add_action('gform_after_submission_1', 'send_to_locumtele_api', 10, 2);
+
+function send_to_locumtele_api($entry, $form) {
+    $data = [
+        'contact' => [
+            'name' => rgar($entry, '1'),
+            'email' => rgar($entry, '2'),
+            'gender' => rgar($entry, '3'),
+            'dateOfBirth' => rgar($entry, '4'),
+            'phone' => rgar($entry, '5'),
+            'type' => 'patient'
+        ],
+        'patient' => [
+            'height' => rgar($entry, '6'),
+            'weight' => rgar($entry, '7'),
+            'conditions' => explode(',', rgar($entry, '8')),
+            'medications' => explode(',', rgar($entry, '9')),
+            'allergies' => rgar($entry, '10')
+        ],
+        'form' => [
+            'formType' => 'screener',
+            'category' => rgar($entry, '11'),
+            'screener' => rgar($entry, '12'),
+            'screenerData' => rgar($entry, '13'),
+            'timestamp' => date('c'),
+            'formVersion' => '1.0.0'
+        ],
+        'clinic' => [
+            'name' => 'Your Clinic Name',
+            'id' => '12345',
+            'email' => 'info@yourclinic.com',
+            'phone' => '555-123-4567',
+            'type' => 'healthcare'
+        ]
+    ];
+
+    wp_remote_post('https://locumtele.app.n8n.cloud/webhook/patientforms-test', [
+        'headers' => ['Content-Type' => 'application/json'],
+        'body' => json_encode($data)
+    ]);
+}</code></pre>
+    </div>
+
+    <h3>Typeform Integration</h3>
+    <div class="lt-code">
+<pre><code>// Add this to your Typeform webhook
+const data = {
+    contact: {
+        name: answers['full_name'],
+        email: answers['email'],
+        gender: answers['gender'],
+        dateOfBirth: answers['date_of_birth'],
+        phone: answers['phone'],
+        type: 'patient'
+    },
+    patient: {
+        height: answers['height'],
+        weight: answers['weight'],
+        conditions: answers['medical_conditions']?.split(',') || [],
+        medications: answers['medications']?.split(',') || [],
+        allergies: answers['allergies'] || 'none'
+    },
+    form: {
+        formType: 'screener',
+        category: answers['screening_category'],
+        screener: answers['screener_type'],
+        screenerData: answers['additional_info'],
+        timestamp: new Date().toISOString(),
+        formVersion: '1.0.0'
+    },
+    clinic: {
+        name: 'Your Clinic Name',
+        id: '12345',
+        email: 'info@yourclinic.com',
+        phone: '555-123-4567',
+        type: 'healthcare'
+    }
+};
+
+fetch('https://locumtele.app.n8n.cloud/webhook/patientforms-test', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+});</code></pre>
+    </div>
+</div>
+
+<!-- Data Processing -->
+<div class="lt-api-section site-animate-on-load delay-6" id="data-processing">
+    <h2>🔄 Data Processing</h2>
+    <div class="lt-section-divider"></div>
+    
+    <h3>What Happens After Submission</h3>
+    <ol>
+        <li><strong>Data Validation</strong> - All required fields are validated</li>
+        <li><strong>Question Parsing</strong> - The screenerData is parsed to extract individual question-answer pairs</li>
+        <li><strong>Category Processing</strong> - Data is processed based on screening category</li>
+        <li><strong>Patient Record Creation</strong> - A unique patient record is generated with parsed data</li>
+        <li><strong>Notification</strong> - Your clinic receives notification of the new screening</li>
+        <li><strong>Redirect</strong> - You must ensure patient is redirected to appropriate consultation page</li>
+    </ol>
+
+    <h3>Data Storage</h3>
+    <p>Patient data is securely stored and processed according to HIPAA compliance standards. Data is encrypted in transit and at rest.</p>
+</div>
+
+<!-- Support -->
+<div class="lt-api-section site-animate-on-load delay-7" id="support">
+    <h2>🆘 Need Help?</h2>
+    <div class="lt-section-divider"></div>
+    <p>Our team is here to help you integrate successfully.</p>
+    
+    <div style="margin-top: 1rem;">
+        <a href="#" class="lt-btn lt-btn-primary" onclick="loadPage('contact')">Contact Support</a>
+    </div>
+</div>
+
+    </div> <!-- End screeners-content-column -->
+</div> <!-- End screeners-layout -->
