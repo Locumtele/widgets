@@ -311,30 +311,72 @@
             submissions: []
         };
 
-        // Load forms from surveys directory
+        // Load forms from manifest file
         async function loadFormsData() {
             try {
                 const forms = [];
                 
-                // Load GLP1 form from weightloss directory
-                const glp1Response = await fetch('surveys/weightloss/GLP1-screener.json');
-                if (glp1Response.ok) {
-                    const glp1Data = await glp1Response.json();
-                    const formSpecificQuestions = glp1Data.questions || [];
+                // First, try to load from manifest file
+                try {
+                    const manifestResponse = await fetch('https://locumtele.github.io/widgets/surveys/forms-manifest.json');
+                    if (manifestResponse.ok) {
+                        const manifest = await manifestResponse.json();
+                        
+                        // Load detailed form data for each form in manifest
+                        for (const manifestForm of manifest.forms || []) {
+                            try {
+                                const formResponse = await fetch(manifestForm.jsonUrl);
+                                if (formResponse.ok) {
+                                    const formData = await formResponse.json();
+                                    const formSpecificQuestions = formData.questions || [];
+                                    
+                                    forms.push({
+                                        id: manifestForm.id || formData.id,
+                                        name: manifestForm.name || formData.name,
+                                        category: manifestForm.category || formData.property_category,
+                                        status: manifestForm.status || (formData.property_form_status === 'PUBLISHED' ? 'active' : 'draft'),
+                                        formType: manifestForm.formType || formData.property_form_type || 'screener',
+                                        consultType: manifestForm.consultType || formData.property_consult_type || 'async',
+                                        questions: formSpecificQuestions,
+                                        questionCount: formSpecificQuestions.length,
+                                        url: formData.url,
+                                        lastUpdated: manifestForm.lastUpdated || formData.property_last_updated,
+                                        rawData: formData,
+                                        jsonUrl: manifestForm.jsonUrl,
+                                        htmlPath: manifestForm.htmlPath || `surveys/${manifestForm.category.toLowerCase()}/${manifestForm.name}-screener-live.html`,
+                                        htmlStatus: manifestForm.htmlStatus || 'missing',
+                                        embedStatus: manifestForm.embedStatus || 'pending'
+                                    });
+                                }
+                            } catch (formError) {
+                                console.warn(`Could not load form data for ${manifestForm.name}:`, formError);
+                            }
+                        }
+                    }
+                } catch (manifestError) {
+                    console.warn('Could not load manifest file, falling back to hardcoded forms:', manifestError);
                     
-                    forms.push({
-                        id: glp1Data.id,
-                        name: glp1Data.name,
-                        category: glp1Data.property_category,
-                        status: glp1Data.property_form_status === 'PUBLISHED' ? 'active' : 'draft',
-                        formType: glp1Data.property_form_type,
-                        consultType: glp1Data.property_consult_type,
-                        questions: formSpecificQuestions,
-                        questionCount: formSpecificQuestions.length,
-                        url: glp1Data.url,
-                        lastUpdated: glp1Data.property_last_updated,
-                        rawData: glp1Data
-                    });
+                    // Fallback to hardcoded forms if manifest doesn't exist yet
+                    const fallbackForms = [
+                        {
+                            id: 'glp1',
+                            name: 'GLP1',
+                            category: 'Weightloss',
+                            status: 'active',
+                            formType: 'screener',
+                            consultType: 'async',
+                            questions: [],
+                            questionCount: 0,
+                            url: '',
+                            lastUpdated: new Date().toISOString(),
+                            rawData: {},
+                            jsonUrl: 'https://locumtele.github.io/widgets/surveys/weightloss/GLP1-screener.json',
+                            htmlPath: 'surveys/weightloss/GLP1-screener-live.html',
+                            htmlStatus: 'missing',
+                            embedStatus: 'pending'
+                        }
+                    ];
+                    forms.push(...fallbackForms);
                 }
 
                 // Add mock submissions for demonstration
@@ -796,23 +838,13 @@
 
         // Load Control Panel page content
         function loadControlPage() {
-            // Check HTML file status for each form
-            const formsWithStatus = FORMS_DATA.forms.map(form => {
-                const categoryDir = form.category.toLowerCase();
-                const htmlFileName = `${form.name}-screener-live.html`;
-                const htmlPath = `surveys/${categoryDir}/${htmlFileName}`;
-                
-                // For now, we'll check if GLP1 exists (we know it does)
-                const hasHTML = form.name === 'GLP1' && categoryDir === 'weightloss';
-                
-                return {
-                    ...form,
-                    htmlPath: htmlPath,
-                    hasHTML: hasHTML,
-                    htmlStatus: hasHTML ? 'exists' : 'missing',
-                    embedStatus: hasHTML ? 'ready' : 'pending'
-                };
-            });
+            // Use status from manifest data (already loaded in loadFormsData)
+            const formsWithStatus = FORMS_DATA.forms.map(form => ({
+                ...form,
+                hasHTML: form.htmlStatus === 'exists',
+                htmlStatus: form.htmlStatus || 'missing',
+                embedStatus: form.embedStatus || 'pending'
+            }));
 
             return `
                 <div class="dashboard-animate">
