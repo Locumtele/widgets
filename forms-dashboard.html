@@ -1301,43 +1301,43 @@
             const categoryDir = form.category.toLowerCase();
             const surveyPath = 'surveys/' + categoryDir + '/' + formName + '-screener-live.html';
             
-            const embedCode = `<!-- ${formName} Medical Screening Form -->
-<div id="locumtele-${formName.toLowerCase()}-form" style="width: 100%; max-width: 800px; margin: 0 auto;"></div>
-<script>
-(function() {
-    fetch('${surveyPath}')
-        .then(response => response.text())
-        .then(html => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            const formContent = doc.body.innerHTML;
-            
-            const container = document.getElementById('locumtele-${formName.toLowerCase()}-form');
-            if (container) {
-                container.innerHTML = formContent;
-                
-                const scripts = container.querySelectorAll('script');
-                scripts.forEach(script => {
-                    const newScript = document.createElement('script');
-                    if (script.src) {
-                        newScript.src = script.src;
-                    } else {
-                        newScript.textContent = script.textContent;
-                    }
-                    document.head.appendChild(newScript);
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error loading LocumTele form:', error);
-            const container = document.getElementById('locumtele-${formName.toLowerCase()}-form');
-            if (container) {
-                container.innerHTML = '<p style="color: #dc3545; text-align: center; padding: 2rem;">Form temporarily unavailable. Please try again later.</p>';
-            }
-        });
-})();
-</script>
-<!-- End ${formName} Form -->`;
+            const embedCode = '<!-- ' + formName + ' Medical Screening Form -->\n' +
+                '<div id="locumtele-' + formName.toLowerCase() + '-form" style="width: 100%; max-width: 800px; margin: 0 auto;"></div>\n' +
+                '<script>\n' +
+                '(function() {\n' +
+                '    fetch(\'' + surveyPath + '\')\n' +
+                '        .then(response => response.text())\n' +
+                '        .then(html => {\n' +
+                '            const parser = new DOMParser();\n' +
+                '            const doc = parser.parseFromString(html, \'text/html\');\n' +
+                '            const formContent = doc.body.innerHTML;\n' +
+                '            \n' +
+                '            const container = document.getElementById(\'locumtele-' + formName.toLowerCase() + '-form\');\n' +
+                '            if (container) {\n' +
+                '                container.innerHTML = formContent;\n' +
+                '                \n' +
+                '                const scripts = container.querySelectorAll(\'script\');\n' +
+                '                scripts.forEach(script => {\n' +
+                '                    const newScript = document.createElement(\'script\');\n' +
+                '                    if (script.src) {\n' +
+                '                        newScript.src = script.src;\n' +
+                '                    } else {\n' +
+                '                        newScript.textContent = script.textContent;\n' +
+                '                    }\n' +
+                '                    document.head.appendChild(newScript);\n' +
+                '                });\n' +
+                '            }\n' +
+                '        })\n' +
+                '        .catch(error => {\n' +
+                '            console.error(\'Error loading LocumTele form:\', error);\n' +
+                '            const container = document.getElementById(\'locumtele-' + formName.toLowerCase() + '-form\');\n' +
+                '            if (container) {\n' +
+                '                container.innerHTML = \'<p style="color: #dc3545; text-align: center; padding: 2rem;">Form temporarily unavailable. Please try again later.</p>\';\n' +
+                '            }\n' +
+                '        });\n' +
+                '})();\n' +
+                '</script>\n' +
+                '<!-- End ' + formName + ' Form -->';
 
             navigator.clipboard.writeText(embedCode).then(() => {
                 showNotification('📋 Copied embed code for ' + formName + '!', 'success');
@@ -1571,4 +1571,3 @@ For support, contact the development team.`;
     </script>
 </body>
 </html>
-
