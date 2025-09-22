@@ -1869,10 +1869,9 @@ Your wellbeing is our top priority.</div>
                     });
 
                     if (response.ok) {
-                        // Redirect to appropriate fee page
-                        const rootDomain = window.location.origin;
-                        const redirectUrl = `${rootDomain}/weightloss-${consultType}-fee`;
-                        window.location.href = redirectUrl;
+                        // Show success message and redirect to LocumTele website
+                        alert('✅ Form submitted successfully! You will be redirected to complete your consultation.');
+                        window.location.href = 'https://locumtele.com/weightloss-consultation';
                     } else {
                         throw new Error('Submission failed');
                     }
