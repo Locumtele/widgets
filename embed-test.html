@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Widget Embed Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            margin: 40px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .embed-container {
+            border: 2px dashed #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            background: #fafafa;
+        }
+        iframe {
+            width: 100%;
+            border: none;
+            min-height: 600px;
+        }
+        .code-block {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Widget Embed Testing Lab</h1>
+    <p>Test different embedding methods for your GLP1 screener widget</p>
+
+    <!-- Method 1: iframe Embed (Recommended for GHL) -->
+    <div class="test-section">
+        <h2>Method 1: iframe Embed (Recommended)</h2>
+        <p>✅ Isolated JavaScript environment<br>✅ No conflicts with parent page<br>✅ Works in most CMS/GHL systems</p>
+
+        <div class="code-block">
+&lt;iframe src="http://localhost:8001/surveys/weightloss/GLP1-screener-live.html"
+        width="100%"
+        height="800"
+        frameborder="0"
+        style="border: none; border-radius: 8px;"&gt;&lt;/iframe&gt;
+        </div>
+
+        <div class="embed-container">
+            <iframe src="http://localhost:8001/surveys/weightloss/GLP1-screener-live.html"
+                    width="100%"
+                    height="800"
+                    frameborder="0"
+                    style="border: none; border-radius: 8px;"></iframe>
+        </div>
+    </div>
+
+    <!-- Method 2: Direct HTML Injection -->
+    <div class="test-section">
+        <h2>Method 2: Direct HTML Embed</h2>
+        <p>⚠️ May have JavaScript conflicts<br>⚠️ CSS might interfere with parent page</p>
+
+        <div class="code-block">
+&lt;!-- Copy entire HTML content from GLP1-screener-live.html --&gt;
+&lt;!-- Paste directly into GHL custom HTML widget --&gt;
+        </div>
+
+        <div class="embed-container" id="direct-embed">
+            <p>Loading direct embed...</p>
+        </div>
+    </div>
+
+    <!-- Method 3: JavaScript Widget Loader -->
+    <div class="test-section">
+        <h2>Method 3: JavaScript Widget Loader</h2>
+        <p>✅ Clean embedding<br>✅ Can pass configuration<br>⚠️ Requires external JS hosting</p>
+
+        <div class="code-block">
+&lt;div id="locumtele-widget"&gt;&lt;/div&gt;
+&lt;script&gt;
+(function() {
+    var iframe = document.createElement('iframe');
+    iframe.src = 'https://yourdomain.com/surveys/weightloss/GLP1-screener-live.html';
+    iframe.width = '100%';
+    iframe.height = '800';
+    iframe.frameBorder = '0';
+    iframe.style.border = 'none';
+    iframe.style.borderRadius = '8px';
+    document.getElementById('locumtele-widget').appendChild(iframe);
+})();
+&lt;/script&gt;
+        </div>
+
+        <div class="embed-container">
+            <div id="locumtele-widget"></div>
+        </div>
+    </div>
+
+    <script>
+        // Load direct embed for testing
+        fetch('http://localhost:8001/surveys/weightloss/GLP1-screener-live.html')
+            .then(response => response.text())
+            .then(html => {
+                // Extract just the body content
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const bodyContent = doc.body.innerHTML;
+
+                document.getElementById('direct-embed').innerHTML = bodyContent;
+            })
+            .catch(error => {
+                document.getElementById('direct-embed').innerHTML =
+                    '<p style="color: red;">Error loading direct embed: ' + error.message + '</p>';
+            });
+
+        // JavaScript widget loader
+        (function() {
+            var iframe = document.createElement('iframe');
+            iframe.src = 'http://localhost:8001/surveys/weightloss/GLP1-screener-live.html';
+            iframe.width = '100%';
+            iframe.height = '800';
+            iframe.frameBorder = '0';
+            iframe.style.border = 'none';
+            iframe.style.borderRadius = '8px';
+            document.getElementById('locumtele-widget').appendChild(iframe);
+        })();
+    </script>
+</body>
+</html>

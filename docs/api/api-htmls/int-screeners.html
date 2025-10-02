@@ -1,3 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screeners - LocumTele API</title>
+    <link rel="stylesheet" href="../../brand/brand.css">
+    <link rel="stylesheet" href="../../brand/dashboard-framework.css">
+    <link rel="stylesheet" href="../../brand/sites-consolidated.css">
+</head>
+<body class="lt-branded">
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <nav class="dashboard-sidebar" id="sidebar">
+            <div class="logo">
+                <img src="../../brand/locumteleLogo.png" alt="LocumTele Logo">
+            </div>
+            <ul class="dashboard-nav">
+                <li class="dashboard-nav-item">
+                    <a href="#" class="dashboard-nav-link">🏠 Dashboard</a>
+                </li>
+                <li class="dashboard-nav-item">
+                    <a href="#" class="dashboard-nav-link has-submenu">
+                        📚 API Docs
+                        <span class="dashboard-nav-arrow">▶</span>
+                    </a>
+                    <ul class="dashboard-nav-submenu open">
+                        <li class="dashboard-nav-item">
+                            <a href="#" class="dashboard-nav-link active">📝 Screeners</a>
+                        </li>
+                        <li class="dashboard-nav-item">
+                            <a href="#" class="dashboard-nav-link">🔄 Reassessments</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dashboard-nav-item">
+                    <a href="#" class="dashboard-nav-link">📅 Calendars</a>
+                </li>
+                <li class="dashboard-nav-item">
+                    <a href="#" class="dashboard-nav-link">🆘 Support</a>
+                </li>
+                <li class="dashboard-nav-item dashboard-elle-support">
+                    <a href="#" class="dashboard-elle-container">
+                        <img src="../../brand/locumteleBot-Elle_blue.jpg" alt="Elle" class="dashboard-elle-image">
+                        <div class="dashboard-talk-bubble">
+                            <span>Need help?</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <!-- Top Navigation Bar -->
+        <div class="dashboard-header">
+            <h1>🏥 Integration Dashboard <span style="opacity: 0.7;">/</span> 📝 Screeners</h1>
+            <p class="page-description">Submit patient screening data from your custom forms to our centralized processing system</p>
+        </div>
+        
+        <!-- Main Content Area -->
+        <div class="dashboard-content">
+            <div class="dashboard-container">
+                <div class="dashboard-page-content">
 <!-- Page Header -->
 <header class="site-page-header">
     <h1>📝 Screeners</h1>
@@ -28,39 +90,7 @@
     <div class="lt-section-divider"></div>
     <p>This API allows clinics to submit patient screening data from their own custom forms to our centralized processing system. The API accepts data from any screening category and processes it through a standardized webhook endpoint.</p>
     
-    <h3>Use Cases</h3>
-    <ul>
-        <li><strong>Custom Form Integration</strong>: Submit data from your own patient screening forms</li>
-        <li><strong>Third-party Form Builders</strong>: Integrate with Typeform, Gravity Forms, etc.</li>
-        <li><strong>Mobile Apps</strong>: Submit screening data from custom mobile applications</li>
-        <li><strong>Existing Systems</strong>: Connect your current patient management system</li>
-    </ul>
 
-    <h3>Supported Categories</h3>
-    <p>Our API supports the following screening categories:</p>
-    
-    <div class="lt-category-grid">
-        <div class="lt-category-card">
-            <strong>Weightloss</strong>
-            <small>GLP-1, Semaglutide, Liraglutide</small>
-        </div>
-        <div class="lt-category-card">
-            <strong>Hormone Therapy</strong>
-            <small>Sermorelin, Testosterone, Estrogen</small>
-        </div>
-        <div class="lt-category-card">
-            <strong>Hair & Skin Care</strong>
-            <small>Acne, Hair Loss, Skincare</small>
-        </div>
-        <div class="lt-category-card">
-            <strong>Sexual Health</strong>
-            <small>ED, Herpes, STI Screening</small>
-        </div>
-        <div class="lt-category-card">
-            <strong>Anti-Aging</strong>
-            <small>NAD, Anti-aging treatments</small>
-        </div>
-    </div>
 </div>
 
 <!-- Field Descriptions -->
@@ -161,16 +191,22 @@
         </thead>
         <tbody>
             <tr>
-                <td><code>patient.patientId</code></td>
+                <td><code>patient.LTcontactid</code></td>
                 <td>string</td>
-                <td>Your internal patient ID (only required for repeat patients)</td>
-                <td>"PAT_12345"</td>
+                <td>LocumTele contact ID - leave blank for new patients, required for existing patients to match records</td>
+                <td>"LT_12345" or ""</td>
             </tr>
             <tr>
-                <td><code>patient.rxRequested</code></td>
+                <td><code>patient.Ccontactid</code></td>
                 <td>string</td>
-                <td>Medication requested</td>
-                <td>"semaglutide", "sermorelin"</td>
+                <td>Your clinic's contact ID in your system - leave blank for new patients, required for existing patients to match records</td>
+                <td>"C_12345" or ""</td>
+            </tr>
+            <tr>
+                <td><code>patient.rxPlan</code></td>
+                <td>string</td>
+                <td>Their current medication/dosage (if applicable, not required)</td>
+                <td>"semaglutide 0.5mg weekly", "sermorelin 2mg daily"</td>
             </tr>
             <tr>
                 <td><code>patient.height</code></td>
@@ -217,22 +253,40 @@
                 <td>"screener", "reassessment"</td>
             </tr>
             <tr>
-                <td><code>form.category</code></td>
+                <td><code>form.consultType</code></td>
                 <td>string</td>
-                <td>Screening category</td>
-                <td>"weightloss", "hormone", "skincare"</td>
+                <td>Consultation type</td>
+                <td>"sync", "async"</td>
             </tr>
             <tr>
-                <td><code>form.screener</code></td>
+                <td><code>form.medication</code></td>
                 <td>string</td>
-                <td>Specific screener name</td>
+                <td>Specific medication name</td>
                 <td>"GLP1", "sermorelin", "acne"</td>
             </tr>
             <tr>
-                <td><code>form.screenerData</code></td>
+                <td><code>form.data</code></td>
                 <td>string</td>
-                <td>Raw question-answer data</td>
+                <td>Question and response data - send the question and the response</td>
                 <td>"Height: 6'0\". Weight: 200 lbs."</td>
+            </tr>
+            <tr>
+                <td><code>form.pdfLab</code></td>
+                <td>binary</td>
+                <td>Lab results PDF - send as binary data</td>
+                <td>Binary file data</td>
+            </tr>
+            <tr>
+                <td><code>form.imageId</code></td>
+                <td>binary</td>
+                <td>Upload of ID for verification - send as binary data</td>
+                <td>Binary image data</td>
+            </tr>
+            <tr>
+                <td><code>form.imageBody</code></td>
+                <td>binary</td>
+                <td>Full body photos for forms that require them - send as binary data</td>
+                <td>Binary image data</td>
             </tr>
         </tbody>
     </table>
@@ -354,6 +408,68 @@
 <pre><code>Location: https://yourdomain.com/consult?category={category}&locationId={locationId}</code></pre>
     </div>
     <p>The API will redirect the user to an appropriate consultation page based on the screening category.</p>
+    
+    <h3>Contact ID Response</h3>
+    <p>For new patients, both contact IDs will be generated and returned in the response:</p>
+    <ul>
+        <li><strong>LTcontactid</strong> - LocumTele's internal contact ID for future submissions</li>
+        <li><strong>Ccontactid</strong> - Your clinic's contact ID for future submissions</li>
+    </ul>
+    <p>Store these IDs in your system for future patient submissions to avoid duplicate records.</p>
+
+    <h3>Sample Test Data</h3>
+    <div class="lt-code">
+<pre><code>{
+  "contact": {
+    "name": "Test Patient",
+    "email": "test@example.com",
+    "gender": "male",
+    "dateOfBirth": "1990-01-01",
+    "phone": "5551234567",
+    "address1": "123 Main St",
+    "city": "Los Angeles",
+    "state": "CA",
+    "postalCode": "90210",
+    "timezone": "America/Los_Angeles",
+    "type": "patient"
+  },
+  "patient": {
+    "LTcontactid": "",
+    "Ccontactid": "",
+    "rxPlan": "semaglutide 0.5mg weekly",
+    "height": "6'0\"",
+    "weight": "200",
+    "BMI": "28.5",
+    "pregnancy": "no",
+    "conditions": ["diabetes_type2"],
+    "medications": ["metformin"],
+    "allergies": "none",
+    "activityLevel": "moderate",
+    "tobaccoUse": "no",
+    "alcoholUse": "1-2_daily",
+    "otcConsumption": ["multivitamin"],
+    "mentalHealth": "none"
+  },
+  "form": {
+    "formType": "screener",
+    "consultType": "async",
+    "medication": "GLP1",
+    "data": "Previous GLP-1 Experience: none. Weight Loss Goals: 30 pounds.",
+    "pdfLab": "binary_data_here",
+    "imageId": "binary_data_here",
+    "imageBody": "binary_data_here",
+    "timestamp": "2025-01-15T10:00:00.000Z",
+    "formVersion": "1.0.0"
+  },
+  "clinic": {
+    "name": "Test Clinic",
+    "id": "TEST_12345",
+    "email": "test@testclinic.com",
+    "phone": "555-123-4567",
+    "type": "healthcare"
+  }
+}</code></pre>
+    </div>
 
     <h3>Error Response</h3>
     <p><strong>Status Code:</strong> <code>400 Bad Request</code></p>
@@ -395,204 +511,6 @@
     </table>
 </div>
 
-<!-- Testing -->
-<div class="lt-api-section site-animate-on-load delay-4" id="testing">
-    <div class="lt-section-header">
-        <h2>🧪 Testing</h2>
-        <div class="lt-status-badge lt-status-inactive">Not Active - Test endpoint is currently not active</div>
-    </div>
-    <div class="lt-section-divider"></div>
-    <p>Test your integration with our test endpoint before going live:</p>
-    
-    <!-- Test URL -->
-    <div class="lt-endpoint">
-        <span class="lt-method">POST</span>
-        <span class="lt-url">https://locumtele.app.n8n.cloud/webhook/patientforms-test</span>
-    </div>
-
-    <h3>Sample Test Data</h3>
-    <div class="lt-code">
-<pre><code>{
-  "contact": {
-    "name": "Test Patient",
-    "email": "test@example.com",
-    "gender": "male",
-    "dateOfBirth": "1990-01-01",
-    "phone": "5551234567",
-    "type": "patient"
-  },
-  "patient": {
-    "patientId": "TEST_12345",
-    "rxRequested": "semaglutide",
-    "height": "6'0\"",
-    "weight": "200",
-    "BMI": "28.5",
-    "pregnancy": "no",
-    "conditions": ["diabetes_type2"],
-    "medications": ["metformin"],
-    "allergies": "none",
-    "activityLevel": "moderate",
-    "tobaccoUse": "no",
-    "alcoholUse": "1-2_daily",
-    "otcConsumption": ["multivitamin"],
-    "mentalHealth": "none"
-  },
-  "form": {
-    "formType": "screener",
-    "category": "weightloss",
-    "screener": "GLP1",
-    "screenerData": "Previous GLP-1 Experience: none. Weight Loss Goals: 30 pounds.",
-    "timestamp": "2025-01-15T10:00:00.000Z",
-    "formVersion": "1.0.0"
-  },
-  "clinic": {
-    "name": "Test Clinic",
-    "id": "TEST_12345",
-    "email": "test@testclinic.com",
-    "phone": "555-123-4567",
-    "type": "healthcare"
-  }
-}</code></pre>
-    </div>
-    
-    <h3>HTML/JavaScript Form</h3>
-    <div class="lt-code">
-<pre><code>&lt;form id="patient-form"&gt;
-    &lt;input type="text" name="fullName" placeholder="Full Name" required&gt;
-    &lt;input type="email" name="email" placeholder="Email" required&gt;
-    &lt;input type="tel" name="phone" placeholder="Phone" required&gt;
-    &lt;input type="date" name="dateOfBirth" required&gt;
-    &lt;select name="gender" required&gt;
-        &lt;option value=""&gt;Select Gender&lt;/option&gt;
-        &lt;option value="male"&gt;Male&lt;/option&gt;
-        &lt;option value="female"&gt;Female&lt;/option&gt;
-    &lt;/select&gt;
-    &lt;button type="submit"&gt;Submit Screening&lt;/button&gt;
-&lt;/form&gt;
-
-&lt;script&gt;
-document.getElementById('patient-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
-    
-    // Add metadata
-    data.timestamp = new Date().toISOString();
-    data.formVersion = '1.0';
-    data.screeningCategory = 'custom';
-    
-    try {
-        const response = await fetch('https://locumtele.app.n8n.cloud/webhook/patientforms-test', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        });
-        
-        if (response.ok) {
-            alert('Screening submitted successfully!');
-        } else {
-            alert('Error submitting screening');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error submitting screening');
-    }
-});
-&lt;/script&gt;</code></pre>
-    </div>
-
-    <h3>WordPress/Gravity Forms</h3>
-    <div class="lt-code">
-<pre><code>// Add this to your functions.php or as a plugin
-add_action('gform_after_submission_1', 'send_to_locumtele_api', 10, 2);
-
-function send_to_locumtele_api($entry, $form) {
-    $data = [
-        'contact' => [
-            'name' => rgar($entry, '1'),
-            'email' => rgar($entry, '2'),
-            'gender' => rgar($entry, '3'),
-            'dateOfBirth' => rgar($entry, '4'),
-            'phone' => rgar($entry, '5'),
-            'type' => 'patient'
-        ],
-        'patient' => [
-            'height' => rgar($entry, '6'),
-            'weight' => rgar($entry, '7'),
-            'conditions' => explode(',', rgar($entry, '8')),
-            'medications' => explode(',', rgar($entry, '9')),
-            'allergies' => rgar($entry, '10')
-        ],
-        'form' => [
-            'formType' => 'screener',
-            'category' => rgar($entry, '11'),
-            'screener' => rgar($entry, '12'),
-            'screenerData' => rgar($entry, '13'),
-            'timestamp' => date('c'),
-            'formVersion' => '1.0.0'
-        ],
-        'clinic' => [
-            'name' => 'Your Clinic Name',
-            'id' => '12345',
-            'email' => 'info@yourclinic.com',
-            'phone' => '555-123-4567',
-            'type' => 'healthcare'
-        ]
-    ];
-
-    wp_remote_post('https://locumtele.app.n8n.cloud/webhook/patientforms-test', [
-        'headers' => ['Content-Type' => 'application/json'],
-        'body' => json_encode($data)
-    ]);
-}</code></pre>
-    </div>
-
-    <h3>Typeform Integration</h3>
-    <div class="lt-code">
-<pre><code>// Add this to your Typeform webhook
-const data = {
-    contact: {
-        name: answers['full_name'],
-        email: answers['email'],
-        gender: answers['gender'],
-        dateOfBirth: answers['date_of_birth'],
-        phone: answers['phone'],
-        type: 'patient'
-    },
-    patient: {
-        height: answers['height'],
-        weight: answers['weight'],
-        conditions: answers['medical_conditions']?.split(',') || [],
-        medications: answers['medications']?.split(',') || [],
-        allergies: answers['allergies'] || 'none'
-    },
-    form: {
-        formType: 'screener',
-        category: answers['screening_category'],
-        screener: answers['screener_type'],
-        screenerData: answers['additional_info'],
-        timestamp: new Date().toISOString(),
-        formVersion: '1.0.0'
-    },
-    clinic: {
-        name: 'Your Clinic Name',
-        id: '12345',
-        email: 'info@yourclinic.com',
-        phone: '555-123-4567',
-        type: 'healthcare'
-    }
-};
-
-fetch('https://locumtele.app.n8n.cloud/webhook/patientforms-test', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-});</code></pre>
-    </div>
-</div>
 
 <!-- Data Processing -->
 <div class="lt-api-section site-animate-on-load delay-6" id="data-processing">
@@ -626,3 +544,10 @@ fetch('https://locumtele.app.n8n.cloud/webhook/patientforms-test', {
 
     </div> <!-- End screeners-content-column -->
 </div> <!-- End screeners-layout -->
+
+                </div> <!-- End dashboard-page-content -->
+            </div> <!-- End dashboard-container -->
+        </div> <!-- End dashboard-content -->
+    </div> <!-- End dashboard-layout -->
+</body>
+</html>

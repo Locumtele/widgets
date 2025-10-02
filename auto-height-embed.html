@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto-Height Widget Embed</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .demo-section {
+            margin: 40px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .embed-container {
+            border: 2px dashed #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            background: #fafafa;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+        .auto-height-iframe {
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎯 Auto-Height Widget Embedding</h1>
+
+    <div class="demo-section">
+        <h2>Method 1: PostMessage Communication (Recommended)</h2>
+        <p>✅ Perfect height matching<br>✅ Responsive<br>✅ Cross-domain safe</p>
+
+        <div class="code-block">
+&lt;iframe id="widget-frame"
+        src="http://localhost:8001/surveys/weightloss/GLP1-screener-live.html"
+        width="100%"
+        height="600"
+        frameborder="0"
+        style="border: none; border-radius: 8px;"&gt;&lt;/iframe&gt;
+
+&lt;script&gt;
+// Auto-resize iframe based on content
+window.addEventListener('message', function(event) {
+    if (event.data.type === 'resize') {
+        const iframe = document.getElementById('widget-frame');
+        iframe.style.height = event.data.height + 'px';
+    }
+});
+&lt;/script&gt;</div>
+
+        <div class="embed-container">
+            <iframe id="widget-frame-demo"
+                    src="http://localhost:8001/surveys/weightloss/GLP1-screener-live.html"
+                    width="100%"
+                    height="600"
+                    frameborder="0"
+                    style="border: none; border-radius: 8px;"></iframe>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Method 2: Large Fixed Height</h2>
+        <p>✅ Simple<br>⚠️ May have extra white space</p>
+
+        <div class="code-block">
+&lt;iframe src="http://localhost:8001/surveys/weightloss/GLP1-screener-live.html"
+        width="100%"
+        height="1200"
+        frameborder="0"
+        style="border: none; border-radius: 8px;"&gt;&lt;/iframe&gt;</div>
+
+        <div class="embed-container">
+            <iframe src="http://localhost:8001/surveys/weightloss/GLP1-screener-live.html"
+                    width="100%"
+                    height="1200"
+                    frameborder="0"
+                    style="border: none; border-radius: 8px;"></iframe>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Method 3: JavaScript Height Detection</h2>
+        <p>✅ Dynamic<br>⚠️ Same-origin only</p>
+
+        <div class="code-block">
+&lt;iframe id="auto-height-widget"
+        src="http://localhost:8001/surveys/weightloss/GLP1-screener-live.html"
+        width="100%"
+        frameborder="0"
+        style="border: none; border-radius: 8px;"
+        onload="resizeIframe(this)"&gt;&lt;/iframe&gt;
+
+&lt;script&gt;
+function resizeIframe(iframe) {
+    try {
+        const height = iframe.contentDocument.body.scrollHeight;
+        iframe.style.height = height + 'px';
+    } catch(e) {
+        // Fallback for cross-origin
+        iframe.style.height = '1000px';
+    }
+}
+&lt;/script&gt;</div>
+
+        <div class="embed-container">
+            <iframe id="auto-height-widget-demo"
+                    src="http://localhost:8001/surveys/weightloss/GLP1-screener-live.html"
+                    width="100%"
+                    frameborder="0"
+                    style="border: none; border-radius: 8px;"
+                    onload="resizeIframe(this)"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Auto-resize iframe based on postMessage
+        window.addEventListener('message', function(event) {
+            if (event.data.type === 'resize') {
+                const iframe = document.getElementById('widget-frame-demo');
+                if (iframe) {
+                    iframe.style.height = event.data.height + 'px';
+                }
+            }
+        });
+
+        // JavaScript height detection
+        function resizeIframe(iframe) {
+            try {
+                const height = iframe.contentDocument.body.scrollHeight;
+                iframe.style.height = height + 'px';
+            } catch(e) {
+                // Fallback for cross-origin
+                iframe.style.height = '1000px';
+            }
+        }
+
+        // For demo, let's also try interval-based resizing
+        setInterval(() => {
+            const iframe = document.getElementById('auto-height-widget-demo');
+            if (iframe) {
+                try {
+                    const height = iframe.contentDocument.body.scrollHeight;
+                    iframe.style.height = height + 'px';
+                } catch(e) {
+                    // Cross-origin restrictions
+                }
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
